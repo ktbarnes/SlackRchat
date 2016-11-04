@@ -1,7 +1,8 @@
 import React from 'react'
 import Login from './login'
 import Logout from './logout'
-import { loginUser, logoutUser } from '../actions'
+import { loginUser } from '../actions/loginActions'
+import { logoutUser } from '../actions/logoutActions'
 
 export default class Nav extends React.Component {
   render() {
@@ -18,7 +19,7 @@ export default class Nav extends React.Component {
             <Login 
             errorMessage={errorMessage}
             onLoginClick={creds => dispatch(loginUser(creds))}
-              />
+            />
           }
 
           {isAuthenticated &&
