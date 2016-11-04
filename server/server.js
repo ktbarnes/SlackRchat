@@ -20,12 +20,14 @@ app.get('/db', function (request, response) {
 });
 
 app.post('/db', function (request, response) {
+  console.log("REQUEST.BODY: ",request.body);
   database('users').insert({
     username: request.body.username,
     email: request.body.email,
     password: request.body.password
   })
-  .then( () => response.sendStatus(201) );
+  .then( (data) => 
+    response.sendStatus(201) );
 });
 
 
