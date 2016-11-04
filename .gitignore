@@ -1,3 +1,5 @@
 node_modules
 
 client/dist/socket.io.js
+
+server/config.env

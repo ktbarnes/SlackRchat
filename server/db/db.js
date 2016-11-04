@@ -1,14 +1,13 @@
 var knex = require('knex')({
 	client : 'mysql',
 	connection : {
-    host : 'us-cdbr-iron-east-04.cleardb.net',
-    user : 'bbd5c14988d54b',
-    password: '3a05fe22',
-    database : 'heroku_6cc672b0ab505f1' 
-	}
+    host : process.env.DATABASE_HOST,
+    user : process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database : process.env.DATABASE_PORT 
+  }
 });
 
-// var db = require('bookshelf')(knex);
 
 knex.schema.hasTable('users').then(function(exists) {
 	if (!exists) {
