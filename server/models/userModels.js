@@ -5,6 +5,9 @@ var User = {
   getUsers: function(){
     return database.select('*').from('users');
   },
+  getUser: function(email) {
+    return database.select('*').from('users').where('email', email);
+  },
   postUser: function(data){
     return database('users')
     .insert({
