@@ -1,7 +1,8 @@
 // var webpack = require('webpack');
 
 module.exports = {
-  entry: './client/src/app.js',
+  // entry: './client/src/app.js',
+  entry: './client/index.js',
   output: {
     path: __dirname,
     filename: './client/dist/bundle.js'
