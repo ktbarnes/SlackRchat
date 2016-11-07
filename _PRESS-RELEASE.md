@@ -10,19 +10,19 @@ Summary
 Slacker will allow for teams to interact through channels or direct messages providing an optimized platform for workspace communication.  Slacker will reduce email, meetings, and phonecalls.  Features include file share, screen share, voice messages, and video calls.
 
 Problem
-Single platform for all forms of communivcation
+Too many ways to communicate with people.  
 
 Solution
-Describe how your product elegantly solves the problem.
+Single platform for all forms of communication.
 
 Quote from You
-A quote from a spokesperson in your company.
+"Who needs Slack when you have Slacker!"
 
 How to Get Started
-Describe how easy it is to get started.
+Create user account and sign in! Find your coworkers and start communicating.
 
 Customer Quote
 Provide a quote from a hypothetical customer that describes how they experienced the benefit.
 
 Closing and Call to Action
-Wrap it up and give pointers where the reader should go next.
+Thanks for using Slacker.  Make sure to try our video messaging, audio messaging, and file sharing features!
