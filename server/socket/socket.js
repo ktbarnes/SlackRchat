@@ -12,9 +12,10 @@ module.exports = function(http){
       io.emit('chat message', msg);
     });
 
-    socket.on('disconnect', function(){
+    socket.on('disconnect', function(msg){
       console.log('user disconnected');
-      io.emit('a user has left the room');
+      msg = 'A user disconnected';
+      io.broadcast.emit('disconnected',msg);
     });
 
   });
