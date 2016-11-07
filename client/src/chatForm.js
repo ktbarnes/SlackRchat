@@ -17,8 +17,11 @@ class ChatForm extends React.Component {
   }
 
   handleSubmit(e) {
+    e.preventDefault();
     this.props.handleSearchInputChange(this.state.value);
-    alert('Text field value is: ' + this.state.value);
+    this.setState({
+      value: ''
+    });
   }
 
   render() {

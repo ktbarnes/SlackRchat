@@ -5,3 +5,5 @@ client/lib/socket.io.js
 server/config.env
 
 config.env
+
+client/dist/bundle.js
