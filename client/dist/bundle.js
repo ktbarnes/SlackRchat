@@ -26374,7 +26374,76 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // var socket = io();
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var socket = io();
+
+	var PrimaryChatroom = function (_React$Component) {
+	  _inherits(PrimaryChatroom, _React$Component);
+
+	  function PrimaryChatroom(props) {
+	    _classCallCheck(this, PrimaryChatroom);
+
+	    var _this = _possibleConstructorReturn(this, (PrimaryChatroom.__proto__ || Object.getPrototypeOf(PrimaryChatroom)).call(this, props));
+
+	    _this.state = {
+	      currentChat: []
+	    };
+	    _this.handleReceiveMessage = _this.handleReceiveMessage.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(PrimaryChatroom, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var that = this;
+	      socket.on('chat message', function (message) {
+	        that.handleReceiveMessage(message);
+	      });
+	    }
+	  }, {
+	    key: 'handleReceiveMessage',
+	    value: function handleReceiveMessage(chat) {
+	      var newChat = this.state.currentChat.concat(chat);
+	      this.setState({
+	        currentChat: newChat
+	      });
+	    }
+	  }, {
+	    key: 'socketEmitMessage',
+	    value: function socketEmitMessage(chat) {
+	      socket.emit('chat message', chat);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+
+	      var chatMap = this.state.currentChat.map(function (msg, i) {
+	        return _react2.default.createElement(_ChatBody2.default, { message: msg, key: i });
+	      });
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'ul',
+	          { id: 'messages' },
+	          chatMap
+	        ),
+	        _react2.default.createElement(_chatForm2.default, {
+	          handleSearchInputChange: this.socketEmitMessage.bind(this)
+	        })
+	      );
+	    }
+	  }]);
+
+	  return PrimaryChatroom;
+	}(_react2.default.Component);
+
+	exports.default = PrimaryChatroom;
+
+	//GUTTER: DO NOT USE THIS STUFF BELOW. FOR REFERENCE ONLY
+	// var socket = io();
 	// $('form').submit(function(){
 	//   socket.emit('chat message', $('#m').val());
 	//   $('#m').val('');
@@ -26389,107 +26458,6 @@
 	// });
 
 	// console.log('Hello World! Why are you so awesome?');
-
-	var PrimaryChatroom = function (_React$Component) {
-	  _inherits(PrimaryChatroom, _React$Component);
-
-	  function PrimaryChatroom(props) {
-	    _classCallCheck(this, PrimaryChatroom);
-
-	    var _this = _possibleConstructorReturn(this, (PrimaryChatroom.__proto__ || Object.getPrototypeOf(PrimaryChatroom)).call(this, props));
-
-	    _this.state = {
-	      currentChat: ''
-	    };
-	    return _this;
-	  }
-
-	  _createClass(PrimaryChatroom, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      // var socket = io();
-	    }
-	  }, {
-	    key: 'socketBind',
-	    value: function socketBind(chat) {
-	      console.log("chat?", chat);
-	      // var socket = io();
-	      // socket.emit('chat message', chat);
-	      this.setState({
-	        currentChat: chat
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_ChatBody2.default, { messages: this.state.currentChat }),
-	        _react2.default.createElement(_chatForm2.default, {
-	          handleSearchInputChange: this.socketBind.bind(this)
-	        })
-	      );
-	    }
-	  }]);
-
-	  return PrimaryChatroom;
-	}(_react2.default.Component);
-
-	exports.default = PrimaryChatroom;
-
-	// class PrimaryChatroom extends React.Component {
-	//   constructor(props) {
-	//     super(props);
-
-	//     this.state = {
-	//       // videos: [],
-	//       // currentVideo: null
-	//     };
-	//   }
-
-	//   // componentDidMount() {
-	//   //   // this.getYouTubeVideos('react tutorials');
-	//   // }
-
-	//   // getYouTubeVideos(query) {
-	//   //   var options = {
-	//   //     key: this.props.API_KEY,
-	//   //     query: query
-	//   //   };
-
-	//   //   this.props.searchYouTube(options, (videos) =>
-	//   //     this.setState({
-	//   //       videos: videos,
-	//   //       currentVideo: videos[0]
-	//   //     })
-	//   //   );
-	//   // }
-
-	//   // handleVideoListEntryTitleClick(video) {
-	//   //   this.setState({
-	//   //     currentVideo: video
-	//   //   });
-	//   // }
-
-	//   render() {
-	//     return (
-	//       <div>
-
-	//         <div>
-	//           <ChatBody />
-	//         </div>
-
-	//         <ChatForm
-	//           // handleSearchInputChange={this.getYouTubeVideos.bind(this)}
-	//         />
-
-	//       </div>
-	//     );
-	//   }
-	// }
-
-	// export default PrimaryChatroom
 
 /***/ },
 /* 228 */
@@ -26540,8 +26508,11 @@
 	  }, {
 	    key: 'handleSubmit',
 	    value: function handleSubmit(e) {
+	      e.preventDefault();
 	      this.props.handleSearchInputChange(this.state.value);
-	      alert('Text field value is: ' + this.state.value);
+	      this.setState({
+	        value: ''
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -26577,7 +26548,7 @@
 /* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -26590,20 +26561,11 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var ChatBody = function ChatBody(_ref) {
-	  var messages = _ref.messages;
+	  var message = _ref.message;
 	  return _react2.default.createElement(
-	    "div",
+	    'li',
 	    null,
-	    _react2.default.createElement(
-	      "div",
-	      { className: "messagesList" },
-	      _react2.default.createElement("ul", { id: "messages" })
-	    ),
-	    _react2.default.createElement(
-	      "div",
-	      null,
-	      messages
-	    )
+	    message
 	  );
 	};
 

@@ -1,3 +1,62 @@
+import React from 'react';
+import ChatForm from './chatForm.js';
+import ChatBody from './ChatBody.js';
+
+let socket = io();
+
+class PrimaryChatroom extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentChat: []
+    };
+    this.handleReceiveMessage = this.handleReceiveMessage.bind(this);
+  }
+
+  componentDidMount() {
+    let that = this;
+    socket.on('chat message', function(message){
+      that.handleReceiveMessage(message);
+    });
+  }
+
+
+  handleReceiveMessage(chat) {
+    let newChat = this.state.currentChat.concat(chat);
+    this.setState({
+      currentChat: newChat
+    });
+  }
+
+  socketEmitMessage(chat) {
+    socket.emit('chat message', chat);
+  }
+
+  render() {
+
+    let chatMap = this.state.currentChat.map((msg, i) => 
+      <ChatBody message={msg} key={i} />
+    )
+
+    return (
+      <div>
+
+        <ul id="messages">
+        {chatMap}
+        </ul>
+
+        <ChatForm 
+          handleSearchInputChange={this.socketEmitMessage.bind(this)}
+        />
+
+      </div>
+    );
+  }
+}
+
+export default PrimaryChatroom
+
+//GUTTER: DO NOT USE THIS STUFF BELOW. FOR REFERENCE ONLY
 // var socket = io();
 // $('form').submit(function(){
 //   socket.emit('chat message', $('#m').val());
@@ -13,98 +72,3 @@
 // });
       
 // console.log('Hello World! Why are you so awesome?');
-
-import React from 'react';
-import ChatForm from './chatForm.js';
-import ChatBody from './ChatBody.js';
-
-class PrimaryChatroom extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentChat: ''
-    };
-  }
-
-  componentDidMount() {
-    // var socket = io();
-  }
-
-  socketBind(chat) {
-    console.log("chat?",chat);
-    // var socket = io();
-    // socket.emit('chat message', chat);
-    this.setState({
-      currentChat: chat
-    });
-  }
-
-  render() {
-    return (
-      <div>
-
-        <ChatBody messages={this.state.currentChat}/>
-
-        <ChatForm 
-          handleSearchInputChange={this.socketBind.bind(this)}
-        />
-
-      </div>
-    );
-  }
-}
-
-export default PrimaryChatroom
-
-// class PrimaryChatroom extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       // videos: [],
-//       // currentVideo: null
-//     };
-//   }
-
-//   // componentDidMount() {
-//   //   // this.getYouTubeVideos('react tutorials');
-//   // }
-
-//   // getYouTubeVideos(query) {
-//   //   var options = {
-//   //     key: this.props.API_KEY,
-//   //     query: query
-//   //   };
-
-//   //   this.props.searchYouTube(options, (videos) =>
-//   //     this.setState({
-//   //       videos: videos,
-//   //       currentVideo: videos[0]
-//   //     })
-//   //   );
-//   // }
-
-//   // handleVideoListEntryTitleClick(video) {
-//   //   this.setState({
-//   //     currentVideo: video
-//   //   });
-//   // }
-
-//   render() {
-//     return (
-//       <div>
-
-//         <div>
-//           <ChatBody />
-//         </div>
-
-//         <ChatForm
-//           // handleSearchInputChange={this.getYouTubeVideos.bind(this)}
-//         />
-
-//       </div>
-//     );
-//   }
-// }
-
-// export default PrimaryChatroom
