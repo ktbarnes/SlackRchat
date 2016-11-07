@@ -1,11 +1,17 @@
 import React from 'react';
 
-const ChatBody = (props) => (
+const ChatBody = ({messages}) => (
 
-  <div className="messagesList">
-    <ul id="messages"></ul>
+  <div>
+    <div className="messagesList">
+      <ul id="messages"></ul>
+    </div>
+
+    <div >
+      {messages}
+    </div>
+
   </div>
-
 );
 
 export default ChatBody

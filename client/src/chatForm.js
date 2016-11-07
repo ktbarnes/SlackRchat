@@ -7,14 +7,19 @@ class ChatForm extends React.Component {
     this.state = {
       value: ''
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // handleInputChange(e) {
-  //   // this.props.handleSearchInputChange(e.target.value);
-  //   // this.setState({
-  //   //   value: e.target.value
-  //   // });
-  // }
+  handleInputChange(e) {
+    this.setState({
+      value: e.target.value
+    });
+  }
+
+  handleSubmit(e) {
+    this.props.handleSearchInputChange(this.state.value);
+    alert('Text field value is: ' + this.state.value);
+  }
 
   render() {
     return (
@@ -22,13 +27,11 @@ class ChatForm extends React.Component {
         <form action="">
           <input 
             id="m" 
-            autoComplete="off" 
             type="text"
             value={this.state.value}
-            // onChange={this.handleInputChange.bind(this)}
+            onChange={this.handleInputChange.bind(this)}
           />
-
-          <button>Send</button>
+          <button onClick={this.handleSubmit}>Send</button>
         </form>
       </div>
     );

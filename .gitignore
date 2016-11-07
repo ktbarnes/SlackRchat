@@ -1,6 +1,6 @@
 node_modules
 
-client/dist/socket.io.js
+client/lib/socket.io.js
 
 server/config.env
 

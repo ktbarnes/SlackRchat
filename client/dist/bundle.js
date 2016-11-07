@@ -26399,50 +26399,36 @@
 	    var _this = _possibleConstructorReturn(this, (PrimaryChatroom.__proto__ || Object.getPrototypeOf(PrimaryChatroom)).call(this, props));
 
 	    _this.state = {
-	      // videos: [],
-	      // currentVideo: null
+	      currentChat: ''
 	    };
 	    return _this;
 	  }
 
-	  // componentDidMount() {
-	  //   // this.getYouTubeVideos('react tutorials');
-	  // }
-
-	  // getYouTubeVideos(query) {
-	  //   var options = {
-	  //     key: this.props.API_KEY,
-	  //     query: query
-	  //   };
-
-	  //   this.props.searchYouTube(options, (videos) =>
-	  //     this.setState({
-	  //       videos: videos,
-	  //       currentVideo: videos[0]
-	  //     })
-	  //   );
-	  // }
-
-	  // handleVideoListEntryTitleClick(video) {
-	  //   this.setState({
-	  //     currentVideo: video
-	  //   });
-	  // }
-
 	  _createClass(PrimaryChatroom, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      // var socket = io();
+	    }
+	  }, {
+	    key: 'socketBind',
+	    value: function socketBind(chat) {
+	      console.log("chat?", chat);
+	      // var socket = io();
+	      // socket.emit('chat message', chat);
+	      this.setState({
+	        currentChat: chat
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(_ChatBody2.default, null)
-	        ),
-	        _react2.default.createElement(_chatForm2.default
-	        // handleSearchInputChange={this.getYouTubeVideos.bind(this)}
-	        , null)
+	        _react2.default.createElement(_ChatBody2.default, { messages: this.state.currentChat }),
+	        _react2.default.createElement(_chatForm2.default, {
+	          handleSearchInputChange: this.socketBind.bind(this)
+	        })
 	      );
 	    }
 	  }]);
@@ -26451,6 +26437,59 @@
 	}(_react2.default.Component);
 
 	exports.default = PrimaryChatroom;
+
+	// class PrimaryChatroom extends React.Component {
+	//   constructor(props) {
+	//     super(props);
+
+	//     this.state = {
+	//       // videos: [],
+	//       // currentVideo: null
+	//     };
+	//   }
+
+	//   // componentDidMount() {
+	//   //   // this.getYouTubeVideos('react tutorials');
+	//   // }
+
+	//   // getYouTubeVideos(query) {
+	//   //   var options = {
+	//   //     key: this.props.API_KEY,
+	//   //     query: query
+	//   //   };
+
+	//   //   this.props.searchYouTube(options, (videos) =>
+	//   //     this.setState({
+	//   //       videos: videos,
+	//   //       currentVideo: videos[0]
+	//   //     })
+	//   //   );
+	//   // }
+
+	//   // handleVideoListEntryTitleClick(video) {
+	//   //   this.setState({
+	//   //     currentVideo: video
+	//   //   });
+	//   // }
+
+	//   render() {
+	//     return (
+	//       <div>
+
+	//         <div>
+	//           <ChatBody />
+	//         </div>
+
+	//         <ChatForm
+	//           // handleSearchInputChange={this.getYouTubeVideos.bind(this)}
+	//         />
+
+	//       </div>
+	//     );
+	//   }
+	// }
+
+	// export default PrimaryChatroom
 
 /***/ },
 /* 228 */
@@ -26487,17 +26526,24 @@
 	    _this.state = {
 	      value: ''
 	    };
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	    return _this;
 	  }
 
-	  // handleInputChange(e) {
-	  //   // this.props.handleSearchInputChange(e.target.value);
-	  //   // this.setState({
-	  //   //   value: e.target.value
-	  //   // });
-	  // }
-
 	  _createClass(ChatForm, [{
+	    key: 'handleInputChange',
+	    value: function handleInputChange(e) {
+	      this.setState({
+	        value: e.target.value
+	      });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(e) {
+	      this.props.handleSearchInputChange(this.state.value);
+	      alert('Text field value is: ' + this.state.value);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -26508,14 +26554,13 @@
 	          { action: '' },
 	          _react2.default.createElement('input', {
 	            id: 'm',
-	            autoComplete: 'off',
 	            type: 'text',
-	            value: this.state.value
-	            // onChange={this.handleInputChange.bind(this)}
+	            value: this.state.value,
+	            onChange: this.handleInputChange.bind(this)
 	          }),
 	          _react2.default.createElement(
 	            'button',
-	            null,
+	            { onClick: this.handleSubmit },
 	            'Send'
 	          )
 	        )
@@ -26544,11 +26589,21 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var ChatBody = function ChatBody(props) {
+	var ChatBody = function ChatBody(_ref) {
+	  var messages = _ref.messages;
 	  return _react2.default.createElement(
 	    "div",
-	    { className: "messagesList" },
-	    _react2.default.createElement("ul", { id: "messages" })
+	    null,
+	    _react2.default.createElement(
+	      "div",
+	      { className: "messagesList" },
+	      _react2.default.createElement("ul", { id: "messages" })
+	    ),
+	    _react2.default.createElement(
+	      "div",
+	      null,
+	      messages
+	    )
 	  );
 	};
 
