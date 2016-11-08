@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Router, browserHistory, Route, IndexRoute} from 'react-router'
-// import allReducers from './reducers/'
+import { Provider } from 'react-redux';
 import { createStore } from 'redux'
+import testReducers from './reducers/ChatReducer'
 import PrimaryChatroom from './src/app'
 
-// const store = createStore();
+const store = createStore(testReducers);
 
 // console.log(store.getState());
 
@@ -16,14 +17,17 @@ import PrimaryChatroom from './src/app'
 //so that you can update the UI of the application to reflect the application state
 // store.subscribe ( () =>  {});
   
-ReactDOM.render(
 
-    // browserHistory provides the history state.
-    // There is also a hashHistory object which makes urls with hashes,
-    // similar to Angular
-    <Router history={browserHistory}>
+ReactDOM.render(
+  
+  // browserHistory provides the history state.
+  // There is also a hashHistory object which makes urls with hashes,
+  // similar to Angular
+  <Router history={browserHistory}>
+    <Provider store={store}>
       <Route path='/' component={PrimaryChatroom} />
-    </Router>
- , 
+    </Provider>
+  </Router>
+  , 
   document.getElementById('app')
 )
