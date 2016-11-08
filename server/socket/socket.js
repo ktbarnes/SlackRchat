@@ -15,7 +15,7 @@ module.exports = function(http){
     socket.on('disconnect', function(msg){
       console.log('user disconnected');
       msg = 'A user disconnected';
-      io.broadcast.emit('disconnected',msg);
+      io.emit('disconnected',msg);
     });
 
   });
