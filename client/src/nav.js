@@ -9,19 +9,28 @@ export default class Nav extends React.Component {
     const { dispatch, isAuthenticated, errorMessage } = this.props
   
     return (
-
       <nav className='nav'>
         <div className='container-nav'>
-          <a className-'nav-name' href='#'>Slacker</a>
+          <a className='nav-name' href='#'>Slacker</a>
+        <div>
+        <a className='btn btn-primary' href='#' onClick={this.open}>
+          Profile
+        </a>
+        <a className='btn btn-primary' href='/SignIn'> 
+          SignIn
+        </a>
+        <a className='btn btn-primary' href='/LogOut'>
+          LogOut
+        </a>    
+        </div>
+        
         <div className='nav-form'>
-
-          {!isAuthenticated && 
+           {!isAuthenticated && 
             <Login 
             errorMessage={errorMessage}
             onLoginClick={creds => dispatch(loginUser(creds))}
             />
           }
-
           {isAuthenticated &&
             <Logout onLogoutClick={() => dispatch(logoutUser())} />
           }
