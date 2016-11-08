@@ -26,6 +26,7 @@ ReactDOM.render(
   <Router history={browserHistory}>
     <Provider store={store}>
       <Route path='/' component={PrimaryChatroom} />
+      <Route path='/login' component={PrimaryChatroom} />
     </Provider>
   </Router>
   , 
