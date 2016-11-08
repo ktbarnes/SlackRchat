@@ -5,7 +5,7 @@ export default class Logout extends React.Component {
     const { onLogoutClick } = this.props
 
     return (
-      <button onClick={() => onLogoutClick() className='btn btn-auth'}
+      <button onClick={() => onLogoutClick()} className='btn btn-auth'>
         Logout
       </button>
     )

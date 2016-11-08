@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions/login'
 import { LOGOUT_SUCCESS } from '../actions/logout'
 
-function auth(state = {isFetching: false, isAuthenticated: localStorage.getItem('id_token') ? true : false}, action {
+function auth(state = {isFetching: false, isAuthenticated: localStorage.getItem('id_token') ? true : false}, action) {
   switch (action.type) {
     case LOGIN_REQUEST:
       return Object.assign({}, state, {
@@ -30,4 +30,4 @@ function auth(state = {isFetching: false, isAuthenticated: localStorage.getItem(
     default:
       return state;
   }
-})
+}
