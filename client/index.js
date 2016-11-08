@@ -26,9 +26,12 @@ ReactDOM.render(
   <Router history={browserHistory}>
     <Provider store={store}>
       <Route path='/' component={PrimaryChatroom} />
-      <Route path='/login' component={PrimaryChatroom} />
+      <Route path='/login' component={Login} />
+      <Route path='signUp' component={SignUp} />
+      <Route path='/logout' component={Logout} />
     </Provider>
   </Router>
   , 
   document.getElementById('app')
 )
+

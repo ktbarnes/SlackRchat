@@ -90,3 +90,4 @@ ChatForm.propTypes = {
 };
 
 export default connect()(ChatForm);
+
