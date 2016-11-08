@@ -5,7 +5,7 @@ module.exports = function(http){
 
   io.on('connection', function(socket){
 
-    console.log('a user connected');
+    console.log('a user connected to:' + socket.id);
 
     socket.on('chat message', function(msg){
       console.log('message: ' + msg);
@@ -15,7 +15,7 @@ module.exports = function(http){
     socket.on('disconnect', function(msg){
       console.log('user disconnected');
       msg = 'A user disconnected';
-      io.broadcast.emit('disconnected',msg);
+      io.emit('disconnected',msg);
     });
 
   });
