@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class Signup extends React.Component {
+export default class SignUp extends React.Component {
 
   onSignup(event) {
     const username = this.refs.username,
