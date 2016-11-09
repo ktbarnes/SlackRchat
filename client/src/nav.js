@@ -11,7 +11,7 @@ export default class Nav extends React.Component {
     return (
       <nav className='nav'>
         <div className='container-nav'>
-          <a className='nav-name' href='#'>Slacker</a>
+          <h1>Slacker<h1>
         <div>
         <a className='btn btn-primary' href='#' onClick={this.open}>
           Profile
