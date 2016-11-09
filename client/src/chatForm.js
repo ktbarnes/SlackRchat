@@ -59,10 +59,12 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { addMessage } from '../actions/ChatActions';
+// import { bindActionCreators } from 'redux';
 
 //DAN'S TODO LIST
-const ChatForm = ( { dispatch } ) => {
+const ChatForm = ( { value, dispatch } ) => {
   let input;
+  console.log({dispatch});
 
   return (
     <div>
@@ -72,11 +74,17 @@ const ChatForm = ( { dispatch } ) => {
           if (!input.value.trim()) {
             return;
           }
+          console.log("INPUT VALUE",input.value);
+          console.log(addMessage(input.value));
+          console.log(dispatch(addMessage(input.value)));
+          console.log("store? btw store = value",value);
           dispatch(addMessage(input.value));
           input.value = '';
         }}
       >
-        <input ref={node => { input = node; }} />
+        <input ref={node => 
+          { input = node; }} 
+        />
         <button type="submit">
           Send Message 
         </button>
@@ -89,5 +97,12 @@ ChatForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect()(ChatForm);
+const mapStateToProps = (state, ownProps) => {
+  return { text: state.text }
+};
 
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({addMessage},dispatch)
+// };
+
+export default connect(mapStateToProps)(ChatForm);

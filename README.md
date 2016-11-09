@@ -18,4 +18,4 @@ What's in these files?
      - server
           - can run server by doing "node server" within the "server" directory
 * Test
-     - can run tests through node by doing 'npm run test'
+     - can run tests through node by running 'mocha' in the terminal in your root directory
