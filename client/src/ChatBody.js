@@ -16,19 +16,23 @@ import Message from './Message';
 
 
 //passes in reducer here, which takes in an initial state
-const MessageList = ( { ChatReducer }) => (
-  <ul>
-    {ChatReducer.map(message =>
-      <Message
-        key={message.id}
-        {...message}
-      />
-    )}
-  </ul>
-);
+const MessageList = ( { value } ) => {
+  console.log("VALUE?????",{value});
+  return (
+      <ul>
+        {value.map(message =>
+          <Message
+            key={message.id}
+            message={message.text}
+          />
+        )}
+      </ul>
+  )
+  
+}
 
 MessageList.propTypes = {
-  ChatReducer: PropTypes.arrayOf(PropTypes.shape({
+  value: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
   }).isRequired).isRequired,

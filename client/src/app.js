@@ -77,18 +77,12 @@ class PrimaryChatroom extends React.Component {
     const { value } = this.props
     return (
       <div>
-        <ChatForm  />
-
+        <ChatForm value={value} />
+        <MessageList value={value}/>
+        <Message />
       </div>
     )
   }
 }
-
-// const PrimaryChatroom = ( {state} ) => (
-//   <div>
-//     <ChatForm  />
-//     <MessageList ChatReducer={ChatReducer}/>
-//   </div>
-// );
 
 export default PrimaryChatroom;

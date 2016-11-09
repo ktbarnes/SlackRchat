@@ -3,10 +3,10 @@ import ReactDOM, { render } from 'react-dom'
 import {Router, browserHistory, Route, IndexRoute} from 'react-router'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux'
-import testReducers from './reducers/ChatReducer'
+import ChatReducer from './reducers/ChatReducer'
 import PrimaryChatroom from './src/app'
 
-const store = createStore(testReducers);
+const store = createStore(ChatReducer);
 
 console.log(store.getState());
 
@@ -20,20 +20,20 @@ console.log(store.getState());
 
 // store.subscribe(function(){
 
-  // ReactDOM.render(
+//   // ReactDOM.render(
     
-  //   // browserHistory provides the history state.
-  //   // There is also a hashHistory object which makes urls with hashes,
-  //   // similar to Angular
-  //   <Provider store={store}>
-  //     <Router history={browserHistory} >
-  //       <Route path='/' component={PrimaryChatroom} state = {store.getState()} />
-  //     </Router>
-  //   </Provider>
+//   //   // browserHistory provides the history state.
+//   //   // There is also a hashHistory object which makes urls with hashes,
+//   //   // similar to Angular
+//   //   <Provider store={store}>
+//   //     <Router history={browserHistory} >
+//   //       <Route path='/' component={PrimaryChatroom} state = {store.getState()} />
+//   //     </Router>
+//   //   </Provider>
     
-  //   , 
-  //   document.getElementById('app')
-  // )
+//   //   , 
+//   //   document.getElementById('app')
+//   // )
 
 // });
 
