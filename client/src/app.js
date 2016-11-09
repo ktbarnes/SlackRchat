@@ -63,24 +63,26 @@
 
 
 
-
-
-
-
-
 import React from 'react';
 import ChatForm from './chatForm.js';
 import MessageList from './ChatBody.js';
-import Message from './Message';
+import Message from './Message.js';
+import ChatReducer from '../reducers/ChatReducer.js';
 
 let socket = io();
 
-const App = () => (
-  <div>
-    <MessageList />
-    <ChatForm />
-    <Message />
-  </div>
-);
+class PrimaryChatroom extends React.Component {
 
-export default App;
+  render(){
+    const { value } = this.props
+    return (
+      <div>
+        <ChatForm value={value} />
+        <MessageList value={value}/>
+        <Message />
+      </div>
+    )
+  }
+}
+
+export default PrimaryChatroom;

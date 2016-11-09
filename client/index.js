@@ -1,14 +1,14 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM, { render } from 'react-dom'
 import {Router, browserHistory, Route, IndexRoute} from 'react-router'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux'
-import testReducers from './reducers/ChatReducer'
+import ChatReducer from './reducers/ChatReducer'
 import PrimaryChatroom from './src/app'
 
-const store = createStore(testReducers);
+const store = createStore(ChatReducer);
 
-// console.log(store.getState());
+console.log(store.getState());
 
 //lets you dispatch actions that change the state of the applications
 // store.dispatch( { type: "SOMETYPE"} );
@@ -18,20 +18,47 @@ const store = createStore(testReducers);
 // store.subscribe ( () =>  {});
   
 
-ReactDOM.render(
-  
-  // browserHistory provides the history state.
-  // There is also a hashHistory object which makes urls with hashes,
-  // similar to Angular
-  <Router history={browserHistory}>
+// store.subscribe(function(){
+
+//   // ReactDOM.render(
+    
+//   //   // browserHistory provides the history state.
+//   //   // There is also a hashHistory object which makes urls with hashes,
+//   //   // similar to Angular
+//   //   <Provider store={store}>
+//   //     <Router history={browserHistory} >
+//   //       <Route path='/' component={PrimaryChatroom} state = {store.getState()} />
+//   //     </Router>
+//   //   </Provider>
+    
+//   //   , 
+//   //   document.getElementById('app')
+//   // )
+
+// });
+
+
+  // ReactDOM.render(
+  //   <Provider store={store}>
+  //     <PrimaryChatroom 
+  //       state={store.getState()}
+  //     />
+  //   </Provider>
+    
+  //   , 
+  //   document.getElementById('app')
+  // )
+
+
+const appRender = () => ReactDOM.render(
     <Provider store={store}>
-      <Route path='/' component={PrimaryChatroom} />
-      <Route path='/login' component={Login} />
-      <Route path='signUp' component={SignUp} />
-      <Route path='/logout' component={Logout} />
+      <PrimaryChatroom 
+        value={store.getState()}
+      />
     </Provider>
-  </Router>
-  , 
-  document.getElementById('app')
+    , 
+    document.getElementById('app')
 )
 
+appRender()
+store.subscribe(appRender)
