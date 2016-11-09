@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom'
 import {Router, browserHistory, Route, IndexRoute} from 'react-router'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux'
-import testReducers from './reducers/ChatReducer'
+import auth from './reducers/authReducer'
 import PrimaryChatroom from './src/app'
 
-const store = createStore(testReducers);
+const store = createStore(auth);
 
 // console.log(store.getState());
 

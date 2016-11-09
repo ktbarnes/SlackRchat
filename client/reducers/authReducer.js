@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions/login'
-import { LOGOUT_SUCCESS } from '../actions/logout'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions/loginActions'
+import { LOGOUT_SUCCESS } from '../actions/logoutActions'
 
 function auth(state = {isFetching: false, isAuthenticated: localStorage.getItem('id_token') ? true : false}, action) {
   switch (action.type) {
@@ -31,3 +31,5 @@ function auth(state = {isFetching: false, isAuthenticated: localStorage.getItem(
       return state;
   }
 }
+
+export default auth
