@@ -69,7 +69,7 @@ import MessageList from './ChatBody.js';
 import Message from './Message.js';
 import ChatReducer from '../reducers/ChatReducer.js';
 
-let socket = io();
+
 
 class PrimaryChatroom extends React.Component {
 

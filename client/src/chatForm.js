@@ -61,6 +61,8 @@ import { connect } from 'react-redux';
 import { addMessage } from '../actions/ChatActions';
 // import { bindActionCreators } from 'redux';
 
+let socket = io();
+
 //DAN'S TODO LIST
 const ChatForm = ( { value, dispatch } ) => {
   let input;
@@ -75,10 +77,9 @@ const ChatForm = ( { value, dispatch } ) => {
             return;
           }
           console.log("INPUT VALUE",input.value);
-          console.log(addMessage(input.value));
-          console.log(dispatch(addMessage(input.value)));
           console.log("store? btw store = value",value);
           dispatch(addMessage(input.value));
+          socket.emit('chat message', input.value);
           input.value = '';
         }}
       >
