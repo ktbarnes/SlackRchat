@@ -14,6 +14,7 @@
 import React, { PropTypes } from 'react';
 import Message from './Message';
 
+
 //passes in reducer here, which takes in an initial state
 const MessageList = ( { ChatReducer }) => (
   <ul>
