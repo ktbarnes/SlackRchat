@@ -1,5 +1,3 @@
-//new file for redux stuff
-
 import React, { PropTypes } from 'react';
 
 const Message = ({ message }) => (
