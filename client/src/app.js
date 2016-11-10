@@ -6,6 +6,7 @@ import Message from './Message.js';
 import ChatReducer from '../reducers/ChatReducer.js';
 import { addMessage } from '../actions/ChatActions';
 import Nav from './nav.js';
+import SideBar from './sidebar.js';
 
 
 class PrimaryChatroom extends React.Component {
@@ -34,9 +35,10 @@ class PrimaryChatroom extends React.Component {
     const { dataStore } = this.props
     return (
       <div>
+        <Nav />
+        <SideBar/>
         <ChatForm socket={this.socket} />
         <MessageList />
-        <Nav />
         <Message />
       </div>
     )
