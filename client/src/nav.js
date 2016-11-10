@@ -31,9 +31,7 @@ export default class Nav extends React.Component {
             <li><Link to='SignIn'className='btn btn-primary'> SignIn</Link></li>
             <li><Link to='LogOut' className='btn btn-primary'>LogOut'</Link></li>
           </ul>  
-         </div>  
-    
-        
+         </div> 
          <div className='nav-form'>
             {!isAuthenticated && 
             <Login 

@@ -127,6 +127,26 @@
 	appRender();
 	store.subscribe(appRender);
 
+<<<<<<< 70f38deb4d366a030c855bfd2e6838717f6df18a
+=======
+	// ReactDOM.render(
+
+	// browserHistory provides the history state.
+	// There is also a hashHistory object which makes urls with hashes,
+	// similar to Angular
+	//   <Router history={browserHistory}>
+	//     <Provider store={store}>
+	//       <Route path='/' component={PrimaryChatroom} />
+	//       <Route path='/login' component={Login} />
+	//       <Route path='signUp' component={SignUp} />
+	//       <Route path='/logout' component={Logout} />
+	//     </Provider>
+	//   </Router>
+	//   , 
+	//   document.getElementById('app')
+	// )
+
+>>>>>>> fix: Trying to rebase
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -28096,6 +28116,17 @@
 	      this.socket.on('disconnect', function (message) {
 	        that.handleReceiveMessage(message);
 	      });
+<<<<<<< 70f38deb4d366a030c855bfd2e6838717f6df18a
+=======
+	      this.socket.on('disconnect', function (message) {
+	        that.handleReceiveMessage(message);
+	      });
+	    }
+	  }, {
+	    key: 'handleReceiveMessage',
+	    value: function handleReceiveMessage(chat) {
+	      this.props.dispatch((0, _ChatActions.addMessage)(chat));
+>>>>>>> fix: Trying to rebase
 	    }
 	  }, {
 	    key: 'handleReceiveMessage',
