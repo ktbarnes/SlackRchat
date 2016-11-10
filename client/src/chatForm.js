@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import { addMessage } from '../actions/ChatActions';
 
 
-const ChatForm = ( { value, dispatch, socket } ) => {
+const ChatForm = ( { socket } ) => {
   let input;
-  console.log({dispatch});
 
   return (
     <div>
@@ -16,8 +15,6 @@ const ChatForm = ( { value, dispatch, socket } ) => {
           if (!input.value.trim()) {
             return;
           }
-          console.log("INPUT VALUE",input.value);
-          console.log("store? btw store = value",value);
           socket.emit('chat message', input.value);
           input.value = '';
         }}
@@ -33,14 +30,4 @@ const ChatForm = ( { value, dispatch, socket } ) => {
   );
 };
 
-
-
-ChatForm.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state, ownProps) => {
-  return { text: state.text }
-};
-
-export default connect(mapStateToProps)(ChatForm);
+export default ChatForm;
