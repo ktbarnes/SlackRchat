@@ -7,3 +7,5 @@ server/config.env
 config.env
 
 client/dist/bundle.js
+
+.DS_Store
