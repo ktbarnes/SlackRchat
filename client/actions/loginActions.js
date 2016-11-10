@@ -34,7 +34,6 @@ function loginError(message) {
 export function loginUser(creds) {
 
   let config = {
-    method: 'POST',
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     body: `users=${creds.username}&password=${creds.password}`
   }
@@ -42,7 +41,7 @@ export function loginUser(creds) {
   return dispatch => {
     dispatch(requestLogin(creds))
 
-    return fetch('/login', config)
+    return axios.post('/db/login', config)
       .then(response =>
         response.json().then(user => ({ user, response }))
           ).then(({ user, response }) => {
@@ -55,5 +54,19 @@ export function loginUser(creds) {
               dispatch(receiveLogin(user))
             }
           }).catch(err => console.error(err))
+
+    // return fetch('/login', config)
+    //   .then(response =>
+    //     response.json().then(user => ({ user, response }))
+    //       ).then(({ user, response }) => {
+    //         if(!response.ok) {
+    //           dispatch(loginError(user.message))
+    //           return Promise.reject(user)
+    //         }
+    //         else {
+    //           localStorage.setItem('id_token', user.id_token)
+    //           dispatch(receiveLogin(user))
+    //         }
+    //       }).catch(err => console.error(err))
   }
 }
