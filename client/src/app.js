@@ -22,6 +22,13 @@ class PrimaryChatroom extends React.Component {
     this.socket.on('disconnect', function(message){
       that.handleReceiveMessage(message);
     });
+    this.socket.on('disconnect', function(message){
+      that.handleReceiveMessage(message);
+    });
+  }
+  
+  handleReceiveMessage(chat) {
+    this.props.dispatch(addMessage(chat));
   }
   
   handleReceiveMessage(chat) {

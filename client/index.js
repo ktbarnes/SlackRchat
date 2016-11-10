@@ -55,10 +55,28 @@ const appRender = () => ReactDOM.render(
       <PrimaryChatroom 
         value={store.getState()}
       />
-    </Provider>
+      </Provider>
     , 
     document.getElementById('app')
 )
 
 appRender()
 store.subscribe(appRender)
+
+// ReactDOM.render(
+  
+  // browserHistory provides the history state.
+  // There is also a hashHistory object which makes urls with hashes,
+  // similar to Angular
+//   <Router history={browserHistory}>
+//     <Provider store={store}>
+//       <Route path='/' component={PrimaryChatroom} />
+//       <Route path='/login' component={Login} />
+//       <Route path='signUp' component={SignUp} />
+//       <Route path='/logout' component={Logout} />
+//     </Provider>
+//   </Router>
+//   , 
+//   document.getElementById('app')
+// )
+>>>>>>> profile
