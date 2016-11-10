@@ -63,7 +63,7 @@ PrimaryChatroom.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  return { state: state }
+  return { state: state.ChatReducer }
 };
 
 export default connect(mapStateToProps)(PrimaryChatroom);
