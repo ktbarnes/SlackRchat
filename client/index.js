@@ -5,19 +5,53 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux'
 import ChatReducer from './reducers/ChatReducer'
 import PrimaryChatroom from './src/app'
+import SideBar from './src/sidebar.js'
+import Test from './src/test.js'
+import Test2 from './src/Test2.js'
 
 const store = createStore(ChatReducer);
+
+const rootRoute = {
+  component: PrimaryChatroom,
+  path: '/',
+  indexRoute: {
+    getComponent (location, cb) {
+      require.ensure([], () => {
+        cb(null, require('./src/app'))
+      })
+    }
+  },
+  childRoutes: [
+    {
+      component: SideBar,
+      path: 'sidebar',
+      getComponent (location, cb) {
+        require.ensure([], () => {
+          cb(null, require('./src/sidebar'))
+        })
+      }
+    }
+  ]
+}
+
 
 const appRender = () => ReactDOM.render(
 
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path='/' component={PrimaryChatroom} />
-    </Router>
+    <Router routes={rootRoute} history={browserHistory} />
   </Provider>
+
   , 
   document.getElementById('app')
 )
 
 appRender()
 store.subscribe(appRender)
+
+  // <Provider store={store}>
+  //   <Router history={browserHistory}>
+  //     <Route path='/' component={PrimaryChatroom} >
+  //      <Route path='/logout' component={Logout} />
+  //     </Route>
+  //   </Router>
+  // </Provider>

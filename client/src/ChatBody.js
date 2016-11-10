@@ -5,14 +5,14 @@ import { connect } from 'react-redux';
 const MessageList = ( {messages} ) => {
 
   return (
-      <ul id="messages">
-        {messages.map(message =>
-          <Message
-            key={message.id}
-            message={message.text}
-          />
-        )}
-      </ul>
+    <ul id="messages">
+      {messages.map(message =>
+        <Message
+          key={message.id}
+          message={message.text}
+        />
+      )}
+    </ul>
   )
 }
 
