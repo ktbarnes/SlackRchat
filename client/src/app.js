@@ -5,7 +5,7 @@ import MessageList from './ChatBody.js';
 import Message from './Message.js';
 import ChatReducer from '../reducers/ChatReducer.js';
 import { addMessage } from '../actions/ChatActions';
-
+import Nav from './nav.js';
 
 
 class PrimaryChatroom extends React.Component {
@@ -48,6 +48,7 @@ class PrimaryChatroom extends React.Component {
     const { value } = this.props
     return (
       <div>
+        <Nav />
         <ChatForm value={value} socket={this.socket} />
         <MessageList value={value}/>
         <Message />

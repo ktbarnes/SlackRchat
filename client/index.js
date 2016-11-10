@@ -79,8 +79,4 @@ store.subscribe(appRender)
 //   , 
 //   document.getElementById('app')
 // )
-<<<<<<< 70f38deb4d366a030c855bfd2e6838717f6df18a
->>>>>>> profile
-=======
 
->>>>>>> fix: Trying to rebase
