@@ -116,6 +116,26 @@
 	appRender();
 	store.subscribe(appRender);
 
+<<<<<<< HEAD
+=======
+	// ReactDOM.render(
+
+	// browserHistory provides the history state.
+	// There is also a hashHistory object which makes urls with hashes,
+	// similar to Angular
+	//   <Router history={browserHistory}>
+	//     <Provider store={store}>
+	//       <Route path='/' component={PrimaryChatroom} />
+	//       <Route path='/login' component={Login} />
+	//       <Route path='signUp' component={SignUp} />
+	//       <Route path='/logout' component={Logout} />
+	//     </Provider>
+	//   </Router>
+	//   , 
+	//   document.getElementById('app')
+	// )
+
+>>>>>>> 168f2c029b1000745781612824b7e92c046059e6
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -28119,9 +28139,15 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+<<<<<<< HEAD
 	        _react2.default.createElement(_chatForm2.default, { socket: this.socket }),
 	        _react2.default.createElement(_ChatBody2.default, null),
 	        _react2.default.createElement(_nav2.default, null),
+=======
+	        _react2.default.createElement(_nav2.default, null),
+	        _react2.default.createElement(_chatForm2.default, { value: value, socket: this.socket }),
+	        _react2.default.createElement(_ChatBody2.default, { value: value }),
+>>>>>>> 168f2c029b1000745781612824b7e92c046059e6
 	        _react2.default.createElement(_Message2.default, null)
 	      );
 	    }
@@ -30081,6 +30107,7 @@
 	  };
 	}
 
+<<<<<<< HEAD
 /***/ },
 /* 292 */
 /***/ function(module, exports, __webpack_require__) {
@@ -30189,5 +30216,7 @@
 
 	exports.default = Test2;
 
+=======
+>>>>>>> 168f2c029b1000745781612824b7e92c046059e6
 /***/ }
 /******/ ]);
