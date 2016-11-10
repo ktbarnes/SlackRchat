@@ -1,28 +1,27 @@
-import { combineReducers } from 'redux'
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions/login'
-import { LOGOUT_SUCCESS } from '../actions/logout'
+// import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions/login'
+// import { LOGOUT_SUCCESS } from '../actions/logout'
 
-function auth(state = {isFetching: false, isAuthenticated: localStorage.getItem('id_token') ? true : false}, action) {
+const authReducer = (state = {isFetching: false, isAuthenticated: !!localStorage.getItem('id_token')}, action) => {
   switch (action.type) {
-    case LOGIN_REQUEST:
+    case 'LOGIN_REQUEST':
       return Object.assign({}, state, {
         isFetching: true,
         isAuthenticated: false,
         user: action.creds
       })
-    case LOGIN_SUCCESS:
+    case 'LOGIN_SUCCESS':
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
         errorMessage: ''
       })
-    case LOGIN_FAILURE:
+    case 'LOGIN_FAILURE':
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: false,
         errorMessage: action.message
       })
-    case LOGOUT_SUCCESS:
+    case 'LOGOUT_SUCCESS':
       return Object.assign({}, state, {
         isFetching: true,
         isAuthenticated: false
@@ -31,3 +30,5 @@ function auth(state = {isFetching: false, isAuthenticated: localStorage.getItem(
       return state;
   }
 }
+
+export default authReducer
