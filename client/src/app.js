@@ -9,6 +9,7 @@ import { addMessage } from '../actions/ChatActions';
 
 
 class PrimaryChatroom extends React.Component {
+
   constructor(props){
     super(props)
     this.socket = io();
@@ -45,23 +46,24 @@ class PrimaryChatroom extends React.Component {
   }
 
   render(){
-    const { value } = this.props
+    const { dataStore } = this.props
     return (
       <div>
-        <ChatForm value={value} socket={this.socket} />
-        <MessageList value={value}/>
+        <ChatForm socket={this.socket} />
+        <MessageList />
         <Message />
       </div>
     )
   }
 }
 
+
 PrimaryChatroom.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
-  return { text: state.text }
+  return { state: state }
 };
 
 export default connect(mapStateToProps)(PrimaryChatroom);

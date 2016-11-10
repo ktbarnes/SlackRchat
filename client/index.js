@@ -5,82 +5,53 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux'
 import ChatReducer from './reducers/ChatReducer'
 import PrimaryChatroom from './src/app'
+import SideBar from './src/sidebar.js'
+import Test from './src/test.js'
+import Test2 from './src/Test2.js'
 
 const store = createStore(ChatReducer);
 
-console.log(store.getState());
-
-//lets you dispatch actions that change the state of the applications
-// store.dispatch( { type: "SOMETYPE"} );
-
-//lets you register a callback that redux will call any time an action has been dispatched
-//so that you can update the UI of the application to reflect the application state
-// store.subscribe ( () =>  {});
-  
-
-// store.subscribe(function(){
-
-//   // ReactDOM.render(
-    
-//   //   // browserHistory provides the history state.
-//   //   // There is also a hashHistory object which makes urls with hashes,
-//   //   // similar to Angular
-//   //   <Provider store={store}>
-//   //     <Router history={browserHistory} >
-//   //       <Route path='/' component={PrimaryChatroom} state = {store.getState()} />
-//   //     </Router>
-//   //   </Provider>
-    
-//   //   , 
-//   //   document.getElementById('app')
-//   // )
-
-// });
-
-
-  // ReactDOM.render(
-  //   <Provider store={store}>
-  //     <PrimaryChatroom 
-  //       state={store.getState()}
-  //     />
-  //   </Provider>
-    
-  //   , 
-  //   document.getElementById('app')
-  // )
+const rootRoute = {
+  component: PrimaryChatroom,
+  path: '/',
+  indexRoute: {
+    getComponent (location, cb) {
+      require.ensure([], () => {
+        cb(null, require('./src/app'))
+      })
+    }
+  },
+  childRoutes: [
+    {
+      component: SideBar,
+      path: 'sidebar',
+      getComponent (location, cb) {
+        require.ensure([], () => {
+          cb(null, require('./src/sidebar'))
+        })
+      }
+    }
+  ]
+}
 
 
 const appRender = () => ReactDOM.render(
-    <Provider store={store}>
-      <PrimaryChatroom 
-        value={store.getState()}
-      />
-      </Provider>
-    , 
-    document.getElementById('app')
+
+  <Provider store={store}>
+    <Router routes={rootRoute} history={browserHistory} />
+  </Provider>
+  , 
+  document.getElementById('app')
 )
 
 appRender()
 store.subscribe(appRender)
 
-// ReactDOM.render(
-  
-  // browserHistory provides the history state.
-  // There is also a hashHistory object which makes urls with hashes,
-  // similar to Angular
-//   <Router history={browserHistory}>
-//     <Provider store={store}>
-//       <Route path='/' component={PrimaryChatroom} />
-//       <Route path='/login' component={Login} />
-//       <Route path='signUp' component={SignUp} />
-//       <Route path='/logout' component={Logout} />
-//     </Provider>
-//   </Router>
-//   , 
-//   document.getElementById('app')
-// )
-<<<<<<< 70f38deb4d366a030c855bfd2e6838717f6df18a
->>>>>>> profile
-=======
 
->>>>>>> fix: Trying to rebase
+  // <Provider store={store}>
+  //   <Router history={browserHistory}>
+  //     <Route path='/' component={PrimaryChatroom} >
+  //      <Route path='/logout' component={Logout} />
+  //     </Route>
+  //   </Router>
+  // </Provider>
