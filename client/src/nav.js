@@ -1,6 +1,7 @@
 import React from 'react'
 import Login from './login'
 import Logout from './logout'
+import Profile from './profile'
 import { loginUser } from '../actions/loginActions'
 import { logoutUser } from '../actions/logoutActions'
 
@@ -9,34 +10,29 @@ export default class Nav extends React.Component {
     const { dispatch, isAuthenticated, errorMessage } = this.props
   
     return (
+      <div>
       <nav className='nav'>
         <div className='container-nav'>
-          <a className='nav-name' href='#'>Slacker</a>
-        <div>
-        <a className='btn btn-primary' href='#' onClick={this.open}>
-          Profile
-        </a>
-        <a className='btn btn-primary' href='/SignIn'> 
-          SignIn
-        </a>
-        <a className='btn btn-primary' href='/LogOut'>
-          LogOut
-        </a>    
-        </div>
+          <ul className='header'>
+            <li>Slacker</li>
+            <li><Link to='Profile' className='btn btn-primary' href='#' onClick={this.open}>Profile</Link></li>
+            <li><Link to='SignIn'className='btn btn-primary'> SignIn</Link></li>
+            <li><Link to='LogOut' className='btn btn-primary'>LogOut'</Link></li>
+          </ul>  
+         </div>  
+    
         
-        <div className='nav-form'>
-           {!isAuthenticated && 
+         <div className='nav-form'>
+            {!isAuthenticated && 
             <Login 
             errorMessage={errorMessage}
             onLoginClick={creds => dispatch(loginUser(creds))}
-            />
-          }
+            />}
           {isAuthenticated &&
-            <Logout onLogoutClick={() => dispatch(logoutUser())} />
-          }
-        </div>
+            <Logout onLogoutClick={() => dispatch(logoutUser())} />}
         </div>
       </nav>
+      </div>
     )
   }
 }
