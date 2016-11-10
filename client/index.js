@@ -55,6 +55,10 @@ const appRender = () => ReactDOM.render(
       <PrimaryChatroom 
         value={store.getState()}
       />
+<<<<<<< 70f38deb4d366a030c855bfd2e6838717f6df18a
+=======
+
+>>>>>>> fix: Trying to rebase
       </Provider>
     , 
     document.getElementById('app')
@@ -63,6 +67,10 @@ const appRender = () => ReactDOM.render(
 appRender()
 store.subscribe(appRender)
 
+<<<<<<< 70f38deb4d366a030c855bfd2e6838717f6df18a
+=======
+
+>>>>>>> fix: Trying to rebase
 // ReactDOM.render(
   
   // browserHistory provides the history state.
@@ -79,4 +87,8 @@ store.subscribe(appRender)
 //   , 
 //   document.getElementById('app')
 // )
+<<<<<<< 70f38deb4d366a030c855bfd2e6838717f6df18a
 >>>>>>> profile
+=======
+
+>>>>>>> fix: Trying to rebase
