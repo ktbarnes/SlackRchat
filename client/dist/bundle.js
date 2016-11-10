@@ -60,93 +60,70 @@
 
 	var _redux = __webpack_require__(234);
 
-	var _ChatReducer = __webpack_require__(258);
+	var _ChatReducer = __webpack_require__(255);
 
 	var _ChatReducer2 = _interopRequireDefault(_ChatReducer);
 
-	var _app = __webpack_require__(255);
+	var _app = __webpack_require__(256);
 
 	var _app2 = _interopRequireDefault(_app);
+
+	var _sidebar = __webpack_require__(261);
+
+	var _sidebar2 = _interopRequireDefault(_sidebar);
+
+	var _test = __webpack_require__(262);
+
+	var _test2 = _interopRequireDefault(_test);
+
+	var _Test = __webpack_require__(263);
+
+	var _Test2 = _interopRequireDefault(_Test);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var store = (0, _redux.createStore)(_ChatReducer2.default);
 
-	console.log(store.getState());
-
-	//lets you dispatch actions that change the state of the applications
-	// store.dispatch( { type: "SOMETYPE"} );
-
-	//lets you register a callback that redux will call any time an action has been dispatched
-	//so that you can update the UI of the application to reflect the application state
-	// store.subscribe ( () =>  {});
-
-
-	// store.subscribe(function(){
-
-	//   // ReactDOM.render(
-
-	//   //   // browserHistory provides the history state.
-	//   //   // There is also a hashHistory object which makes urls with hashes,
-	//   //   // similar to Angular
-	//   //   <Provider store={store}>
-	//   //     <Router history={browserHistory} >
-	//   //       <Route path='/' component={PrimaryChatroom} state = {store.getState()} />
-	//   //     </Router>
-	//   //   </Provider>
-
-	//   //   , 
-	//   //   document.getElementById('app')
-	//   // )
-
-	// });
-
-
-	// ReactDOM.render(
-	//   <Provider store={store}>
-	//     <PrimaryChatroom 
-	//       state={store.getState()}
-	//     />
-	//   </Provider>
-
-	//   , 
-	//   document.getElementById('app')
-	// )
-
+	var rootRoute = {
+	  component: _app2.default,
+	  path: '/',
+	  indexRoute: {
+	    getComponent: function getComponent(location, cb) {
+	      !/* require.ensure */(function () {
+	        cb(null, __webpack_require__(256));
+	      }(__webpack_require__));
+	    }
+	  },
+	  childRoutes: [{
+	    component: _sidebar2.default,
+	    path: 'sidebar',
+	    getComponent: function getComponent(location, cb) {
+	      !/* require.ensure */(function () {
+	        cb(null, __webpack_require__(261));
+	      }(__webpack_require__));
+	    }
+	  }]
+	};
 
 	var appRender = function appRender() {
 	  return _reactDom2.default.render(_react2.default.createElement(
 	    _reactRedux.Provider,
 	    { store: store },
-	    _react2.default.createElement(_app2.default, {
-	      value: store.getState()
-	    })
+	    _react2.default.createElement(_reactRouter.Router, { routes: rootRoute, history: _reactRouter.browserHistory })
 	  ), document.getElementById('app'));
 	};
 
 	appRender();
 	store.subscribe(appRender);
 
-<<<<<<< 70f38deb4d366a030c855bfd2e6838717f6df18a
-=======
-	// ReactDOM.render(
-
-	// browserHistory provides the history state.
-	// There is also a hashHistory object which makes urls with hashes,
-	// similar to Angular
+	// <Provider store={store}>
 	//   <Router history={browserHistory}>
-	//     <Provider store={store}>
-	//       <Route path='/' component={PrimaryChatroom} />
-	//       <Route path='/login' component={Login} />
-	//       <Route path='signUp' component={SignUp} />
-	//       <Route path='/logout' component={Logout} />
-	//     </Provider>
+	//     <Route path='/' component={PrimaryChatroom} >
+	//      <Route path='/logout' component={Logout} />
+	//     </Route>
 	//   </Router>
-	//   , 
-	//   document.getElementById('app')
-	// )
+	// </Provider>
 
->>>>>>> fix: Trying to rebase
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -28052,6 +28029,37 @@
 
 /***/ },
 /* 255 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	var ChatReducer = function ChatReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+
+	    case 'ADD_MESSAGE':
+	      return [].concat(_toConsumableArray(state), [{
+	        id: action.id,
+	        text: action.text
+	      }]);
+
+	    default:
+	      return state;
+	  }
+	};
+
+	exports.default = ChatReducer;
+
+/***/ },
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28068,11 +28076,11 @@
 
 	var _reactRedux = __webpack_require__(227);
 
-	var _chatForm = __webpack_require__(256);
+	var _chatForm = __webpack_require__(257);
 
 	var _chatForm2 = _interopRequireDefault(_chatForm);
 
-	var _ChatBody = __webpack_require__(257);
+	var _ChatBody = __webpack_require__(259);
 
 	var _ChatBody2 = _interopRequireDefault(_ChatBody);
 
@@ -28080,11 +28088,11 @@
 
 	var _Message2 = _interopRequireDefault(_Message);
 
-	var _ChatReducer = __webpack_require__(258);
+	var _ChatReducer = __webpack_require__(255);
 
 	var _ChatReducer2 = _interopRequireDefault(_ChatReducer);
 
-	var _ChatActions = __webpack_require__(259);
+	var _ChatActions = __webpack_require__(258);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28116,8 +28124,9 @@
 	      this.socket.on('disconnect', function (message) {
 	        that.handleReceiveMessage(message);
 	      });
-<<<<<<< 70f38deb4d366a030c855bfd2e6838717f6df18a
-=======
+	      this.socket.on('disconnect', function (message) {
+	        that.handleReceiveMessage(message);
+	      });
 	      this.socket.on('disconnect', function (message) {
 	        that.handleReceiveMessage(message);
 	      });
@@ -28126,7 +28135,11 @@
 	    key: 'handleReceiveMessage',
 	    value: function handleReceiveMessage(chat) {
 	      this.props.dispatch((0, _ChatActions.addMessage)(chat));
->>>>>>> fix: Trying to rebase
+	    }
+	  }, {
+	    key: 'handleReceiveMessage',
+	    value: function handleReceiveMessage(chat) {
+	      this.props.dispatch((0, _ChatActions.addMessage)(chat));
 	    }
 	  }, {
 	    key: 'handleReceiveMessage',
@@ -28136,13 +28149,13 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var value = this.props.value;
+	      var dataStore = this.props.dataStore;
 
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_chatForm2.default, { value: value, socket: this.socket }),
-	        _react2.default.createElement(_ChatBody2.default, { value: value }),
+	        _react2.default.createElement(_chatForm2.default, { socket: this.socket }),
+	        _react2.default.createElement(_ChatBody2.default, null),
 	        _react2.default.createElement(_Message2.default, null)
 	      );
 	    }
@@ -28156,13 +28169,13 @@
 	};
 
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	  return { text: state.text };
+	  return { state: state };
 	};
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(PrimaryChatroom);
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28177,17 +28190,14 @@
 
 	var _reactRedux = __webpack_require__(227);
 
-	var _ChatActions = __webpack_require__(259);
+	var _ChatActions = __webpack_require__(258);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var ChatForm = function ChatForm(_ref) {
-	  var value = _ref.value,
-	      dispatch = _ref.dispatch,
-	      socket = _ref.socket;
+	  var socket = _ref.socket;
 
 	  var input = void 0;
-	  console.log({ dispatch: dispatch });
 
 	  return _react2.default.createElement(
 	    'div',
@@ -28200,8 +28210,6 @@
 	          if (!input.value.trim()) {
 	            return;
 	          }
-	          console.log("INPUT VALUE", input.value);
-	          console.log("store? btw store = value", value);
 	          socket.emit('chat message', input.value);
 	          input.value = '';
 	        }
@@ -28219,93 +28227,10 @@
 	  );
 	};
 
-	ChatForm.propTypes = {
-	  dispatch: _react.PropTypes.func.isRequired
-	};
-
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	  return { text: state.text };
-	};
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ChatForm);
-
-/***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Message = __webpack_require__(260);
-
-	var _Message2 = _interopRequireDefault(_Message);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var MessageList = function MessageList(_ref) {
-	  var value = _ref.value;
-
-	  return _react2.default.createElement(
-	    'ul',
-	    { id: 'messages' },
-	    value.map(function (message) {
-	      return _react2.default.createElement(_Message2.default, {
-	        key: message.id,
-	        message: message.text
-	      });
-	    })
-	  );
-	};
-
-	MessageList.propTypes = {
-	  value: _react.PropTypes.arrayOf(_react.PropTypes.shape({
-	    id: _react.PropTypes.string.isRequired,
-	    text: _react.PropTypes.string.isRequired
-	  }).isRequired).isRequired
-	};
-
-	exports.default = MessageList;
+	exports.default = ChatForm;
 
 /***/ },
 /* 258 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-	var ChatReducer = function ChatReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-	  var action = arguments[1];
-
-	  switch (action.type) {
-
-	    case 'ADD_MESSAGE':
-	      return [].concat(_toConsumableArray(state), [{
-	        id: action.id,
-	        text: action.text
-	      }]);
-
-	    default:
-	      return state;
-	  }
-	};
-
-	exports.default = ChatReducer;
-
-/***/ },
-/* 259 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28322,6 +28247,57 @@
 	    text: text
 	  };
 	};
+
+/***/ },
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Message = __webpack_require__(260);
+
+	var _Message2 = _interopRequireDefault(_Message);
+
+	var _reactRedux = __webpack_require__(227);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var MessageList = function MessageList(_ref) {
+	  var messages = _ref.messages;
+
+
+	  return _react2.default.createElement(
+	    'ul',
+	    { id: 'messages' },
+	    messages.map(function (message) {
+	      return _react2.default.createElement(_Message2.default, {
+	        key: message.id,
+	        message: message.text
+	      });
+	    })
+	  );
+	};
+
+	// MessageList.propTypes = {
+	//   dataStore: PropTypes.arrayOf(PropTypes.shape({
+	//     id: PropTypes.string.isRequired,
+	//     text: PropTypes.string.isRequired,
+	//   }).isRequired).isRequired,
+	// };
+
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  return { messages: state };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MessageList);
 
 /***/ },
 /* 260 */
@@ -28353,6 +28329,114 @@
 	// };
 
 	exports.default = Message;
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); } //sidebar component
+	//contains Rooms component
+	//Rooms component contains specific room component
+
+
+	var SideBar = function SideBar(_ref) {
+	  _objectDestructuringEmpty(_ref);
+
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "sideBar" },
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "Canh"
+	    ),
+	    _react2.default.createElement("ul", { id: "rooms" })
+	  );
+	};
+
+	exports.default = SideBar;
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+	var Test = function Test(_ref) {
+	  _objectDestructuringEmpty(_ref);
+
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "Test"
+	    ),
+	    _react2.default.createElement("ul", { id: "rooms" })
+	  );
+	};
+
+	exports.default = Test;
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+	var Test2 = function Test2(_ref) {
+	  _objectDestructuringEmpty(_ref);
+
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "Test2"
+	    ),
+	    _react2.default.createElement("ul", { id: "rooms" })
+	  );
+	};
+
+	exports.default = Test2;
 
 /***/ }
 /******/ ]);
