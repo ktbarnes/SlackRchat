@@ -12,6 +12,7 @@ router.get('/users', function (request, response) {
 });
 
 router.post('/login', function (request, response) {
+  console.log("A USER IS TRYING TO LOGIN", request.body)
   User.getUser(request.body.email)
   .then(user => {
     bcrypt.compare(request.body.password, user[0].password, function(err, matched) {
@@ -53,6 +54,7 @@ router.get('/channels', function (request, response) {
 router.post('/messages', function (request, response) {
   let encoded = request.headers.authorization.split(' ')[1];
   let token = jwt.decode(encoded, process.env.SECRET);
+  console.log(token);
   let data = {
     userID: token.id,
     channelID: request.body.channelID,
