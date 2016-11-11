@@ -6,7 +6,7 @@ module.exports = function(http){
   io.sockets.on('connection', function(socket){
 
     console.log('a user connected to:' + socket.id);
-    socket.broadcast.emit('someoneJoin','a user connected');
+    io.sockets.emit('someoneJoin','a user connected');
 
     socket.on('chat message', function(msg){
       console.log('message: ' + msg);
@@ -20,12 +20,5 @@ module.exports = function(http){
     });
 
   });
-
-
-  // io.on('chat message', function(msg){
-  //   console.log('message: ' + msg);
-  //   socket.emit('chat message', msg);
-  // });
-
     
 }

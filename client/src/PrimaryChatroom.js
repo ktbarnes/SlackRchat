@@ -3,11 +3,7 @@ import { dispatch, connect } from 'react-redux';
 import ChatForm from './chatForm.js';
 import MessageList from './ChatBody.js';
 import Message from './Message.js';
-import ChatReducer from '../reducers/ChatReducer.js';
 import { addMessage } from '../actions/ChatActions';
-import Nav from './nav.js';
-import SideBar from './sidebar.js';
-
 
 class PrimaryChatroom extends React.Component {
 
@@ -22,6 +18,11 @@ class PrimaryChatroom extends React.Component {
       that.handleReceiveMessage(message);
     });
     this.socket.on('disconnect', function(message){
+      console.log("what is my message",message);
+      that.handleReceiveMessage(message);
+    });
+    this.socket.on('someoneJoin', function(message){
+      console.log("what is my message",message);
       that.handleReceiveMessage(message);
     });
   }
@@ -30,13 +31,10 @@ class PrimaryChatroom extends React.Component {
     this.props.dispatch(addMessage(chat));
   }
 
-
   render(){
     const { dataStore } = this.props
     return (
       <div>
-        <Nav />
-        <SideBar />
         <ChatForm socket={this.socket} />
         <MessageList />
         <Message />
