@@ -10,8 +10,33 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 .title {text-align:center; font-size: 50px; justify-content: space-between; font-family: courier; color: white;}
 .navbutton { float: right; color: white; font-size: 20px; 
 	font-family: courier; text-align: right; padding: 10px 12px; text-decoration: none; }
-.sideBar {width:200px; }
+/*.sideBar {width:200px; }*/
+#profile_modal {width:700px; height:700px;background: #eee; text-align: center; font-size: 30px; font-family:courier;}
+#modal_header{}
+#modal_content{}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*.profile_modal {width: 700px; height: 700px;}*/
 /*#nav.navbar-default { align-items: center; font-size: 14px; font-color: white; background-color: rgba(37, 32, 99, 1); 
 	border-bottom-width: 1px;}
 #nav.navbar-default .title {display:flex; font-size: 30px; font-color: white; color: rgba(119, 119, 119, 1)}
