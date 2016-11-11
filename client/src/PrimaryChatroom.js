@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { PropTypes } from 'react';
 import { dispatch, connect } from 'react-redux';
 import ChatForm from './chatForm.js';
@@ -9,30 +10,45 @@ class PrimaryChatroom extends React.Component {
 
   constructor(props){
     super(props)
-    console.log("what are my props",this.props)
     this.socket = io('/Hack-Reactor-NameSpace');
+    // console.log("what are props",this.props);
     this.room = this.props.rooms[0].room;
+    this.allMessages;
   }
 
   componentDidMount() {
     let that = this;
+    // this.props.dispatch(downloadAllMessages());
+    this.allMessages = this.downloadAllMessages();
     this.socket.on('chat message', message => that.handleReceiveMessage(message) );
     this.socket.on('disconnected', message => that.handleReceiveMessage(message) );
     this.socket.on('someoneJoin', message => that.handleReceiveMessage(message) );
     
     //room stuff
     that.room = this.room;
-    console.log("socket is here",this.socket)
-    this.socket.on('connect', function() {
-       // Connected, let's sign-up for to receive messages for this room
-       that.socket.emit('changeRoom', that.room);
-       console.log("what room",that.room)
-    });
+    this.socket.on('connect', () => that.socket.emit('changeRoom', that.room));
 
   }
   
   handleReceiveMessage(chat) {
     this.props.dispatch(addMessage(chat));
+  }
+
+  downloadAllMessages() {
+    this.allMessages = axios.get('/api/messages');
+    console.log("what are my messages",this.allMessages)
+    // .then( (res) => {
+    //   //some code
+    //   return res.map( (message) => {
+    //     return {
+    //       "id": message.id,
+    //       "channelID": message.channelID,
+    //       "text": message.message,
+    //       "created_at": message.created_at,
+    //       "updated_at": message.updated_at
+    //     }
+    //   });
+    // });
   }
 
   render(){
@@ -56,7 +72,6 @@ PrimaryChatroom.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("in primarychatroom", state.allReducers.RoomReducer)
   return { rooms: state.allReducers.RoomReducer }
 };
 

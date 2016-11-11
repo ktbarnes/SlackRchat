@@ -21,15 +21,7 @@ const SideBar = ( {rooms} ) => {
   )
 }
 
-// MessageList.propTypes = {
-//   dataStore: PropTypes.arrayOf(PropTypes.shape({
-//     id: PropTypes.string.isRequired,
-//     text: PropTypes.string.isRequired,
-//   }).isRequired).isRequired,
-// };
-
 const mapStateToProps = (state, ownProps) => {
-  console.log("what are my rooms", state.allReducers.RoomReducer);
   return { rooms: state.allReducers.RoomReducer }
 };
 
