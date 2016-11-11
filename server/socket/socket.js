@@ -26,7 +26,7 @@
 module.exports = function(socket){
 
   console.log('a user connected to:' + socket.id);
-  socket.broadcast.emit('someoneJoin','a user connected');
+  socket.broadcast.emit('someoneJoin','A user connected');
 
   socket.on('chat message', function(msg){
     console.log('message: ' + msg);

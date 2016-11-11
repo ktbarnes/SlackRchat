@@ -27,9 +27,13 @@ class PrimaryChatroom extends React.Component {
     const { dataStore } = this.props
     return (
       <div>
-        <ChatForm socket={this.socket} />
-        <MessageList />
-        <Message />
+        <div>
+          <MessageList />
+          <Message />
+        </div>
+        <div>
+          <ChatForm socket={this.socket} />
+        </div>
       </div>
     )
   }
