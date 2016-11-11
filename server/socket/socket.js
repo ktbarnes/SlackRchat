@@ -1,24 +1,68 @@
 // For Socket.io
 
-module.exports = function(http){
-  var io = require('socket.io')(http);
+// module.exports = function(http){
+//   var io = require('socket.io')(http);
 
-  io.on('connection', function(socket){
+<<<<<<< HEAD
+  io.sockets.on('connection', function(socket){
 
     console.log('a user connected to:' + socket.id);
+    socket.broadcast.emit('someoneJoin','a user connected');
 
     socket.on('chat message', function(msg){
       console.log('message: ' + msg);
-      io.emit('chat message', msg);
+      io.sockets.emit('chat message', msg);
     });
 
     socket.on('disconnect', function(msg){
       console.log('user disconnected');
       msg = 'A user disconnected';
-      io.emit('disconnected',msg);
+      io.sockets.emit('disconnected',msg);
     });
+=======
+//   io.sockets.on('connection', function(socket){
 
+//     console.log('a user connected to:' + socket.id);
+//     io.sockets.emit('someoneJoin','a user connected');
+
+//     socket.on('chat message', function(msg){
+//       console.log('message: ' + msg);
+//       io.sockets.emit('chat message', msg);
+//     });
+
+//     socket.on('disconnect', function(msg){
+//       console.log('user disconnected');
+//       msg = 'A user disconnected';
+//       io.sockets.emit('disconnected',msg);
+//     });
+>>>>>>> broadcast
+
+//   });sub
+    
+// }
+
+module.exports = function(socket){
+
+  console.log('a user connected to:' + socket.id);
+  socket.broadcast.emit('someoneJoin','A user connected');
+
+  socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+    socket.emit('chat message', msg);
+    socket.broadcast.emit('chat message', msg);
   });
+
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+    var msg = 'A user disconnected';
+    socket.broadcast.emit('disconnected',msg);
+  });
+
+
+  // io.on('chat message', function(msg){
+  //   console.log('message: ' + msg);
+  //   socket.emit('chat message', msg);
+  // });
 
     
 }

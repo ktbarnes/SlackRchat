@@ -24,7 +24,7 @@ const MessageList = ( {messages} ) => {
 // };
 
 const mapStateToProps = (state, ownProps) => {
-  return { messages: state.ChatReducer }
+  return { messages: state.allReducers.ChatReducer }
 };
 
 export default connect(mapStateToProps)(MessageList);
