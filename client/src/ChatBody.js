@@ -27,6 +27,7 @@ const MessageList = ( {messages, room} ) => {
 // };
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state.allReducers.ChatReducer);
   return { messages: state.allReducers.ChatReducer }
 };
 

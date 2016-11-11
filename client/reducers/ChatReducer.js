@@ -5,8 +5,11 @@ const ChatReducer = (state = [], action) => {
       return [
         ...state,
         {
-          id: action.id,
+          id: action.id || null,
           text: action.text,
+          channelID: action.channelID || 2,
+          updated_at: action.updated_at || "",
+          created_at: action.created_at || "",
         },
       ];
     

@@ -35,20 +35,20 @@ class PrimaryChatroom extends React.Component {
   }
 
   downloadAllMessages() {
-    this.allMessages = axios.get('/api/messages');
-    console.log("what are my messages",this.allMessages)
-    // .then( (res) => {
-    //   //some code
-    //   return res.map( (message) => {
-    //     return {
-    //       "id": message.id,
-    //       "channelID": message.channelID,
-    //       "text": message.message,
-    //       "created_at": message.created_at,
-    //       "updated_at": message.updated_at
-    //     }
-    //   });
-    // });
+    axios.get('/db/messages')
+    .then( (res) => {
+      res.data.forEach( (msg) => {
+        let eachMsg = {
+          id: msg.id,
+          channelID: msg.channelID,
+          text: msg.message,
+          created_at: msg.created_at,
+          updated_at: msg.updated_at
+        }
+        this.props.dispatch(addMessage(eachMsg));
+      });
+    });
+
   }
 
   render(){

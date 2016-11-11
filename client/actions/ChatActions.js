@@ -3,28 +3,25 @@ import axios from 'axios';
 let nextMessageId = 0;
 
 export const ADD_MESSAGE = 'ADD_MESSAGE'
-export const DOWNLOAD_ALL_MESSAGES = 'DOWNLOAD_ALL_MESSAGES'
+export const DOWNLOAD_FROM_DB = 'DOWNLOAD_FROM_DB'
 
-export const addMessage = (text) => {
+export const addMessage = (msg) => {
   return {
     type: 'ADD_MESSAGE',
-    id: (nextMessageId++).toString(),
-    text,
+    // id: (nextMessageId++).toString(),
+    id: msg.id,
+    channelID: msg.channelID,
+    text: msg.text,
+    created_at: msg.created_at,
+    updated_at: msg.updated_at
+
   };
 };
 
-export const downloadAllMessages = () => {
-  const request = axios.get('/api/messages')
-  .then( (res) => {
-    //some code
-    return res.map( (message) => {
-      return {
-        "id": message.id,
-        "channelID": message.channelID,
-        "text": message.message,
-        "created_at": message.created_at,
-        "updated_at": message.updated_at
-      }
-    });
-  });
-}
+// export const downloadAllMessages = (chatObj) => {
+//   return {
+//     type: 'DOWNLOAD_FROM_DB',
+//     chatObj,
+//   };
+// }
+
