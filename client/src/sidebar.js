@@ -1,27 +1,28 @@
-//sidebar component
-//contains Rooms component
-//Rooms component contains specific room component
-import React from 'react';
+import React, { PropTypes } from 'react';
+import SideBarEntryChannel from './SideBarEntry-Channel';
+import { connect } from 'react-redux';
 
-const SideBar = ({}) => (
-  	<div className="sideBar">
-  	<h1>Rooms</h1>
-     <ul>
-     <li>Here we will list the Rooms</li>
-     </ul>
-    <h2>Direct Messages</h2> 
-    <ul>
-     <li>Here we will list the Direct Messages</li>
-     </ul>
-  	</div>	
+const SideBar = ( {rooms} ) => {
 
-);
+  return (
+    <div>
+      <div>
+        CHANNELS
+        <ul id="rooms">
+          {rooms.map(room =>
+            <SideBarEntryChannel
+              key={room.id}
+              room={room.room}
+            />
+          )}
+        </ul>
+      </div>
+    </div>
+  )
+}
 
+const mapStateToProps = (state, ownProps) => {
+  return { rooms: state.allReducers.RoomReducer }
+};
 
-export default SideBar
-
-//under h1 should be a Rooms Component entry
-	//<RoomsEntry rooms={this.state.rooms}/>
-//under h2 should be a Direct Messages Component
-	//<DMEntry dms={this.state.dms}/>
-//we need to discuss state and where	
+export default connect(mapStateToProps)(SideBar);
