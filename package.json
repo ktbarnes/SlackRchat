@@ -6,7 +6,9 @@
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./test/sample_test_spec.js --recursive",
     "test:watch": "npm run test -- --watch",
-    "build": "webpack --debug"
+    "build": "webpack --debug -w",
+    "start": "node server/server.js"
+
   },
   "repository": {
     "type": "git",
