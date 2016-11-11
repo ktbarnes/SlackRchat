@@ -9,7 +9,8 @@ class PrimaryChatroom extends React.Component {
 
   constructor(props){
     super(props)
-    this.socket = io();
+    this.socket = io('/Hack-Reactor-NameSpace');
+    this.room = 'abc123';
   }
 
   componentDidMount() {
@@ -17,6 +18,16 @@ class PrimaryChatroom extends React.Component {
     this.socket.on('chat message', message => that.handleReceiveMessage(message) );
     this.socket.on('disconnected', message => that.handleReceiveMessage(message) );
     this.socket.on('someoneJoin', message => that.handleReceiveMessage(message) );
+    
+    //room stuff
+    that.room = this.room;
+    console.log("socket is here",this.socket)
+    this.socket.on('connect', function() {
+       // Connected, let's sign-up for to receive messages for this room
+       that.socket.emit('changeRoom', that.room);
+       console.log("what room",that.room)
+    });
+
   }
   
   handleReceiveMessage(chat) {
@@ -24,7 +35,6 @@ class PrimaryChatroom extends React.Component {
   }
 
   render(){
-    const { dataStore } = this.props
     return (
       <div>
         <div>
@@ -32,7 +42,7 @@ class PrimaryChatroom extends React.Component {
           <Message />
         </div>
         <div>
-          <ChatForm socket={this.socket} />
+          <ChatForm socket={this.socket} room={this.room} />
         </div>
       </div>
     )
