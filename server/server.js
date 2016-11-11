@@ -16,7 +16,9 @@ require('./config/middleware.js')(app, express);
 var http = require('http').Server(app);
 var socket = require('./socket/socket.js');
 var io = require('socket.io')(http);
-io.sockets.on('connection', io => {socket(io)}); //I did this to pass into socket the io module
+var hrns = io.of('/Hack-Reactor-NameSpace'); 
+//Just one "organization" for now, called HRNS. we can add more later
+hrns.on('connection', hrns => socket(hrns)); //I did this to pass into socket the io module
 
 
 
