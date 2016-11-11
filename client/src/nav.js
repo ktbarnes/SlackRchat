@@ -9,10 +9,10 @@ export default class Nav extends React.Component {
   render() {
     return (
       <div className="nav">
-        <h1>Slacker</h1>
-        <a className="btn btn-primary" href="#" onClick={this.open}>Profile</a>
-        <a className="btn btn-primary" href="/SignIn"> SignIn </a>
-        <a className="btn btn-primary" href="/LogOut">LogOut</a>
+        <h1 className="title">Slacker</h1>
+        <a className="navbutton" href="#" onClick={this.open}>Profile</a>
+        <a className="navbutton" href="/Login"> Login </a>
+        <a className="navbutton" href="/Logout">LogOut</a>
       </div>
     );
   }
@@ -20,7 +20,8 @@ export default class Nav extends React.Component {
   
     // <Route path='LogOut' component={Logout} />
   
-
+//Login Component should switch to Logout
+//User should see Logout once logged in, User should see Login when Logged Out
 
 // var Modal = React.createClass({
 //   render() {

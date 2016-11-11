@@ -17,12 +17,12 @@ export default class Login extends React.Component {
 
     return (
       <div>
-        <input type='text' ref='username' className='form-control' style= placeholder="Username" />
-        <input type='password' ref='password' className='form-control' style= placeholder="Password" />
+        <input type='text' ref='username' className='form-control' placeholder="Username" />
+        <input type='password' ref='password' className='form-control' placeholder="Password" />
         <button onClick={(event) => this.handleClick(event)} className='btn btn-auth'>
         Login
         </button>
-        {errorMessage && <p style=>{errorMessage}</p>}
+        {errorMessage && <p>{errorMessage}</p>}
       </div>
     )
   }
