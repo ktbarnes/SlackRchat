@@ -40,5 +40,11 @@ module.exports = function(socket){
     socket.broadcast.emit('disconnected',msg);
   });
 
+
+  // io.on('chat message', function(msg){
+  //   console.log('message: ' + msg);
+  //   socket.emit('chat message', msg);
+  // });
+
     
 }
