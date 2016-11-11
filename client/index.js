@@ -5,7 +5,7 @@ import {syncHistoryWithStore, routerReducer} from 'react-router-redux'
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux'
 import ChatReducer from './reducers/ChatReducer'
-import combineReducers from './reducers'
+// import combineReducers from './reducers'
 import PrimaryChatroom from './src/app'
 import SideBar from './src/sidebar.js'
 import Test from './src/test.js'

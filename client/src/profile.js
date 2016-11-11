@@ -11,40 +11,40 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state= {
-    	first: '',
-    	last: '',
-    	phone: '',
-    	email: '',
-    	photo:
-    	//these might be filled in initially in signup
-    	this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    // this.state= {
+    // 	first: '',
+    // 	last: '',
+    // 	phone: '',
+    // 	email: '',
+    // 	photo:
+    // 	//these might be filled in initially in signup
+    // 	this.handleSubmit = this.handleSubmit.bind(this);
+    // }
 
-    handleInputChange(e) {
-    	this.setState({
-    		first: e.target.first,
-    		last: e.target.last,
-    		phone: e.target.phone,
-    		email: e.target.email,
-    		photo: 
-    	})
-    }
-  //   this.state = {
-  //     isOpen: false
-  //   };
+    // handleInputChange(e) {
+    // 	this.setState({
+    // 		first: e.target.first,
+    // 		last: e.target.last,
+    // 		phone: e.target.phone,
+    // 		email: e.target.email,
+    // 		photo: 
+    // 	})
+    // }
+    this.state = {
+      isOpen: false
+    };
   
-  // openModal = () => {
-  // 	this.setState({
-  // 	  isOpen: true
-  // 	});
-  // };
+  openModal = () => {
+  	this.setState({
+  	  isOpen: true
+  	});
+  };
 
-  // hideModal = () => {
-  // 	this.setState({
-  // 	  isOpen: false
-  // 	});
-  // };
+  hideModal = () => {
+  	this.setState({
+  	  isOpen: false
+  	});
+  };
 
 
   render() {
