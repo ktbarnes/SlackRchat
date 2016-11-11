@@ -22,40 +22,41 @@
     
 // }
 
-module.exports = function(socket){
+// module.exports = function(socket){
 
-  var currentRoom = '';
+//   var currentRoom = '';
 
-  console.log('a user connected to:' + socket.id);
-  socket.broadcast.emit('someoneJoin','A user connected');
+//   console.log('a user connected to:' + socket.id);
+//   socket.broadcast.emit('someoneJoin','A user connected');
 
-  socket.on('chat message', function(fromClient){
-    console.log('chat message: ' + fromClient.msg);
-    console.log('room name: ' + fromClient.room);
-    // socket.emit('chat message', fromClient.msg);
-    // socket.broadcast.emit('chat message', fromClient.msg);
-    socket.to(fromClient.room).emit('chat message', fromClient.msg);
-  });
+//   socket.on('chat message', function(fromClient){
+//     console.log('chat message: ' + fromClient.msg);
+//     console.log('room name: ' + fromClient.room, currentRoom);
+//     // socket.emit('chat message', fromClient.msg);
+//     // socket.broadcast.emit('chat message', fromClient.msg);
+//     socket.to(currentRoom).emit('chat message', fromClient.msg);
+//     socket.to(fromClient.room).emit('chat message', fromClient.msg);
+//   });
 
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-    var msg = 'A user disconnected';
-    socket.broadcast.emit('disconnected',msg);
-  });
+//   socket.on('disconnect', function(){
+//     console.log('user disconnected');
+//     var msg = 'A user disconnected';
+//     socket.broadcast.emit('disconnected',msg);
+//   });
 
 
-  //Room-specific code
+//   //Room-specific code
 
-  socket.on('changeRoom', function(room) {
-    currentRoom = room;
-    socket.join(room);
-    console.log("currentRoom",currentRoom);
-    socket.in(currentRoom).broadcast.emit('roomMessage', 'what is going on, party people?');
-    socket.to(currentRoom).emit('roomMessageTest', 'TEST - what is going on, party people?');
-  });
+//   socket.on('changeRoom', function(room) {
+//     currentRoom = room;
+//     socket.join(room);
+//     console.log("currentRoom",currentRoom);
+//     socket.in(currentRoom).broadcast.emit('roomMessage', 'what is going on, party people?');
+//     socket.to(currentRoom).emit('roomMessageTest', 'TEST - what is going on, party people?');
+//   });
 
-  // io.sockets.in(currentRoom).emit('message', 'what is going on, party people?');
-  socket.in(currentRoom).broadcast.emit('roomMessage', 'what is going on, party people?');
-  socket.to(currentRoom).emit('roomMessageTest', 'TEST - what is going on, party people?');
+//   // io.sockets.in(currentRoom).emit('message', 'what is going on, party people?');
+//   socket.in(currentRoom).broadcast.emit('roomMessage', 'what is going on, party people?');
+//   socket.to(currentRoom).emit('roomMessageTest', 'TEST - what is going on, party people?');
     
-}
+// }

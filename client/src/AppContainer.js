@@ -11,10 +11,10 @@ class AppContainer extends React.Component {
 
         <div><Nav /></div>
         
-        <div>
-          <div><SideBar /></div>
-          <div><PrimaryChatroom /></div>
-        </div>
+        <table>
+          <td><SideBar /></td>
+          <td><PrimaryChatroom /></td>
+        </table>
 
       </div>
     )

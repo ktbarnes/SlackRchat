@@ -9,8 +9,9 @@ class PrimaryChatroom extends React.Component {
 
   constructor(props){
     super(props)
+    console.log("what are my props",this.props)
     this.socket = io('/Hack-Reactor-NameSpace');
-    this.room = 'abc123';
+    this.room = this.props.rooms[0].room;
   }
 
   componentDidMount() {
@@ -38,7 +39,7 @@ class PrimaryChatroom extends React.Component {
     return (
       <div>
         <div>
-          <MessageList />
+          <MessageList room={this.room}/>
           <Message />
         </div>
         <div>
@@ -55,7 +56,8 @@ PrimaryChatroom.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  return { state: state.allReducers.ChatReducer }
+  console.log("in primarychatroom", state.allReducers.RoomReducer)
+  return { rooms: state.allReducers.RoomReducer }
 };
 
 export default connect(mapStateToProps)(PrimaryChatroom);
