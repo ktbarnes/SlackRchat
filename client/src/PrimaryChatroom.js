@@ -14,17 +14,9 @@ class PrimaryChatroom extends React.Component {
 
   componentDidMount() {
     let that = this;
-    this.socket.on('chat message', function(message){
-      that.handleReceiveMessage(message);
-    });
-    this.socket.on('disconnect', function(message){
-      console.log("what is my message",message);
-      that.handleReceiveMessage(message);
-    });
-    this.socket.on('someoneJoin', function(message){
-      console.log("what is my message",message);
-      that.handleReceiveMessage(message);
-    });
+    this.socket.on('chat message', message => that.handleReceiveMessage(message) );
+    this.socket.on('disconnected', message => that.handleReceiveMessage(message) );
+    this.socket.on('someoneJoin', message => that.handleReceiveMessage(message) );
   }
   
   handleReceiveMessage(chat) {
