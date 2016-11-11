@@ -2,17 +2,20 @@ import React, { PropTypes } from 'react';
 import Message from './Message';
 import { connect } from 'react-redux';
 
-const MessageList = ( {messages} ) => {
+const MessageList = ( {messages, room} ) => {
 
   return (
-    <ul id="messages">
-      {messages.map(message =>
-        <Message
-          key={message.id}
-          message={message.text}
-        />
-      )}
-    </ul>
+    <div>
+      You are in room: { room }
+      <ul id="messages">
+        {messages.map(message =>
+          <Message
+            key={message.id}
+            message={message.text}
+          />
+        )}
+      </ul>
+    </div>
   )
 }
 
