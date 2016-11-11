@@ -10,9 +10,13 @@ require('./config/middleware.js')(app, express);
 
 
 
-// require socket
+// // require socket
+// var http = require('http').Server(app);
+// require('./socket/socket.js')(http);
 var http = require('http').Server(app);
-require('./socket/socket.js')(http);
+var socket = require('./socket/socket.js');
+var io = require('socket.io')(http);
+io.sockets.on('connection', io => {socket(io)}); //I did this to pass into socket the io module
 
 
 
