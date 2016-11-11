@@ -36,7 +36,7 @@ class PrimaryChatroom extends React.Component {
     return (
       <div>
         <Nav />
-        <SideBar/>
+        <SideBar />
         <ChatForm socket={this.socket} />
         <MessageList />
         <Message />
