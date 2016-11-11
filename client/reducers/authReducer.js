@@ -1,6 +1,3 @@
-// import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions/login'
-// import { LOGOUT_SUCCESS } from '../actions/logout'
-
 const authReducer = (state = {isFetching: false, isAuthenticated: !!localStorage.getItem('id_token')}, action) => {
   switch (action.type) {
     case 'LOGIN_REQUEST':
