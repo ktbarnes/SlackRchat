@@ -11,6 +11,7 @@ const MessageList = ( {messages, room} ) => {
         {messages.map(message =>
           <Message
             key={message.id}
+            username={message.username}
             text={message.text}
             created_at={message.created_at}
           />

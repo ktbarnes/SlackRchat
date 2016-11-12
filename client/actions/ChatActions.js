@@ -11,9 +11,7 @@ export const addMessageFromSocket = (msg) => {
     id: (nextMessageId++).toString(),
     channelID: msg.channelID,
     text: msg.text,
-    created_at: new Date().toJSON(),
-    updated_at: new Date().toJSON()
-
+    created_at: new Date().toJSON()
   };
 };
 
@@ -21,10 +19,10 @@ export const addMessageFromDB = (msg) => {
   return {
     type: 'ADD_MESSAGE_FROM_DB',
     id: msg.id,
-    channelID: msg.channelID,
+    username: msg.username,
+    channel: msg.channel,
     text: msg.text,
-    created_at: msg.created_at,
-    updated_at: msg.updated_at
+    created_at: msg.created_at
 
   };
 };
