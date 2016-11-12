@@ -4,7 +4,7 @@ import { dispatch, connect } from 'react-redux';
 import ChatForm from './chatForm.js';
 import MessageList from './ChatBody.js';
 import Message from './Message.js';
-import { addMessage } from '../actions/ChatActions';
+import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
 
 class PrimaryChatroom extends React.Component {
 
@@ -13,42 +13,38 @@ class PrimaryChatroom extends React.Component {
     this.socket = io('/Hack-Reactor-NameSpace');
     // console.log("what are props",this.props);
     this.room = this.props.rooms[0].room;
-    this.allMessages;
   }
 
   componentDidMount() {
-    let that = this;
-    // this.props.dispatch(downloadAllMessages());
-    this.allMessages = this.downloadAllMessages();
-    this.socket.on('chat message', message => that.handleReceiveMessage(message) );
-    this.socket.on('disconnected', message => that.handleReceiveMessage(message) );
-    this.socket.on('someoneJoin', message => that.handleReceiveMessage(message) );
+    this.downloadAllMessages();
+    this.socket.on('chat message', txt => this.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
+    this.socket.on('disconnected', txt => this.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
+    this.socket.on('someoneJoin', txt => this.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
     
     //room stuff
-    that.room = this.room;
-    this.socket.on('connect', () => that.socket.emit('changeRoom', that.room));
+    this.socket.on('connect', () => this.socket.emit('changeRoom', this.room));
 
   }
   
-  handleReceiveMessage(chat) {
-    this.props.dispatch(addMessage(chat));
+  handleReceiveMessage(cb,chat) {
+    this.props.dispatch(cb(chat));
   }
 
   downloadAllMessages() {
-    this.allMessages = axios.get('/api/messages');
-    console.log("what are my messages",this.allMessages)
-    // .then( (res) => {
-    //   //some code
-    //   return res.map( (message) => {
-    //     return {
-    //       "id": message.id,
-    //       "channelID": message.channelID,
-    //       "text": message.message,
-    //       "created_at": message.created_at,
-    //       "updated_at": message.updated_at
-    //     }
-    //   });
-    // });
+    axios.get('/db/messages')
+    .then( (res) => {
+      res.data.forEach( (msg) => {
+        let eachMsg = {
+          id: msg.id,
+          channelID: msg.channelID,
+          text: msg.message,
+          created_at: msg.created_at,
+          updated_at: msg.updated_at
+        }
+        this.handleReceiveMessage(addMessageFromDB,eachMsg);
+      });
+    });
+
   }
 
   render(){
