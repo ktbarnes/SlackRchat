@@ -47,6 +47,12 @@ const ChatForm = ( { socket, room } ) => {
   );
 };
 
+const mapStateToProps = (state, ownProps) => {
+  return { 
+    users: state.allReducers.UserReducer
+  }
+};
+
 export default ChatForm;
 
 

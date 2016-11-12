@@ -14,8 +14,10 @@ var Message = {
            .join('channel as c1','channel_messages.channelID', 'c1.id')
            .select(
                  'channel_messages.id',
-                 'u1.username',
-                 'c1.name',
+                 'u1.username as username',
+                 'u1.id as userIDinDB',
+                 'c1.name as channelName',
+                 'c1.id as channelIDinDB',
                  'channel_messages.message',
                  'channel_messages.created_at');
   },

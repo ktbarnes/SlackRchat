@@ -1,4 +1,4 @@
-const RoomReducer = (state = [ { id: 0, room: "Lobby" } ], action) => {
+const RoomReducer = (state = [], action) => {
   switch (action.type) {
 
     case 'ADD_ROOM':
@@ -6,7 +6,7 @@ const RoomReducer = (state = [ { id: 0, room: "Lobby" } ], action) => {
         ...state,
         {
           id: action.id,
-          text: action.text,
+          channelName: action.channelName,
         },
       ];
     

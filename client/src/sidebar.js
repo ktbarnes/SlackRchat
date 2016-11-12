@@ -12,7 +12,7 @@ const SideBar = ( {rooms} ) => {
           {rooms.map(room =>
             <SideBarEntryChannel
               key={room.id}
-              room={room.room}
+              room={room.channelName}
             />
           )}
         </ul>
