@@ -10,7 +10,6 @@ class Login extends React.Component {
   }
 
   handleClick(event) {
-    console.log("is there a Transition?", Transition)
     const username = this.refs.username
     const password = this.refs.password
     const creds = { 
