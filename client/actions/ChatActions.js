@@ -20,9 +20,10 @@ export const addMessageFromDB = (msg) => {
     type: 'ADD_MESSAGE_FROM_DB',
     id: msg.id,
     username: msg.username,
-    channel: msg.channel,
+    userIDinDB: msg.userIDinDB,
+    channelName: msg.channelName,
+    channelIDinDB: msg.channelIDinDB,
     text: msg.text,
     created_at: msg.created_at
-
   };
 };
