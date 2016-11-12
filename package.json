@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./test/sample_test_spec.js --recursive",
     "test:watch": "npm run test -- --watch",
+    "postinstall": "webpack --config --progress --colors",
     "build": "webpack --debug -w",
     "start": "node server/server.js && webpack --debug"
   },
