@@ -25,7 +25,7 @@ const ChatForm = ( { socket, room } ) => {
 
           //this is where you will issue a POST request to the database
           axios.post('/db/messages',{
-            channelID: 2, //hard-coded for now
+            channelID: 2, //passed in as props
             message: input.value
           },
           {

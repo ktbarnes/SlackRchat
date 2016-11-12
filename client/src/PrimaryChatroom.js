@@ -36,10 +36,10 @@ class PrimaryChatroom extends React.Component {
       res.data.forEach( (msg) => {
         let eachMsg = {
           id: msg.id,
-          channelID: msg.channelID,
+          username: msg.username,
+          channel: msg.channel,
           text: msg.message,
-          created_at: msg.created_at,
-          updated_at: msg.updated_at
+          created_at: msg.created_at
         }
         this.handleReceiveMessage(addMessageFromDB,eachMsg);
       });
