@@ -1,18 +1,11 @@
 import React from 'react'
-import Logout from './logout.js'
-import { loginUser } from '../actions/loginActions'
-import { logoutUser } from '../actions/logoutActions'
+import { connect, dispatch } from 'react-redux'
+import { logoutUser, requestLogout, receiveLogout } from '../actions/logoutActions'
 import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router'
 import Profile from './profile.js'
-import { Modal, 
-        Button,
-        ModalHeader,
-        ModalTitle,
-        ModalFooter,
-        ModalBody
-         } from 'react-bootstrap' 
+import { Modal, Button, ModalHeader, ModalTitle, ModalFooter, ModalBody } from 'react-bootstrap' 
 
-export default class Nav extends React.Component {
+class Nav extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -26,18 +19,27 @@ export default class Nav extends React.Component {
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
   }
-    open() {
-      console.log('inside open')
-      this.setState({
-        showModel: true
-      })
-    };
 
-    close() {
-      this.setState({
-        showModel: false,
-      })
-    };
+  open() {
+    console.log('inside open')
+    this.setState({
+      showModel: true
+    })
+  };
+
+  close() {
+    this.setState({
+      showModel: false,
+    })
+  };
+
+  logout() {
+    const { dispatch } = this.props;
+    dispatch(requestLogout());
+    localStorage.removeItem('id_token');
+    dispatch(receiveLogout());
+    // this.props.router.replace('/login');
+  }
 
   render() {
     return (
@@ -54,20 +56,17 @@ export default class Nav extends React.Component {
           phone={this.state.phone}
           about={this.state.about}
           />
-        <a className="navbutton" href="/Login"> Login </a>
-        <a className="navbutton" href="/Logout">LogOut</a>
+        <a className="navbutton" onClick={() => this.logout()} href="/login">Logout</a>
       </div>
     )
   }
 }
   
-//THESE states will need to be dynamically changed from database, based on authentication 
+const mapStateToProps = (state, ownProps) => {
+  return {}
+}
 
-  
-    // <Route path='LogOut' component={Logout} />
-  
-//Login Component should switch to Logout
-//User should see Logout once logged in, User should see Login when Logged Out
+export default connect(mapStateToProps)(Nav)
 
 // var Modal = React.createClass({
 //   render() {
