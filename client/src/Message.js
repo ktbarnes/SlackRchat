@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 
-const Message = ({ message }) => (
+const Message = ({ created_at, text }) => (
   <li>
-    { message }
+    { created_at }: { text }
   </li>
 );
 

@@ -4,7 +4,7 @@ import { dispatch, connect } from 'react-redux';
 import ChatForm from './chatForm.js';
 import MessageList from './ChatBody.js';
 import Message from './Message.js';
-import { addMessage } from '../actions/ChatActions';
+import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
 
 class PrimaryChatroom extends React.Component {
 
@@ -20,18 +20,19 @@ class PrimaryChatroom extends React.Component {
     let that = this;
     // this.props.dispatch(downloadAllMessages());
     this.allMessages = this.downloadAllMessages();
-    this.socket.on('chat message', message => that.handleReceiveMessage(message) );
-    this.socket.on('disconnected', message => that.handleReceiveMessage(message) );
-    this.socket.on('someoneJoin', message => that.handleReceiveMessage(message) );
+    this.socket.on('chat message', txt => that.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
+    this.socket.on('disconnected', txt => that.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
+    this.socket.on('someoneJoin', txt => that.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
     
     //room stuff
-    that.room = this.room;
-    this.socket.on('connect', () => that.socket.emit('changeRoom', that.room));
+    // that.room = this.room;
+    this.socket.on('connect', () => this.socket.emit('changeRoom', that.room));
 
   }
   
-  handleReceiveMessage(chat) {
-    this.props.dispatch(addMessage(chat));
+  handleReceiveMessage(cb,chat) {
+    console.log("what is chat",chat);
+    this.props.dispatch(cb(chat));
   }
 
   downloadAllMessages() {
@@ -45,7 +46,7 @@ class PrimaryChatroom extends React.Component {
           created_at: msg.created_at,
           updated_at: msg.updated_at
         }
-        this.props.dispatch(addMessage(eachMsg));
+        this.handleReceiveMessage(addMessageFromDB,eachMsg);
       });
     });
 

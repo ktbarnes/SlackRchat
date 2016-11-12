@@ -1,14 +1,25 @@
 import axios from 'axios';
 
-let nextMessageId = 0;
+let nextMessageId = 1000000000; //set at arbitrarily high number so as to not conflict with IDs that come in from the DB
 
-export const ADD_MESSAGE = 'ADD_MESSAGE'
-export const DOWNLOAD_FROM_DB = 'DOWNLOAD_FROM_DB'
+export const ADD_MESSAGE_FROM_SOCKET = 'ADD_MESSAGE_FROM_SOCKET'
+export const ADD_MESSAGE_FROM_DB = 'ADD_MESSAGE_FROM_DB'
 
-export const addMessage = (msg) => {
+export const addMessageFromSocket = (msg) => {
   return {
-    type: 'ADD_MESSAGE',
-    // id: (nextMessageId++).toString(),
+    type: 'ADD_MESSAGE_FROM_SOCKET',
+    id: (nextMessageId++).toString(),
+    channelID: msg.channelID,
+    text: msg.text,
+    created_at: new Date().toJSON(),
+    updated_at: new Date().toJSON()
+
+  };
+};
+
+export const addMessageFromDB = (msg) => {
+  return {
+    type: 'ADD_MESSAGE_FROM_DB',
     id: msg.id,
     channelID: msg.channelID,
     text: msg.text,
@@ -17,11 +28,3 @@ export const addMessage = (msg) => {
 
   };
 };
-
-// export const downloadAllMessages = (chatObj) => {
-//   return {
-//     type: 'DOWNLOAD_FROM_DB',
-//     chatObj,
-//   };
-// }
-
