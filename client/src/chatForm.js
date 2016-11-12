@@ -29,7 +29,7 @@ const ChatForm = ( { socket, room } ) => {
             message: input.value
           },
           {
-            headers: { "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTJ9.qifg_jvw1xy7H2AViQHcWXi1HvhmP3eFAJ1IhDaq7CM" } //dummy token for now
+            headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') }
           })
           .then(() => console.log("message sent to DB!"))
           .catch((err) => console.error(err))
