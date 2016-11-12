@@ -1,30 +1,30 @@
 import axios from 'axios';
 
-let nextMessageId = 0;
+let nextMessageId = 1000000000; //set at arbitrarily high number so as to not conflict with IDs that come in from the DB
 
-export const ADD_MESSAGE = 'ADD_MESSAGE'
-export const DOWNLOAD_ALL_MESSAGES = 'DOWNLOAD_ALL_MESSAGES'
+export const ADD_MESSAGE_FROM_SOCKET = 'ADD_MESSAGE_FROM_SOCKET'
+export const ADD_MESSAGE_FROM_DB = 'ADD_MESSAGE_FROM_DB'
 
-export const addMessage = (text) => {
+export const addMessageFromSocket = (msg) => {
   return {
-    type: 'ADD_MESSAGE',
+    type: 'ADD_MESSAGE_FROM_SOCKET',
     id: (nextMessageId++).toString(),
-    text,
+    channelID: msg.channelID,
+    text: msg.text,
+    created_at: new Date().toJSON(),
+    updated_at: new Date().toJSON()
+
   };
 };
 
-export const downloadAllMessages = () => {
-  const request = axios.get('/api/messages')
-  .then( (res) => {
-    //some code
-    return res.map( (message) => {
-      return {
-        "id": message.id,
-        "channelID": message.channelID,
-        "text": message.message,
-        "created_at": message.created_at,
-        "updated_at": message.updated_at
-      }
-    });
-  });
-}
+export const addMessageFromDB = (msg) => {
+  return {
+    type: 'ADD_MESSAGE_FROM_DB',
+    id: msg.id,
+    channelID: msg.channelID,
+    text: msg.text,
+    created_at: msg.created_at,
+    updated_at: msg.updated_at
+
+  };
+};

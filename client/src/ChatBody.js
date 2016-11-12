@@ -11,7 +11,8 @@ const MessageList = ( {messages, room} ) => {
         {messages.map(message =>
           <Message
             key={message.id}
-            message={message.text}
+            text={message.text}
+            created_at={message.created_at}
           />
         )}
       </ul>
@@ -27,6 +28,7 @@ const MessageList = ( {messages, room} ) => {
 // };
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state.allReducers.ChatReducer);
   return { messages: state.allReducers.ChatReducer }
 };
 
