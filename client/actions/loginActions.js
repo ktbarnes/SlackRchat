@@ -1,12 +1,10 @@
 import axios from 'axios';
-import { dispatch } from 'react-redux';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 
 export function requestLogin(creds) {
-  console.log("INSIDE REQUEST LOGIN ", creds)
   return {
     type: LOGIN_REQUEST,
     isFetching: true,
