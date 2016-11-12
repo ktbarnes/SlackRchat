@@ -2,7 +2,12 @@ import React, { PropTypes } from 'react';
 
 const Message = ({ created_at, text, username }) => (
   <li>
-    { created_at } --- {username}: { text }
+    <div>
+      { created_at } ---  
+    </div>
+    <div>
+      {username} --- { text }
+    </div>
   </li>
 );
 

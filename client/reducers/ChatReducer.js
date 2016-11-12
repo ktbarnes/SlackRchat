@@ -18,10 +18,12 @@ const ChatReducer = (state = [], action) => {
         ...state,
         {
           id: action.id,
-          username: action.username || "Anonymous",
-          channel: action.channel || 'Lobby',
+          username: action.username,
+          userIDinDB: action.userIDinDB,
+          channelName: action.channelName,
+          channelIDinDB: action.channelIDinDB,
           text: action.text,
-          created_at: action.created_at || "",
+          created_at: action.created_at,
         },
       ];
     
