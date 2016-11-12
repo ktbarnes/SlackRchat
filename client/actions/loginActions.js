@@ -1,10 +1,12 @@
-import axios from 'axios'
+import axios from 'axios';
+import { dispatch } from 'react-redux';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 
-function requestLogin(creds) {
+export function requestLogin(creds) {
+  console.log("INSIDE REQUEST LOGIN ", creds)
   return {
     type: LOGIN_REQUEST,
     isFetching: true,
@@ -13,16 +15,16 @@ function requestLogin(creds) {
   }
 }
 
-function receiveLogin(user) {
+export function receiveLogin(id_token) {
   return {
     type: LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    id_token: user.id_token
+    id_token: id_token
   }
 }
 
-function loginError(message) {
+export function loginError(message) {
   return {
     type: LOGIN_FAILURE,
     isFetching: false,
@@ -34,26 +36,9 @@ function loginError(message) {
 export function loginUser(creds) {
 
   let config = {
-    method: 'POST',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    body: `users=${creds.username}&password=${creds.password}`
+    email: creds.username, 
+    password: creds.password
   }
 
-  return dispatch => {
-    dispatch(requestLogin(creds))
-
-    return fetch('/login', config)
-      .then(response =>
-        response.json().then(user => ({ user, response }))
-          ).then(({ user, response }) => {
-            if(!response.ok) {
-              dispatch(loginError(user.message))
-              return Promise.reject(user)
-            }
-            else {
-              localStorage.setItem('id_token', user.id_token)
-              dispatch(receiveLogin(user))
-            }
-          }).catch(err => console.error(err))
-  }
+  return axios.post('/db/login', config);
 }

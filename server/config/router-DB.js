@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/userModels.js');
+var User = require('../models/userModel.js');
+var Message = require('../models/messageModel.js');
+var Channel = require('../models/channelModel.js');
 var bcrypt = require('bcrypt-nodejs');
-var SALT_FACTOR = 10;
-// var jwt = require('jwt-simple');
+var jwt = require('jwt-simple');
 
 router.get('/users', function (request, response) {
   User.getUsers()
@@ -11,57 +12,61 @@ router.get('/users', function (request, response) {
 });
 
 router.post('/login', function (request, response) {
-  console.log('REQUEST.BODY',request.body);
-  // User.getUsers()
-  // .then(users => {
-  //   console.log(users);
-  //   for(let i = 0; i < users.length; i++) {
-  //     if(users[i].email === request.body.email) {
-  //       console.log(users[i]);
-  //       bcrypt.compare(request.body.password, users[i].password, function(err, matched) {
-  //         console.log(matched);
-  //         if(matched) {
-  //           response.sendStatus(200);
-  //         }
-  //         else {
-  //           response.sendStatus(400);
-  //         }
-  //       });
-  //       break;
-  //     }
-  //   }
-  // });
+  console.log("A USER IS TRYING TO LOGIN", request.body)
   User.getUser(request.body.email)
   .then(user => {
-    console.log('user',user.password);
-    console.log('request.body.password',request.body.password);
-    bcrypt.compare(request.body.password, user.password, function(err, matched) {
-      console.log(matched);
+    bcrypt.compare(request.body.password, user[0].password, function(err, matched) {
       if(matched) {
-        response.sendStatus(200);
+        let token = jwt.encode({id: user[0].id}, process.env.SECRET);
+        response.json({id_token: token});
       }
       else {
-        response.sendStatus(400);
+        response.sendStatus(401);
       }
     });
   });
 });
 
 router.post('/users', function (request, response) {
-  console.log("REQUEST.BODY: ",request.body);
+  // console.log("REQUEST.BODY: ",request.body);
 
   bcrypt.hash(request.body.password, null, null, function(err, hash) {
-    console.log(hash);
     User.postUser({
       username: request.body.username,
       email: request.body.email,
       password: hash
     })
     .then(data => response.sendStatus(201));
-
   });
 
 });
 
+router.post('/channels', function (request, response) {
+  Channel.addChannel(request.body.name)
+  .then(data => response.status(201).json(data));
+});
+
+router.get('/channels', function (request, response) {
+  Channel.getChannels()
+  .then(data => response.json(data));
+})
+
+router.post('/messages', function (request, response) {
+  let encoded = request.headers.authorization.split(' ')[1];
+  let token = jwt.decode(encoded, process.env.SECRET);
+  console.log(token);
+  let data = {
+    userID: token.id,
+    channelID: request.body.channelID,
+    message: request.body.message
+  }
+  Message.postMessage(data)
+  .then(data => response.status(201).json(data));
+});
+
+router.get('/messages', function (request, response) {
+  Message.getMessages()
+  .then(data => response.json(data));
+});
 
 module.exports = router;

@@ -1,54 +1,83 @@
 import React from 'react'
-import Login from './login'
-import Logout from './logout'
-import Profile from './profile'
+import Logout from './logout.js'
 import { loginUser } from '../actions/loginActions'
 import { logoutUser } from '../actions/logoutActions'
+import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router'
+import Profile from './profile.js'
+import { Modal, 
+        Button,
+        ModalHeader,
+        ModalTitle,
+        ModalFooter,
+        ModalBody
+         } from 'react-bootstrap' 
 
 export default class Nav extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showModel: false,
+      first: "julia",
+      last: "Randall",
+      email: "juliafrandall@gmail.com",
+      phone: "561-271-0104",
+      about: "I am.... "
+    }
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
+  }
+    open() {
+      console.log('inside open')
+      this.setState({
+        showModel: true
+      })
+    };
+
+    close() {
+      this.setState({
+        showModel: false,
+      })
+    };
+
   render() {
-    const { dispatch, isAuthenticated, errorMessage } = this.props
-  
     return (
-      <div>
-      <nav className='nav'>
-        <div className='container-nav'>
-          <h1>Slacker<h1>
-        <div>
-        <a className='btn btn-primary' href='#' onClick={this.open}>
-          Profile
-        </a>
-        <a className='btn btn-primary' href='/SignIn'> 
-          SignIn
-        </a>
-        <a className='btn btn-primary' href='/LogOut'>
-          LogOut
-        </a>    
-        </div>
-          <ul className='header'>
-            <li>Slacker</li>
-            <li><Link to='Profile' className='btn btn-primary' href='#' onClick={this.open}>Profile</Link></li>
-            <li><Link to='SignIn'className='btn btn-primary'> SignIn</Link></li>
-            <li><Link to='LogOut' className='btn btn-primary'>LogOut'</Link></li>
-          </ul>  
-         </div> 
-         <div className='nav-form'>
-            {!isAuthenticated && 
-            <Login 
-            errorMessage={errorMessage}
-            onLoginClick={creds => dispatch(loginUser(creds))}
-            />}
-          {isAuthenticated &&
-            <Logout onLogoutClick={() => dispatch(logoutUser())} />}
-        </div>
-      </nav>
+      <div className="nav">
+        <h1 className="title">Slacker</h1>
+        <a className="navbutton" href="#" role="button" 
+        onClick={this.open}>Profile</a>
+        <Profile 
+          show={this.state.showModel} 
+          onHide={this.close}
+          first={this.state.first} 
+          last={this.state.last}
+          email={this.state.email}
+          phone={this.state.phone}
+          about={this.state.about}
+          />
+        <a className="navbutton" href="/Login"> Login </a>
+        <a className="navbutton" href="/Logout">LogOut</a>
       </div>
     )
   }
 }
+  
+//THESE states will need to be dynamically changed from database, based on authentication 
 
-Nav.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  isAuthenticated: React.PropTypes.bool.isRequired,
-  errorMessage: React.PropTypes.string
-}
+  
+    // <Route path='LogOut' component={Logout} />
+  
+//Login Component should switch to Logout
+//User should see Logout once logged in, User should see Login when Logged Out
+
+// var Modal = React.createClass({
+//   render() {
+//     return (
+//       <div> 
+//     <button type="button">
+//       <span class="hide">Close</span>
+//     </button>
+//   </div>;
+//   }
+// });
+
+

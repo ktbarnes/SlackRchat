@@ -1,9 +1,30 @@
-let nextMessageId = 0;
+import axios from 'axios';
 
-export const addMessage = (text) => {
+let nextMessageId = 1000000000; //set at arbitrarily high number so as to not conflict with IDs that come in from the DB
+
+export const ADD_MESSAGE_FROM_SOCKET = 'ADD_MESSAGE_FROM_SOCKET'
+export const ADD_MESSAGE_FROM_DB = 'ADD_MESSAGE_FROM_DB'
+
+export const addMessageFromSocket = (msg) => {
   return {
-    type: 'ADD_MESSAGE',
+    type: 'ADD_MESSAGE_FROM_SOCKET',
     id: (nextMessageId++).toString(),
-    text,
+    channelID: msg.channelID,
+    text: msg.text,
+    created_at: new Date().toJSON(),
+    updated_at: new Date().toJSON()
+
+  };
+};
+
+export const addMessageFromDB = (msg) => {
+  return {
+    type: 'ADD_MESSAGE_FROM_DB',
+    id: msg.id,
+    channelID: msg.channelID,
+    text: msg.text,
+    created_at: msg.created_at,
+    updated_at: msg.updated_at
+
   };
 };

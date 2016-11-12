@@ -1,25 +1,35 @@
-
 import React, { PropTypes } from 'react';
 import Message from './Message';
+import { connect } from 'react-redux';
 
-const MessageList = ( { value } ) => {
+const MessageList = ( {messages, room} ) => {
+
   return (
+    <div>
+      You are in room: { room }
       <ul id="messages">
-        {value.map(message =>
+        {messages.map(message =>
           <Message
             key={message.id}
-            message={message.text}
+            text={message.text}
+            created_at={message.created_at}
           />
         )}
       </ul>
+    </div>
   )
 }
 
-MessageList.propTypes = {
-  value: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
+// MessageList.propTypes = {
+//   dataStore: PropTypes.arrayOf(PropTypes.shape({
+//     id: PropTypes.string.isRequired,
+//     text: PropTypes.string.isRequired,
+//   }).isRequired).isRequired,
+// };
+
+const mapStateToProps = (state, ownProps) => {
+  console.log(state.allReducers.ChatReducer);
+  return { messages: state.allReducers.ChatReducer }
 };
 
-export default MessageList;
+export default connect(mapStateToProps)(MessageList);

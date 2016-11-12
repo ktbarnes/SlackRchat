@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 
-const Message = ({ created_at, text }) => (
+const SideBarEntryChannel = ({ room }) => (
   <li>
-    { created_at }: { text }
+    * { room }
   </li>
 );
 
@@ -10,4 +10,4 @@ const Message = ({ created_at, text }) => (
 //   message.text: PropTypes.string.isRequired,
 // };
 
-export default Message;
+export default SideBarEntryChannel;

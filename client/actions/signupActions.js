@@ -4,7 +4,7 @@ export const SIGNUP_REQUEST = 'SIGNUP_REQUEST'
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
 
-function requestUser(creds) {
+export function requestUser(creds) {
   return {
     type: SIGNUP_REQUEST,
     isFetching: true,
@@ -13,16 +13,16 @@ function requestUser(creds) {
   }
 }
 
-function createUser() {
+export function createUser(id_token) {
   return {
     type: SIGNUP_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    id_token: user.id_token
+    id_token: id_token
   }
 }
 
-function signupError() {
+export function signupError() {
   return {
     type: SIGNUP_FAILURE,
     isFetching: false,
@@ -34,16 +34,9 @@ function signupError() {
 export function signupUser(creds) {
 
   let config = {
-    method: 'POST',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    body: `users=${creds.username}&password=${creds.password}`
+    email: creds.username, 
+    password: creds.password
   }
 
-  return dispatch => {
-    dispatch(requestUser(creds))
-
-    return fetch('/signup', config)
-      .then(response =>
-        response.json().then(user ) //more stuff here
-  }
+  return axios.post('/db/users', config);
 }
