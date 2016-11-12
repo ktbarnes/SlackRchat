@@ -38,7 +38,29 @@ export default class Profile extends React.Component {
           <Modal.Title id="modal_header">Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body id="modal_content">
-          <p>Content</p>
+          <div>
+            <h2>Edit Profile</h2>
+          </div>
+          <div>  
+            <h3>Profile Picture</h3>
+            <input type="file" accept="image/*" data-action="profilepicture" />
+          </div>
+          <div>
+            <label>First Name</label>
+              <input type="text" placeholder={this.props.first}/>
+            <label>Last Name</label>
+              <input type="text" placeholder={this.props.last}/>  
+          </div>
+          <div>
+            <label>Email</label>
+              <input type="text" placeholder={this.props.email} />
+            <label>Phone</label>
+              <input type="text" placeholder={this.props.phone} />
+          </div>
+          <div>
+            <label>About Me</label>
+              <input type="text" placeholder={this.props.about} />
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button className="btn btn-default" onClick={this.props.onHide}>Close</Button>
