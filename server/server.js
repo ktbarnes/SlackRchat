@@ -14,10 +14,8 @@ require('./config/middleware.js')(app, express);
 var dbRouter = require('./config/router-DB.js');
 app.use('/db', dbRouter)
 
-
-
-
-
+var giphyRouter = require('./config/router-giphy.js');
+app.use('/api', giphyRouter)
 
 
 
