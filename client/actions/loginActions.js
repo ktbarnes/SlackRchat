@@ -5,7 +5,7 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 
-function requestLogin(creds) {
+export function requestLogin(creds) {
   console.log("INSIDE REQUEST LOGIN ", creds)
   return {
     type: LOGIN_REQUEST,
@@ -35,20 +35,10 @@ export function loginError(message) {
 
 export function loginUser(creds) {
 
-  // const dispatch = { dispatch };
-  // console.log('this is dispath within loginUser ', dispatch)
-
   let config = {
     email: creds.username, 
     password: creds.password
   }
 
-  console.log("INSIDE loginActions ", config)
-
-  // return dispatch => {
-    // dispatch(requestLogin(creds))
-    // console.log("INSIDE FIRST LAYER ", dispatch)
-  return axios.post('/db/login', config)
-  // }
-
+  return axios.post('/db/login', config);
 }

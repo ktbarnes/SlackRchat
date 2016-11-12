@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect, dispatch } from 'react-redux'
 import { loginUser, receiveLogin, loginError } from '../actions/loginActions'
+import { Transition } from 'react-router'
 
 class Login extends React.Component {
 
@@ -9,24 +10,22 @@ class Login extends React.Component {
   }
 
   handleClick(event) {
-    let that = this;
+    console.log("is there a Transition?", Transition)
     const username = this.refs.username
     const password = this.refs.password
     const creds = { 
       username: username.value.trim(), 
       password: password.value.trim()
     }
-    // console.log("HERE ARE CREDS IN login.js ", creds)
     loginUser(creds).then(response => {
-      // console.log('what is the login response? ', response.data);
       if(!response) {
-        that.props.dispatch(loginError('Email and password do not match!'))
-        // return Promise.reject()
+        this.props.dispatch(loginError('Email and password do not match!'));
       }
       else {
         console.log("Setting a token in local storage")
-        localStorage.setItem('id_token', response.data.id_token)
-        that.props.dispatch(receiveLogin(response.data.id_token))
+        localStorage.setItem('id_token', response.data.id_token);
+        this.props.dispatch(receiveLogin(response.data.id_token));
+        this.props.router.replace('/');
       }
     });
     this.refs.username.value = '';
@@ -50,7 +49,6 @@ class Login extends React.Component {
 
 }
 
-// export default Login
 const mapStateToProps = (state, ownProps) => {
   console.log("HERE IS THE STATE AS SEEN BY LOGIN.JS", state.allReducers.authReducer)
   return {}
