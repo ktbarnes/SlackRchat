@@ -13,25 +13,20 @@ class PrimaryChatroom extends React.Component {
     this.socket = io('/Hack-Reactor-NameSpace');
     // console.log("what are props",this.props);
     this.room = this.props.rooms[0].room;
-    this.allMessages;
   }
 
   componentDidMount() {
-    let that = this;
-    // this.props.dispatch(downloadAllMessages());
-    this.allMessages = this.downloadAllMessages();
-    this.socket.on('chat message', txt => that.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
-    this.socket.on('disconnected', txt => that.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
-    this.socket.on('someoneJoin', txt => that.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
+    this.downloadAllMessages();
+    this.socket.on('chat message', txt => this.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
+    this.socket.on('disconnected', txt => this.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
+    this.socket.on('someoneJoin', txt => this.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
     
     //room stuff
-    // that.room = this.room;
-    this.socket.on('connect', () => this.socket.emit('changeRoom', that.room));
+    this.socket.on('connect', () => this.socket.emit('changeRoom', this.room));
 
   }
   
   handleReceiveMessage(cb,chat) {
-    console.log("what is chat",chat);
     this.props.dispatch(cb(chat));
   }
 
