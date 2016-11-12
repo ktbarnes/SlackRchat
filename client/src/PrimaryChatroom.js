@@ -6,6 +6,7 @@ import MessageList from './ChatBody.js';
 import Message from './Message.js';
 import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
 import { addRoom } from '../actions/RoomActions';
+import { addUser } from '../actions/UserActions';
 
 class PrimaryChatroom extends React.Component {
 
@@ -17,6 +18,7 @@ class PrimaryChatroom extends React.Component {
   componentDidMount() {
     this.downloadAllRooms();
     this.downloadAllMessages();
+    this.downloadAllUsers();
     this.socket.on('chat message', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     this.socket.on('disconnected', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
@@ -57,7 +59,22 @@ class PrimaryChatroom extends React.Component {
           channelName: msg.name,
         }
         this.handleReceive(addRoom,eachRoom);
-        this.room = this.props.rooms[0].channelName;
+        this.room = this.props.rooms[0].channelName; //need to make this better
+      });
+    });
+  }
+
+  downloadAllUsers() {
+    axios.get('/db/users')
+    .then( (res) => {
+      console.log("what comes in from the DB?",res)
+      res.data.forEach( (person) => {
+        let eachUser = {
+          id: person.id,
+          username: person.username,
+          email: person.email
+        }
+        this.handleReceive(addUser,eachUser);
       });
     });
   }
@@ -83,6 +100,7 @@ PrimaryChatroom.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  console.log("users",state.allReducers.UserReducer)
   return { rooms: state.allReducers.RoomReducer }
 };
 
