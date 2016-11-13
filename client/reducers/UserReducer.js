@@ -7,7 +7,8 @@ const UserReducer = (state = [], action) => {
         {
           id: action.id,
           username: action.username,
-          email: action.email
+          email: action.email,
+          currentUserToggle: action.currentUserToggle
         },
       ];
     

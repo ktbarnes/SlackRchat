@@ -65,18 +65,33 @@ class PrimaryChatroom extends React.Component {
   }
 
   downloadAllUsers() {
-    axios.get('/db/users')
+
+    //get from server who current user is
+    this.currentUserIDfromDB;
+    axios.get('/db/getMe',
+    {
+    headers: { "authorization": "Bearer "+localStorage.getItem('id_token') }
+    })
     .then( (res) => {
-      console.log("what comes in from the DB?",res)
-      res.data.forEach( (person) => {
-        let eachUser = {
-          id: person.id,
-          username: person.username,
-          email: person.email
-        }
-        this.handleReceive(addUser,eachUser);
+      console.log("who is my user???",res.data)
+      this.currentUserIDfromDB = res.data.currentUserID;
+      //now download all users
+      axios.get('/db/users')
+      .then( (resp) => {
+        console.log("what comes in from the DB?",resp)
+        resp.data.forEach( (person) => {
+          let eachUser = {
+            id: person.id,
+            username: person.username,
+            email: person.email,
+            currentUserToggle: (() => (this.currentUserIDfromDB === person.id) ? true : false)()
+          }
+          this.handleReceive(addUser,eachUser);
+        });
       });
     });
+
+
   }
 
   render(){

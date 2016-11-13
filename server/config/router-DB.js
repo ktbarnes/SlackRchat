@@ -6,6 +6,13 @@ var Channel = require('../models/channelModel.js');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('jwt-simple');
 
+router.get('/getMe', function (request, response) {
+  let encoded = request.headers.authorization.split(' ')[1];
+  let token = jwt.decode(encoded, process.env.SECRET);
+  let currentUserID = token.id;
+  response.json({currentUserID: currentUserID});
+});
+
 router.get('/users', function (request, response) {
   User.getUsers()
   .then(users => response.send(users));
