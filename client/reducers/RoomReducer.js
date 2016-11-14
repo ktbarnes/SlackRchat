@@ -7,8 +7,20 @@ const RoomReducer = (state = [], action) => {
         {
           id: action.id,
           channelName: action.channelName,
+          currentRoomToggle: action.currentRoomToggle
         },
       ];
+
+    case 'TOGGLE_CURRENT_ROOM':
+      return [
+        ...state,
+        {
+          id: action.id,
+          channelName: action.channelName,
+          currentRoomToggle: action.currentRoomToggle
+        },
+      ];
+
     
     default:
       return state;

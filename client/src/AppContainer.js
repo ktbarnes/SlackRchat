@@ -5,6 +5,11 @@ import SideBar from './sidebar.js';
 
 class AppContainer extends React.Component {
 
+  constructor(props){
+    super(props)
+    this.socket = io('/Hack-Reactor-NameSpace');
+  }
+
   render(){
     return (
       <div>
@@ -12,8 +17,8 @@ class AppContainer extends React.Component {
         <div><Nav /></div>
         
         <table>
-          <td><SideBar /></td>
-          <td><PrimaryChatroom /></td>
+          <td><SideBar theSocket={this.socket} /></td>
+          <td><PrimaryChatroom theSocket={this.socket} /></td>
         </table>
 
       </div>

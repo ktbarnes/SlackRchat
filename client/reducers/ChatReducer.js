@@ -8,6 +8,7 @@ const ChatReducer = (state = [], action) => {
           id: action.id,
           text: action.text,
           username: action.username,
+          channelName: action.channelName,
           channelID: action.channelID || 2,
           created_at: action.created_at || "",
         },
