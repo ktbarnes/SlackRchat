@@ -3,10 +3,12 @@ import authReducer from './authReducer'
 import ChatReducer from './ChatReducer'
 import RoomReducer from './RoomReducer'
 import UserReducer from './UserReducer'
+import CurrentUserReducer from './CurrentUserReducer'
 
 export default combineReducers ({
   authReducer,
   ChatReducer,
   RoomReducer,
-  UserReducer
+  UserReducer,
+  CurrentUserReducer
 })

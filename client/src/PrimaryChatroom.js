@@ -7,19 +7,26 @@ import Message from './Message.js';
 import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
 import { addRoom } from '../actions/RoomActions';
 import { addUser } from '../actions/UserActions';
+import { setCurrentUser } from '../actions/CurrentUserActions';
 
 class PrimaryChatroom extends React.Component {
 
   constructor(props){
     super(props)
     this.socket = io('/Hack-Reactor-NameSpace');
+    console.log("what are my props",this.props.currentUser)
   }
 
   componentDidMount() {
     this.downloadAllRooms();
     this.downloadAllMessages();
     this.downloadAllUsers();
-    this.socket.on('chat message', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
+    this.socket.on('chat message', 
+      incoming => 
+      this.handleReceive(addMessageFromSocket,{
+        username: incoming.username,
+        text: incoming.text
+      }));
     this.socket.on('disconnected', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     
@@ -73,12 +80,12 @@ class PrimaryChatroom extends React.Component {
     headers: { "authorization": "Bearer "+localStorage.getItem('id_token') }
     })
     .then( (res) => {
-      console.log("who is my user???",res.data)
+      // console.log("who is my user???",res.data)
       this.currentUserIDfromDB = res.data.currentUserID;
       //now download all users
       axios.get('/db/users')
       .then( (resp) => {
-        console.log("what comes in from the DB?",resp)
+        // console.log("what comes in from the DB?",resp)
         resp.data.forEach( (person) => {
           let eachUser = {
             id: person.id,
@@ -87,6 +94,9 @@ class PrimaryChatroom extends React.Component {
             currentUserToggle: (() => (this.currentUserIDfromDB === person.id) ? true : false)()
           }
           this.handleReceive(addUser,eachUser);
+          if(this.currentUserIDfromDB === person.id){
+            this.handleReceive(setCurrentUser,eachUser);
+          }
         });
       });
     });
@@ -115,8 +125,11 @@ PrimaryChatroom.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("users",state.allReducers.UserReducer)
-  return { rooms: state.allReducers.RoomReducer }
+  // console.log("users",state.allReducers.UserReducer)
+  return { 
+    rooms: state.allReducers.RoomReducer,
+    currentUser: state.allReducers.CurrentUserReducer
+  }
 };
 
 export default connect(mapStateToProps)(PrimaryChatroom);

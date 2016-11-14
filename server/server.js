@@ -43,7 +43,7 @@ function(socket){
     currentRoom = room;
     socket.join(room);
     console.log("currentRoom",currentRoom);
-    hrns.in(currentRoom).emit('chat message', "A user has connected to the room");
+    hrns.in(currentRoom).emit('chat message', {text: "A user has connected to the room"});
   });
 
   //user disconnects from room
@@ -52,9 +52,13 @@ function(socket){
 
   //user sends message into room
   socket.on('chat message', function(fromClient){
-    console.log('chat message: ' + fromClient.msg);
-    console.log('room name: ' + fromClient.room, currentRoom);
-    hrns.in(currentRoom).emit('chat message', fromClient.msg);
+    // console.log('user: ' + fromClient.username);
+    // console.log('chat message: ' + fromClient.msg);
+    // console.log('room name: ' + fromClient.room, currentRoom);
+    hrns.in(currentRoom).emit('chat message', {
+      text: fromClient.msg,
+      username: fromClient.username
+    });
   });
 
   //user disconnects from room

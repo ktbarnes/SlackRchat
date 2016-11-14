@@ -9,6 +9,7 @@ export const addMessageFromSocket = (msg) => {
   return {
     type: 'ADD_MESSAGE_FROM_SOCKET',
     id: (nextMessageId++).toString(),
+    username: msg.username,
     channelID: msg.channelID,
     text: msg.text,
     created_at: new Date().toJSON()

@@ -15,7 +15,7 @@ router.get('/getMe', function (request, response) {
 
 router.get('/users', function (request, response) {
   User.getUsers()
-  .then(users => response.send(users));
+  .then(users => response.json(users));
 });
 
 router.post('/login', function (request, response) {
@@ -59,10 +59,10 @@ router.get('/channels', function (request, response) {
 })
 
 router.post('/messages', function (request, response) {
-  console.log("what is auth?",request.headers.authorization)
+  // console.log("what is auth?",request.headers.authorization)
   let encoded = request.headers.authorization.split(' ')[1];
   let token = jwt.decode(encoded, process.env.SECRET);
-  console.log("what is the token?",token);
+  // console.log("what is the token?",token);
   let data = {
     userID: token.id,
     channelID: request.body.channelID,
