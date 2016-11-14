@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 
 
-const ChatForm = ( { socket, room } ) => {
+const ChatForm = ( { socket, room, currentUser } ) => {
   let input;
 
   return (
@@ -20,6 +20,7 @@ const ChatForm = ( { socket, room } ) => {
           //this is where it pushes to the socket
           socket.emit('chat message', {
             room: room, 
+            username: currentUser[0].username,
             msg: input.value
           });
 
@@ -48,11 +49,12 @@ const ChatForm = ( { socket, room } ) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  console.log("who is my current user?",state.allReducers.CurrentUserReducer)
   return { 
-    users: state.allReducers.UserReducer
+    currentUser: state.allReducers.CurrentUserReducer
   }
 };
 
-export default ChatForm;
+export default connect(mapStateToProps)(ChatForm);
 
 
