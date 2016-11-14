@@ -50,7 +50,7 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("who is my current user?",state.allReducers.CurrentUserReducer)
+  // console.log("who is my current user?",state.allReducers.CurrentUserReducer)
   return { 
     currentRoom: state.allReducers.CurrentRoomReducer,
     currentUser: state.allReducers.CurrentUserReducer

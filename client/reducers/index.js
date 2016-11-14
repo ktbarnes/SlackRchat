@@ -13,6 +13,6 @@ export default combineReducers ({
   RoomReducer,
   UserReducer,
   CurrentUserReducer,
-  CurrentRoomReducer
+  CurrentRoomReducer,
   signInReducer
 })
