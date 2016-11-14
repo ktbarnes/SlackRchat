@@ -4,10 +4,12 @@ import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import { toggleCurrentRoomField } from '../actions/RoomActions';
 
 //room is passed in as a prop from sidebar.js
-const SideBarEntryChannel = ({ dispatch, room, currentRoom }) => (
+const SideBarEntryChannel = ({ dispatch, room, currentRoom, theSocket }) => (
   <li onClick={ 
     () => {
-      dispatch(setCurrentRoom(room))
+      dispatch(setCurrentRoom(room));
+      theSocket.emit('changeRoom', currentRoom)
+
       // console.log("this is room",room)
       // console.log("this is my current Room",currentRoom);
     }

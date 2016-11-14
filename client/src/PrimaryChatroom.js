@@ -14,25 +14,27 @@ class PrimaryChatroom extends React.Component {
 
   constructor(props){
     super(props)
-    this.socket = io('/Hack-Reactor-NameSpace');
-    // console.log("what are my props",this.props.currentRoom)
+    // this.socket = io('/Hack-Reactor-NameSpace');
+    console.log("what are my props",this.props)
   }
 
   componentDidMount() {
     this.downloadAllRooms();
     this.downloadAllMessages();
     this.downloadAllUsers();
-    this.socket.on('chat message', 
+    this.props.theSocket.on('chat message', 
       incoming => 
       this.handleReceive(addMessageFromSocket,{
         username: incoming.username,
-        text: incoming.text
+        text: incoming.text,
+        channelName: incoming.channelName
+
       }));
-    this.socket.on('disconnected', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
-    this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
+    this.props.theSocket.on('disconnected', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
+    this.props.theSocket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     
     //room stuff
-    this.socket.on('connect', () => this.socket.emit('changeRoom', this.props.currentRoom.channelName)); //default to Lobby when connected
+    this.props.theSocket.on('connect', () => this.props.theSocket.emit('changeRoom', this.props.currentRoom.channelName)); //default to Lobby when connected
 
   }
   
@@ -117,7 +119,7 @@ class PrimaryChatroom extends React.Component {
           <Message />
         </div>
         <div>
-          <ChatForm socket={this.socket} />
+          <ChatForm socket={this.props.theSocket} />
         </div>
       </div>
     )

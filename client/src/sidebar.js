@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import SideBarEntryChannel from './SideBarEntry-Channel';
 import { connect } from 'react-redux';
 
-const SideBar = ( {rooms, currentRoom} ) => {
+const SideBar = ( {rooms, currentRoom, theSocket} ) => {
 
   return (
     <div>
@@ -12,6 +12,7 @@ const SideBar = ( {rooms, currentRoom} ) => {
         <ul id="rooms">
           {rooms.map(room =>
             <SideBarEntryChannel
+              theSocket={theSocket}
               key={room.id}
               room={room}
             />
