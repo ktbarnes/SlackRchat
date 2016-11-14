@@ -37,12 +37,14 @@ class Login extends React.Component {
 
     return (
       <div>
-        <input type='text' ref='username' className='form-control' placeholder="Email" />
-        <input type='password' ref='password' className='form-control' placeholder="Password" />
+        <input type='text' ref='username' className='form-control' placeholder='Email' />
+        <input type='password' ref='password' className='form-control' placeholder='Password' />
         <button onClick={(event) => this.handleClick(event)} className='btn btn-auth'>
         Login
         </button>
         {errorMessage && <p>{errorMessage}</p>}
+        <a className='btn btn-auth' href='/signup'>Sign Up</a>
+
       </div>
     )
   }

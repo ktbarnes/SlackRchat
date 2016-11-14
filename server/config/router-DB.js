@@ -34,7 +34,8 @@ router.post('/users', function (request, response) {
     User.postUser({
       username: request.body.username,
       email: request.body.email,
-      password: hash
+      password: hash,
+      
     })
     .then(data => response.sendStatus(201));
   });
