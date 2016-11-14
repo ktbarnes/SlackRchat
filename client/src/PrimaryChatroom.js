@@ -8,13 +8,14 @@ import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
 import { addRoom } from '../actions/RoomActions';
 import { addUser } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
+import { setCurrentRoom } from '../actions/CurrentRoomActions';
 
 class PrimaryChatroom extends React.Component {
 
   constructor(props){
     super(props)
     this.socket = io('/Hack-Reactor-NameSpace');
-    console.log("what are my props",this.props.currentUser)
+    console.log("what are my props",this.props.currentRoom)
   }
 
   componentDidMount() {
@@ -31,7 +32,7 @@ class PrimaryChatroom extends React.Component {
     this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     
     //room stuff
-    this.socket.on('connect', () => this.socket.emit('changeRoom', "Lobby")); //default to Lobby when connected
+    this.socket.on('connect', () => this.socket.emit('changeRoom', this.props.currentRoom.channelName)); //default to Lobby when connected
 
   }
   
@@ -58,15 +59,19 @@ class PrimaryChatroom extends React.Component {
   }
 
   downloadAllRooms() {
+    this.currentRoom = this.props.currentRoom.channelName;
     axios.get('/db/channels')
     .then( (res) => {
       res.data.forEach( (msg) => {
         let eachRoom = {
           id: msg.id,
           channelName: msg.name,
+          currentRoomToggle: (() => (this.currentRoom === msg.name) ? true : false)()
         }
         this.handleReceive(addRoom,eachRoom);
-        this.room = this.props.rooms[0].channelName; //need to make this better
+        if(this.currentRoom === msg.name){
+          this.handleReceive(setCurrentRoom,eachRoom);
+        }
       });
     });
   }
@@ -108,11 +113,11 @@ class PrimaryChatroom extends React.Component {
     return (
       <div>
         <div>
-          <MessageList room={this.room}/>
+          <MessageList />
           <Message />
         </div>
         <div>
-          <ChatForm socket={this.socket} room={this.room} />
+          <ChatForm socket={this.socket} />
         </div>
       </div>
     )
@@ -125,10 +130,11 @@ PrimaryChatroom.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("users",state.allReducers.UserReducer)
+  console.log("current room",state.allReducers.CurrentRoomReducer)
   return { 
     rooms: state.allReducers.RoomReducer,
-    currentUser: state.allReducers.CurrentUserReducer
+    currentUser: state.allReducers.CurrentUserReducer,
+    currentRoom: state.allReducers.CurrentRoomReducer
   }
 };
 

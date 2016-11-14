@@ -4,11 +4,13 @@ import ChatReducer from './ChatReducer'
 import RoomReducer from './RoomReducer'
 import UserReducer from './UserReducer'
 import CurrentUserReducer from './CurrentUserReducer'
+import CurrentRoomReducer from './CurrentRoomReducer'
 
 export default combineReducers ({
   authReducer,
   ChatReducer,
   RoomReducer,
   UserReducer,
-  CurrentUserReducer
+  CurrentUserReducer,
+  CurrentRoomReducer
 })

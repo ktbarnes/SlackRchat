@@ -54,7 +54,7 @@ function(socket){
   socket.on('chat message', function(fromClient){
     // console.log('user: ' + fromClient.username);
     // console.log('chat message: ' + fromClient.msg);
-    // console.log('room name: ' + fromClient.room, currentRoom);
+    console.log('room name: ' + fromClient.room, currentRoom);
     hrns.in(currentRoom).emit('chat message', {
       text: fromClient.msg,
       username: fromClient.username

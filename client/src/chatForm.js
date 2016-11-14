@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 
 
 
-const ChatForm = ( { socket, room, currentUser } ) => {
+const ChatForm = ( { socket, currentRoom, currentUser } ) => {
   let input;
 
   return (
     <div>
       <form
         onSubmit={e => {
+          // console.log("what room is being passed in",currentRoom)
           e.preventDefault();
           if (!input.value.trim()) {
             return;
@@ -19,7 +20,7 @@ const ChatForm = ( { socket, room, currentUser } ) => {
 
           //this is where it pushes to the socket
           socket.emit('chat message', {
-            room: room, 
+            room: currentRoom.channelName, 
             username: currentUser[0].username,
             msg: input.value
           });
@@ -51,6 +52,7 @@ const ChatForm = ( { socket, room, currentUser } ) => {
 const mapStateToProps = (state, ownProps) => {
   console.log("who is my current user?",state.allReducers.CurrentUserReducer)
   return { 
+    currentRoom: state.allReducers.CurrentRoomReducer,
     currentUser: state.allReducers.CurrentUserReducer
   }
 };
