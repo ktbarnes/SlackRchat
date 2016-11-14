@@ -7,17 +7,21 @@ import { connect } from 'react-redux';
 
 const MessageList = ( {messages, currentRoom} ) => {
 
+  let filtered = messages.filter( (message) => 
+    message.channelName === currentRoom.channelName || message.channelName === undefined);
+
   return (
     <div>
       You are in room: { currentRoom.channelName }
       <ul id="messages">
-        {messages.map(message => 
+        {filtered.map( (message) => 
           <Message
             key={message.id}
             username={message.username}
             text={message.text}
             created_at={message.created_at}
           />
+          
         )}
       </ul>
     </div>
@@ -41,3 +45,32 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps)(MessageList);
+
+
+
+
+// const MessageList = ( {messages, currentRoom} ) => {
+
+//   return (
+//     <div>
+//       You are in room: { currentRoom.channelName }
+//       <ul id="messages">
+//         {messages.map(message => {
+//           // console.log("what is the message line 15 ChatBody",message)
+//           // console.log("message.channelName",message.channelName)
+//           // console.log("currentRoom.channelName",currentRoom.channelName)
+//           // console.log("does it equal?",message.channelName === currentRoom.channelName)
+//             // if(message.channelName === currentRoom.channelName){
+//               <Message
+//                 key={message.id}
+//                 username={message.username}
+//                 text={message.text}
+//                 created_at={message.created_at}
+//               />
+//             // }
+//           }
+//         )}
+//       </ul>
+//     </div>
+//   )
+// }

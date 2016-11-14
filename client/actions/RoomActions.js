@@ -6,6 +6,16 @@ export const addRoom = (eachRoom) => {
     type: 'ADD_ROOM',
     // id: (nextMessageId++).toString(),
     id: eachRoom.id,
-    channelName: eachRoom.channelName
+    channelName: eachRoom.channelName,
+    currentRoomToggle: eachRoom.currentRoomToggle
+  };
+};
+
+export const toggleCurrentRoomField = (toggledRoom) => {
+  return {
+    type: 'TOGGLE_CURRENT_ROOM',
+    // id: (nextMessageId++).toString(),
+    id: toggledRoom.id,
+    channelName: !toggleRoom.channelName //set from true to false or vice versa
   };
 };

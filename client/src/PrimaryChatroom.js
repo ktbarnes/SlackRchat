@@ -15,7 +15,7 @@ class PrimaryChatroom extends React.Component {
   constructor(props){
     super(props)
     this.socket = io('/Hack-Reactor-NameSpace');
-    console.log("what are my props",this.props.currentRoom)
+    // console.log("what are my props",this.props.currentRoom)
   }
 
   componentDidMount() {
@@ -130,7 +130,7 @@ PrimaryChatroom.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("current room",state.allReducers.CurrentRoomReducer)
+  // console.log("current room",state.allReducers.CurrentRoomReducer)
   return { 
     rooms: state.allReducers.RoomReducer,
     currentUser: state.allReducers.CurrentUserReducer,
