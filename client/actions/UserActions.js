@@ -6,6 +6,7 @@ export const addUser = (eachUser) => {
     type: 'ADD_USER',
     id: eachUser.id,
     username: eachUser.username,
-    email: eachUser.email
+    email: eachUser.email,
+    currentUserToggle: eachUser.currentUserToggle
   };
 };
