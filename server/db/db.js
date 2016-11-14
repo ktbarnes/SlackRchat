@@ -16,6 +16,10 @@ knex.schema.hasTable('users').then(function(exists) {
 			user.string('username', 100).unique();
 			user.string('email', 100).unique();
 			user.string('password', 100);
+      user.string('first', 100);
+      user.string('last', 100);
+      user.string('phone', 100);
+      user.string('about', 10000);
 			user.timestamps();
 		}).then(function (table) {
 			console.log('Created Table', table);

@@ -1,5 +1,4 @@
-//profile page....
-//bootstrap modal
+//SEE NOTES on bottom
 import { Modal, 
         Button,
         ModalHeader,
@@ -72,9 +71,10 @@ export default class Profile extends React.Component {
   }
 }
 
-
-
+//NOTES
 //Need to change Button Save onClick functionality
+//On Close or Save, then send Profile Information to database, 
+//Render Primary Chat
 
 
 

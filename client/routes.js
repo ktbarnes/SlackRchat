@@ -6,6 +6,8 @@ import SideBar from './src/sidebar.js'
 import Master from './src/master.js'
 import Login from './src/login.js'
 import Logout from './src/logout.js'
+import SignUp from './src/signup.js'
+import Profile from './src/signup.js'
 
 function loggedIn() {
   return !!localStorage.id_token;
@@ -20,9 +22,10 @@ function requireAuth(nextState, replace) {
 }
 
 export default (
-  <Route path="/" component={Master}>
+  <Route path='/' component={Master}>
     <IndexRoute component={AppContainer} onEnter={requireAuth} />
     <Route path="login" component={Login} />
     <Route path="logout" component={Logout} />
+    <Route path='signup' component={SignUp} />
   </Route>
 )
