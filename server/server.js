@@ -57,9 +57,10 @@ function(socket){
     // console.log('chat message: ' + fromClient.msg);
     // console.log('room name: ' + fromClient.room, currentRoom);
     hrns.in(currentRoom).emit('chat message', {
-      text: fromClient.msg,
+      channelName: fromClient.channelName,
+      channelID: fromClient.channelID,
       username: fromClient.username,
-      channelName: fromClient.room
+      text: fromClient.msg
     });
   });
 
