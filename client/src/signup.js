@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect, dispatch } from 'react-redux'
-import { createUser, signupError, signupUser } from '../actions/signupActions'
+import { createUser, signupError, signupUser, sendProfileInfo } from '../actions/signupActions'
 import { Transition } from 'react-router'
 import Profile from './profile.js'
+import axios from 'axios'
+// import routerdb from '../config/router-DB'
 
 class SignUp extends React.Component {
 
@@ -10,15 +12,20 @@ class SignUp extends React.Component {
     super(props)
     this.state = {
       showModel: false,
-      first: "julia",
-      last: "Randall",
-      email: "juliafrandall@gmail.com",
-      phone: "561-271-0104",
-      about: "I am.... "
+      // first: 'First Name',
+      // last: 'Last Name',
+      // username: 'username',
+      // phone: 'phone number',
+      // about: 'I am.... ',
+      // github: 'github account',
+      // facebook: 'facebook account',
+      // twitter: 'twitter account',
+      // linkedin: 'linkedin'
     }
-
+    // this.username = null;
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
+    this.save = this.save.bind(this);
   }
 
   open() {
@@ -58,6 +65,18 @@ class SignUp extends React.Component {
     this.refs.password.value = '';
     }
 
+  save(info) {
+    sendProfileInfo(info)
+    .then(response => {
+      if(!response) {
+        console.log('errorMessage')
+      }
+      else {
+        this.setState({showModel: false})
+      }
+    })
+  }
+ 
   render() {
     // const { errorMessage } = this.props
     return (
@@ -73,13 +92,17 @@ class SignUp extends React.Component {
           <Profile 
             show={this.state.showModel} 
             onHide={this.close}
-            first={this.state.first} 
-            last={this.state.last}
-            email={this.state.email}
-            phone={this.state.phone}
-            about={this.state.about}
+            // first={this.state.first} 
+            // last={this.state.last}
+            // username={this.state.username}
+            // phone={this.state.phone}
+            // about={this.state.about}
+            // github={this.state.github}
+            // facebook={this.state.facebook}
+            // twitter={this.state.twitter}
+            // linkedin={this.state.linkedin}
+            save={this.save}
             />
-
       </div>
     )
   }

@@ -8,7 +8,7 @@ var knex = require('knex')({
   }
 });
 
-
+// knex.schema.dropTableIfExists('users');
 knex.schema.hasTable('users').then(function(exists) {
 	if (!exists) {
 		knex.schema.createTable('users', function (user) {
@@ -20,6 +20,10 @@ knex.schema.hasTable('users').then(function(exists) {
       user.string('last', 100);
       user.string('phone', 100);
       user.string('about', 10000);
+      user.string('github', 1000);
+      user.string('facebook', 1000);
+      user.string('twitter', 1000);
+      user.string('linkedin', 1000);
 			user.timestamps();
 		}).then(function (table) {
 			console.log('Created Table', table);

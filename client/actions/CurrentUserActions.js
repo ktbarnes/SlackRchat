@@ -4,6 +4,13 @@ export const setCurrentUser = (user) => {
     id: user.id,
     username: user.username,
     email: user.email,
-    currentUserToggle: user.currentUserToggle
+    currentUserToggle: user.currentUserToggle, 
+    about: user.about,
+    first: user.first,
+    last: user.last,
+    github: user.github,
+    facebook: user.facebook,
+    twitter: user.twitter,
+    linkedin: user.linkedin
   };
 };
