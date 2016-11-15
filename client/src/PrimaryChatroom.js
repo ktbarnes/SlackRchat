@@ -9,6 +9,8 @@ import { addRoom } from '../actions/RoomActions';
 import { addUser } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
+import { createEditorStateWithText } from 'draft-js-plugins-editor';
+import EmojiEditor from './EmojiEditor.js';
 
 class PrimaryChatroom extends React.Component {
 
@@ -16,6 +18,11 @@ class PrimaryChatroom extends React.Component {
     super(props)
     this.socket = io('/Hack-Reactor-NameSpace');
     console.log("what are my props",this.props.currentRoom)
+    this.state = {
+      editorState: createEditorStateWithText('')
+    }
+
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
@@ -28,12 +35,11 @@ class PrimaryChatroom extends React.Component {
         username: incoming.username,
         text: incoming.text
       }));
-    this.socket.on('disconnected', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
-    this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
+    // this.socket.on('disconnected', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
+    // this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     
     //room stuff
     this.socket.on('connect', () => this.socket.emit('changeRoom', this.props.currentRoom.channelName)); //default to Lobby when connected
-
   }
   
   handleReceive(cb,body) {
@@ -106,13 +112,22 @@ class PrimaryChatroom extends React.Component {
       });
     });
 
+  }
 
+  onChange(editorState) {
+    this.setState({
+      editorState
+    })
   }
 
   render(){
     return (
       <div>
         <div>
+          <EmojiEditor 
+            editorState={this.state.editorState}
+            onChange={this.onChange}
+          />
           <MessageList />
           <Message />
         </div>

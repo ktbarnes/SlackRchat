@@ -7,6 +7,7 @@ import { Modal,
         ModalBody
          } from 'react-bootstrap'        
 import React from 'react';
+import { updateUser } from '../actions/CurrentUserActions'
 
 export default class Profile extends React.Component {
 
@@ -30,6 +31,26 @@ export default class Profile extends React.Component {
     //   }
     
     // }
+
+    upload(e) {
+      let file = this.refs.pic.files[0];
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onloadend = function (e) {
+        console.log('inside reader.onloadend ',reader.result);
+        // console.log('url ', url);
+        updateUser(reader.result);
+      }
+      let xhr = new XMLHttpRequest();
+
+      // xhr.open("POST", signed_request);
+      // xhr.setRequestHeader("Cache-Control", "public,max-age=3600");
+      // xhr.setRequestHeader('x-amz-acl', 'public-read');      
+
+      // xhr.send(file)
+    }
+
     render(){
     return (
       <Modal id="profile_modal" show={this.props.show}>
@@ -42,7 +63,7 @@ export default class Profile extends React.Component {
           </div>
           <div>  
             <h3>Profile Picture</h3>
-            <input type="file" accept="image/*" data-action="profilepicture" />
+            <input type="file" ref='pic' accept="image/*" data-action="profilepicture" />
           </div>
           <div>
             <label>First Name</label>
@@ -63,7 +84,7 @@ export default class Profile extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <Button className="btn btn-default" onClick={this.props.onHide}>Close</Button>
-          <Button className="btn btn-default" onClick={this.props.onHide}>Save</Button>
+          <Button className="btn btn-default" onClick={(e) => this.upload(e)}>Save</Button>
         </Modal.Footer>
 
       </Modal>

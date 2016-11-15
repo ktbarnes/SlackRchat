@@ -27,10 +27,11 @@ class Nav extends React.Component {
     })
   };
 
-  close() {
+  close(pic) {
     this.setState({
       showModel: false,
     })
+    
   };
 
   logout() {

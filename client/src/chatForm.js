@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { PropTypes } from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { emojify } from 'react-emojione';
 
 
 const ChatForm = ( { socket, currentRoom, currentUser } ) => {
