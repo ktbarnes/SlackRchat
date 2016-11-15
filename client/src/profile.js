@@ -61,9 +61,6 @@ export default class Profile extends React.Component {
     this.props.save(info)
 
   }
-
-<<<<<<< HEAD
-=======
     //   close = () => {
     //     this.setState({
     //       showModel: false
@@ -91,7 +88,6 @@ export default class Profile extends React.Component {
       // xhr.send(file)
     }
 
->>>>>>> feat(photo upload): photo upload to cloudinary
     render(){
     return (
       <form onSubmit={this.handleSubmit}>
