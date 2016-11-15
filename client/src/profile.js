@@ -8,6 +8,8 @@ import { Modal,
          } from 'react-bootstrap'        
 import React from 'react';
 import SignUp from './signup.js'
+import { updateUser } from '../actions/CurrentUserActions'
+
 export default class Profile extends React.Component {
 
     constructor(props) {
@@ -52,7 +54,7 @@ export default class Profile extends React.Component {
   handleGithub(event) { this.setState({github: event.target.value})}
   handleFacebook(event) { this.setState({facebook: event.target.value})}
   handleTwitter(event) { this.setState({twitter: event.target.value})}
-  handleLinkedin(event) { this.setState({linkedin: event.target.value})}
+-  handleLinkedin(event) { this.setState({linkedin: event.target.value})}
 
   handleSubmit(event){
     let info = this.state
@@ -61,7 +63,21 @@ export default class Profile extends React.Component {
 
   }
 
-    render(){
+  upload(e) {
+    let file = this.refs.pic.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = function (e) {
+      console.log('inside reader.onloadend ',reader.result);
+      // console.log('url ', url);
+      updateUser(reader.result);
+    }
+
+
+  }
+  
+  render() {
     return (
       <form onSubmit={this.handleSubmit}>
       <Modal id="profile_modal" show={this.props.show} >
@@ -74,7 +90,7 @@ export default class Profile extends React.Component {
           </div>
           <div> 
             <h3>Profile Picture</h3>
-            <input type="file" accept="image/*" data-action="profilepicture" />
+            <input type="file" ref='pic' accept="image/*" data-action="profilepicture" />
           </div>
           <div>
             <label>First Name</label>

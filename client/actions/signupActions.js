@@ -1,13 +1,8 @@
-import axios from 'axios'
-import { dispatch } from 'react-redux';
-
-export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
-export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
+import axios from 'axios';
 
 export function createUser(id_token) {
   return {
-    type: SIGNUP_SUCCESS,
-    isFetching: false,
+    type: 'SIGNUP_SUCCESS',
     isAuthenticated: true,
     id_token: id_token
   }
@@ -15,23 +10,19 @@ export function createUser(id_token) {
 
 export function signupError() {
   return {
-    type: SIGNUP_FAILURE,
-    isFetching: false,
+    type: 'SIGNUP_FAILURE',
     isAuthenticated: false,
     message
   }
 }
 
-let config = {};
 export function signupUser(creds) {
-  config = {
+  let config = {
     email: creds.username, 
     password: creds.password
   }
   return axios.post('/db/users', config);
 }
-
-
 
 export function sendProfileInfo(info){ 
     let information = {

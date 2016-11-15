@@ -1,4 +1,6 @@
-export const setCurrentUser = (user) => {
+import axios from 'axios'
+
+export const setCurrentUser = user => {
   return {
     type: 'SET_CURRENT_USER',
     id: user.id,
@@ -14,3 +16,15 @@ export const setCurrentUser = (user) => {
     linkedin: user.linkedin
   };
 };
+
+export const updateUser = user => {
+
+  let pic =  user;
+
+  axios.post('/pic', {pic: pic})
+  .then(data => console.log(data));
+
+  // return {
+  //   type: 'UPDATE_CURRENT_USER'
+  // }
+}
