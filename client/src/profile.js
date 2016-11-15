@@ -54,7 +54,7 @@ export default class Profile extends React.Component {
   handleGithub(event) { this.setState({github: event.target.value})}
   handleFacebook(event) { this.setState({facebook: event.target.value})}
   handleTwitter(event) { this.setState({twitter: event.target.value})}
--  handleLinkedin(event) { this.setState({linkedin: event.target.value})}
+  handleLinkedin(event) { this.setState({linkedin: event.target.value})}
 
   handleSubmit(event){
     let info = this.state
