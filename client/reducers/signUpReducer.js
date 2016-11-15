@@ -1,4 +1,6 @@
-const signInReducer = (state = {isFetching: false, isAuthenticated: !!localStorage.getItem('id_token')}, action) => {
+const signUpReducer = (state = {isFetching: false, 
+                                isAuthenticated: !!localStorage.getItem('id_token'),
+                                }, action) => {
   switch (action.type) {
     case 'SIGNUP_REQUEST':
       return Object.assign({}, state, {
@@ -22,10 +24,11 @@ const signInReducer = (state = {isFetching: false, isAuthenticated: !!localStora
       return Object.assign({}, state, {
         isFetching: true,
         isAuthenticated: false
-      })
+      })  
+      
     default:
       return state;
   }
 }
 
-export default signInReducer
+export default signUpReducer
