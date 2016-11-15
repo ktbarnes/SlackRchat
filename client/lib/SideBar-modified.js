@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import decouple from 'decouple';
+// import decouple from 'decouple';
 
 const CONTENT_DEFAULT_STYLE = {
   position: 'relative'
