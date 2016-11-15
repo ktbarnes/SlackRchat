@@ -4,7 +4,7 @@ import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import { toggleCurrentRoomField } from '../actions/RoomActions';
 
 //room is passed in as a prop from sidebar.js
-const SideBarEntryChannel = ({ dispatch, room, currentRoom, theSocket }) => (
+const LeftSideBarEntryChannel = ({ dispatch, room, currentRoom, theSocket }) => (
   <li onClick={ 
     () => {
       dispatch(setCurrentRoom(room));
@@ -31,4 +31,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 };
 
-export default connect(mapStateToProps)(SideBarEntryChannel);
+export default connect(mapStateToProps)(LeftSideBarEntryChannel);

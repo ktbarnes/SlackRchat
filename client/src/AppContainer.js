@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import Nav from './nav.js';
 import PrimaryChatroom from './PrimaryChatroom.js';
-import SideBar from './sidebar.js';
+import LeftSideBar from './LeftSideBar.js';
+import RightSideBar from './RightSideBar.js';
+import RightSideBarContainer from './RightSideBarTest.js';
 
 class AppContainer extends React.Component {
 
@@ -10,20 +12,32 @@ class AppContainer extends React.Component {
     this.socket = io('/Hack-Reactor-NameSpace');
   }
 
+    // render(){
+    //   return (
+    //     <div>
+
+    //       <div><Nav /></div>
+          
+    //       <table>
+    //         <td><LeftSideBar theSocket={this.socket} /></td>
+    //         <td><PrimaryChatroom theSocket={this.socket} /></td>
+    //         <td><RightSideBar theSocket={this.socket} /></td>
+    //       </table>
+
+    //     </div>
+    //   )
+    // }
+
   render(){
-    return (
-      <div>
+      return (
+        <div>
 
-        <div><Nav /></div>
-        
-        <table>
-          <td><SideBar theSocket={this.socket} /></td>
-          <td><PrimaryChatroom theSocket={this.socket} /></td>
-        </table>
+          <div><RightSideBarContainer /></div>
+          
 
-      </div>
-    )
-  }
+        </div>
+      )
+    }
 }
 
 export default AppContainer
