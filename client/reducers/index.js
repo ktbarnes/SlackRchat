@@ -5,7 +5,7 @@ import RoomReducer from './RoomReducer'
 import UserReducer from './UserReducer'
 import CurrentUserReducer from './CurrentUserReducer'
 import CurrentRoomReducer from './CurrentRoomReducer'
-import signInReducer from './signInReducer'
+import signUpReducer from './signUpReducer'
 
 export default combineReducers ({
   authReducer,
@@ -14,5 +14,5 @@ export default combineReducers ({
   UserReducer,
   CurrentUserReducer,
   CurrentRoomReducer,
-  signInReducer
+  signUpReducer
 })

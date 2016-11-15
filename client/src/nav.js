@@ -52,9 +52,12 @@ class Nav extends React.Component {
           onHide={this.close}
           first={this.state.first} 
           last={this.state.last}
-          email={this.state.email}
+          uersname={this.state.username}
           phone={this.state.phone}
           about={this.state.about}
+          github={this.state.github}
+          facebook={this.state.facebook}
+          twitter={this.state.twitter}
           />
         <a className="navbutton" onClick={() => this.logout()} href="/login">Logout</a>
       </div>

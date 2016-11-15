@@ -47,8 +47,23 @@ router.post('/users', function (request, response) {
     })
     .then(data => response.sendStatus(201));
   });
-
 });
+
+//THIS IS WHERE I START
+router.post('/usersInfo', function(request, response) {
+  console.log(request.body, 'this is the request from router post usersInfo');
+  User.postOtherUserInformation({
+      email:request.body.email || null,
+      first: request.body.first || null,
+      last: request.body.last || null,
+      phone: request.body.phone || null,
+      about: request.body.about || null,
+      github: request.body.github || null,
+      facebook: request.body.facebook || null,
+      twitter: request.body.twitter || null,
+      linkedin: request.body.linkedin || null
+  }).then(data => response.sendStatus(201));
+})
 
 router.post('/channels', function (request, response) {
   Channel.addChannel(request.body.name)
