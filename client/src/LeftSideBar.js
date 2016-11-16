@@ -4,7 +4,7 @@ import LeftSideBarEntryChannel from './LeftSideBarEntry-Channel';
 import { dispatch, connect } from 'react-redux';
 import { addRoom } from '../actions/RoomActions';
 
-const LeftSideBar = ( {rooms, currentRoom, dispatch, theSocket} ) => {
+const LeftSideBar = ( {rooms, currentRoom, currentUser, dispatch, theSocket} ) => {
   var input;
 
   const handleReceive = (cb,body) => {
@@ -14,9 +14,20 @@ const LeftSideBar = ( {rooms, currentRoom, dispatch, theSocket} ) => {
   return (
     <div>
 
+      <p>...AppContainer</p>
+      <p 
+        onClick={ () => {
+          console.log("this is my current room",currentRoom);
+          console.log("this is my current user",currentUser);
+        }}>CL my room
+      </p>
+      <p>...AppContainer</p>
+
       <p>...</p>
       <p 
-        onClick={ () => {console.log("this is my current room",currentRoom)}}>Console log my room
+        onClick={ () => {
+          // theSocket.emit("setMyEmailInSocket",{email: currentUser[0].email});
+        }}>TestDMSocketButton
       </p>
       <p>...</p>
 
@@ -74,6 +85,7 @@ const LeftSideBar = ( {rooms, currentRoom, dispatch, theSocket} ) => {
 const mapStateToProps = (state, ownProps) => {
   return { 
     currentRoom: state.allReducers.CurrentRoomReducer,
+    currentUser: state.allReducers.CurrentUserReducer,
     rooms: state.allReducers.RoomReducer 
   }
 };

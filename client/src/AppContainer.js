@@ -35,7 +35,6 @@ class AppContainer extends React.Component {
 
   componentDidMount() {
     this.downloadAllChannels();
-    // this.downloadAllMessages();
     this.downloadAllUsers();
     this.socket.on('chat message', 
       incoming => 
@@ -49,32 +48,20 @@ class AppContainer extends React.Component {
     this.socket.on('disconnected', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     
+    // //room stuff
+    // this.socket.on('connect', () => this.socket.emit('changeRoom', this.props.currentRoom.channelName) //default to Lobby when connected
+    // ); 
     //room stuff
-    this.socket.on('connect', () => this.socket.emit('changeRoom', this.props.currentRoom.channelName)); //default to Lobby when connected
-
+    this.socket.on('connect', (txt) => {
+      this.socket.emit('changeRoom', this.props.currentRoom.channelName);
+    }); 
   }
   
   handleReceive(cb,body) {
     this.props.dispatch(cb(body));
   }
 
-  // downloadAllMessages() {
-  //   axios.get('/db/messages')
-  //   .then( (res) => {
-  //     res.data.forEach( (msg) => {
-  //       let eachMsg = {
-  //         id: msg.id,
-  //         username: msg.username,
-  //         userIDinDB: msg.userIDinDB,
-  //         channelName: msg.channelName,
-  //         channelIDinDB: msg.channelIDinDB,
-  //         text: msg.message,
-  //         created_at: msg.created_at
-  //       }
-  //       this.handleReceive(addMessageFromDB,eachMsg);
-  //     });
-  //   });
-  // }
+
 
   downloadAllChannels() {
     this.currentRoom = this.props.currentRoom.channelName;
@@ -118,9 +105,17 @@ class AppContainer extends React.Component {
             this.handleReceive(setCurrentUser,eachUser);
           }
         });
+        console.log("email email email???",this.props.currentUser.email);
+        this.socket.emit("setMyEmailInSocket",{
+          email: this.props.currentUser.email,
+          username: this.props.currentUser.username
+        });
+        this.socket.emit("someoneJoin",this.props.currentUser.username);
       });
     });
   }
+
+
 
   render() {
     const { barOpened, duration, mode, side, size } = this.state;
@@ -141,6 +136,14 @@ class AppContainer extends React.Component {
 
     return (
       <SideBar {...sideBarProps}>
+        <div>
+          <p 
+            onClick={ () => {
+              console.log("this is my current room",this.props.currentRoom);
+              console.log("this is my current user",this.props.currentUser);
+            }}>CL my current stuffs. Test clicker only don't laugh at me
+          </p>
+        </div>
         <Nav />
         <div>
 

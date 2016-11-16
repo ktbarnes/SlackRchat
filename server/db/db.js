@@ -74,7 +74,8 @@ knex.schema.hasTable('DM_channel').then(function(exists) {
  if (!exists) {
    knex.schema.createTable('DM_channel', function (channel) {
      channel.increments('id').primary();
-     channel.string('name', 100).unique();
+     channel.string('name1', 100).unique();
+     channel.string('name2', 100).unique();
      channel.timestamps();
    }).then(function (table) {
      console.log('Created Table for DM_channels', table);

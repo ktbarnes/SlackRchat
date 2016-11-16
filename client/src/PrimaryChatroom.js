@@ -65,7 +65,7 @@ PrimaryChatroom.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("current room",state.allReducers.CurrentRoomReducer)
+  // console.log("current User",state.allReducers.CurrentUserReducer)
   return { 
     rooms: state.allReducers.RoomReducer,
     currentUser: state.allReducers.CurrentUserReducer,
