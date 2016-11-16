@@ -17,11 +17,7 @@ class PrimaryChatroom extends React.Component {
 
     this.socket = io('/Hack-Reactor-NameSpace');
     console.log("what are my props",this.props.currentRoom)
-    this.state = {
-      editorState: createEditorStateWithText('')
-    }
 
-    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
@@ -117,20 +113,10 @@ class PrimaryChatroom extends React.Component {
 
   }
 
-  onChange(editorState) {
-    this.setState({
-      editorState
-    })
-  }
-
   render(){
     return (
       <div>
         <div>
-          <EmojiEditor 
-            editorState={this.state.editorState}
-            onChange={this.onChange}
-          />
           <MessageList />
           <Message />
         </div>
