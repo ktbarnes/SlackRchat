@@ -26,6 +26,7 @@ class AppContainer extends React.Component {
       size: 256,
       tolerance: 70
     }
+    this.downloadAllChannels = this.downloadAllChannels.bind(this);
   }
 
   toggleBar() { this.setState({ barOpened: !this.state.barOpened })}
@@ -33,8 +34,8 @@ class AppContainer extends React.Component {
   onClose() { this.setState({ barOpened: false })}
 
   componentDidMount() {
-    this.downloadAllRooms();
-    this.downloadAllMessages();
+    this.downloadAllChannels();
+    // this.downloadAllMessages();
     this.downloadAllUsers();
     this.socket.on('chat message', 
       incoming => 
@@ -57,25 +58,25 @@ class AppContainer extends React.Component {
     this.props.dispatch(cb(body));
   }
 
-  downloadAllMessages() {
-    axios.get('/db/messages')
-    .then( (res) => {
-      res.data.forEach( (msg) => {
-        let eachMsg = {
-          id: msg.id,
-          username: msg.username,
-          userIDinDB: msg.userIDinDB,
-          channelName: msg.channelName,
-          channelIDinDB: msg.channelIDinDB,
-          text: msg.message,
-          created_at: msg.created_at
-        }
-        this.handleReceive(addMessageFromDB,eachMsg);
-      });
-    });
-  }
+  // downloadAllMessages() {
+  //   axios.get('/db/messages')
+  //   .then( (res) => {
+  //     res.data.forEach( (msg) => {
+  //       let eachMsg = {
+  //         id: msg.id,
+  //         username: msg.username,
+  //         userIDinDB: msg.userIDinDB,
+  //         channelName: msg.channelName,
+  //         channelIDinDB: msg.channelIDinDB,
+  //         text: msg.message,
+  //         created_at: msg.created_at
+  //       }
+  //       this.handleReceive(addMessageFromDB,eachMsg);
+  //     });
+  //   });
+  // }
 
-  downloadAllRooms() {
+  downloadAllChannels() {
     this.currentRoom = this.props.currentRoom.channelName;
     axios.get('/db/channels')
     .then( (res) => {
@@ -83,7 +84,7 @@ class AppContainer extends React.Component {
         let eachRoom = {
           id: msg.id,
           channelName: msg.name,
-          currentRoomToggle: (() => (this.currentRoom === msg.name) ? true : false)()
+          currentRoomToggle: (this.currentRoom === msg.name)
         }
         this.handleReceive(addRoom,eachRoom);
         if(this.currentRoom === msg.name){
@@ -110,7 +111,7 @@ class AppContainer extends React.Component {
             id: person.id,
             username: person.username,
             email: person.email,
-            currentUserToggle: (() => (this.currentUserIDfromDB === person.id) ? true : false)()
+            currentUserToggle: (this.currentUserIDfromDB === person.id)
           }
           this.handleReceive(addUser,eachUser);
           if(this.currentUserIDfromDB === person.id){
@@ -151,7 +152,7 @@ class AppContainer extends React.Component {
 
 
           <table>
-            <td><LeftSideBar theSocket={this.socket} /></td>
+            <td><LeftSideBar downloadAllChannels={this.downloadAllChannels} theSocket={this.socket} /></td>
             <td><PrimaryChatroom theSocket={this.socket} /></td>
           </table>          
 

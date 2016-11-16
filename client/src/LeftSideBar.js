@@ -1,10 +1,15 @@
 import axios from 'axios';
 import React, { PropTypes } from 'react';
 import LeftSideBarEntryChannel from './LeftSideBarEntry-Channel';
-import { connect } from 'react-redux';
+import { dispatch, connect } from 'react-redux';
+import { addRoom } from '../actions/RoomActions';
 
-const LeftSideBar = ( {rooms, currentRoom, theSocket} ) => {
-  let input;
+const LeftSideBar = ( {rooms, currentRoom, dispatch, theSocket} ) => {
+  var input;
+
+  const handleReceive = (cb,body) => {
+    dispatch(cb(body));
+  }
 
   return (
     <div>
@@ -29,14 +34,26 @@ const LeftSideBar = ( {rooms, currentRoom, theSocket} ) => {
       <div>ADD A CHANNEL
         <form
           onSubmit={e => {
+            const thisInput = input.value; //have to do this bc of async issues
             e.preventDefault();
-            if (!input.value.trim()) { return; }
+            if (!thisInput.trim()) { return; }
             //this is where you will issue a POST request to the database
-            axios.post('/db/channels',{ name: input.value })
-            .then((response) => console.log("room created in DB!", response))
+            axios.post('/db/channels',{ name: thisInput })
+            .then((response) => {
+              // console.log("room created in DB!", response);
+              let roomToAdd = {
+                id: response.data[0],
+                channelName: thisInput,
+                currentRoomToggle: false
+              }
+              // console.log("this is the room I added",roomToAdd)
+              handleReceive(addRoom,roomToAdd);
+            })
             .catch((err) => console.error(err))
+
             //reinitialize the input field
             input.value = '';
+            
           }}
         >
           <input ref={node => { input = node; }} />
