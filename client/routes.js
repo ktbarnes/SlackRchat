@@ -4,7 +4,6 @@ import {Router, browserHistory, Route, IndexRoute} from 'react-router'
 import AppContainer from './src/AppContainer'
 import Master from './src/master.js'
 import Login from './src/login.js'
-import Logout from './src/logout.js'
 import SignUp from './src/signup.js'
 import Profile from './src/signup.js'
 
@@ -24,7 +23,7 @@ export default (
   <Route path='/' component={Master}>
     <IndexRoute component={AppContainer} onEnter={requireAuth} />
     <Route path="login" component={Login} />
-    <Route path="logout" component={Logout} />
+    <Route path="logout" component={Login} />
     <Route path='signup' component={SignUp} />
   </Route>
 )

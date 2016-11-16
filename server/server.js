@@ -5,7 +5,6 @@ var path = require('path');
 var fs = require('fs');
 var cloudinary = require('cloudinary').v2;
 
-
 // require middleware
 require('./config/middleware.js')(app, express);
 
@@ -35,10 +34,45 @@ app.post('/pic', function(request, response) {
   });
 })
 
-// var upload_stream = cloudinary.upload.upload_stream({tags: 'basic_sample'}, function(err, image) {
-// })
-// var file_reader = fs.createReadStream(filename).pipe(upload_stream);
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
 
+var transport = nodemailer.createTransport(
+  smtpTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS
+    }
+  })
+);
+
+var params = {
+  from: process.env.GMAIL_USER,
+  to: 'katosych@gmail.com',
+  subject: 'Test email',
+  text: 'testing out the email'
+}
+
+app.post('/email', function(request, response) {
+  transport.sendMail(params, function (err, res) {
+    if(err) console.error(err);
+    response.sendStatus(200);
+  });
+});
+
+// var ses = require('nodemailer-ses-transport');
+// var transporter = nodemailer.createTransport(ses({
+//   accessKeyId: process.env.AMAZON_KEY,
+//   secretAccessKey: process.env.AMAZON_SECRET_KEY
+// }))
+
+// transporter.sendMail({
+//   from: 'slackerchat@gmail.com',
+//   to: 'katosych@gmail.com',
+//   subject: 'Invitation to Slacker',
+//   text: 'Invitation here'
+// })
 
 // cloudinary.uploader.upload("lake.jpg", {tags : "basic_sample", public_id : "blue_lake", eager: eager_options}, function(err,image){
 //   // "eager" parameter accepts a hash (or just a single item). You can pass

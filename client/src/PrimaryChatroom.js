@@ -9,6 +9,8 @@ import { addRoom } from '../actions/RoomActions';
 import { addUser } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
+// import { Picker, Emoji } from 'emoji-mart';
+import EmojiPicker from './EmojiPicker.js';
 
 class PrimaryChatroom extends React.Component {
 
@@ -47,8 +49,8 @@ class PrimaryChatroom extends React.Component {
 
   downloadAllMessages() {
     axios.get('/db/messages')
-    .then( (res) => {
-      res.data.forEach( (msg) => {
+    .then(res => {
+      res.data.forEach(msg => {
         let eachMsg = {
           id: msg.id,
           username: msg.username,
@@ -66,12 +68,12 @@ class PrimaryChatroom extends React.Component {
   downloadAllRooms() {
     this.currentRoom = this.props.currentRoom.channelName;
     axios.get('/db/channels')
-    .then( (res) => {
-      res.data.forEach( (msg) => {
+    .then(res => {
+      res.data.forEach(msg => {
         let eachRoom = {
           id: msg.id,
           channelName: msg.name,
-          currentRoomToggle: (() => (this.currentRoom === msg.name) ? true : false)()
+          currentRoomToggle: this.currentRoom === msg.name
         }
         this.handleReceive(addRoom,eachRoom);
         if(this.currentRoom === msg.name){
@@ -101,7 +103,7 @@ class PrimaryChatroom extends React.Component {
             id: person.id,
             username: person.username,
             email: person.email,
-            currentUserToggle: (() => (this.currentUserIDfromDB === person.id) ? true : false)()
+            currentUserToggle: this.currentUserIDfromDB === person.id
           }
           this.handleReceive(addUser,eachUser);
           if(this.currentUserIDfromDB === person.id){
@@ -113,9 +115,10 @@ class PrimaryChatroom extends React.Component {
 
   }
 
-  render(){
+  render() {
     return (
       <div>
+        <EmojiPicker />
         <div>
           <MessageList />
           <Message />
