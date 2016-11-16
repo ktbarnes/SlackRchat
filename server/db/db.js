@@ -70,17 +70,31 @@ knex.schema.hasTable('channel_users').then(function(exists) {
   }
 });
 
-// db.knex.schema.hasTable('directmessage').then(function(exists) {
-// 	if (!exists) {
-// 		db.schema.createTable('directmessage', function (directmessage) {
-// 			directmessage.increments('id').primary();
-// 			directmessage.string('name', 100).unique();
-// 			directmessage.timestamps();
-// 		}).then(function (table) {
-// 			console.log('Created Table', table);
-// 		})
-// 	}
-// });
+knex.schema.hasTable('DM_channel').then(function(exists) {
+ if (!exists) {
+   knex.schema.createTable('DM_channel', function (channel) {
+     channel.increments('id').primary();
+     channel.string('name', 100).unique();
+     channel.timestamps();
+   }).then(function (table) {
+     console.log('Created Table for DM_channels', table);
+   })
+ }
+});
+
+knex.schema.hasTable('DM_messages').then(function(exists) {
+  if (!exists) {
+    knex.schema.createTable('DM_messages', function (channel_messages) {
+      channel_messages.increments('id').primary();
+      channel_messages.integer('userID').unsigned().references('users.id');
+      channel_messages.integer('DM_channelID').unsigned().references('DM_channel.id');
+      channel_messages.string('message', 300);
+      channel_messages.timestamps();
+    }).then(function (table) {
+      console.log('Created Table for DM messages', table);
+    })
+  }
+});
 
 // db.knex.schema.hasTable('users_directmessage').then(function(exists) {
 // 	if (!exists) {
