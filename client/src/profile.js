@@ -12,31 +12,31 @@ import { updateUser } from '../actions/CurrentUserActions'
 
 export default class Profile extends React.Component {
 
-    constructor(props) {
-      super(props)
-      
-      this.state = {
-        first: 'First Name',
-        last: 'Last Name',
-        phone: 'phone',
-        about: 'about',
-        github: 'github',
-        facebook: 'facebook',
-        twitter: 'twitter',
-        linkedin: 'linkedin',
-        submit: 'submit'
-      }
-      this.handleFirst= this.handleFirst.bind(this);
-      this.handleLast= this.handleLast.bind(this);
-      // this.handleUsername = this.handleUsername.bind(this);
-      this.handlePhone = this.handlePhone.bind(this);
-      this.handleAbout = this.handleAbout.bind(this);
-      this.handleGithub = this.handleGithub.bind(this);
-      this.handleFacebook = this.handleFacebook.bind(this);
-      this.handleTwitter = this.handleTwitter.bind(this);
-      this.handleLinkedin = this.handleLinkedin.bind(this);
-      this.handleSubmit= this.handleSubmit.bind(this);
-     }
+  constructor(props) {
+    super(props)
+    
+    this.state = {
+      first: 'First Name',
+      last: 'Last Name',
+      phone: 'phone',
+      about: 'about',
+      github: 'github',
+      facebook: 'facebook',
+      twitter: 'twitter',
+      linkedin: 'linkedin',
+      submit: 'submit'
+    }
+    this.handleFirst= this.handleFirst.bind(this);
+    this.handleLast= this.handleLast.bind(this);
+    // this.handleUsername = this.handleUsername.bind(this);
+    this.handlePhone = this.handlePhone.bind(this);
+    this.handleAbout = this.handleAbout.bind(this);
+    this.handleGithub = this.handleGithub.bind(this);
+    this.handleFacebook = this.handleFacebook.bind(this);
+    this.handleTwitter = this.handleTwitter.bind(this);
+    this.handleLinkedin = this.handleLinkedin.bind(this);
+    this.handleSubmit= this.handleSubmit.bind(this);
+  }
     //   open = () => {
     //     this.setState({
     //       showModel: true

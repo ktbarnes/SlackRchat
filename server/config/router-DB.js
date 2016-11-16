@@ -45,7 +45,11 @@ router.post('/users', function (request, response) {
       password: hash,
       
     })
-    .then(data => response.sendStatus(201));
+    .then(data => {
+      console.log("DATA???", data)
+      let token = jwt.encode({id: data[0]}, process.env.SECRET);
+      response.json({id_token: token})
+    });
   });
 });
 

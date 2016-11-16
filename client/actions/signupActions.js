@@ -25,19 +25,19 @@ export function signupUser(creds) {
 }
 
 export function sendProfileInfo(info){ 
-    let information = {
-      email: config.email,
-      first: info.first,
-      last: info.last,
-      phone: info.phone,
-      about: info.about,
-      github: info.github,
-      facebook: info.facebook,
-      twitter: info.twitter,
-      linkedin: info.linkedin
-    }
-    console.log(information, 'this is info in Action');
-   return axios.post('/db/usersInfo', information); 
+  let information = {
+    email: config.email,
+    first: info.first,
+    last: info.last,
+    phone: info.phone,
+    about: info.about,
+    github: info.github,
+    facebook: info.facebook,
+    twitter: info.twitter,
+    linkedin: info.linkedin
+  }
+  console.log(information, 'this is info in Action');
+  return axios.post('/db/usersInfo', information); 
 }
 
 //will need to use above when converting to redux
