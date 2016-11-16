@@ -9,8 +9,6 @@ import { addRoom } from '../actions/RoomActions';
 import { addUser } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
-import { createEditorStateWithText } from 'draft-js-plugins-editor';
-import EmojiEditor from './EmojiEditor.js';
 
 class PrimaryChatroom extends React.Component {
 

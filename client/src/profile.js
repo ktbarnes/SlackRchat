@@ -130,12 +130,7 @@ export default class Profile extends React.Component {
           </div>  
         </Modal.Body>
         <Modal.Footer>
-<<<<<<< HEAD
           <Button className="btn btn-default" onClick={this.handleSubmit}>Save</Button>
-=======
-          <Button className="btn btn-default" onClick={this.props.onHide}>Close</Button>
-          <Button className="btn btn-default" onClick={(e) => this.upload(e)}>Save</Button>
->>>>>>> feat(photo upload): photo upload to cloudinary
         </Modal.Footer>
       </Modal>
      </form> 
