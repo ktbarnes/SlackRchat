@@ -73,10 +73,6 @@ function(socket){
     hrns.in(currentRoom).emit('someoneJoin', msg);
   });
 
-  //user disconnects from room
-  // console.log(currentUserUsername + ' connected to:' + socket.id);
-  // socket.broadcast.emit('someoneJoin','A user connected');
-
   //user sends message into room
   socket.on('chat message', function(fromClient){
     // console.log('fromClient: ' + fromClient);
@@ -91,12 +87,22 @@ function(socket){
     });
   });
 
+  socket.on('direct message', function(fromClient){
+    console.log("what's from client - message",fromClient.msg);
+    console.log("what's from client - recipientEmail",fromClient.recipientEmail);
+    console.log("translating socket number",loggedInUsers[fromClient.recipientEmail]);
+    var inputSocketID = loggedInUsers[fromClient.email]
+    hrns.to(inputSocketID).emit("direct message", fromClient.msg); //or
+    socket.broadcast.to(fromClient.socketID).emit("direct message",fromClient.msg);
+  });
+
   //user disconnects from room
   socket.on('disconnect', function(){
     console.log(currentUserUsername,' left the room');
     var msg = currentUserUsername + ' left the room';
     // socket.broadcast.emit('disconnected',msg);
     hrns.in(currentRoom).emit('disconnected', msg);
+    delete loggedInUsers[currentUserUsername];
   });
     
 });

@@ -22,7 +22,7 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
           socket.emit('chat message', {
             channelName: currentRoom.channelName, 
             channelID: currentRoom.id,
-            username: currentUser[0].username,
+            username: currentUser.username,
             msg: input.value
           });
 

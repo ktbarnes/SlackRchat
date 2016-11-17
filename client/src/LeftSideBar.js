@@ -14,19 +14,21 @@ const LeftSideBar = ( {rooms, currentRoom, currentUser, dispatch, theSocket} ) =
   return (
     <div>
 
-      <p>...AppContainer</p>
+      <p>...</p>
       <p 
         onClick={ () => {
           console.log("this is my current room",currentRoom);
           console.log("this is my current user",currentUser);
-        }}>CL my room
+        }}>ConsoleLog me!
       </p>
-      <p>...AppContainer</p>
 
       <p>...</p>
       <p 
         onClick={ () => {
-          // theSocket.emit("setMyEmailInSocket",{email: currentUser[0].email});
+          theSocket.emit("direct message",{
+            recipientEmail: 'thisone2',
+            msg: "Canh says hello in hard-code"
+          });
         }}>TestDMSocketButton
       </p>
       <p>...</p>
