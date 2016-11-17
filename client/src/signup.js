@@ -2,7 +2,7 @@ import React from 'react'
 import { connect, dispatch } from 'react-redux'
 import { createUser, signupError, signupUser, sendProfileInfo } from '../actions/signupActions'
 import { Transition } from 'react-router'
-import Profile from './profile.js'
+import ProfileInitial from './ProfileInitial'
 import axios from 'axios'
 // import routerdb from '../config/router-DB'
 
@@ -12,17 +12,7 @@ class SignUp extends React.Component {
     super(props)
     this.state = {
       showModel: false,
-      // first: 'First Name',
-      // last: 'Last Name',
-      // username: 'username',
-      // phone: 'phone number',
-      // about: 'I am.... ',
-      // github: 'github account',
-      // facebook: 'facebook account',
-      // twitter: 'twitter account',
-      // linkedin: 'linkedin'
     }
-    // this.username = null;
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
     this.save = this.save.bind(this);
@@ -61,9 +51,7 @@ class SignUp extends React.Component {
       else {
         // console.log("Signup successful - setting a token in local storage")
         localStorage.setItem('id_token', response.data.id_token);
-        // console.log(response.data.id_token, "this is the id token julia")
         this.props.dispatch(createUser(response.data.id_token));
-        // console.log(response.data.id_token, "this is the id token julia")
         this.open();
       }
     })
@@ -79,8 +67,6 @@ class SignUp extends React.Component {
         console.log('errorMessage')
       }
       else {
-        // localStorage.setItem('id_token', response.data.id_token);
-
         this.props.router.replace('/')   
       }
     })
@@ -100,18 +86,9 @@ class SignUp extends React.Component {
           <a className='btn btn-auth' href="#" onClick={(event) => this.onSignup(event)}> 
           Signup
           </a>
-          <Profile 
+          <ProfileInitial 
             show={this.state.showModel} 
             onHide={this.close}
-            // first={this.state.first} 
-            // last={this.state.last}
-            // username={this.state.username}
-            // phone={this.state.phone}
-            // about={this.state.about}
-            // github={this.state.github}
-            // facebook={this.state.facebook}
-            // twitter={this.state.twitter}
-            // linkedin={this.state.linkedin}
             save={this.save}
             />
       </div>

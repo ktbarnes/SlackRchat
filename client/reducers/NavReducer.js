@@ -4,7 +4,10 @@ const NavReducer = (state = {showModel:false}, action) => {
       return Object.assign({}, state, {
         showModel: true
       })
-
+    case 'CLOSE_PROFILE_REQUEST':
+    	return Object.assign({}, state, {
+    		showModel: false
+    	}) 
     default:
         return state;  
     }

@@ -122,3 +122,59 @@ render(){
      ) 
   }
 }
+
+
+//SEE NOTES on bottom
+import { Modal, 
+        Button,
+        ModalHeader,
+        ModalTitle,
+        ModalFooter,
+        ModalBody
+         } from 'react-bootstrap'        
+import React from 'react'
+import SignUp from './signup.js'
+import Nav from './nav.js'
+import { dispatch, connect } from 'react-redux'
+
+class Profile extends React.Component {
+    constructor(props) {
+      super(props)
+      // this.props.currentUser
+        // console.log(this.props, "what are my propss JUlia")
+      // this.props = this.props.currentUser
+     }
+   
+   
+    // this.props = this.props.currentUser
+  
+    render(){
+    return (
+      <Modal id="profile_modal" >
+        <Modal.Header>
+          <Modal.Title id="modal_header">Profile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body id="modal_content"> 
+        </Modal.Body>
+        <Modal.Footer>
+          <Button className="btn btn-default">Save</Button>
+        </Modal.Footer>
+      </Modal>
+    
+     ) 
+  }
+}
+
+const mapStateToProps = (state, ownProps) => {
+  console.log("what is my current user? Julia wants to know",state.allReducers.CurrentUserReducer)
+  console.log("what is my current STATE ", state)
+  return {
+    // currentUser: state.allReducers.CurrentUserReducer
+    // allUsers: state.allReducers.UserReducer 
+  }
+}
+
+export default connect(mapStateToProps)(ProfileInitial)
+
+
+

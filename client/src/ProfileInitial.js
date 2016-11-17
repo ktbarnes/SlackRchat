@@ -7,67 +7,61 @@ import { Modal,
          } from 'react-bootstrap'        
 import React from 'react'
 import SignUp from './signup.js'
-import Nav from './nav.js'
+// import Nav from './nav.js'
 import { dispatch, connect } from 'react-redux'
 
-class Profile extends React.Component {
+class ProfileInitial extends React.Component {
 
     constructor(props) {
       super(props)
-        console.log(this.props, "what are my propss JUlia")
-      // this.state = {
-      //   first: 'First Name',
-      //   last: 'Last Name',
-      //   phone: 'phone',
-      //   about: 'about',
-      //   github: 'github',
-      //   facebook: 'facebook',
-      //   twitter: 'twitter',
-      //   linkedin: 'linkedin',
-      //   submit: 'submit'
-      // }
-//       var hm= this.state;
-// console.log(hm, "this is the state julia of profile")
+      this.state = {
+        first: 'First Name',
+        last: 'Last Name',
+        phone: 'phone',
+        about: 'about',
+        github: 'github',
+        facebook: 'facebook',
+        twitter: 'twitter',
+        linkedin: 'linkedin',
+        submit: 'submit'
+      }
+      
 
-      // this.handleFirst= this.handleFirst.bind(this);
-      // this.handleLast= this.handleLast.bind(this);
-      // // this.handleUsername = this.handleUsername.bind(this);
-      // this.handlePhone = this.handlePhone.bind(this);
-      // this.handleAbout = this.handleAbout.bind(this);
-      // this.handleGithub = this.handleGithub.bind(this);
-      // this.handleFacebook = this.handleFacebook.bind(this);
-      // this.handleTwitter = this.handleTwitter.bind(this);
-      // this.handleLinkedin = this.handleLinkedin.bind(this);
-      // this.handleSubmit= this.handleSubmit.bind(this);
+      this.handleFirst= this.handleFirst.bind(this);
+      this.handleLast= this.handleLast.bind(this);
+      // this.handleUsername = this.handleUsername.bind(this);
+      this.handlePhone = this.handlePhone.bind(this);
+      this.handleAbout = this.handleAbout.bind(this);
+      this.handleGithub = this.handleGithub.bind(this);
+      this.handleFacebook = this.handleFacebook.bind(this);
+      this.handleTwitter = this.handleTwitter.bind(this);
+      this.handleLinkedin = this.handleLinkedin.bind(this);
+      this.handleSubmit= this.handleSubmit.bind(this);
      }
-    //   open = () => {
-    //     this.setState({
-    //       showModel: true
-    //     });
-  //   //   }
-  // handleFirst(event){ 
-  //   // console.log("wer got ittt", event.target.value)
-  //   this.setState({first: event.target.value})
-  //   // console.log(this.state, "the state is updatedgf")
-  // }     
+      // open = () => {
+      //   this.setState({
+      //     showModel: true
+      //   });
+    //   }
+  handleFirst(event){ 
+    // console.log("wer got ittt", event.target.value)
+    this.setState({first: event.target.value})
+    // console.log(this.state, "the state is updatedgf")
+  }     
 
-  // handleLast(event) { this.setState({last: event.target.value})}
-  // handlePhone(event) { this.setState({phone: event.target.value})}
-  // handleAbout(event) { this.setState({about: event.target.value})}
-  // handleGithub(event) { this.setState({github: event.target.value})}
-  // handleFacebook(event) { this.setState({facebook: event.target.value})}
-  // handleTwitter(event) { this.setState({twitter: event.target.value})}
-  // handleLinkedin(event) { this.setState({linkedin: event.target.value})}
+  handleLast(event) { this.setState({last: event.target.value})}
+  handlePhone(event) { this.setState({phone: event.target.value})}
+  handleAbout(event) { this.setState({about: event.target.value})}
+  handleGithub(event) { this.setState({github: event.target.value})}
+  handleFacebook(event) { this.setState({facebook: event.target.value})}
+  handleTwitter(event) { this.setState({twitter: event.target.value})}
+  handleLinkedin(event) { this.setState({linkedin: event.target.value})}
 
-  // handleSubmit(event){
-  //   let info = this.state
-  //   // console.log(event, "the state is updated")
-  //   this.props.save(info)
-
-
-
-
-
+  handleSubmit(event){
+    let info = this.state
+    // console.log(event, "the state is updated")
+    this.props.save(info)
+}
 
 render(){
     return (
@@ -127,61 +121,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(Profile)
-
-
-//SEE NOTES on bottom
-import { Modal, 
-        Button,
-        ModalHeader,
-        ModalTitle,
-        ModalFooter,
-        ModalBody
-         } from 'react-bootstrap'        
-import React from 'react'
-import SignUp from './signup.js'
-import Nav from './nav.js'
-import { dispatch, connect } from 'react-redux'
-
-class Profile extends React.Component {
-    constructor(props) {
-      super(props)
-      // this.props.currentUser
-        // console.log(this.props, "what are my propss JUlia")
-      // this.props = this.props.currentUser
-     }
-   
-   
-    // this.props = this.props.currentUser
-  
-    render(){
-    return (
-      <Modal id="profile_modal" >
-        <Modal.Header>
-          <Modal.Title id="modal_header">Profile</Modal.Title>
-        </Modal.Header>
-        <Modal.Body id="modal_content"> 
-        </Modal.Body>
-        <Modal.Footer>
-          <Button className="btn btn-default">Save</Button>
-        </Modal.Footer>
-      </Modal>
-    
-     ) 
-  }
-}
-
-const mapStateToProps = (state, ownProps) => {
-  console.log("what is my current user? Julia wants to know",state.allReducers.CurrentUserReducer)
-  console.log("what is my current STATE ", state)
-  return {
-    currentUser: state.allReducers.CurrentUserReducer
-    // allUsers: state.allReducers.UserReducer 
-  }
-}
-
-export default connect(mapStateToProps)(Profile)
-
+export default connect(mapStateToProps)(ProfileInitial)
 
 
 
