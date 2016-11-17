@@ -19,6 +19,7 @@ const LeftSideBar = ( {rooms, currentRoom, currentUser, dispatch, theSocket} ) =
         onClick={ () => {
           console.log("this is my current room",currentRoom);
           console.log("this is my current user",currentUser);
+          window.alert("hi");
         }}>ConsoleLog me!
       </p>
 

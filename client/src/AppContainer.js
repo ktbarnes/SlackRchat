@@ -37,18 +37,22 @@ class AppContainer extends React.Component {
     this.downloadAllChannels();
     this.downloadAllUsers();
     this.socket.on('chat message', 
-      incoming => 
-      this.handleReceive(addMessageFromSocket,{
-        channelName: incoming.channelName,
-        channelID: incoming.channelID,
-        username: incoming.username,
-        text: incoming.text,
-
-      }));
+      incoming => {
+        this.handleReceive(addMessageFromSocket,{
+          channelName: incoming.channelName,
+          channelID: incoming.channelID,
+          username: incoming.username,
+          text: incoming.text,
+        });
+        // console.log("incoming.text",incoming.text);
+        // window.alert("incoming.text",incoming.text);
+      }
+    );
     this.socket.on('disconnected', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
-    this.socket.on("direct message", function(msg) {
-      alert(msg);
+    this.socket.on("direct message", txt => {
+      console.log("trying to get a message");
+      window.alert(txt) 
     });
     this.socket.on('connect', (txt) => this.socket.emit('changeRoom', this.props.currentRoom.channelName)); 
   }

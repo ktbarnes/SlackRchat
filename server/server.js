@@ -34,8 +34,8 @@ var keysGrabber = function(value, object){
 var http = require('http').Server(app);
 var socket = require('./socket/socket.js');
 var io = require('socket.io')(http);
-var organizationName = 'Hack-Reactor-NameSpace'; //hard-coded for now
-var hrns = io.of('/'+organizationName); 
+var organizationName = '/Hack-Reactor-NameSpace'; //hard-coded for now
+var hrns = io.of(organizationName); 
 //Just one "organization" for now, called HRNS. we can add more later
 var currentRoom = '';
 var currentUserEmail = '';
@@ -54,6 +54,7 @@ function(socket){
     currentUserEmail = fromClient.email;
     currentUserUsername = fromClient.username;
     loggedInUsers[fromClient.email] = socket.id;
+    // loggedInUsers[fromClient.email] = socket.id.substring(organizationName.length);
     console.log("did my user set?",loggedInUsers);
   });
   //hi
@@ -91,9 +92,23 @@ function(socket){
     console.log("what's from client - message",fromClient.msg);
     console.log("what's from client - recipientEmail",fromClient.recipientEmail);
     console.log("translating socket number",loggedInUsers[fromClient.recipientEmail]);
+    console.log("currentRoom",currentRoom);
+    // console.log("io.sockets.connected",io.sockets.connected)
     var inputSocketID = loggedInUsers[fromClient.email]
-    hrns.to(inputSocketID).emit("direct message", fromClient.msg); //or
-    socket.broadcast.to(fromClient.socketID).emit("direct message",fromClient.msg);
+    console.log("loggedInUsers object",loggedInUsers);
+    // socket.broadcast.in(currentRoom).to(inputSocketID).emit("direct message", fromClient.msg); //from Dan
+    // socket.broadcast.to(inputSocketID).emit("direct message", fromClient.msg); //or
+    // inputSocketID.emit("direct message", fromClient.msg); //or
+    socket.broadcast.to(inputSocketID).emit("direct message",fromClient.msg);
+    // hrns.in(currentRoom).emit('chat message', {
+    //   channelName: "Lobby",
+    //   channelID: 1,
+    //   username: "random",
+    //   text: fromClient.msg
+    // });
+    // io.of(organizationName).to(inputSocketID).emit("direct message",fromClient.msg)
+    // hrns.to(inputSocketID).emit("direct message",fromClient.msg)
+    // io.to(inputSocketID).emit("direct message",fromClient.msg);
   });
 
   //user disconnects from room
