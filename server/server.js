@@ -17,7 +17,15 @@ app.use('/db', dbRouter)
 var giphyRouter = require('./config/router-giphy.js');
 app.use('/api', giphyRouter)
 
-
+//helper function
+var keysGrabber = function(value, object){
+   for(var key in object){
+     if(object[key] == value){
+       return key;
+     }
+   }
+   return null;
+ } //end of keysGrabber
 
 
 // // require socket
@@ -30,6 +38,9 @@ var organizationName = 'Hack-Reactor-NameSpace'; //hard-coded for now
 var hrns = io.of('/'+organizationName); 
 //Just one "organization" for now, called HRNS. we can add more later
 var currentRoom = '';
+var currentUserEmail = '';
+var currentUserUsername = '';
+var loggedInUsers = {};
 hrns.on('connection', 
 
 //Putting the socket code here for now. Having trouble with modularity and passing
@@ -37,6 +48,15 @@ hrns.on('connection',
 
 function(socket){
 
+  //testing this out for now only
+  socket.on('setMyEmailInSocket', function(fromClient){
+    console.log('fromClient: ' + fromClient);
+    currentUserEmail = fromClient.email;
+    currentUserUsername = fromClient.username;
+    loggedInUsers[fromClient.email] = socket.id;
+    console.log("did my user set?",loggedInUsers);
+  });
+  //hi
   //Room-specific code
 
   socket.on('changeRoom', function(room) {
@@ -46,9 +66,12 @@ function(socket){
     // hrns.in(currentRoom).emit('chat message', {text: "A user has connected to the room"}); //commenting out for now because it got distracting
   });
 
-  //user disconnects from room
-  console.log('a user connected to:' + socket.id);
-  // socket.broadcast.emit('someoneJoin','A user connected');
+  socket.on('someoneJoin', function(username){
+    console.log(username + ' connected');
+    var msg = username + ' connected';
+    // socket.broadcast.emit('someoneJoin',msg);
+    hrns.in(currentRoom).emit('someoneJoin', msg);
+  });
 
   //user sends message into room
   socket.on('chat message', function(fromClient){
@@ -64,11 +87,22 @@ function(socket){
     });
   });
 
+  socket.on('direct message', function(fromClient){
+    console.log("what's from client - message",fromClient.msg);
+    console.log("what's from client - recipientEmail",fromClient.recipientEmail);
+    console.log("translating socket number",loggedInUsers[fromClient.recipientEmail]);
+    var inputSocketID = loggedInUsers[fromClient.email]
+    hrns.to(inputSocketID).emit("direct message", fromClient.msg); //or
+    socket.broadcast.to(fromClient.socketID).emit("direct message",fromClient.msg);
+  });
+
   //user disconnects from room
   socket.on('disconnect', function(){
-    console.log('user disconnected');
-    var msg = 'A user disconnected';
-    socket.broadcast.emit('disconnected',msg);
+    console.log(currentUserUsername,' left the room');
+    var msg = currentUserUsername + ' left the room';
+    // socket.broadcast.emit('disconnected',msg);
+    hrns.in(currentRoom).emit('disconnected', msg);
+    delete loggedInUsers[currentUserUsername];
   });
     
 });

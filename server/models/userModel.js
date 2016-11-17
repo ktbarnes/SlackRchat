@@ -3,7 +3,7 @@ var database = require('../db/db');
 var User = {
   getUsers: function() {
     return database.select('*').from('users').then(data => {
-      console.log(data);
+      // console.log(data);
       return data;
     });
   },

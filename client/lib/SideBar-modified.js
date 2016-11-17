@@ -91,7 +91,7 @@ class SideBar extends React.Component {
   }
 
   componentDidMount() {
-    this.initTouchEvents();
+    // this.initTouchEvents();
   }
 
   componentWillReceiveProps(nextProps = {}) {
@@ -177,31 +177,31 @@ class SideBar extends React.Component {
     }
   }
 
-  initTouchEvents() {
-    this.onScrollFn();
-    window.document.addEventListener('touchmove', this.preventMove.bind(this));
-  }
+  // initTouchEvents() {
+  //   this.onScrollFn();
+  //   window.document.addEventListener('touchmove', this.preventMove.bind(this));
+  // }
 
   isOpen() {
     return this.state.opened;
   }
 
-  onScrollFn() {
-    return decouple(window.document, 'scroll', () => {
-      if (!this.state._moved) {
-        window.clearTimeout(this.state.scrollTimeout);
-        this.setState({ scrolling: true });
+  // onScrollFn() {
+  //   return decouple(window.document, 'scroll', () => {
+  //     if (!this.state._moved) {
+  //       window.clearTimeout(this.state.scrollTimeout);
+  //       this.setState({ scrolling: true });
 
-        let timeout = window.setTimeout(() => {
-          this.setState({
-            scrolling: false
-          });
-        }, 250);
+  //       let timeout = window.setTimeout(() => {
+  //         this.setState({
+  //           scrolling: false
+  //         });
+  //       }, 250);
 
-        this.setState({ scrollTimeout: timeout });
-      }
-    });
-  }
+  //       this.setState({ scrollTimeout: timeout });
+  //     }
+  //   });
+  // }
 
   onTouchCancelFn() {
     this.setState({
