@@ -69,25 +69,6 @@ export default class Profile extends React.Component {
     
     // }
 
-    upload(e) {
-      let file = this.refs.pic.files[0];
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.onloadend = function (e) {
-        console.log('inside reader.onloadend ',reader.result);
-        // console.log('url ', url);
-        updateUser(reader.result);
-      }
-      let xhr = new XMLHttpRequest();
-
-      // xhr.open("POST", signed_request);
-      // xhr.setRequestHeader("Cache-Control", "public,max-age=3600");
-      // xhr.setRequestHeader('x-amz-acl', 'public-read');      
-
-      // xhr.send(file)
-    }
-
   upload(e) {
     let file = this.refs.pic.files[0];
     let reader = new FileReader();

@@ -3,7 +3,7 @@ import { connect, dispatch } from 'react-redux'
 import { logoutUser, requestLogout, receiveLogout } from '../actions/logoutActions'
 import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router'
 import Profile from './profile.js'
-import { Modal, Button, ModalHeader, ModalTitle, ModalFooter, ModalBody } from 'react-bootstrap' 
+// import { Modal, Button, ModalHeader, ModalTitle, ModalFooter, ModalBody } from 'react-bootstrap' 
 
 class Nav extends React.Component {
   constructor(props) {

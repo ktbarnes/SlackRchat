@@ -10,7 +10,8 @@ import { addUser } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
 // import { Picker, Emoji } from 'emoji-mart';
-import EmojiPicker from './EmojiPicker.js';
+// import EmojiPicker from './EmojiPicker.js';
+// import { Picker, Emoji } from '../lib/emoji-mart/src'
 
 class PrimaryChatroom extends React.Component {
 
@@ -118,7 +119,6 @@ class PrimaryChatroom extends React.Component {
   render() {
     return (
       <div>
-        <EmojiPicker />
         <div>
           <MessageList />
           <Message />
