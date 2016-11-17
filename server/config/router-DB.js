@@ -8,7 +8,7 @@ var jwt = require('jwt-simple');
 
 router.get('/getMe', function (request, response) {
   let encoded = request.headers.authorization.split(' ')[1];
-  console.log("what is encoded?",encoded)
+  // console.log("what is encoded?",encoded)
   let token = jwt.decode(encoded, process.env.SECRET);
   let currentUserID = token.id;
   response.json({currentUserID: currentUserID});
