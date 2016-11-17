@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../models/userModel.js');
 var Message = require('../models/messageModel.js');
 var Channel = require('../models/channelModel.js');
+var DirectMessageRoom = require('../models/directMessageRoomModel.js');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('jwt-simple');
 
@@ -74,6 +75,12 @@ router.get('/channels', function (request, response) {
   Channel.getChannels()
   .then(data => response.json(data));
 })
+
+//add a new DM room
+router.post('/DMRooms', function (request, response) {
+  DirectMessageRoom.addRoom(request.body.user1,request.body.user2)
+  .then(data => response.status(201).json(data));
+});
 
 router.post('/messages', function (request, response) {
   // console.log("what is auth?",request.headers.authorization)

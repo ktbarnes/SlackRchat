@@ -4,7 +4,7 @@ import LeftSideBarEntryChannel from './LeftSideBarEntry-Channel';
 import { dispatch, connect } from 'react-redux';
 import { addRoom } from '../actions/RoomActions';
 
-const LeftSideBar = ( {rooms, currentRoom, currentUser, dispatch, theSocket} ) => {
+const LeftSideBar = ( {rooms, DMRooms, currentRoom, currentUser, dispatch, theSocket} ) => {
   var input;
 
   const handleReceive = (cb,body) => {
@@ -19,20 +19,10 @@ const LeftSideBar = ( {rooms, currentRoom, currentUser, dispatch, theSocket} ) =
         onClick={ () => {
           console.log("this is my current room",currentRoom);
           console.log("this is my current user",currentUser);
+          console.log("these are my DM Rooms",DMRooms)
           window.alert("hi");
         }}>ConsoleLog me!
       </p>
-
-      <p>...</p>
-      <p 
-        onClick={ () => {
-          theSocket.emit("direct message",{
-            recipientEmail: 'kt@test.com',
-            msg: "Canh says hello in hard-code"
-          });
-        }}>TestDMSocketButton
-      </p>
-      <p>...</p>
 
       <div>
         CHANNELS
@@ -86,8 +76,10 @@ const LeftSideBar = ( {rooms, currentRoom, currentUser, dispatch, theSocket} ) =
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log("all users",state.allReducers.UserReducer)
   return { 
     currentRoom: state.allReducers.CurrentRoomReducer,
+    DMRooms: state.allReducers.DMRoomReducer,
     currentUser: state.allReducers.CurrentUserReducer,
     rooms: state.allReducers.RoomReducer 
   }

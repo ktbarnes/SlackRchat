@@ -136,14 +136,6 @@ class AppContainer extends React.Component {
 
     return (
       <SideBar {...sideBarProps}>
-        <div>
-          <p 
-            onClick={ () => {
-              console.log("this is my current room",this.props.currentRoom);
-              console.log("this is my current user",this.props.currentUser);
-            }}>CL my current stuffs. Test clicker only don't laugh at me
-          </p>
-        </div>
         <Nav />
         <div>
 
