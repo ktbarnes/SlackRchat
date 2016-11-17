@@ -70,15 +70,15 @@ knex.schema.hasTable('channel_users').then(function(exists) {
   }
 });
 
-knex.schema.hasTable('DM_channel').then(function(exists) {
+knex.schema.hasTable('DM_room').then(function(exists) {
  if (!exists) {
-   knex.schema.createTable('DM_channel', function (channel) {
-     channel.increments('id').primary();
-     channel.string('name1', 100).unique();
-     channel.string('name2', 100).unique();
-     channel.timestamps();
+   knex.schema.createTable('DM_room', function (room) {
+     room.increments('id').primary();
+     room.integer('user1', 100).unsigned().references('users.id');
+     room.integer('user2', 100).unsigned().references('users.id');
+     room.timestamps();
    }).then(function (table) {
-     console.log('Created Table for DM_channels', table);
+     console.log('Created Table for DM_rooms', table);
    })
  }
 });
