@@ -17,15 +17,6 @@ app.use('/db', dbRouter)
 var giphyRouter = require('./config/router-giphy.js');
 app.use('/api', giphyRouter)
 
-//helper function
-var keysGrabber = function(value, object){
-   for(var key in object){
-     if(object[key] == value){
-       return key;
-     }
-   }
-   return null;
- } //end of keysGrabber
 
 
 // // require socket
@@ -89,23 +80,16 @@ function(socket){
   });
 
   socket.on('direct message', function(fromClient){
-    console.log("what's from client - message",fromClient.msg);
-    console.log("what's from client - recipientEmail",fromClient.recipientEmail);
-    console.log("translating socket number",loggedInUsers[fromClient.recipientEmail]);
-    console.log("currentRoom",currentRoom);
+    // console.log("what's from client - message",fromClient.msg);
+    // console.log("what's from client - recipientEmail",fromClient.recipientEmail);
+    // console.log("translating socket number",loggedInUsers[fromClient.recipientEmail]);
+    // console.log("currentRoom",currentRoom);
     // console.log("io.sockets.connected",io.sockets.connected)
-    var inputSocketID = loggedInUsers[fromClient.email]
-    console.log("loggedInUsers object",loggedInUsers);
-    // socket.broadcast.in(currentRoom).to(inputSocketID).emit("direct message", fromClient.msg); //from Dan
-    // socket.broadcast.to(inputSocketID).emit("direct message", fromClient.msg); //or
-    // inputSocketID.emit("direct message", fromClient.msg); //or
+    var inputSocketID = loggedInUsers[fromClient.recipientEmail]
+    // console.log("inputSocketID",inputSocketID)
+    // console.log("loggedInUsers object",loggedInUsers);
     socket.broadcast.to(inputSocketID).emit("direct message",fromClient.msg);
-    // hrns.in(currentRoom).emit('chat message', {
-    //   channelName: "Lobby",
-    //   channelID: 1,
-    //   username: "random",
-    //   text: fromClient.msg
-    // });
+    //other things I tried that didn't work
     // io.of(organizationName).to(inputSocketID).emit("direct message",fromClient.msg)
     // hrns.to(inputSocketID).emit("direct message",fromClient.msg)
     // io.to(inputSocketID).emit("direct message",fromClient.msg);

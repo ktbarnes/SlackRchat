@@ -27,7 +27,7 @@ const LeftSideBar = ( {rooms, currentRoom, currentUser, dispatch, theSocket} ) =
       <p 
         onClick={ () => {
           theSocket.emit("direct message",{
-            recipientEmail: 'thisone2',
+            recipientEmail: 'kt@test.com',
             msg: "Canh says hello in hard-code"
           });
         }}>TestDMSocketButton
