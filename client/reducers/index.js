@@ -6,6 +6,7 @@ import UserReducer from './UserReducer'
 import CurrentUserReducer from './CurrentUserReducer'
 import CurrentRoomReducer from './CurrentRoomReducer'
 import signUpReducer from './signUpReducer'
+import NavReducer from './NavReducer'
 
 export default combineReducers ({
   authReducer,
@@ -14,5 +15,6 @@ export default combineReducers ({
   UserReducer,
   CurrentUserReducer,
   CurrentRoomReducer,
-  signUpReducer
+  signUpReducer,
+  NavReducer
 })

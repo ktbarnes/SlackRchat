@@ -20,7 +20,7 @@ var User = {
   },
 
   postOtherUserInformation: function(data) {
-    console.log(data, 'this is the data from getting data from router');
+    // console.log(data, 'this is the data from getting data from router');
     let match = data.email;
     return database('users').where('email', '=', match)
     .update({

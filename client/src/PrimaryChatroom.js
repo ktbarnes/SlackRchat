@@ -93,12 +93,19 @@ class PrimaryChatroom extends React.Component {
       //now download all users
       axios.get('/db/users')
       .then( (resp) => {
-        // console.log("what comes in from the DB?",resp)
+        console.log("what comes in from the DB?",resp)
         resp.data.forEach( (person) => {
           let eachUser = {
             id: person.id,
             username: person.username,
             email: person.email,
+            about: person.about,
+            first: person.first,
+            last: person.last,
+            github: person.github,
+            facebook: person.facebook,
+            twitter: person.twitter,
+            linkedin: person.linkedin,
             currentUserToggle: (() => (this.currentUserIDfromDB === person.id) ? true : false)()
           }
           this.handleReceive(addUser,eachUser);
@@ -133,7 +140,7 @@ PrimaryChatroom.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("current room",state.allReducers.CurrentRoomReducer)
+  console.log("current user  I want to know",state.allReducers.CurrentUserReducer)
   return { 
     rooms: state.allReducers.RoomReducer,
     currentUser: state.allReducers.CurrentUserReducer,

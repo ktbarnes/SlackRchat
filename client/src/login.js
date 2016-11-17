@@ -23,6 +23,7 @@ class Login extends React.Component {
       else {
         console.log("Setting a token in local storage")
         localStorage.setItem('id_token', response.data.id_token);
+        console.log("Setting a token in local storage", response.data.id_token)
         this.props.dispatch(receiveLogin(response.data.id_token));
         this.props.router.replace('/');
       }

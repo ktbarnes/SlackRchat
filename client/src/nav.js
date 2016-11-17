@@ -4,35 +4,79 @@ import { logoutUser, requestLogout, receiveLogout } from '../actions/logoutActio
 import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router'
 import Profile from './profile.js'
 import { Modal, Button, ModalHeader, ModalTitle, ModalFooter, ModalBody } from 'react-bootstrap' 
+import { sendProfileInfo } from '../actions/signupActions'
+import { open } from '../actions/NavActions'
+import PrimaryChatroom from './PrimaryChatroom'
+
 
 class Nav extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      showModel: false,
-      first: "julia",
-      last: "Randall",
-      email: "juliafrandall@gmail.com",
-      phone: "561-271-0104",
-      about: "I am.... "
+    // this.state = {
+    //   showModel: false,
+      // first: "julia",
+      // last: "Randall",
+      // email: "juliafrandall@gmail.com",
+      // phone: "561-271-0104",
+      // about: "I am.... "
     }
-    this.open = this.open.bind(this);
-    this.close = this.close.bind(this);
-  }
+    // this.open = this.open.bind(this);
+    // this.close = this.close.bind(this);
+    // this.save = this.save.bind(this);
+  // }
 
-  open() {
-    console.log('inside open')
-    this.setState({
-      showModel: true
-    })
-  };
+onEdit(){
+  // console.log("shoot me now")
+  console.log(this.props, "sldkfjalfjalsfdjlkflasfjaldf")
+  
+  this.props.dispatch(open())
+  // console.log("what is state now for navKKKK", this.props.toShowModel);
+  // this.setState({
+  //   showModel: true
+  // }) 
+}
 
-  close() {
-    this.setState({
-      showModel: false,
-    })
-  };
 
+  // {
+    // console.log('inside open')
+    // this.setState({
+      // showModel: true
+    // })
+
+  // };
+
+  // close() {
+  //   this.setState({
+  //     showModel: false,
+  //   })
+  // };
+
+  // onEdit(event) {
+  //   this.open()
+    // var hello = this.props.currentUser
+    // console.log(hello, "these are the goods")
+    // .then(response=>{
+    //   console.log(response, "this is the response from on EDIT")
+    // })
+    // console.log(yes, "this is from on EDITTT")
+    // .then(response => {
+
+    // })
+  // }
+
+
+
+  // save(info) {
+  //   sendProfileInfo(info)
+  //   .then(response => {
+  //     if(!response) {
+  //       console.log('error')
+  //     }
+  //     else {
+  //       this.close();
+  //     }
+  //   })
+  // }
   logout() {
     const { dispatch } = this.props;
     dispatch(requestLogout());
@@ -46,19 +90,10 @@ class Nav extends React.Component {
       <div className="nav">
         <h1 className="title">Slacker</h1>
         <a className="navbutton" href="#" role="button" 
-        onClick={this.open}>Profile</a>
-        <Profile 
-          show={this.state.showModel} 
-          onHide={this.close}
-          first={this.state.first} 
-          last={this.state.last}
-          uersname={this.state.username}
-          phone={this.state.phone}
-          about={this.state.about}
-          github={this.state.github}
-          facebook={this.state.facebook}
-          twitter={this.state.twitter}
-          />
+        onClick={(event) => this.onEdit(event)}>Profile</a>
+        <Profile show={this.props} 
+        m={this.props}
+        />
         <a className="navbutton" onClick={() => this.logout()} href="/login">Logout</a>
       </div>
     )
@@ -66,7 +101,11 @@ class Nav extends React.Component {
 }
   
 const mapStateToProps = (state, ownProps) => {
-  return {}
+  console.log("w!!!!!!!!!!!!! user? Julia wants to know", state)
+  return {
+    toShowModel: state.allReducers.NavReducer,
+    currentUser: state.allReducers.CurrentUserReducer 
+  }
 }
 
 export default connect(mapStateToProps)(Nav)

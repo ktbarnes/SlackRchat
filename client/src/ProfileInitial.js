@@ -6,17 +6,15 @@ import { Modal,
         ModalBody
          } from 'react-bootstrap'        
 import React from 'react'
-// import SignUp from './signup.js'
+import SignUp from './signup.js'
 import Nav from './nav.js'
 import { dispatch, connect } from 'react-redux'
 
-
 class Profile extends React.Component {
+
     constructor(props) {
       super(props)
-      console.log(this.props, "what are me PROOOOOOPS")
-    }
-
+        console.log(this.props, "what are my propss JUlia")
       // this.state = {
       //   first: 'First Name',
       //   last: 'Last Name',
@@ -41,7 +39,7 @@ class Profile extends React.Component {
       // this.handleTwitter = this.handleTwitter.bind(this);
       // this.handleLinkedin = this.handleLinkedin.bind(this);
       // this.handleSubmit= this.handleSubmit.bind(this);
-     
+     }
     //   open = () => {
     //     this.setState({
     //       showModel: true
@@ -61,25 +59,26 @@ class Profile extends React.Component {
   // handleTwitter(event) { this.setState({twitter: event.target.value})}
   // handleLinkedin(event) { this.setState({linkedin: event.target.value})}
 
-//   handleSubmit(event){
-//     let info = this.state
-//     // console.log(event, "the state is updated")
-//     this.props.save(info)
-// }
+  // handleSubmit(event){
+  //   let info = this.state
+  //   // console.log(event, "the state is updated")
+  //   this.props.save(info)
 
 
 
 
-    render(){
+
+
+render(){
     return (
       <form onSubmit={this.handleSubmit}>
-      <Modal id="profile_modal" show={this.props.toShowModel.showModel} >
+      <Modal id="profile_modal" show={this.props.show} >
         <Modal.Header>
           <Modal.Title id="modal_header">Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body id="modal_content">
           <div>
-            <h2>Edit Profile BOOD</h2>
+            <h2>Edit Profile</h2>
           </div>
           <div> 
             <h3>Profile Picture</h3>
@@ -87,28 +86,28 @@ class Profile extends React.Component {
           </div>
           <div>
             <label>First Name</label>
-              <input type='text' value={console.log(this.props.currentUser.about, "killllllll")} value={this.props.first} onChange={this.handleFirst} />
+              <input type='text' value={this.state.first} onChange={this.handleFirst} />
             <label>Last Name</label>
-              <input type='text' value={this.props.last} onChange={this.handleLast} />  
+              <input type='text' value={this.state.last} onChange={this.handleLast} />  
           </div>
           <div>
             <label>Phone</label>
-              <input type='text' value={this.props.phone} onChange={this.handlePhone} />
+              <input type='text' value={this.state.phone} onChange={this.handlePhone} />
           </div>
           <div>
             <label>About Me</label>
-              <input type='text' value={this.props.about} onChange={this.handleAbout} />
+              <input type='text' value={this.state.about} onChange={this.handleAbout} />
           </div>
           <div>
             <h4>Social Media</h4>
             <label>github</label>
-              <input type='text' value={this.props.github} onChange={this.handleGithub} />
+              <input type='text' value={this.state.github} onChange={this.handleGithub} />
             <label>facebook</label>
-              <input type='text' value={this.props.facebook} onChange={this.handleFacebook} />
+              <input type='text' value={this.state.facebook} onChange={this.handleFacebook} />
             <label>twitter</label>
-              <input type='text' value={this.props.twitter} onChange={this.handleTwitter} />  
+              <input type='text' value={this.state.twitter} onChange={this.handleTwitter} />  
             <label>linkedin</label>
-              <input type='text' value={this.props.linkedin} onChange={this.handleLinkedin}/>  
+              <input type='text' value={this.state.linkedin} onChange={this.handleLinkedin}/>  
           </div>  
         </Modal.Body>
         <Modal.Footer>
@@ -123,8 +122,61 @@ class Profile extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   console.log("what is my current user? Julia wants to know",state.allReducers.CurrentUserReducer)
   return {
-    currentUser: state.allReducers.CurrentUserReducer,
-    toShowModel: state.allReducers.NavReducer
+    currentUser: state.allReducers.CurrentUserReducer
+    // allUsers: state.allReducers.UserReducer 
+  }
+}
+
+export default connect(mapStateToProps)(Profile)
+
+
+//SEE NOTES on bottom
+import { Modal, 
+        Button,
+        ModalHeader,
+        ModalTitle,
+        ModalFooter,
+        ModalBody
+         } from 'react-bootstrap'        
+import React from 'react'
+import SignUp from './signup.js'
+import Nav from './nav.js'
+import { dispatch, connect } from 'react-redux'
+
+class Profile extends React.Component {
+    constructor(props) {
+      super(props)
+      // this.props.currentUser
+        // console.log(this.props, "what are my propss JUlia")
+      // this.props = this.props.currentUser
+     }
+   
+   
+    // this.props = this.props.currentUser
+  
+    render(){
+    return (
+      <Modal id="profile_modal" >
+        <Modal.Header>
+          <Modal.Title id="modal_header">Profile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body id="modal_content"> 
+        </Modal.Body>
+        <Modal.Footer>
+          <Button className="btn btn-default">Save</Button>
+        </Modal.Footer>
+      </Modal>
+    
+     ) 
+  }
+}
+
+const mapStateToProps = (state, ownProps) => {
+  console.log("what is my current user? Julia wants to know",state.allReducers.CurrentUserReducer)
+  console.log("what is my current STATE ", state)
+  return {
+    currentUser: state.allReducers.CurrentUserReducer
+    // allUsers: state.allReducers.UserReducer 
   }
 }
 
@@ -136,5 +188,7 @@ export default connect(mapStateToProps)(Profile)
 
 
 
-
-
+//NOTES
+//Need to change Button Save onClick functionality
+//On Close or Save, then send Profile Information to database, 
+//Render Primary Chat
