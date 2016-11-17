@@ -7,6 +7,13 @@ export const addUser = (eachUser) => {
     id: eachUser.id,
     username: eachUser.username,
     email: eachUser.email,
+    about: eachUser.about,
+    first: eachUser.first,
+    last: eachUser.last,
+    github: eachUser.github,
+    facebook: eachUser.facebook,
+    twitter: eachUser.twitter,
+    linkedin: eachUser.linkedin,
     currentUserToggle: eachUser.currentUserToggle
   };
 };

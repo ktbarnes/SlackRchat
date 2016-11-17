@@ -4,34 +4,62 @@ import { logoutUser, requestLogout, receiveLogout } from '../actions/logoutActio
 import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router'
 import Profile from './profile.js'
 import { Modal, Button, ModalHeader, ModalTitle, ModalFooter, ModalBody } from 'react-bootstrap' 
+import { sendProfileInfo } from '../actions/signupActions'
+import { open, close } from '../actions/NavActions'
+import { UpdateProfile } from '../actions/CurrentUserActions'
+import PrimaryChatroom from './PrimaryChatroom'
+import axios from 'axios'
+import { Transition } from 'react-router'
 
 class Nav extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      showModel: false,
-      first: "julia",
-      last: "Randall",
-      email: "juliafrandall@gmail.com",
-      phone: "561-271-0104",
-      about: "I am.... "
-    }
-    this.open = this.open.bind(this);
-    this.close = this.close.bind(this);
   }
 
-  open() {
-    console.log('inside open')
-    this.setState({
-      showModel: true
-    })
-  };
 
-  close() {
-    this.setState({
-      showModel: false,
-    })
-  };
+onEdit(){
+  console.log(this.props, "alksdfjjjjjjjj")
+  this.props.dispatch(open())
+}
+
+onClose(){
+  this.props.dispatch(close())
+}
+
+  save(user) {
+    let information1 = {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    currentUserToggle: user.currentUserToggle, 
+    about: user.about,
+    first: user.first,
+    last: user.last,
+    github: user.github,
+    facebook: user.facebook,
+    twitter: user.twitter,
+    linkedin: user.linkedin
+    }
+    axios.post('/db/usersInfo', information1)
+    .then(response => {
+      if(!response) {
+        console.log('errorMessage')
+      } else {
+        
+      }
+    });
+}
+
+    // this.props.dispatch(UpdateProfile(info))
+    // .then(response => {
+    //   if(!response) {
+    //     console.log('error')
+    //   }
+    //   else {
+    //    this.props.dispatch(close());
+    //   }
+    // })
+  // }
 
   logout() {
     const { dispatch } = this.props;
@@ -46,19 +74,8 @@ class Nav extends React.Component {
       <div className="nav">
         <h1 className="title">Slacker</h1>
         <a className="navbutton" href="#" role="button" 
-        onClick={this.open}>Profile</a>
-        <Profile 
-          show={this.state.showModel} 
-          onHide={this.close}
-          first={this.state.first} 
-          last={this.state.last}
-          uersname={this.state.username}
-          phone={this.state.phone}
-          about={this.state.about}
-          github={this.state.github}
-          facebook={this.state.facebook}
-          twitter={this.state.twitter}
-          />
+        onClick={(event) => this.onEdit(event)}>Profile</a>
+        <Profile save={this.save} onHide={this.props.close}/>
         <a className="navbutton" onClick={() => this.logout()} href="/login">Logout</a>
       </div>
     )
@@ -66,20 +83,11 @@ class Nav extends React.Component {
 }
   
 const mapStateToProps = (state, ownProps) => {
-  return {}
+  return {
+    toShowModel: state.allReducers.NavReducer,
+    // currentUser: state.allReducers.CurrentUserReducer 
+  }
 }
 
 export default connect(mapStateToProps)(Nav)
-
-// var Modal = React.createClass({
-//   render() {
-//     return (
-//       <div> 
-//     <button type="button">
-//       <span class="hide">Close</span>
-//     </button>
-//   </div>;
-//   }
-// });
-
 
