@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { PropTypes } from 'react';
 import { dispatch, connect } from 'react-redux';
 import { addDMRoom } from '../actions/DMRoomActions';
+import { setCurrentRoom } from '../actions/CurrentRoomActions';
 
 const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser, theSocket }) => {
 
@@ -23,17 +24,28 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
         });
 
         //set up a new direct message room
-        axios.post('/db/DMRooms',{ user1: currentUser.id, user2: user.id })
+        axios.post('/db/DMRooms',{ 
+          user1: currentUser.id, 
+          user2: user.id,
+          channelName: currentUser.username + user.username, //i.e. CanhJulia
+          aliasName: user.username + currentUser.username }) //i.e. JuliaCanh
         .then((response) => {
           console.log("room created in DB!", response);
           let roomToAdd = {
             id: response.data[0],
             user1ID: currentUser.id,
             user2ID: user.id,
+            channelName: currentUser.username + user.username,
+            aliasName: user.username + currentUser.username,
             currentRoomToggle: true
           }
+          //add room to Store
           handleReceive(addDMRoom,roomToAdd);
-          console.log("these are my DM Rooms",DMRooms)
+
+          //change current room in Store and in the Socket
+          handleReceive(setCurrentRoom,roomToAdd);
+          theSocket.emit('changeRoom', currentRoom);
+
         })
         .catch((err) => console.error(err))
 
@@ -46,9 +58,10 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("DM Rooms",state.allReducers.DMRoomReducer)
+  // console.log("DM Rooms",state.allReducers.DMRoomReducer)
   return { 
     currentUser: state.allReducers.CurrentUserReducer,
+    currentRoom: state.allReducers.CurrentRoomReducer,
     DMRooms: state.allReducers.DMRoomReducer,
     allUsers: state.allReducers.UserReducer 
   }

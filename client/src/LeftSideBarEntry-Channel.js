@@ -4,7 +4,7 @@ import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import { toggleCurrentRoomField } from '../actions/RoomActions';
 
 //room is passed in as a prop from sidebar.js
-const LeftSideBarEntryChannel = ({ dispatch, room, currentRoom, theSocket }) => (
+const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, theSocket }) => (
   <li onClick={ 
     () => {
       dispatch(setCurrentRoom(room));
@@ -14,7 +14,7 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentRoom, theSocket }) => 
       // console.log("this is my current Room",currentRoom);
     }
   }>
-    * { room.channelName }
+    * { (room.channelName === currentUser) ? room.aliasName : room. channelName }
   </li>
 
 );
@@ -27,6 +27,7 @@ const mapStateToProps = (state, ownProps) => {
   // console.log("all rooms",state.allReducers.RoomReducer)
   return { 
     currentRoom: state.allReducers.CurrentRoomReducer,
+    currentUser: state.allReducers.CurrentUserReducer.username,
     rooms: state.allReducers.RoomReducer
   }
 };

@@ -83,9 +83,22 @@ router.get('/channels', function (request, response) {
   .then(data => response.json(data));
 })
 
+//get all DM rooms
+router.get('/DMRooms', function (request, response) {
+  DirectMessageRoom.getRooms()
+  .then(data => {
+    console.log("what is my data",data)
+    response.json(data);
+  });
+})
+
 //add a new DM room
 router.post('/DMRooms', function (request, response) {
-  DirectMessageRoom.addRoom(request.body.user1,request.body.user2)
+  DirectMessageRoom.addRoom(
+    request.body.user1,
+    request.body.user2, 
+    request.body.channelName, 
+    request.body.aliasName)
   .then(data => response.status(201).json(data));
 });
 
