@@ -1,83 +1,46 @@
-import { Modal, 
-        Button,
-        ModalHeader,
-        ModalTitle,
-        ModalFooter,
-        ModalBody
-         } from 'react-bootstrap'        
+import { Modal, Button, ModalHeader, ModalTitle, ModalFooter, ModalBody } from 'react-bootstrap'        
 import React from 'react'
-import Nav from './nav.js'
 import { dispatch, connect } from 'react-redux'
 import axios from 'axios'
 import { sendProfileInfo } from '../actions/signupActions'
+import { close } from '../actions/NavActions'
 
 class Profile extends React.Component {
 
-  // const inputFirst = 'CanhCanhCanh';
+  constructor(props) {
+    super(props)
+      this.state = {
+        first: this.props.currentUser.first || '',
+        last: this.props.currentUser.last || '',
+        phone: this.props.currentUser.phone || '',
+        about: this.props.currentUser.about || '',
+        github: this.props.currentUser.github || '',
+        facebook: this.props.currentUser.facebook || '',
+        twitter: this.props.currentUser.twitter || '',
+        linkedin: this.props.currentUser.linkedin || ''
+      }
+    
+    // this.updateInfo = this.updateInfo.bind(this);
+    this.handleFirst= this.handleFirst.bind(this);
+    this.handleLast= this.handleLast.bind(this);
+    // // // this.handleUsername = this.handleUsername.bind(this);
+    this.handlePhone = this.handlePhone.bind(this);
+    this.handleAbout = this.handleAbout.bind(this);
+    this.handleGithub = this.handleGithub.bind(this);
+    this.handleFacebook = this.handleFacebook.bind(this);
+    this.handleTwitter = this.handleTwitter.bind(this);
+    this.handleLinkedin = this.handleLinkedin.bind(this);
+    this.handleSubmit= this.handleSubmit.bind(this);
+  }
 
-    constructor(props) {
-      super(props)
-        this.state = {
-          // first: ''
-        }
-      
-      // this.updateInfo = this.updateInfo.bind(this);
-      this.handleFirst= this.handleFirst.bind(this);
-      this.handleLast= this.handleLast.bind(this);
-      // // // this.handleUsername = this.handleUsername.bind(this);
-      this.handlePhone = this.handlePhone.bind(this);
-      this.handleAbout = this.handleAbout.bind(this);
-      this.handleGithub = this.handleGithub.bind(this);
-      this.handleFacebook = this.handleFacebook.bind(this);
-      this.handleTwitter = this.handleTwitter.bind(this);
-      this.handleLinkedin = this.handleLinkedin.bind(this);
-      this.handleSubmit= this.handleSubmit.bind(this);
-    }
-
-    componentDidMount(){
-      this.currentUserIDfromDB;
-      axios.get('/db/getMe', {
-       headers: { "authorization": "Bearer "+localStorage.getItem('id_token') }
-      })
-      .then( (response) => {
-      this.currentUserIDfromDB = response.data.currentUserID;
-      axios.get('/db/users')
-      .then((response) => {
-        response.data.forEach((user) => {
-          let eachUser = {
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            about: user.about,
-            first: user.first,
-            last: user.last,
-            github: user.github,
-            facebook: user.facebook,
-            twitter: user.twitter,
-            linkedin: user.linkedin,
-            currentUserToggle: (() => (this.currentUserIDfromDB === user.id) ? true : false)()
-          }
-          if(this.currentUserIDfromDB === user.id){
-            console.log(user, "this user")
-            this.setState({
-            id: user.id,
-            email: user.email,  
-            first: user.first,
-            about: user.about,
-            first: user.first,
-            last: user.last,
-            github: user.github,
-            facebook: user.facebook,
-            twitter: user.twitter,
-            linkedin: user.linkedin
-            })
-          }
-          })
-          })
-    })
-    }
-      
-  
+  componentDidMount() {
+    // this.currentUserIDfromDB;
+    // axios.get('/db/getMe', {headers: {"authorization": "Bearer " + localStorage.getItem('id_token')}})
+    // .then(data => {
+    //   // console.log(data);    
+    // })
+  }
+       
   handleFirst(event){ this.setState({first: event.target.value})}  
   handleLast(event) { this.setState({last: event.target.value})}
   handlePhone(event) { this.setState({phone: event.target.value})}
@@ -93,11 +56,11 @@ class Profile extends React.Component {
     console.log(this.state, "these are the proops")
     this.props.save(info)
     this.props.dispatch(close())
+    // this.props.onHide();
   }
   
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
       <Modal id="profile_modal" show={this.props.toShowModel.showModel} >
         <Modal.Header>
           <Modal.Title id="modal_header">Profile</Modal.Title>
@@ -140,13 +103,11 @@ class Profile extends React.Component {
           <Button className="btn btn-default" onClick={this.handleSubmit}>Save</Button>
         </Modal.Footer>
       </Modal>
-     </form> 
      ) 
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("what is my current user? Julia wants to know",state.allReducers.CurrentUserReducer)
   return {
     currentUser: state.allReducers.CurrentUserReducer,
     toShowModel: state.allReducers.NavReducer

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect, dispatch } from 'react-redux'
 import { logoutUser, requestLogout, receiveLogout } from '../actions/logoutActions'
 import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router'
-import Profile from './profile.js'
+import Profile from './Profile'
 import { Modal, Button, ModalHeader, ModalTitle, ModalFooter, ModalBody } from 'react-bootstrap' 
 import { sendProfileInfo } from '../actions/signupActions'
 import { open, close } from '../actions/NavActions'
@@ -17,14 +17,14 @@ class Nav extends React.Component {
   }
 
 
-onEdit(){
-  console.log(this.props, "alksdfjjjjjjjj")
-  this.props.dispatch(open())
-}
+  onEdit() {
+    console.log(this.props, "alksdfjjjjjjjj")
+    this.props.dispatch(open())
+  }
 
-onClose(){
-  this.props.dispatch(close())
-}
+// onClose(){
+//   dispatch(close())
+// }
 
   save(user) {
     let information1 = {
@@ -48,7 +48,7 @@ onClose(){
         
       }
     });
-}
+  }
 
     // this.props.dispatch(UpdateProfile(info))
     // .then(response => {
@@ -75,7 +75,7 @@ onClose(){
         <h1 className="title">Slacker</h1>
         <a className="navbutton" href="#" role="button" 
         onClick={(event) => this.onEdit(event)}>Profile</a>
-        <Profile save={this.save} onHide={this.props.close}/>
+        <Profile save={this.save} onHide={this.onClose}/>
         <a className="navbutton" onClick={() => this.logout()} href="/login">Logout</a>
       </div>
     )

@@ -2,14 +2,17 @@ var database = require('../db/db');
 
 var User = {
   getUsers: function() {
-    return database.select('*').from('users').then(data => {
-      // console.log(data);
-      return data;
-    });
+    return database.select('email','id','username').from('users');
   },
+
   getUser: function(email) {
     return database('users').where({'email': email});
   },
+
+  getUserByID: function(id) {
+    return database.select('about','email','facebook','first','github','id','last','linkedin','phone','twitter','username').from('users').where({'id': id});
+  },
+
   postUser: function(data) {
     return database('users')
     .insert({

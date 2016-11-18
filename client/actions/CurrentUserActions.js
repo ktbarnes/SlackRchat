@@ -6,7 +6,6 @@ export const setCurrentUser = user => {
     id: user.id,
     username: user.username,
     email: user.email,
-    currentUserToggle: user.currentUserToggle, 
     about: user.about,
     first: user.first,
     last: user.last,
@@ -17,13 +16,12 @@ export const setCurrentUser = user => {
   };
 };
 
-export const UpdateProfile = (user) => {
-    let information1 = {
+export const UpdateProfile = user => {
+  let information1 = {
     type: 'UPDATE_PROFILE',
     id: user.id,
     username: user.username,
     email: user.email,
-    currentUserToggle: user.currentUserToggle, 
     about: user.about,
     first: user.first,
     last: user.last,
@@ -31,8 +29,8 @@ export const UpdateProfile = (user) => {
     facebook: user.facebook,
     twitter: user.twitter,
     linkedin: user.linkedin
-    }
-    return axios.post('/db/usersInfo', information1);
+  }
+  return axios.post('/db/usersInfo', information1);
 }
 
 export const updateUser = user => {
