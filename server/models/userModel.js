@@ -6,7 +6,7 @@ var User = {
   },
 
   getUser: function(email) {
-    return database('users').where({'email': email});
+    return database.select('*').from('users').where({'email': email}).then(data=> {return data});
   },
 
   getUserByID: function(id) {

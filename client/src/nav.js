@@ -14,8 +14,8 @@ import { Transition } from 'react-router'
 class Nav extends React.Component {
   constructor(props) {
     super(props)
+    // console.log(props, 'these are my props')
   }
-
 
   onEdit() {
     console.log(this.props, "alksdfjjjjjjjj")
@@ -26,7 +26,7 @@ class Nav extends React.Component {
 //   dispatch(close())
 // }
 
-  save(user) {
+save(user) {
     let information1 = {
     id: user.id,
     username: user.username,
@@ -84,7 +84,7 @@ class Nav extends React.Component {
   
 const mapStateToProps = (state, ownProps) => {
   return {
-    toShowModel: state.allReducers.NavReducer,
+    toShowModel: state.allReducers.NavReducer
     // currentUser: state.allReducers.CurrentUserReducer 
   }
 }

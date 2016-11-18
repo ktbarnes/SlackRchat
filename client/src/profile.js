@@ -53,7 +53,7 @@ class Profile extends React.Component {
   // handleSubmit(event){this.props.dispatch(save(infor))}
   handleSubmit(event) {
     let info = this.state
-    console.log(this.state, "these are the proops")
+    // console.log(this.state, "these are the proops")
     this.props.save(info)
     this.props.dispatch(close())
     // this.props.onHide();
