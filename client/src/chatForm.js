@@ -3,8 +3,6 @@ import React, { PropTypes } from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
-
-
 const ChatForm = ( { socket, currentRoom, currentUser } ) => {
   let input;
 

@@ -28,8 +28,8 @@ class PrimaryChatroom extends React.Component {
 
   downloadAllChannelMessages() {
     axios.get('/db/messages')
-    .then( (res) => {
-      res.data.forEach( (msg) => {
+    .then(res => {
+      res.data.forEach(msg => {
         let eachMsg = {
           id: msg.id,
           username: msg.username,
