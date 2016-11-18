@@ -76,6 +76,8 @@ knex.schema.hasTable('DM_room').then(function(exists) {
      room.increments('id').primary();
      room.integer('user1', 100).unsigned().references('users.id');
      room.integer('user2', 100).unsigned().references('users.id');
+     room.string('channelName', 100).unique();    
+     room.string('aliasName', 100).unique();   
      room.timestamps();
    }).then(function (table) {
      console.log('Created Table for DM_rooms', table);

@@ -6,11 +6,13 @@ var DirectMessageRoom = {
   },
    
 
-  addRoom: function(name1,name2) {
+  addRoom: function(user1,user2,channelName,aliasName) {
     return database('DM_room')
     .insert({
-      user1: name1,
-      user2: name2
+      user1: user1,
+      user2: user2,
+      channelName: channelName,
+      aliasName: aliasName
     })
   } 
 }
