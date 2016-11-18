@@ -11,12 +11,13 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 .navbutton { float: right; color: white; font-size: 20px; 
 	font-family: courier; text-align: right; padding: 10px 12px; text-decoration: none; }
 /*.sideBar {width:200px; }*/
-#profile_modal {width:100%; height: 100%; position: fixed; top:0; background: #eee; text-align: center; font-size: 30px; font-family:courier;}
+#profile_modal {z-index: 9998;,width:50%; height: 50%; position: center; top:0; background: #eee; text-align: center; font-size: 30px; font-family:courier;}
 #modal_header{}
 #modal_content{}
-
-
-
+.table {z-index: 9998;,width:50%; height: 50%; position: center; top:0; background: #eee; text-align: center; font-size: 30px; font-family:courier;}
+.tableUsername
+.tableOtherUserInformation {text-align: center;}
+.profileHeading{text-align: left;}
 
 
 

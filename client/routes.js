@@ -7,6 +7,7 @@ import Login from './src/login.js'
 import Logout from './src/logout.js'
 import SignUp from './src/signup.js'
 import Profile from './src/signup.js'
+import OtherUserProfile from './src/OtherUserProfile.js'
 
 function loggedIn() {
   return !!localStorage.id_token;
@@ -26,5 +27,6 @@ export default (
     <Route path="login" component={Login} />
     <Route path="logout" component={Logout} />
     <Route path='signup' component={SignUp} />
+    <Route path='profile' component={OtherUserProfile} />
   </Route>
 )

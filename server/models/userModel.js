@@ -8,7 +8,7 @@ var User = {
     });
   },
   getUser: function(email) {
-    return database('users').where({'email': email});
+    return database.select('*').from('users').where({'email': email}).then(data=> {return data});
   },
   postUser: function(data) {
     return database('users')

@@ -3,8 +3,6 @@ import { connect, dispatch } from 'react-redux'
 import { logoutUser, requestLogout, receiveLogout } from '../actions/logoutActions'
 import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router'
 import Profile from './profile.js'
-import { Modal, Button, ModalHeader, ModalTitle, ModalFooter, ModalBody } from 'react-bootstrap' 
-import { sendProfileInfo } from '../actions/signupActions'
 import { open, close } from '../actions/NavActions'
 import { UpdateProfile } from '../actions/CurrentUserActions'
 import PrimaryChatroom from './PrimaryChatroom'
@@ -14,19 +12,22 @@ import { Transition } from 'react-router'
 class Nav extends React.Component {
   constructor(props) {
     super(props)
+    // console.log(props, 'these are my props')
   }
 
 
 onEdit(){
-  console.log(this.props, "alksdfjjjjjjjj")
+  // console.log(this.props, "alksdfjjjjjjjj")
   this.props.dispatch(open())
 }
 
 onClose(){
   this.props.dispatch(close())
+  console.log(this.props, "alksdfjjjjjjjj")
 }
 
-  save(user) {
+save(user) {
+    // console.log(props, 'these are my 2 props')
     let information1 = {
     id: user.id,
     username: user.username,
@@ -75,7 +76,7 @@ onClose(){
         <h1 className="title">Slacker</h1>
         <a className="navbutton" href="#" role="button" 
         onClick={(event) => this.onEdit(event)}>Profile</a>
-        <Profile save={this.save} onHide={this.props.close}/>
+        <Profile save={this.save} onHide={this.close}/>
         <a className="navbutton" onClick={() => this.logout()} href="/login">Logout</a>
       </div>
     )
@@ -84,7 +85,7 @@ onClose(){
   
 const mapStateToProps = (state, ownProps) => {
   return {
-    toShowModel: state.allReducers.NavReducer,
+    toShowModel: state.allReducers.NavReducer
     // currentUser: state.allReducers.CurrentUserReducer 
   }
 }

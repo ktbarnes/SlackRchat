@@ -90,7 +90,7 @@ class Profile extends React.Component {
   // handleSubmit(event){this.props.dispatch(save(infor))}
   handleSubmit(event) {
     let info = this.state
-    console.log(this.state, "these are the proops")
+    // console.log(this.state, "these are the proops")
     this.props.save(info)
     this.props.dispatch(close())
   }
@@ -101,7 +101,7 @@ class Profile extends React.Component {
     render(){
     return (
       <form onSubmit={this.handleSubmit}>
-      <Modal id="profile_modal" show={this.props.toShowModel.showModel} >
+      <Modal id="profile_modal" save={this.props.save} show={this.props.toShowModel.showModel} >
         <Modal.Header>
           <Modal.Title id="modal_header">Profile</Modal.Title>
         </Modal.Header>
