@@ -12,7 +12,12 @@ router.get('/getMe', function (request, response) {
   // console.log("what is encoded?",encoded)
   let token = jwt.decode(encoded, process.env.SECRET);
   let currentUserID = token.id;
-  response.json({currentUserID: currentUserID});
+  User.getUserByID(currentUserID)
+  .then(user => {
+    console.log('this is me ', user[0]);
+    response.json(user[0]);
+  })
+  // response.json({currentUserID: currentUserID});
 });
 
 router.get('/users', function (request, response) {
@@ -29,8 +34,7 @@ router.post('/login', function (request, response) {
       if(matched) {
         let token = jwt.encode({id: user[0].id}, process.env.SECRET);
         response.json({id_token: token});
-      }
-      else {
+      } else {
         response.sendStatus(401);
       }
     });
