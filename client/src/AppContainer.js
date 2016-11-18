@@ -121,9 +121,10 @@ class AppContainer extends React.Component {
     { headers: { "authorization": "Bearer "+localStorage.getItem('id_token') }})
     .then( (res) => {
       // console.log("who is my user???",res.data)
-      this.currentUserIDfromDB = res.data.currentUserID;
+      this.currentUserIDfromDB = res.data.id;
       axios.get('/db/DMRooms')
       .then( (res) => {
+        console.log("what are the DM rooms that are downloaded",res.data)
         res.data.forEach( (msg) => {
           let eachRoom = {
             id: msg.id,
