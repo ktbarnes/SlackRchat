@@ -9,6 +9,8 @@ export const addDMRoom = (eachRoom) => {
     id: eachRoom.id,
     user1ID: eachRoom.user1ID,
     user2ID: eachRoom.user2ID,
+    channelName: eachRoom.channelName,
+    aliasName: eachRoom.aliasName,
     currentRoomToggle: eachRoom.currentRoomToggle
   };
 };

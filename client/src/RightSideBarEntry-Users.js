@@ -23,13 +23,19 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
         });
 
         //set up a new direct message room
-        axios.post('/db/DMRooms',{ user1: currentUser.id, user2: user.id })
+        axios.post('/db/DMRooms',{ 
+          user1: currentUser.id, 
+          user2: user.id,
+          channelName: currentUser.username + user.username, //i.e. CanhJulia
+          aliasName: user.username + currentUser.username }) //i.e. JuliaCanh
         .then((response) => {
           console.log("room created in DB!", response);
           let roomToAdd = {
             id: response.data[0],
             user1ID: currentUser.id,
             user2ID: user.id,
+            channelName: currentUser.username + user.username,
+            aliasName: user.username + currentUser.username,
             currentRoomToggle: true
           }
           handleReceive(addDMRoom,roomToAdd);
