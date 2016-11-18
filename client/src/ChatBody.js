@@ -5,14 +5,17 @@ import { connect } from 'react-redux';
 
 //Note: this.room is passed in from PrimaryChatroom as a prop here. That represents "current" room
 
-const MessageList = ( {messages, currentRoom} ) => {
+const MessageList = ( {messages, currentUser, currentRoom} ) => {
 
   let filtered = messages.filter( (message) => 
     message.channelName === currentRoom.channelName || message.channelName === undefined);
 
   return (
     <div>
-      You are in room: { currentRoom.channelName }
+      { 
+        (currentRoom.aliasName === "Channel_NotDM") ? ("You are in channel: " + currentRoom.channelName) : 
+        ("Private chat between " + currentRoom.user2username + " and " + currentRoom.user1username)
+      }
       <ul id="messages">
         {filtered.map( (message) => 
           <Message
@@ -36,10 +39,11 @@ const MessageList = ( {messages, currentRoom} ) => {
 // };
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("what is the array of messages",state.allReducers.ChatReducer)
+  // console.log("what is the array of messages",state.allReducers.CurrentRoomReducer)
   return { 
     messages: state.allReducers.ChatReducer,
     rooms: state.allReducers.RoomReducer,
+    current: state.allReducers.CurrentUserReducer,
     currentRoom: state.allReducers.CurrentRoomReducer
   }
 };
