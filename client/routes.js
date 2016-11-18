@@ -28,5 +28,6 @@ export default (
     <Route path="logout" component={Login} />
     <Route path='signup' component={SignUp} />
     <Route path='analytics' component={Analytics} />
+    <Route path='profile' component={OtherUserProfile} />
   </Route>
 )
