@@ -2,7 +2,7 @@ let nextMessageId = 1000;
 //because in the Reducer, we are declaring an initial room called 'default' with ID=0
 
 export const addDMRoom = (eachRoom) => {
-  console.log("each room passed into action in DMRoomActions",eachRoom)
+  // console.log("each room passed into action in DMRoomActions",eachRoom)
   return {
     type: 'ADD_DM_ROOM',
     // id: (nextMessageId++).toString(),

@@ -68,15 +68,20 @@ const LeftSideBar = ( {rooms, DMRooms, currentRoom, currentUser, dispatch, theSo
       <p>...</p> 
       <div>
         DIRECT MESSAGES
+        <ul id="rooms">
+          {DMRooms.map(room =>
+            <LeftSideBarEntryChannel theSocket={theSocket} key={room.id} room={room} />
+          )}
+        </ul>
       </div>
-      <p>...</p> 
+      <p>...</p>  
 
     </div>
   )
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("all users",state.allReducers.UserReducer)
+  // console.log("all users",state.allReducers.UserReducer)
   return { 
     currentRoom: state.allReducers.CurrentRoomReducer,
     DMRooms: state.allReducers.DMRoomReducer,
