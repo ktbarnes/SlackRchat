@@ -9,6 +9,7 @@ import LeftSideBar from './LeftSideBar.js';
 import RightSideBar from './RightSideBar.js';
 import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
 import { addRoom } from '../actions/RoomActions';
+import { addDMRoom } from '../actions/DMRoomActions';
 import { addUser } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
@@ -36,6 +37,7 @@ class AppContainer extends React.Component {
   componentDidMount() {
     this.downloadAllChannels();
     this.downloadAllUsers();
+    this.downloadAllDMRooms();
     this.socket.on('chat message', 
       incoming => {
         this.handleReceive(addMessageFromSocket,{
@@ -60,8 +62,6 @@ class AppContainer extends React.Component {
   handleReceive(cb,body) {
     this.props.dispatch(cb(body));
   }
-
-
 
   downloadAllChannels() {
     this.currentRoom = this.props.currentRoom.channelName;
@@ -115,7 +115,35 @@ class AppContainer extends React.Component {
     });
   }
 
-
+  downloadAllDMRooms(){
+    //get from server who current user is
+    this.currentUserIDfromDB;
+    axios.get('/db/getMe',
+    { headers: { "authorization": "Bearer "+localStorage.getItem('id_token') }})
+    .then( (res) => {
+      // console.log("who is my user???",res.data)
+      this.currentUserIDfromDB = res.data.currentUserID;
+      axios.get('/db/DMRooms')
+      .then( (res) => {
+        res.data.forEach( (msg) => {
+          let eachRoom = {
+            id: msg.id,
+            user1ID: msg.user1ID,
+            user2ID: msg.user2ID,
+            user1username: msg.user1,
+            user2username: msg.user2,
+            channelName: msg.channelName,
+            aliasName: msg.aliasName,
+            currentRoomToggle: (this.currentRoom === msg.channelName)
+          } 
+          // console.log(this.currentUserIDfromDB, "   ", eachRoom.user1ID, "   ", eachRoom.user2ID)
+          if(this.currentUserIDfromDB === eachRoom.user1ID || this.currentUserIDfromDB === eachRoom.user2ID){
+            this.handleReceive(addDMRoom,eachRoom);
+          }
+        });
+      });
+    });
+  } //end of downloadAllRooms
 
   render() {
     const { barOpened, duration, mode, side, size } = this.state;
@@ -162,6 +190,7 @@ const mapStateToProps = (state, ownProps) => {
   return { 
     rooms: state.allReducers.RoomReducer,
     currentUser: state.allReducers.CurrentUserReducer,
+    DMRooms: state.allReducers.DMRoomReducer,
     currentRoom: state.allReducers.CurrentRoomReducer
   }
 };

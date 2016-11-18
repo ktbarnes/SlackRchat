@@ -58,7 +58,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("DM Rooms",state.allReducers.DMRoomReducer)
+  // console.log("DM Rooms",state.allReducers.DMRoomReducer)
   return { 
     currentUser: state.allReducers.CurrentUserReducer,
     currentRoom: state.allReducers.CurrentRoomReducer,
