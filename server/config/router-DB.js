@@ -141,4 +141,9 @@ router.get('/messages', function (request, response) {
   .then(data => response.json(data));
 });
 
+router.get('/DMMessages', function (request, response) {
+  DMMessage.getMessages()
+  .then(data => response.json(data));
+});
+
 module.exports = router;

@@ -9,17 +9,18 @@ var DMMessage = {
 
   // this is the expanded
   getMessages: function() {
-    return database('channel_messages')
-           .join('users as u1','channel_messages.userID', 'u1.id')
-           .join('channel as c1','channel_messages.channelID', 'c1.id')
+    return database('DM_messages')
+           .join('users as u1','DM_messages.authorID', 'u1.id')
+           .join('DM_room as c1','DM_messages.DM_roomID', 'c1.id')
            .select(
-                 'channel_messages.id',
-                 'u1.username as username',
+                 'DM_messages.id',
+                 'u1.username as author',
                  'u1.id as userIDinDB',
-                 'c1.name as channelName',
-                 'c1.id as channelIDinDB',
-                 'channel_messages.message',
-                 'channel_messages.created_at');
+                 'c1.channelName as channelName',
+                 'c1.aliasName as aliasName',
+                 'c1.id as roomIDinDB',
+                 'DM_messages.message',
+                 'DM_messages.created_at');
   },
    
   postMessage: function(data) {
