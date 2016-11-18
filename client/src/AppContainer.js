@@ -52,9 +52,11 @@ class AppContainer extends React.Component {
     );
     this.socket.on('disconnected', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
-    this.socket.on("direct message", txt => {
-      console.log("trying to get a message");
-      window.alert(txt) 
+    this.socket.on("direct message", incoming => {
+      console.log("trying to get a room", incoming.room);
+      window.alert(incoming.msg)
+      this.socket.emit('changeRoom', incoming.room)
+      this.handleReceive(setCurrentRoom,incoming.room);
     });
     this.socket.on('connect', (txt) => this.socket.emit('changeRoom', this.props.currentRoom.channelName)); 
   }
@@ -119,9 +121,10 @@ class AppContainer extends React.Component {
     { headers: { "authorization": "Bearer "+localStorage.getItem('id_token') }})
     .then( (res) => {
       // console.log("who is my user???",res.data)
-      this.currentUserIDfromDB = res.data.currentUserID;
+      this.currentUserIDfromDB = res.data.id;
       axios.get('/db/DMRooms')
       .then( (res) => {
+        console.log("what are the DM rooms that are downloaded",res.data)
         res.data.forEach( (msg) => {
           let eachRoom = {
             id: msg.id,

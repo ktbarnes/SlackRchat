@@ -8,6 +8,7 @@ import CurrentRoomReducer from './CurrentRoomReducer'
 import DMRoomReducer from './DMRoomReducer'
 import signUpReducer from './signUpReducer'
 import NavReducer from './NavReducer'
+import ClickedUserProfileReducer from './ClickedUserProfileReducer'
 
 export default combineReducers ({
   authReducer,
@@ -18,5 +19,6 @@ export default combineReducers ({
   CurrentRoomReducer,
   DMRoomReducer,
   signUpReducer,
-  NavReducer
+  NavReducer,
+  ClickedUserProfileReducer
 })

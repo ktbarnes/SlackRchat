@@ -121,7 +121,8 @@ function(socket){
   });
 
   socket.on('direct message', function(fromClient){
-    // console.log("what's from client - message",fromClient.msg);
+    console.log("what's from client - message",fromClient.msg);
+    console.log("what's from client - room",fromClient.room);
     // console.log("what's from client - recipientEmail",fromClient.recipientEmail);
     // console.log("translating socket number",loggedInUsers[fromClient.recipientEmail]);
     // console.log("currentRoom",currentRoom);
@@ -129,7 +130,12 @@ function(socket){
     var inputSocketID = loggedInUsers[fromClient.recipientEmail]
     // console.log("inputSocketID",inputSocketID)
     // console.log("loggedInUsers object",loggedInUsers);
-    socket.broadcast.to(inputSocketID).emit("direct message",fromClient.msg);
+    socket.broadcast.to(inputSocketID).emit("direct message",
+      {
+        msg: fromClient.msg,
+        room: fromClient.room
+      }
+    );
     //other things I tried that didn't work
     // io.of(organizationName).to(inputSocketID).emit("direct message",fromClient.msg)
     // hrns.to(inputSocketID).emit("direct message",fromClient.msg)
