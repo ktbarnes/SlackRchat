@@ -49,7 +49,7 @@ var transport = nodemailer.createTransport(
 
 var params = {
   from: process.env.GMAIL_USER,
-  to: 'katosych@gmail.com',
+  to: 'katosych@gmail.com, canhcoding@gmail.com',
   subject: 'Test email',
   text: 'testing out the email'
 }
@@ -137,23 +137,34 @@ function(socket){
   });
     
 });
-
 //End of socket code. Can bring that back to the socket file later
 
+// var spawn = require('child_process').spawn,
+//     py = spawn('py',['compute_input.py']),
+//     data = [1,2,3,4,5,6,7,8,9],
+//     dataString = '';
 
+var spawn = require('child_process').spawn;
+var py = spawn('py',['compute_input.py',[1,2,3,4,5,6,7,8,9]])
+var dataString = ''
 
+py.stdout.on('data', function(data) {
+  console.log(data)
+  dataString += data.toString();
+});
+py.stdout.on('end', function() {
+  console.log('Sum ',dataString);
+});
 
-
-
-
-
-
+// py.stdin.write(JSON.stringify(data));
+// py.stdin.end();
 
 //set and run the port and server
 app.set('port',process.env.PORT || 3000);
 var port = app.get('port');
 http.listen(port);
 console.log("Server listening on PORT",port);
+
 
 app.get('*', function(req, res){
  res.sendFile(path.resolve(__dirname, '../client', 'index.html'))
