@@ -16,6 +16,7 @@ knex.schema.hasTable('users').then(function(exists) {
 			user.string('username', 100).unique();
 			user.string('email', 100).unique();
 			user.string('password', 100);
+      user.string('picture', 100);
       user.string('first', 100);
       user.string('last', 100);
       user.string('phone', 100);

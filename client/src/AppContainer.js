@@ -84,11 +84,9 @@ class AppContainer extends React.Component {
   downloadAllUsers() {
     //get from server who current user is
     this.currentUserIDfromDB;
-    axios.get('/db/getMe',
-    { headers: { "authorization": "Bearer "+localStorage.getItem('id_token') }})
+    axios.get('/db/getMe', { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
     .then( (res) => {
-      // console.log("who is my user???",res.data)
-      this.currentUserIDfromDB = res.data.currentUserID;
+      this.handleReceive(setCurrentUser, res.data);
       //now download all users
       axios.get('/db/users')
       .then( (resp) => {
@@ -98,14 +96,13 @@ class AppContainer extends React.Component {
             id: person.id,
             username: person.username,
             email: person.email,
-            currentUserToggle: (this.currentUserIDfromDB === person.id)
           }
           this.handleReceive(addUser,eachUser);
-          if(this.currentUserIDfromDB === person.id){
-            this.handleReceive(setCurrentUser,eachUser);
-          }
+          // if(this.currentUserIDfromDB === person.id){
+          //   this.handleReceive(setCurrentUser,eachUser);
+          // }
         });
-        console.log("email email email???",this.props.currentUser.email);
+        // console.log("email email email???",this.props.currentUser.email);
         this.socket.emit("setMyEmailInSocket",{
           email: this.props.currentUser.email,
           username: this.props.currentUser.username
