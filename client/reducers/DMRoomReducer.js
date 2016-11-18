@@ -8,6 +8,8 @@ const DMRoomReducer = (state = [], action) => {
           id: action.id,
           user1ID: action.user1ID,
           user2ID: action.user2ID,
+          channelName: action.channelName,
+          aliasName: action.aliasName,
           currentRoomToggle: action.currentRoomToggle
         }
       ];
