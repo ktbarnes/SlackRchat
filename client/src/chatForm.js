@@ -3,6 +3,8 @@ import React, { PropTypes } from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
+
+
 const ChatForm = ( { socket, currentRoom, currentUser } ) => {
   let input;
 
@@ -20,7 +22,7 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
           socket.emit('chat message', {
             channelName: currentRoom.channelName, 
             channelID: currentRoom.id,
-            username: currentUser[0].username,
+            username: currentUser.username,
             msg: input.value
           });
 
@@ -58,5 +60,3 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps)(ChatForm);
-
-

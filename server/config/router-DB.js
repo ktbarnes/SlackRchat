@@ -3,18 +3,20 @@ var router = express.Router();
 var User = require('../models/userModel.js');
 var Message = require('../models/messageModel.js');
 var Channel = require('../models/channelModel.js');
+var DirectMessageRoom = require('../models/directMessageRoomModel.js');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('jwt-simple');
 
 router.get('/getMe', function (request, response) {
   let encoded = request.headers.authorization.split(' ')[1];
-  console.log("what is encoded?",encoded)
+  // console.log("what is encoded?",encoded)
   let token = jwt.decode(encoded, process.env.SECRET);
   let currentUserID = token.id;
   response.json({currentUserID: currentUserID});
 });
 
 router.get('/users', function (request, response) {
+  let theUser = request.body.email
   User.getUsers()
   .then(users => response.json(users));
 });
@@ -37,25 +39,27 @@ router.post('/login', function (request, response) {
 
 router.post('/users', function (request, response) {
   // console.log("REQUEST.BODY: ",request.body);
-
   bcrypt.hash(request.body.password, null, null, function(err, hash) {
     User.postUser({
       username: request.body.username,
       email: request.body.email,
       password: hash,
-      
     })
-    .then(data => {
-      console.log("DATA???", data)
-      let token = jwt.encode({id: data[0]}, process.env.SECRET);
-      response.json({id_token: token})
-    });
-  });
+    .then(user => {
+      console.log(user, "this is dkkkkkkdllllkk");
+      let token = jwt.encode({id: user[0]}, process.env.SECRET);
+      console.log(token, "Hi 577777");
+      response.json({id_token: token});
+    })
+    .catch(error => {
+      response.send(error)
+    })
+});
 });
 
 //THIS IS WHERE I START
 router.post('/usersInfo', function(request, response) {
-  console.log(request.body, 'this is the request from router post usersInfo');
+  // console.log(request.body, 'this is the request from router post usersInfo');
   User.postOtherUserInformation({
       email:request.body.email || null,
       first: request.body.first || null,
@@ -78,6 +82,12 @@ router.get('/channels', function (request, response) {
   Channel.getChannels()
   .then(data => response.json(data));
 })
+
+//add a new DM room
+router.post('/DMRooms', function (request, response) {
+  DirectMessageRoom.addRoom(request.body.user1,request.body.user2)
+  .then(data => response.status(201).json(data));
+});
 
 router.post('/messages', function (request, response) {
   // console.log("what is auth?",request.headers.authorization)
