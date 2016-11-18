@@ -2,68 +2,60 @@ import axios from 'axios';
 import React, { PropTypes } from 'react';
 import { dispatch, connect } from 'react-redux';
 import { addDMRoom } from '../actions/DMRoomActions';
+<<<<<<< HEAD
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
+=======
+import { Router, Route, Link, browserHistory } from 'react-router';
+import {OtherUserProfile} from './OtherUserProfile'
+import { clickedUserProfile } from '../actions/ClickedUserProfileActions';
+>>>>>>> nav10
 
 const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser, theSocket }) => {
-
+  
+  
   const handleReceive = (cb,body) => {
     dispatch(cb(body));
   }
+  // console.log(user, 'clicked user')
+
+  const handleProfile = (cb, user) => {
+    let id = user.id
+    // matchUser(id)
+    dispatch(cb(user));
+    console.log(user, "this is the user I clicked")
+  } 
 
   return (
-    <li onClick={ 
-      () => {
-        //for now, this will open up a DM request
+    <div>
+      <li>{user.username}
+        <button onClick={() => handleProfile(clickedUserProfile, user)}>
+        <Link to='/profile'>Profile</Link></button>
+        <button  
 
-        // console.log("clicked user",user)
 
-        //emits to socket and has it alert to that user that I want to chat
-        theSocket.emit("direct message",{
-          recipientEmail: user.email,
-          msg: user.username + ', ' + currentUser.username +" wants to open a direct chat with you!"
-        });
 
-        //set up a new direct message room
-        axios.post('/db/DMRooms',{ 
-          user1: currentUser.id, 
-          user2: user.id,
-          channelName: currentUser.username + user.username, //i.e. CanhJulia
-          aliasName: user.username + currentUser.username }) //i.e. JuliaCanh
-        .then((response) => {
-          console.log("room created in DB!", response);
-          let roomToAdd = {
-            id: response.data[0],
-            user1ID: currentUser.id,
-            user2ID: user.id,
-            channelName: currentUser.username + user.username,
-            aliasName: user.username + currentUser.username,
-            currentRoomToggle: true
-          }
-          //add room to Store
-          handleReceive(addDMRoom,roomToAdd);
 
-          //change current room in Store and in the Socket
-          handleReceive(setCurrentRoom,roomToAdd);
-          theSocket.emit('changeRoom', currentRoom);
 
-        })
-        .catch((err) => console.error(err))
 
-      }
-    }>
-      * { user.username }
-    </li>
 
+
+
+
+
+
+        >Direct Message</button>
+      </li>  
+    </div>
   );
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("DM Rooms",state.allReducers.DMRoomReducer)
+  console.log("UserReducer",state.allReducers.UserReducer)
   return { 
     currentUser: state.allReducers.CurrentUserReducer,
-    currentRoom: state.allReducers.CurrentRoomReducer,
-    DMRooms: state.allReducers.DMRoomReducer,
-    allUsers: state.allReducers.UserReducer 
+    // DMRooms: state.allReducers.DMRoomReducer,
+    allUsers: state.allReducers.UserReducer,
+    clickedUser: state.allReducers.ClickedUserProfileReducer
   }
 };
 

@@ -7,6 +7,7 @@ import Login from './src/login.js'
 import Analytics from './src/Analytics'
 import SignUp from './src/signup.js'
 import Profile from './src/signup.js'
+import OtherUserProfile from './src/OtherUserProfile.js'
 
 function loggedIn() {
   return !!localStorage.id_token;

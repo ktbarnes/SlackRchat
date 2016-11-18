@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import RightSideBarEntryUser from './RightSideBarEntry-Users';
 import { connect } from 'react-redux';
+import {OtherUserProfile} from './OtherUserProfile'
 
 const RightSideBar = ( {allUsers, currentUser, theSocket} ) => {
 
@@ -19,7 +20,6 @@ const RightSideBar = ( {allUsers, currentUser, theSocket} ) => {
           )}
         </ul>
       </div>
-
     </div>
   )
 }
