@@ -9,6 +9,8 @@ import { addRoom } from '../actions/RoomActions';
 import { addUser } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
+// import { Picker, Emoji } from 'emoji-mart';
+import EmojiPicker from './EmojiPicker.js';
 
 class PrimaryChatroom extends React.Component {
 
@@ -28,8 +30,8 @@ class PrimaryChatroom extends React.Component {
 
   downloadAllChannelMessages() {
     axios.get('/db/messages')
-    .then( (res) => {
-      res.data.forEach( (msg) => {
+    .then(res => {
+      res.data.forEach(msg => {
         let eachMsg = {
           id: msg.id,
           username: msg.username,
@@ -47,6 +49,7 @@ class PrimaryChatroom extends React.Component {
   render(){
     return (
       <div>
+        <EmojiPicker />
         <div>
           <MessageList />
           <Message />

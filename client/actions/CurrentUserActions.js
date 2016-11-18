@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const setCurrentUser = (user) => {
+export const setCurrentUser = user => {
   return {
     type: 'SET_CURRENT_USER',
     id: user.id,
@@ -35,3 +35,14 @@ export const UpdateProfile = (user) => {
     return axios.post('/db/usersInfo', information1);
 }
 
+export const updateUser = user => {
+
+  let pic =  user;
+
+  axios.post('/pic', {pic: pic})
+  .then(data => console.log(data));
+
+  // return {
+  //   type: 'UPDATE_CURRENT_USER'
+  // }
+}

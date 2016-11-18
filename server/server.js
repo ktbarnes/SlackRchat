@@ -4,7 +4,6 @@ var app = express();
 var path = require('path');
 var cloudinary = require('cloudinary').v2;
 
-
 // require middleware
 require('./config/middleware.js')(app, express);
 
@@ -33,7 +32,6 @@ app.post('/pic', function(request, response) {
     response.json({url: image.eager[0].url});
   });
 })
-
 
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
