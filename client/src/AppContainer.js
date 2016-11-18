@@ -52,9 +52,11 @@ class AppContainer extends React.Component {
     );
     this.socket.on('disconnected', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
-    this.socket.on("direct message", txt => {
-      console.log("trying to get a message");
-      window.alert(txt) 
+    this.socket.on("direct message", incoming => {
+      console.log("trying to get a room", incoming.room);
+      window.alert(incoming.msg)
+      this.socket.emit('changeRoom', incoming.room)
+      this.handleReceive(setCurrentRoom,incoming.room);
     });
     this.socket.on('connect', (txt) => this.socket.emit('changeRoom', this.props.currentRoom.channelName)); 
   }
