@@ -95,10 +95,7 @@ class Profile extends React.Component {
     this.props.dispatch(close())
   }
   
-// ref={node => { input.first = node; console.log(input.first); } } placeholder={this.props.currentUser.first}
-
-
-    render(){
+  render() {
     return (
       <form onSubmit={this.handleSubmit}>
       <Modal id="profile_modal" show={this.props.toShowModel.showModel} >
@@ -111,7 +108,7 @@ class Profile extends React.Component {
           </div>
           <div> 
             <h3>Profile Picture</h3>
-            <input type="file" accept="image/*" data-action="profilepicture" />
+            <input type="file" ref='pic' accept="image/*" data-action="profilepicture" />
           </div>
           <div>
             <label>First Name</label>
