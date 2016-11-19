@@ -63,9 +63,9 @@ router.post('/users', function (request, response) {
 
 //THIS IS WHERE I START
 router.post('/usersInfo', function(request, response) {
-  // console.log(request.body, 'this is the request from router post usersInfo');
+  console.log(request.body, 'this is the request from router post usersInfo');
   User.postOtherUserInformation({
-      email:request.body.email || null,
+      id: request.body.id,
       first: request.body.first || null,
       last: request.body.last || null,
       phone: request.body.phone || null,
