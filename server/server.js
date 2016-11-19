@@ -23,11 +23,9 @@ var eager_options = {
 };
 
 app.post('/pic', function(request, response) {
-
-  console.log('request.body inside /pic ', request.body);
-  // let encoded = request.headers.authorization.split(' ')[1];
-  // let token = jwt.decode(encoded, process.env.SECRET);
-  // let currentUserID = token.id;
+  let encoded = request.headers.authorization.split(' ')[1];
+  let token = jwt.decode(encoded, process.env.SECRET);
+  let currentUserID = token.id;
 
   cloudinary.uploader.upload(request.body.pic, {tags : "basic_sample", eager: eager_options}, function(err,image){
     // "eager" parameter accepts a hash (or just a single item). You can pass
@@ -37,10 +35,13 @@ app.post('/pic', function(request, response) {
     if (err){ console.warn(err);}
     // console.log("* "+image.public_id);
     // console.log("* "+image.eager[0].url);
-    // User.postProfilePicture({id: currentUserID, picture: image.eager[0].url});
+    data = {
+      id: currentUserID,
+      picture: image.eager[0].url
+    }
+    User.postProfilePicture(data);
     response.json({url: image.eager[0].url});
   });
-
 })
 
 var nodemailer = require('nodemailer');
