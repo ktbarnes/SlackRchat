@@ -14,6 +14,15 @@ export const addUser = (eachUser) => {
     facebook: eachUser.facebook,
     twitter: eachUser.twitter,
     linkedin: eachUser.linkedin,
-    currentUserToggle: eachUser.currentUserToggle
+    currentUserToggle: eachUser.currentUserToggle,
+    onlineToggle: eachUser.onlineToggle
+  };
+};
+
+export const toggleOnlineUser = (userEmail) => {
+    console.log("user in toggleOnlineUser in UserActions",userEmail)
+  return {
+    type: "TOGGLE_ONLINE_USER",
+    userEmail
   };
 };
