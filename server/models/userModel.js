@@ -38,6 +38,7 @@ var User = {
   },
 
   postProfilePicture: function(data) {
+    console.log('inside postProfilePicture', data)
     return database('users').where({'id': data.id})
     .update({
       picture: data.picture
