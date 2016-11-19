@@ -6,6 +6,7 @@ export const ADD_MESSAGE_FROM_SOCKET = 'ADD_MESSAGE_FROM_SOCKET'
 export const ADD_MESSAGE_FROM_DB = 'ADD_MESSAGE_FROM_DB'
 
 export const addMessageFromSocket = (msg) => {
+  console.log("WHAT MESAAGE AM I ADDING IN ADDMESSAGEFROMSOCKET ", msg)  
   return {
     type: 'ADD_MESSAGE_FROM_SOCKET',
     id: (nextMessageId++).toString(),
@@ -13,6 +14,7 @@ export const addMessageFromSocket = (msg) => {
     channelName: msg.channelName,
     channelID: msg.channelID,
     text: msg.text,
+    url: msg.url,
     created_at: new Date().toJSON()
   };
 };
@@ -26,6 +28,7 @@ export const addMessageFromDB = (msg) => {
     channelName: msg.channelName,
     channelIDinDB: msg.channelIDinDB,
     text: msg.text,
+    url: msg.url,
     created_at: msg.created_at
   };
 };

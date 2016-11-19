@@ -2,11 +2,10 @@ import React, { PropTypes } from 'react';
 import Message from './Message';
 import { connect } from 'react-redux';
 
-
 //Note: this.room is passed in from PrimaryChatroom as a prop here. That represents "current" room
 
 const MessageList = ( {messages, currentUser, currentRoom} ) => {
-
+  // console.log("Last message", messages[messages.length - 1])
   let filtered = messages.filter( (message) => 
     message.channelName === currentRoom.channelName || message.channelName === undefined);
 
@@ -23,6 +22,7 @@ const MessageList = ( {messages, currentUser, currentRoom} ) => {
             username={message.username}
             text={message.text}
             created_at={message.created_at}
+            url={message.url}
           />
           
         )}
