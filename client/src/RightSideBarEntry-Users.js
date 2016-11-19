@@ -24,6 +24,8 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
 
   const getPeerToChangeRoom = (room) => {
     //emits to socket and has it alert to that user that I want to chat
+    console.log("user.email in RightSideBar",user.email)
+    console.log("room in RightSideBar",room)
     theSocket.emit("direct message",{
       recipientEmail: user.email,
       room: room,
@@ -41,7 +43,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
           () => {
             //for now, this will open up a DM request
 
-            console.log("clicked user",user)
+            // console.log("clicked user",user)
 
             // //emits to socket and has it alert to that user that I want to chat
             // theSocket.emit("direct message",{
@@ -53,9 +55,9 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
             //if DM room exists i.e. in the DB, set currentRoom to room with that person
             let roomExists = false;
             for(let i = 0; i<DMRooms.length; i++){
-              console.log("user.username",user.username)
-              console.log("DMRooms[i].user1name",DMRooms[i].user1username)
-              console.log("DMRooms[i].user2name",DMRooms[i].user2username)
+              // console.log("user.username",user.username)
+              // console.log("DMRooms[i].user1name",DMRooms[i].user1username)
+              // console.log("DMRooms[i].user2name",DMRooms[i].user2username)
               if(user.username === DMRooms[i].user1username || user.username === DMRooms[i].user2username){
                 handleReceive(setCurrentRoom,DMRooms[i]);
                 theSocket.emit('changeRoom', currentRoom);

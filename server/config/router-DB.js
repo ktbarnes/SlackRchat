@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/userModel.js');
+var DMMessage = require('../models/DMMessageModel.js');
 var Message = require('../models/messageModel.js');
 var Channel = require('../models/channelModel.js');
 var DirectMessageRoom = require('../models/directMessageRoomModel.js');
@@ -120,8 +121,28 @@ router.post('/messages', function (request, response) {
   .then(data => response.status(201).json(data));
 });
 
+router.post('/DMMessages', function (request, response) {
+  // console.log("what is in my request body?",request.body)
+  // console.log("what is auth?",request.headers.authorization)
+  let encoded = request.headers.authorization.split(' ')[1];
+  let token = jwt.decode(encoded, process.env.SECRET);
+  // console.log("what is the token?",token);
+  let data = {
+    authorID: token.id,
+    DM_roomID: request.body.DM_roomID,
+    message: request.body.message
+  }
+  DMMessage.postMessage(data)
+  .then(data => response.status(201).json(data));
+});
+
 router.get('/messages', function (request, response) {
   Message.getMessages()
+  .then(data => response.json(data));
+});
+
+router.get('/DMMessages', function (request, response) {
+  DMMessage.getMessages()
   .then(data => response.json(data));
 });
 

@@ -90,8 +90,8 @@ knex.schema.hasTable('DM_messages').then(function(exists) {
   if (!exists) {
     knex.schema.createTable('DM_messages', function (channel_messages) {
       channel_messages.increments('id').primary();
-      channel_messages.integer('userID').unsigned().references('users.id');
-      channel_messages.integer('DM_channelID').unsigned().references('DM_channel.id');
+      channel_messages.integer('authorID').unsigned().references('users.id');
+      channel_messages.integer('DM_roomID').unsigned().references('DM_room.id');
       channel_messages.string('message', 300);
       channel_messages.timestamps();
     }).then(function (table) {
