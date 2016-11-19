@@ -40,11 +40,13 @@ class AppContainer extends React.Component {
     this.downloadAllDMRooms();
     this.socket.on('chat message', 
       incoming => {
+        console.log("CHAT MESSAGE", incoming)
         this.handleReceive(addMessageFromSocket,{
           channelName: incoming.channelName,
           channelID: incoming.channelID,
           username: incoming.username,
           text: incoming.text,
+          url: incoming.url,
         });
         // console.log("incoming.text",incoming.text);
         // window.alert("incoming.text",incoming.text);

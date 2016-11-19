@@ -19,6 +19,7 @@ var Message = {
                  'c1.name as channelName',
                  'c1.id as channelIDinDB',
                  'channel_messages.message',
+                 'channel_messages.url',
                  'channel_messages.created_at');
   },
    
@@ -28,6 +29,7 @@ var Message = {
       userID: data.userID,
       channelID: data.channelID,
       message: data.message,
+      url: data.url,
       created_at: new Date().toJSON().toString(),
       updated_at: new Date().toJSON().toString()
     });

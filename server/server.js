@@ -130,7 +130,8 @@ function(socket){
       channelName: fromClient.channelName,
       channelID: fromClient.channelID,
       username: fromClient.username,
-      text: fromClient.msg
+      text: fromClient.msg,
+      url: fromClient.url,
     });
   });
 
