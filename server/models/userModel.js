@@ -10,7 +10,7 @@ var User = {
   },
 
   getUserByID: function(id) {
-    return database.select('about','email','facebook','first','github','id','last','linkedin','phone','twitter','username').from('users').where({'id': id});
+    return database.select('about','email','facebook','first','github','id','last','linkedin','picture','phone','twitter','username').from('users').where({'id': id});
   },
 
   postUser: function(data) {
@@ -38,7 +38,6 @@ var User = {
   },
 
   postProfilePicture: function(data) {
-    console.log('inside postProfilePicture', data)
     return database('users').where({'id': data.id})
     .update({
       picture: data.picture
