@@ -126,7 +126,7 @@ class AppContainer extends React.Component {
       this.currentUserIDfromDB = res.data.id;
       axios.get('/db/DMRooms')
       .then( (res) => {
-        console.log("what are the DM rooms that are downloaded",res.data)
+        // console.log("what are the DM rooms that are downloaded",res.data)
         res.data.forEach( (msg) => {
           let eachRoom = {
             id: msg.id,

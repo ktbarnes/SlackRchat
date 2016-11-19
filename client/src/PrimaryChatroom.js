@@ -19,14 +19,16 @@ class PrimaryChatroom extends React.Component {
   }
 
   componentDidMount() {
-    this.downloadAllChannelMessages();
+    this.downloadAllMessages();
   }
   
   handleReceive(cb,body) {
     this.props.dispatch(cb(body));
   }
 
-  downloadAllChannelMessages() {
+  downloadAllMessages() {
+
+    //from channel_messages
     axios.get('/db/messages')
     .then(res => {
       res.data.forEach(msg => {
@@ -42,6 +44,24 @@ class PrimaryChatroom extends React.Component {
         this.handleReceive(addMessageFromDB,eachMsg);
       });
     });
+
+    //from DM_messages
+    axios.get('/db/DMMessages')
+    .then(res => {
+      res.data.forEach(msg => {
+        let eachMsg = {
+          id: msg.id,
+          username: msg.author,
+          userIDinDB: msg.userIDinDB,
+          channelName: msg.channelName,
+          channelIDinDB: msg.channelIDinDB,
+          text: msg.message,
+          created_at: msg.created_at
+        }
+        this.handleReceive(addMessageFromDB,eachMsg);
+      });
+    });
+
   }
 
   render(){
