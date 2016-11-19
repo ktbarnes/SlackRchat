@@ -21,9 +21,12 @@ router.get('/getMe', function (request, response) {
 });
 
 router.get('/users', function (request, response) {
-  let theUser = request.body.email
+  // let theUser = request.body.email
   User.getUsers()
-  .then(users => response.json(users));
+  .then(users => {
+    // console.log(users, 'this is the response of users line 27 router-DB')
+    response.json(users);
+  });
 });
 
 router.post('/login', function (request, response) {
@@ -50,7 +53,6 @@ router.post('/users', function (request, response) {
       password: hash,
     })
     .then(user => {
-      console.log(user, "this is dkkkkkkdllllkk");
       let token = jwt.encode({id: user[0]}, process.env.SECRET);
       console.log(token, "Hi 577777");
       response.json({id_token: token});
@@ -63,7 +65,7 @@ router.post('/users', function (request, response) {
 
 //THIS IS WHERE I START
 router.post('/usersInfo', function(request, response) {
-  // console.log(request.body, 'this is the request from router post usersInfo');
+  console.log(request.body, 'this is the request from router post usersInfo');
   User.postOtherUserInformation({
       email:request.body.email || null,
       first: request.body.first || null,
@@ -91,7 +93,7 @@ router.get('/channels', function (request, response) {
 router.get('/DMRooms', function (request, response) {
   DirectMessageRoom.getRooms()
   .then(data => {
-    console.log("what is my data",data)
+    // console.log("what is my data",data)
     response.json(data);
   });
 })
