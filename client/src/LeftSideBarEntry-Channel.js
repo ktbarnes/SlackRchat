@@ -7,14 +7,15 @@ import { toggleCurrentRoomField } from '../actions/RoomActions';
 const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, theSocket }) => (
   <li onClick={ 
     () => {
+      console.log("this is room",room)
+      console.log("this is current User",currentUser)
       dispatch(setCurrentRoom(room));
       theSocket.emit('changeRoom', currentRoom)
-
-      // console.log("this is room",room)
-      // console.log("this is my current Room",currentRoom);
     }
   }>
-    * { (room.channelName === currentUser) ? room.aliasName : room. channelName }
+    * { (room.aliasName === "Channel_NotDM") ? room.channelName : 
+        ((currentUser === room.user1username) ? room.user2username : room.user1username)
+      }
   </li>
 
 );

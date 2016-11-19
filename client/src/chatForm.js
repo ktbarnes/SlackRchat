@@ -25,16 +25,32 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
           });
 
           //this is where you will issue a POST request to the database
-          axios.post('/db/messages',{
-            channelName: currentRoom.channelName,
-            channelID: currentRoom.id,
-            message: input.value
-          },
-          {
-            headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') }
-          })
-          .then(() => console.log("message sent to DB!"))
-          .catch((err) => console.error(err))
+
+          //if channel
+          if(currentRoom.aliasName === "Channel_NotDM"){
+            //post to the channel_messages schema
+            axios.post('/db/messages',{
+              channelName: currentRoom.channelName,
+              channelID: currentRoom.id,
+              message: input.value
+            },
+            {
+              headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') }
+            })
+            .then(() => console.log("message sent to DB!"))
+            .catch((err) => console.error(err))            
+          } 
+          else {
+            axios.post('/db/DMMessages',{
+              DM_roomID: currentRoom.id,
+              message: input.value
+            },
+            {
+              headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') }
+            })
+            .then(() => console.log("message sent to DB!"))
+            .catch((err) => console.error(err))              
+          }
 
           //reinitialize the input field
           input.value = '';

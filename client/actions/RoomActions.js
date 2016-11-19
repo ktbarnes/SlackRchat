@@ -7,6 +7,7 @@ export const addRoom = (eachRoom) => {
     // id: (nextMessageId++).toString(),
     id: eachRoom.id,
     channelName: eachRoom.channelName,
+    aliasName: "Channel_NotDM",
     currentRoomToggle: eachRoom.currentRoomToggle
   };
 };
