@@ -108,14 +108,15 @@ router.post('/DMRooms', function (request, response) {
 });
 
 router.post('/messages', function (request, response) {
-  // console.log("what is auth?",request.headers.authorization)
+  console.log("what is post message request?",request.body)
   let encoded = request.headers.authorization.split(' ')[1];
   let token = jwt.decode(encoded, process.env.SECRET);
   // console.log("what is the token?",token);
   let data = {
     userID: token.id,
     channelID: request.body.channelID,
-    message: request.body.message
+    message: request.body.message,
+    url: request.body.url,
   }
   Message.postMessage(data)
   .then(data => response.status(201).json(data));

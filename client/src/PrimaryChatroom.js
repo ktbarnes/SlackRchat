@@ -39,6 +39,7 @@ class PrimaryChatroom extends React.Component {
           channelName: msg.channelName,
           channelIDinDB: msg.channelIDinDB,
           text: msg.message,
+          url: msg.url,
           created_at: msg.created_at
         }
         this.handleReceive(addMessageFromDB,eachMsg);
@@ -56,6 +57,7 @@ class PrimaryChatroom extends React.Component {
           channelName: msg.channelName,
           channelIDinDB: msg.channelIDinDB,
           text: msg.message,
+          url: msg.url,
           created_at: msg.created_at
         }
         this.handleReceive(addMessageFromDB,eachMsg);
