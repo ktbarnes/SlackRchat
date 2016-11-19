@@ -30,8 +30,8 @@ class Nav extends React.Component {
 save(user) {
     let information1 = {
       id: this.props.currentUser.id,
-      username: user.username,
-      email: user.email,
+      username: this.props.currentUser.username,
+      email: this.props.currentUser.email,
       about: user.about,
       first: user.first,
       last: user.last,
