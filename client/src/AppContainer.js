@@ -51,12 +51,13 @@ class AppContainer extends React.Component {
       }
     );
     this.socket.on('disconnected', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
-    this.socket.on('loggedInUsersObject', obj => {
-      console.log("who is logged in",Object.keys(obj));
-      Object.keys(obj).forEach( email => {
-        console.log("email email",email);
-        this.handleReceive(toggleOnlineUser,email);
-      });
+    this.socket.on('onlineToggle ON', email => {
+      console.log("who just logged in",email);
+      this.handleReceive(toggleOnlineUser,email);
+    });
+    this.socket.on('onlineToggle OFF', email => {
+      console.log("who just logged off",email);
+      this.handleReceive(toggleOnlineUser,email);
     });
     this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     this.socket.on("direct message", incoming => {
