@@ -21,6 +21,15 @@ router.get('/getMe', function (request, response) {
   // response.json({currentUserID: currentUserID});
 });
 
+router.post('/getOther', function(request, response) {
+  console.log(request, 'this is the data you requested Julia')
+  let id = request.body.id
+  User.getUserByID(id)
+  .then(user => {
+    response.status(201).json(user);
+  });
+});
+
 router.get('/users', function (request, response) {
   // let theUser = request.body.email
   User.getUsers()
