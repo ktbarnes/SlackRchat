@@ -3,8 +3,9 @@ import React, { PropTypes } from 'react';
 import LeftSideBarEntryChannel from './LeftSideBarEntry-Channel';
 import { dispatch, connect } from 'react-redux';
 import { addRoom } from '../actions/RoomActions';
+import { toggleOnlineUser } from '../actions/UserActions';
 
-const LeftSideBar = ( {rooms, DMRooms, currentRoom, currentUser, dispatch, theSocket} ) => {
+const LeftSideBar = ( {rooms, DMRooms, allUsers, currentRoom, currentUser, dispatch, theSocket} ) => {
   var input;
 
   const handleReceive = (cb,body) => {
@@ -20,7 +21,7 @@ const LeftSideBar = ( {rooms, DMRooms, currentRoom, currentUser, dispatch, theSo
           console.log("this is my current room",currentRoom);
           console.log("this is my current user",currentUser);
           console.log("these are my DM Rooms",DMRooms)
-          window.alert("hi");
+          console.log("this is all the users after",allUsers);
         }}>ConsoleLog me!
       </p>
 
@@ -83,6 +84,7 @@ const LeftSideBar = ( {rooms, DMRooms, currentRoom, currentUser, dispatch, theSo
 const mapStateToProps = (state, ownProps) => {
   // console.log("all users",state.allReducers.UserReducer)
   return { 
+    allUsers: state.allReducers.UserReducer,
     currentRoom: state.allReducers.CurrentRoomReducer,
     DMRooms: state.allReducers.DMRoomReducer,
     currentUser: state.allReducers.CurrentUserReducer,
