@@ -22,7 +22,7 @@ const OtherUserProfile = ({clickedUser}) => {
         <tbody>
           <tr>
             <td className='profileHeading'>First Name</td>
-            <td>{clickedUser.first}{console.log(clickedUser.first)}</td>
+            <td>{clickedUser.first}</td>
           </tr>
           <tr>
             <td>Last Name</td>
@@ -58,8 +58,7 @@ const OtherUserProfile = ({clickedUser}) => {
           </tr>
         </tbody>   
       </table> 
-      <button>Close</button>
-      <button>Direct Message</button>   
+      <button>Close</button> 
       </div>  
      ) 
   }
