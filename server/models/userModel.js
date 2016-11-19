@@ -23,9 +23,8 @@ var User = {
   },
 
   postOtherUserInformation: function(data) {
-    // console.log(data, 'this is the data from getting data from router');
-    let match = data.email;
-    return database('users').where('email', '=', match)
+    console.log(data, 'this is the data from getting data from router');
+    return database('users').where({'id': data.id})
     .update({
       first: data.first,
       last: data.last,
@@ -35,6 +34,13 @@ var User = {
       facebook: data.facebook,
       twitter: data.twitter,
       linkedin: data.linkedin
+    })
+  },
+
+  postProfilePicture: function(data) {
+    return database('users').where({'id': data.id})
+    .update({
+      picture: data.picture
     })
   }
 };

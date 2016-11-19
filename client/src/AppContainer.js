@@ -85,10 +85,12 @@ class AppContainer extends React.Component {
 
   downloadAllUsers() {
     //get from server who current user is
+    // { dispatch } = this.props.dispatch;
     this.currentUserIDfromDB;
     axios.get('/db/getMe', { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
-    .then( (res) => {
-      this.handleReceive(setCurrentUser, res.data);
+    .then(res => {
+      this.props.dispatch(setCurrentUser(res.data));
+      console.log('supposedly set the curretUser ',this.props.currentUser);
       //now download all users
       axios.get('/db/users')
       .then( (resp) => {
