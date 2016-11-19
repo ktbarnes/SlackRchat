@@ -39,8 +39,10 @@ app.post('/pic', function(request, response) {
       id: currentUserID,
       picture: image.eager[0].url
     }
-    User.postProfilePicture(data);
-    response.json({url: image.eager[0].url});
+    User.postProfilePicture(data)
+    .then(res => {
+      response.json({url: image.eager[0].url});
+    });
   });
 })
 
