@@ -3,27 +3,30 @@ import React from 'react'
 import { dispatch, connect } from 'react-redux'
 import axios from 'axios'
 import { sendProfileInfo } from '../actions/signupActions'
+import { updateUser } from '../actions/CurrentUserActions'
 import { close } from '../actions/NavActions'
 
 class Profile extends React.Component {
 
   constructor(props) {
-    super(props)
-      this.state = {
-        first: this.props.currentUser.first || '',
-        last: this.props.currentUser.last || '',
-        phone: this.props.currentUser.phone || '',
-        about: this.props.currentUser.about || '',
-        github: this.props.currentUser.github || '',
-        facebook: this.props.currentUser.facebook || '',
-        twitter: this.props.currentUser.twitter || '',
-        linkedin: this.props.currentUser.linkedin || ''
-      }
+    super(props);
+
+    console.log('here are the currentUser props in Profile.js ', this.props);
+
+    this.state = {
+      first: this.props.currentUser.first,
+      last: this.props.currentUser.last,
+      phone: this.props.currentUser.phone,
+      about: this.props.currentUser.about,
+      github: this.props.currentUser.github,
+      facebook: this.props.currentUser.facebook,
+      twitter: this.props.currentUser.twitter,
+      linkedin: this.props.currentUser.linkedin
+    }
     
     // this.updateInfo = this.updateInfo.bind(this);
     this.handleFirst= this.handleFirst.bind(this);
     this.handleLast= this.handleLast.bind(this);
-    // // // this.handleUsername = this.handleUsername.bind(this);
     this.handlePhone = this.handlePhone.bind(this);
     this.handleAbout = this.handleAbout.bind(this);
     this.handleGithub = this.handleGithub.bind(this);
@@ -33,12 +36,32 @@ class Profile extends React.Component {
     this.handleSubmit= this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    // this.currentUserIDfromDB;
-    // axios.get('/db/getMe', {headers: {"authorization": "Bearer " + localStorage.getItem('id_token')}})
-    // .then(data => {
-    //   // console.log(data);    
-    // })
+  shouldComponentUpdate(nextProps, nextState) {
+
+    if (nextProps.toShowModel.showModel !== this.props.toShowModel.showModel) return true;
+    if (nextState.first !== this.state.first) return true;
+    if (nextState.last !== this.state.last) return true;
+    if (nextState.phone !== this.state.phone) return true;
+    if (nextState.about !== this.state.about) return true;
+    if (nextState.github !== this.state.github) return true;
+    if (nextState.facebook !== this.state.facebook) return true;
+    if (nextState.twitter !== this.state.twitter) return true;
+    if (nextState.linkedin !== this.state.linkedin) return true;
+
+    return false;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      first: nextProps.currentUser.first,
+      last: nextProps.currentUser.last,
+      phone: nextProps.currentUser.phone,
+      about: nextProps.currentUser.about,
+      github: nextProps.currentUser.github,
+      facebook: nextProps.currentUser.facebook,
+      twitter: nextProps.currentUser.twitter,
+      linkedin: nextProps.currentUser.linkedin
+    });
   }
        
   handleFirst(event){ this.setState({first: event.target.value})}  
@@ -53,12 +76,23 @@ class Profile extends React.Component {
   // handleSubmit(event){this.props.dispatch(save(infor))}
   handleSubmit(event) {
     let info = this.state
-    console.log(this.state, "these are the proops")
     this.props.save(info)
+    // this.upload(event);
     this.props.dispatch(close())
     // this.props.onHide();
   }
   
+  upload(event) {
+    let file = this.refs.pic.files[0];
+    // if(!file) return;
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = function(event) {
+      updateUser(reader.result);
+    }
+  }
+
   render() {
     return (
       <Modal id="profile_modal" show={this.props.toShowModel.showModel} >
@@ -115,6 +149,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default connect(mapStateToProps)(Profile)
+// export default Profile
 
 
 

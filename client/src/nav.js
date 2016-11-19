@@ -5,20 +5,22 @@ import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router'
 import Profile from './Profile'
 import { Modal, Button, ModalHeader, ModalTitle, ModalFooter, ModalBody } from 'react-bootstrap' 
 import { sendProfileInfo } from '../actions/signupActions'
-import { open, close } from '../actions/NavActions'
+import { open } from '../actions/NavActions'
 import { UpdateProfile } from '../actions/CurrentUserActions'
 import PrimaryChatroom from './PrimaryChatroom'
 import axios from 'axios'
-import { Transition } from 'react-router'
+import { setCurrentUser } from '../actions/CurrentUserActions'
 
 class Nav extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.save = this.save.bind(this);
   }
 
 
   onEdit() {
-    console.log(this.props, "alksdfjjjjjjjj")
+    console.log(this.props.currentUser, "opening Modal")
     this.props.dispatch(open())
   }
 
@@ -28,18 +30,19 @@ class Nav extends React.Component {
 
   save(user) {
     let information1 = {
-    id: user.id,
-    username: user.username,
-    email: user.email,
-    currentUserToggle: user.currentUserToggle, 
-    about: user.about,
-    first: user.first,
-    last: user.last,
-    github: user.github,
-    facebook: user.facebook,
-    twitter: user.twitter,
-    linkedin: user.linkedin
+      id: this.props.currentUser.id,
+      username: user.username,
+      email: user.email,
+      about: user.about,
+      first: user.first,
+      last: user.last,
+      github: user.github,
+      facebook: user.facebook,
+      twitter: user.twitter,
+      linkedin: user.linkedin
     }
+    console.log('information1 in nav ', information1);
+    this.props.dispatch(setCurrentUser(information1))
     axios.post('/db/usersInfo', information1)
     .then(response => {
       if(!response) {
@@ -47,6 +50,8 @@ class Nav extends React.Component {
       } else {
         
       }
+      axios.get('/db/getMe', { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
+      .then(res => console.log(res.data));
     });
   }
 
@@ -75,7 +80,7 @@ class Nav extends React.Component {
         <h1 className="title">Slacker</h1>
         <a className="navbutton" href="#" role="button" 
         onClick={(event) => this.onEdit(event)}>Profile</a>
-        <Profile save={this.save} onHide={this.onClose}/>
+        <Profile save={this.save} />
         <a className="navbutton" onClick={() => this.logout()} href="/login">Logout</a>
       </div>
     )
@@ -85,7 +90,7 @@ class Nav extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     toShowModel: state.allReducers.NavReducer,
-    // currentUser: state.allReducers.CurrentUserReducer 
+    currentUser: state.allReducers.CurrentUserReducer 
   }
 }
 

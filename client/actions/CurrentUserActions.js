@@ -35,9 +35,11 @@ export const UpdateProfile = user => {
 
 export const updateUser = user => {
 
+  console.log('inside updateUser action ',user);
   let pic =  user;
 
-  axios.post('/pic', {pic: pic})
+  console.log()
+  axios.post('/pic', {pic: user.pic}, { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
   .then(data => console.log(data));
 
   // return {

@@ -1,10 +1,5 @@
 const authReducer = (state = {isAuthenticated: !!localStorage.getItem('id_token')}, action) => {
   switch (action.type) {
-    case 'LOGIN_REQUEST':
-      return Object.assign({}, state, {
-        isAuthenticated: false,
-        user: action.creds
-      })
     case 'LOGIN_SUCCESS':
       return Object.assign({}, state, {
         isAuthenticated: true,

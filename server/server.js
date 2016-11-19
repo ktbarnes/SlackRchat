@@ -3,6 +3,8 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var cloudinary = require('cloudinary').v2;
+var User = require('./models/userModel.js');
+var jwt = require('jwt-simple');
 
 // require middleware
 require('./config/middleware.js')(app, express);
@@ -17,10 +19,16 @@ var giphyRouter = require('./config/router-giphy.js');
 app.use('/api', giphyRouter)
 
 var eager_options = {
-  width: 200, height: 150, crop: 'scale', format: 'jpg'
+  width: 200, height: 200, crop: 'fit', format: 'jpg'
 };
 
 app.post('/pic', function(request, response) {
+
+  console.log('request.body inside /pic ', request.body);
+  // let encoded = request.headers.authorization.split(' ')[1];
+  // let token = jwt.decode(encoded, process.env.SECRET);
+  // let currentUserID = token.id;
+
   cloudinary.uploader.upload(request.body.pic, {tags : "basic_sample", eager: eager_options}, function(err,image){
     // "eager" parameter accepts a hash (or just a single item). You can pass
     // named transformations or transformation parameters as we do here.
@@ -29,8 +37,10 @@ app.post('/pic', function(request, response) {
     if (err){ console.warn(err);}
     // console.log("* "+image.public_id);
     // console.log("* "+image.eager[0].url);
+    // User.postProfilePicture({id: currentUserID, picture: image.eager[0].url});
     response.json({url: image.eager[0].url});
   });
+
 })
 
 var nodemailer = require('nodemailer');

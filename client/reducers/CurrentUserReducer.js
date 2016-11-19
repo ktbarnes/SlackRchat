@@ -1,20 +1,7 @@
-const CurrentUserReducer = (state = {
-          id: 0,
-          username: "username",
-          email: "email",
-          about: "about",
-          first: "first",
-          last: "last",
-          github: "github",
-          facebook: "facebook",
-          twitter: "twitter",
-          linkedin: "linkedin",
-          currentUserToggle: false
-
-}, action) => {
+const CurrentUserReducer = (state = {id: 0, username: '', email: '', about: '', first: '', last: '', github: '', facebook: '', twitter: '', linkedin: ''}, action) => {
   switch (action.type) {
     case 'SET_CURRENT_USER':
-      return {
+      return Object.assign({}, state, {
           id: action.id,
           username: action.username,
           email: action.email,
@@ -24,10 +11,8 @@ const CurrentUserReducer = (state = {
           github: action.github,
           facebook: action.facebook,
           twitter: action.twitter,
-          linkedin: action.linkedin,
-          currentUserToggle: action.currentUserToggle
-        };
-    
+          linkedin: action.linkedin
+      })
     default:
       return state;
   }
