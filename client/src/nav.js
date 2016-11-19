@@ -27,19 +27,20 @@ class Nav extends React.Component {
 //   dispatch(close())
 // }
 
+
 save(user) {
-    let information1 = {
-      id: this.props.currentUser.id,
-      username: this.props.currentUser.username,
-      email: this.props.currentUser.email,
-      about: user.about,
-      first: user.first,
-      last: user.last,
-      github: user.github,
-      facebook: user.facebook,
-      twitter: user.twitter,
-      linkedin: user.linkedin
-    }
+   let information1 = {
+     id: this.props.currentUser.id,
+     username: this.props.currentUser.username,
+     email: this.props.currentUser.email,
+     about: user.about,
+     first: user.first,
+     last: user.last,
+     github: user.github,
+     facebook: user.facebook,
+     twitter: user.twitter,
+     linkedin: user.linkedin
+   }
     console.log('information1 in nav ', information1);
     this.props.dispatch(setCurrentUser(information1))
     axios.post('/db/usersInfo', information1)

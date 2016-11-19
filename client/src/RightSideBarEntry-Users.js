@@ -6,20 +6,16 @@ import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import {OtherUserProfile} from './OtherUserProfile'
 import { clickedUserProfile } from '../actions/ClickedUserProfileActions';
-
+// import {OtherUserProfile} from './src/OtherUserProfile'
 const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser, currentRoom, theSocket }) => {
-  
   
   const handleReceive = (cb,body) => {
     dispatch(cb(body));
   }
-  // console.log(user, 'clicked user')
 
   const handleProfile = (cb, user) => {
     let id = user.id
-    // matchUser(id)
     dispatch(cb(user));
-    console.log(user, "this is the user I clicked")
   } 
 
   const getPeerToChangeRoom = (room) => {
