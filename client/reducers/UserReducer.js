@@ -15,9 +15,21 @@ const UserReducer = (state = [], action) => {
           facebook: action.facebook,
           twitter: action.twitter,
           linkedin: action.linkedin,
-          currentUserToggle: action.currentUserToggle
+          currentUserToggle: action.currentUserToggle,
+          onlineToggle: action.onlineToggle
         },
-      ];
+      ]
+
+    case 'TOGGLE_ONLINE_USER':
+      return state.map( (eachUser) => {
+        console.log("email comparison",eachUser.email," ",action.userEmail)
+        if(eachUser.email === action.userEmail){
+          return Object.assign({},eachUser,{
+            onlineToggle: !eachUser.onlineToggle
+          });
+        }
+        return eachUser
+      })
     
     default:
       return state;

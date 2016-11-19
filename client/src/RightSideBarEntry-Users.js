@@ -35,7 +35,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
 
   return (
     <div>
-      <li>{user.username}
+      <li>{user.username} {(user.onlineToggle) ? "online" : "offline"}
         <button onClick={() => handleProfile(clickedUserProfile, user)}>
         <Link to='/profile'>Profile</Link></button>
 
@@ -100,6 +100,10 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
 
           }
         }>Direct Message</button>
+
+        <div>
+          
+        </div>
       </li>  
     </div>
   );

@@ -101,9 +101,10 @@ function(socket){
     loggedInUsers[fromClient.email] = socket.id;
     // loggedInUsers[fromClient.email] = socket.id.substring(organizationName.length);
     console.log("did my user set?",loggedInUsers);
+    hrns.in(currentRoom).emit('onlineToggle ON', fromClient.email);
   });
-  //hi
-  //Room-specific code
+  
+
 
   socket.on('changeRoom', function(room) {
     currentRoom = room;
@@ -161,7 +162,9 @@ function(socket){
     var msg = currentUserUsername + ' left the room';
     // socket.broadcast.emit('disconnected',msg);
     hrns.in(currentRoom).emit('disconnected', msg);
-    delete loggedInUsers[currentUserUsername];
+    delete loggedInUsers[currentUserEmail];
+    console.log("who's logged in now?",loggedInUsers)
+    hrns.in(currentRoom).emit('onlineToggle OFF', currentUserEmail);
   });
     
 });

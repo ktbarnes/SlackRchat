@@ -10,7 +10,7 @@ import RightSideBar from './RightSideBar.js';
 import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
 import { addRoom } from '../actions/RoomActions';
 import { addDMRoom } from '../actions/DMRoomActions';
-import { addUser } from '../actions/UserActions';
+import { addUser, toggleOnlineUser } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
 
@@ -51,6 +51,14 @@ class AppContainer extends React.Component {
       }
     );
     this.socket.on('disconnected', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
+    this.socket.on('onlineToggle ON', email => {
+      console.log("who just logged in",email);
+      this.handleReceive(toggleOnlineUser,email);
+    });
+    this.socket.on('onlineToggle OFF', email => {
+      console.log("who just logged off",email);
+      this.handleReceive(toggleOnlineUser,email);
+    });
     this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     this.socket.on("direct message", incoming => {
       console.log("trying to get a room", incoming.room);
@@ -94,12 +102,20 @@ class AppContainer extends React.Component {
       //now download all users
       axios.get('/db/users')
       .then( (resp) => {
-        // console.log("what comes in from the DB?",resp)
+        console.log("what comes in from the DB?",resp)
         resp.data.forEach( (person) => {
           let eachUser = {
             id: person.id,
             username: person.username,
             email: person.email,
+            about: person.about,
+            first: person.first,
+            last: person.last,
+            github: person.github,
+            facebook: person.facebook,
+            twitter: person.twitter,
+            linkedin: person.linkedin,
+            onlineToggle: false
           }
           this.handleReceive(addUser,eachUser);
           // if(this.currentUserIDfromDB === person.id){
