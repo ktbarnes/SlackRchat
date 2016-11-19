@@ -75,20 +75,24 @@ class Profile extends React.Component {
 
   // handleSubmit(event){this.props.dispatch(save(infor))}
   handleSubmit(event) {
+    console.log('inside handlSubmit in profile')
     let info = this.state
     this.props.save(info)
-    // this.upload(event);
+    this.upload(event);
     this.props.dispatch(close())
     // this.props.onHide();
   }
   
   upload(event) {
+    const dispatch = this.props.dispatch;
     let file = this.refs.pic.files[0];
-    // if(!file) return;
+    if(!file) return;
+  
     let reader = new FileReader();
     reader.readAsDataURL(file);
 
     reader.onloadend = function(event) {
+      console.log("WE ARE UPLODING NOW")
       updateUser(reader.result);
     }
   }
@@ -134,7 +138,7 @@ class Profile extends React.Component {
           </div>  
         </Modal.Body>
         <Modal.Footer>
-          <Button className="btn btn-default" onClick={this.handleSubmit}>Save</Button>
+          <Button className="btn btn-default" onClick={(event)=>this.handleSubmit(event)}>Save</Button>
         </Modal.Footer>
       </Modal>
      ) 
