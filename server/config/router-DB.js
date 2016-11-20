@@ -15,7 +15,7 @@ router.get('/getMe', function (request, response) {
   let currentUserID = token.id;
   User.getUserByID(currentUserID)
   .then(user => {
-    console.log('this is me ', user[0]);
+    // console.log('this is me ', user[0]);
     response.json(user[0]);
   })
   // response.json({currentUserID: currentUserID});
@@ -40,7 +40,7 @@ router.get('/users', function (request, response) {
 });
 
 router.post('/login', function (request, response) {
-  console.log("A USER IS TRYING TO LOGIN", request.body)
+  // console.log("A USER IS TRYING TO LOGIN", request.body)
   User.getUser(request.body.email)
   .then(user => {
     bcrypt.compare(request.body.password, user[0].password, function(err, matched) {
@@ -75,7 +75,7 @@ router.post('/users', function (request, response) {
 
 //THIS IS WHERE I START
 router.post('/usersInfo', function(request, response) {
-  console.log(request.body, 'this is the request from router post usersInfo');
+  // console.log(request.body, 'this is the request from router post usersInfo');
   User.postOtherUserInformation({
       id: request.body.id,
       first: request.body.first || null,

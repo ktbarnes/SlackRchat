@@ -73,6 +73,11 @@ app.post('/email', function(request, response) {
   });
 });
 
+
+
+
+
+
 // // require socket
 // var http = require('http').Server(app);
 // require('./socket/socket.js')(http);
@@ -83,7 +88,6 @@ var organizationName = '/Hack-Reactor-NameSpace'; //hard-coded for now
 var hrns = io.of(organizationName); 
 //Just one "organization" for now, called HRNS. we can add more later
 var currentRoom = '';
-var currentUserEmail = '';
 var currentUserUsername = '';
 var loggedInUsers = {};
 hrns.on('connection', 
@@ -93,30 +97,28 @@ hrns.on('connection',
 
 function(socket){
 
-  //testing this out for now only
+  socket.on('getAllLoggedInUsersFromSocket', function() {
+    hrns.in(currentRoom).emit('getAllLoggedInUsersFromSocket', loggedInUsers);
+  });
+
   socket.on('setMyEmailInSocket', function(fromClient){
-    console.log('fromClient: ' + fromClient);
-    currentUserEmail = fromClient.email;
+    // console.log('fromClient: ' + fromClient);
     currentUserUsername = fromClient.username;
-    loggedInUsers[fromClient.email] = socket.id;
-    // loggedInUsers[fromClient.email] = socket.id.substring(organizationName.length);
-    console.log("did my user set?",loggedInUsers);
-    hrns.in(currentRoom).emit('onlineToggle ON', fromClient.email);
+    loggedInUsers[fromClient.username] = socket.id;
+    hrns.in(currentRoom).emit('onlineToggle ON', fromClient.username);
+    console.log("input socket ID: ", fromClient.username,"     ",loggedInUsers[fromClient.username]);
+    console.log("whos logged in now line 110 server.js",loggedInUsers)
   });
   
-
-
   socket.on('changeRoom', function(room) {
     currentRoom = room;
     socket.join(room);
     console.log("currentRoom",currentRoom);
-    // hrns.in(currentRoom).emit('chat message', {text: "A user has connected to the room"}); //commenting out for now because it got distracting
   });
 
   socket.on('someoneJoin', function(username){
     console.log(username + ' connected');
     var msg = username + ' connected';
-    // socket.broadcast.emit('someoneJoin',msg);
     hrns.in(currentRoom).emit('someoneJoin', msg);
   });
 
@@ -138,34 +140,28 @@ function(socket){
   socket.on('direct message', function(fromClient){
     console.log("what's from client - message",fromClient.msg);
     console.log("what's from client - room",fromClient.room);
-    // console.log("what's from client - recipientEmail",fromClient.recipientEmail);
-    // console.log("translating socket number",loggedInUsers[fromClient.recipientEmail]);
-    // console.log("currentRoom",currentRoom);
-    // console.log("io.sockets.connected",io.sockets.connected)
-    var inputSocketID = loggedInUsers[fromClient.recipientEmail]
-    // console.log("inputSocketID",inputSocketID)
-    // console.log("loggedInUsers object",loggedInUsers);
+    var inputSocketID = loggedInUsers[fromClient.recipientUsername]
     socket.broadcast.to(inputSocketID).emit("direct message",
       {
         msg: fromClient.msg,
         room: fromClient.room
       }
     );
-    //other things I tried that didn't work
-    // io.of(organizationName).to(inputSocketID).emit("direct message",fromClient.msg)
-    // hrns.to(inputSocketID).emit("direct message",fromClient.msg)
-    // io.to(inputSocketID).emit("direct message",fromClient.msg);
   });
 
   //user disconnects from room
   socket.on('disconnect', function(){
-    console.log(currentUserUsername,' left the room');
-    var msg = currentUserUsername + ' left the room';
-    // socket.broadcast.emit('disconnected',msg);
-    hrns.in(currentRoom).emit('disconnected', msg);
-    delete loggedInUsers[currentUserEmail];
-    console.log("who's logged in now?",loggedInUsers)
-    hrns.in(currentRoom).emit('onlineToggle OFF', currentUserEmail);
+    var keys = Object.keys(loggedInUsers);
+    for (var i = 0; i < keys.length; i++){
+      if(loggedInUsers[keys[i]] === socket.id){
+        console.log(keys[i],' left the room');
+        var msg = keys[i] + ' left the room';
+        hrns.in(currentRoom).emit('disconnected', msg);
+        delete loggedInUsers[keys[i]];
+        console.log("who's logged in now?",loggedInUsers)
+        hrns.in(currentRoom).emit('onlineToggle OFF', keys[i]);
+      }
+    }
   });
     
 });

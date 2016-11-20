@@ -22,10 +22,32 @@ const UserReducer = (state = [], action) => {
 
     case 'TOGGLE_ONLINE_USER':
       return state.map( (eachUser) => {
-        console.log("email comparison",eachUser.email," ",action.userEmail)
-        if(eachUser.email === action.userEmail){
+        // console.log("email comparison",eachUser.email," ",action.userEmail)
+        if(eachUser.username === action.userUsername){
           return Object.assign({},eachUser,{
-            onlineToggle: !eachUser.onlineToggle
+            onlineToggle: true
+          });
+        }
+        return eachUser
+      })
+
+    case 'TOGGLE_OFFLINE_USER':
+      return state.map( (eachUser) => {
+        // console.log("email comparison",eachUser.email," ",action.userEmail)
+        if(eachUser.username === action.userUsername){
+          return Object.assign({},eachUser,{
+            onlineToggle: false
+          });
+        }
+        return eachUser
+      })
+
+    case 'DOWNLOAD_ONLINE_USERS':
+      return state.map( (eachUser) => {
+        // console.log("email comparison",eachUser.email," ",action.userEmail)
+        if(eachUser.username === action.userUsername){
+          return Object.assign({},eachUser,{
+            onlineToggle: true
           });
         }
         return eachUser

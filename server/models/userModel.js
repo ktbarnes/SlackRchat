@@ -23,7 +23,7 @@ var User = {
   },
 
   postOtherUserInformation: function(data) {
-    console.log(data, 'this is the data from getting data from router');
+    // console.log(data, 'this is the data from getting data from router');
     return database('users').where({'id': data.id})
     .update({
       first: data.first,

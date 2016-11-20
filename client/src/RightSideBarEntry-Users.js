@@ -23,7 +23,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
     console.log("user.email in RightSideBar",user.email)
     console.log("room in RightSideBar",room)
     theSocket.emit("direct message",{
-      recipientEmail: user.email,
+      recipientUsername: user.username,
       room: room,
       msg: user.username + ', ' + currentUser.username +" wants to open a direct chat with you!"
     });
@@ -31,7 +31,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
 
   return (
     <div>
-      <li>{user.username} {(user.onlineToggle) ? "online" : "offline"}
+      <li>{user.username} {(user.onlineToggle) ? "ONLINE" : ""}
         <button onClick={() => handleProfile(clickedUserProfile, user)}>
         <Link to='/profile'>Profile</Link></button>
 

@@ -19,10 +19,26 @@ export const addUser = (eachUser) => {
   };
 };
 
-export const toggleOnlineUser = (userEmail) => {
-    console.log("user in toggleOnlineUser in UserActions",userEmail)
+export const toggleOnlineUser = (userUsername) => {
+    // console.log("user in toggleOnlineUser in UserActions",userEmail)
   return {
     type: "TOGGLE_ONLINE_USER",
-    userEmail
+    userUsername
+  };
+};
+
+export const toggleOfflineUser = (userUsername) => {
+    // console.log("user in toggleOnlineUser in UserActions",userEmail)
+  return {
+    type: "TOGGLE_OFFLINE_USER",
+    userUsername
+  };
+};
+
+export const downloadOnlineUsers = (userUsername) => {
+    console.log("user in downloadOnlineUser in UserActions",userUsername)
+  return {
+    type: "DOWNLOAD_ONLINE_USERS",
+    userUsername
   };
 };
