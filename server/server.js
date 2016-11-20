@@ -97,10 +97,6 @@ hrns.on('connection',
 
 function(socket){
 
-  socket.on('getAllLoggedInUsersFromSocket', function() {
-    hrns.in(currentRoom).emit('getAllLoggedInUsersFromSocket', loggedInUsers);
-  });
-
   socket.on('setMyEmailInSocket', function(fromClient){
     // console.log('fromClient: ' + fromClient);
     currentUserUsername = fromClient.username;
@@ -108,6 +104,10 @@ function(socket){
     hrns.in(currentRoom).emit('onlineToggle ON', fromClient.username);
     console.log("input socket ID: ", fromClient.username,"     ",loggedInUsers[fromClient.username]);
     console.log("whos logged in now line 110 server.js",loggedInUsers)
+  });
+  
+  socket.on('getAllLoggedInUsersFromSocket', function() {
+    hrns.in(currentRoom).emit('getAllLoggedInUsersFromSocket', loggedInUsers);
   });
   
   socket.on('changeRoom', function(room) {
