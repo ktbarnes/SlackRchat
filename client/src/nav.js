@@ -78,6 +78,7 @@ save(user) {
     return (
       <div className="nav">
         <h1 className="title">Slacker</h1>
+        <h2>Hello, {this.props.currentUser.first}</h2>
         <a className="navbutton" href="#" role="button" 
         onClick={(event) => this.onEdit(event)}>Profile</a>
         <Profile save={this.save} />
