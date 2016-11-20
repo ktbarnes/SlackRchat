@@ -7,7 +7,6 @@ import Nav from './nav.js';
 import PrimaryChatroom from './PrimaryChatroom.js';
 import LeftSideBar from './LeftSideBar.js';
 import RightSideBar from './RightSideBar.js';
-import MaterialTitlePanel from './material_title_panel'; //from sidebar example
 import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
 import { addRoom } from '../actions/RoomActions';
 import { addDMRoom } from '../actions/DMRoomActions';
