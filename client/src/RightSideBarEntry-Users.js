@@ -31,7 +31,8 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
 
   return (
     <div>
-      <li>{user.username} {(user.onlineToggle) ? "ONLINE" : ""}
+      <li style={{color: (user.onlineToggle) ? 'green' : 'black' }}>
+        {user.username} {(user.onlineToggle) ? 'ONLINE' : 'offline'}
         <button onClick={() => handleProfile(clickedUserProfile, user)}>
         <Link to='/profile'>Profile</Link></button>
 
@@ -95,7 +96,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
             }
 
           }
-        }>Direct Message</button>
+        }>DM</button>
 
         <div>
           
