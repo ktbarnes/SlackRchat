@@ -10,7 +10,7 @@ import RightSideBar from './RightSideBar.js';
 import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
 import { addRoom } from '../actions/RoomActions';
 import { addDMRoom } from '../actions/DMRoomActions';
-import { addUser, toggleOnlineUser } from '../actions/UserActions';
+import { addUser, toggleOnlineUser, toggleOfflineUser, downloadOnlineUsers } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
 
@@ -38,6 +38,16 @@ class AppContainer extends React.Component {
     this.downloadAllChannels();
     this.downloadAllUsers();
     this.downloadAllDMRooms();
+    this.socket.on("getAllLoggedInUsersFromSocket", onlineUsersObj => {
+      console.log("TRYING TO GET A MESSAGE")
+      console.log("online users Obj",onlineUsersObj)
+      console.log("online users Obj keys",Object.keys(onlineUsersObj))
+      if(Object.keys(onlineUsersObj).length > 0){
+        Object.keys(onlineUsersObj).forEach( (email) =>
+          this.handleReceive(downloadOnlineUsers,email)
+        );
+      }
+    });
     this.socket.on('chat message', 
       incoming => {
         console.log("CHAT MESSAGE", incoming)
@@ -59,16 +69,20 @@ class AppContainer extends React.Component {
     });
     this.socket.on('onlineToggle OFF', email => {
       console.log("who just logged off",email);
-      this.handleReceive(toggleOnlineUser,email);
+      this.handleReceive(toggleOfflineUser,email);
     });
     this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     this.socket.on("direct message", incoming => {
-      console.log("trying to get a room", incoming.room);
+      // console.log("trying to get a room", incoming.room);
       window.alert(incoming.msg)
       this.socket.emit('changeRoom', incoming.room)
       this.handleReceive(setCurrentRoom,incoming.room);
     });
-    this.socket.on('connect', (txt) => this.socket.emit('changeRoom', this.props.currentRoom.channelName)); 
+    this.socket.on('connect', (txt) => {
+      this.socket.emit('changeRoom', this.props.currentRoom.channelName);
+      // console.log(this.props.currentUser.username,"WHO AM I???? AppContainer line 83")
+      this.socket.emit("getAllLoggedInUsersFromSocket")
+    }); 
   }
   
   handleReceive(cb,body) {
@@ -100,11 +114,11 @@ class AppContainer extends React.Component {
     axios.get('/db/getMe', { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
     .then(res => {
       this.props.dispatch(setCurrentUser(res.data));
-      console.log('supposedly set the curretUser ',this.props.currentUser);
+      // console.log('supposedly set the curretUser ',this.props.currentUser);
       //now download all users
       axios.get('/db/users')
       .then( (resp) => {
-        console.log("what comes in from the DB?",resp)
+        // console.log("what comes in from the DB?",resp)
         resp.data.forEach( (person) => {
           // console.log(person.phone, "this is the persons phone number")
           let eachUser = {
