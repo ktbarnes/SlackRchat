@@ -231,3 +231,85 @@
 // };
 
 // export default connect(mapStateToProps)(AppContainer);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const App = React.createClass({
+//   getInitialState() {
+//     return {
+//       docked: false,
+//       open: false,
+//       transitions: true,
+//       shadow: true,
+//       pullRight: true
+//     };
+//   },
+
+//   onSetOpen(open) {
+//     this.setState({open: open});
+//   },
+
+//   menuButtonClick(ev) {
+//     ev.preventDefault();
+//     this.onSetOpen(!this.state.open);
+//   },
+
+//   renderPropCheckbox(prop) {
+//     const toggleMethod = (ev) => {
+//       const newState = {};
+//       newState[prop] = ev.target.checked;
+//       this.setState(newState);
+//     };
+
+//     return (
+//       <p key={prop}>
+//         <input type="checkbox" onChange={toggleMethod} checked={this.state[prop]} id={prop} />
+//         <label htmlFor={prop}> {prop}</label>
+//       </p>);
+//   },
+
+//   render() {
+//     const sidebar = <RightSideBar />;
+
+//     const sidebarProps = {
+//       sidebar: sidebar,
+//       docked: this.state.docked,
+//       sidebarClassName: 'custom-sidebar-class',
+//       open: this.state.open,
+//       shadow: true,
+//       pullRight: true,
+//       transitions: true,
+//       onSetOpen: this.onSetOpen,
+//     };
+
+//     return (
+//       <Sidebar {...sidebarProps}>
+//         <div>
+//           {['open', 'docked'].map(this.renderPropCheckbox)}
+//         </div>
+//       </Sidebar>
+//     );
+//   },
+// });
+
+// export default App;
