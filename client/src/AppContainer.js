@@ -26,7 +26,8 @@ class AppContainer extends React.Component {
       shadow: true,
       pullRight: true
     }
-    this.downloadAllChannels = this.downloadAllChannels.bind(this);
+    // this.downloadAllChannels = this.downloadAllChannels.bind(this);
+    // this.downloadMyChannelsOnly = this.downloadMyChannelsOnly.bind(this)
     this.toggleUserDock = this.toggleUserDock.bind(this)
   }
 
@@ -38,10 +39,9 @@ class AppContainer extends React.Component {
   toggleUserDock(ev){this.setState({ docked: !this.state.docked })}
 
   componentDidMount() {
-    this.downloadAllChannels();
     this.downloadAllUsers();
     this.downloadAllDMRooms();
-
+    this.downloadChannels();
     this.socket.on('chat message', 
       incoming => {
         console.log("CHAT MESSAGE", incoming)
@@ -101,23 +101,58 @@ class AppContainer extends React.Component {
     this.props.dispatch(cb(body));
   }
 
-  downloadAllChannels() {
+  downloadChannels() {
     this.currentRoom = this.props.currentRoom.channelName;
-    axios.get('/db/channels')
+    this.currentUserIDfromDB;
+    axios.get('/db/getMe',
+    { headers: { "authorization": "Bearer "+localStorage.getItem('id_token') }})
     .then( (res) => {
-      res.data.forEach( (msg) => {
-        let eachRoom = {
-          id: msg.id,
-          channelName: msg.name,
-          currentRoomToggle: (this.currentRoom === msg.name)
-        }
-        this.handleReceive(addRoom,eachRoom);
-        if(this.currentRoom === msg.name){
-          this.handleReceive(setCurrentRoom,eachRoom);
-        }
+      // console.log("who is my user???",res.data)
+      this.currentUserIDfromDB = res.data.id;
+      axios.post('/db/getMyChannels',{
+        myUserID: this.currentUserIDfromDB
+      })
+      .then( (res) => {
+        res.data.forEach( (msg) => {
+          let eachRoom = {
+            id: msg.channelIDinchannelDB,
+            channelName: msg.channelName,
+            currentRoomToggle: (this.currentRoom === msg.channelName),
+            AmISubscribedToggle: true
+          }
+          this.handleReceive(addRoom,eachRoom);
+          if(this.currentRoom === msg.channelName){
+            this.handleReceive(setCurrentRoom,eachRoom);
+          }
+        });
       });
-    });
-  }
+    })
+    .then( () => {
+      axios.get('/db/channels')
+      .then( (res) => {
+        console.log("downloadAllChannels in AppContainer",res.data)
+        res.data.forEach( (msg) => {
+          let eachRoom = {
+            id: msg.id,
+            channelName: msg.name,
+            currentRoomToggle: false,
+            AmISubscribedToggle: false
+          }
+          //if channel does not exist in downloadMyChannelsOnly, 
+          //then add to reducer with toggle false
+          var isInRooms = false;
+          this.props.rooms.forEach( (room) => {
+            // console.log("channelName of room in store",room.channelName)
+            // console.log("channelName of downloaded room",msg.name)
+            if(room.channelName === msg.name){
+              isInRooms = true;
+            }
+          });
+          if(!isInRooms){this.handleReceive(addRoom,eachRoom)}
+        });
+      });
+    }) 
+  } //end of downloadChannels
 
   downloadAllUsers() {
     //get from server who current user is
@@ -193,7 +228,7 @@ class AppContainer extends React.Component {
   } //end of downloadAllRooms
 
   render() {
-    const sidebar = <RightSideBar />;
+    const sidebar = <RightSideBar theSocket={this.socket}/>;
 
     const sidebarProps = {
       sidebar: sidebar,

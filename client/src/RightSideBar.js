@@ -5,9 +5,12 @@ import OtherUserProfile from './OtherUserProfile'
 
 const RightSideBar = ( {allUsers, currentUser, theSocket, clickedUser} ) => {
 
+  const clickMe = () => {
+    console.log("theSocket in RightSiderBar.js",theSocket)
+  }
   return (
     <div>
-
+      <p onClick={ () => clickMe()}>Click me</p>
       <div>
         USERS
         <ul id="room">
