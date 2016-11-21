@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import RightSideBarEntryUser from './RightSideBarEntry-Users';
 import { connect } from 'react-redux';
-import {OtherUserProfile} from './OtherUserProfile'
+import OtherUserProfile from './OtherUserProfile'
 
-const RightSideBar = ( {allUsers, currentUser, theSocket} ) => {
+const RightSideBar = ( {allUsers, currentUser, theSocket, clickedUser} ) => {
 
   return (
     <div>
@@ -20,15 +20,19 @@ const RightSideBar = ( {allUsers, currentUser, theSocket} ) => {
           )}
         </ul>
       </div>
+      <div>
+        <OtherUserProfile  />
+      </div>
     </div>
   )
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("all users",state.allReducers.UserReducer)
+  console.log("all users",state.allReducers.ClickedUserProfileReducer)
   return { 
     currentUser: state.allReducers.CurrentUserReducer,
-    allUsers: state.allReducers.UserReducer 
+    allUsers: state.allReducers.UserReducer,
+    clickedUser: state.allReducers.ClickedUserProfileReducer 
   }
 };
 

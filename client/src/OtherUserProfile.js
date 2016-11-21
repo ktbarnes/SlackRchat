@@ -8,7 +8,7 @@
 import React from 'react'
 import { dispatch, connect } from 'react-redux';
 import axios from 'axios'
-import {open, close} from '../actions/ClickedUserProfileActions';
+import {open2, close2} from '../actions/ClickedUserProfileActions';
 
 
 // const OtherUserProfile =({clickedUser})
@@ -18,56 +18,34 @@ class OtherUserProfile extends React.Component {
 // const OtherUserProfile =({clickedUser}) => {
     super(props)
     // this.state = {
-    //   first: ''
+    //   // first: this.prop
     // }
     // let getID = clickedUser.id
     // console.log(clickedUser, 'this is the clicedd')
   
   // console.log(clickedUser, 'this is the clicedd')
   
-  let getID = this.props.clickedUser.id
-  console.log(getID,"this is the iddddd")
+  // let getID = this.props.clickedUser.id
+  // console.log(getID,"this is the iddddd")
 
-     axios.post('db/getOther', {id: getID})
-     .then((response)=> {
-      // console.log(response, 'this is the new resposne')
-      this.setState({
-        id: response.data[0].id,
-        email: response.data[0].email,  
-        first: response.data[0].first,
-        about: response.data[0].about,
-        first: response.data[0].first,
-        last: response.data[0].last,
-        github: response.data[0].github,
-        facebook: response.data[0].facebook,
-        twitter: response.data[0].twitter,
-        linkedin: response.data[0].linkedin,
-        // showModel: response.data[0]
-      })
-    //   console.log(response.data[0].first, 'this is the response.....')
-    //   this.setState({
-    //     first: response.data[0].first
-    //   })
-    // })
-  }) 
     this.handleSubmit = this.handleSubmit.bind(this) 
 }
 
   handleSubmit(event){
-    this.props.dispatch(close())
+    this.props.dispatch(close2())
   }
 
 
   render(){
     return (
-      <Modal id="profile_modal" show={this.props.clickedUser.showModel} >
+      <Modal id="profile_modal" show={this.props.clickedUser.showModel2} >
         <Modal.Header>
           <Modal.Title id="modal_header">Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body id="modal_content">
       <div className='table'>
         <div>
-          <h2 className='tableUsername'>{this.state.username}</h2>
+          <h2 className='tableUsername'>{this.props.clickedUser.username}</h2>
         </div>
         <div>
           <h3>Profile Picture</h3>
@@ -76,39 +54,39 @@ class OtherUserProfile extends React.Component {
         <tbody>
           <tr>
             <td className='profileHeading'>First Name</td>
-            <td>{this.state.first}</td>
+            <td>{this.props.clickedUser.first}</td>
           </tr>
           <tr>
             <td>Last Name</td>
-            <td>{this.state.last}</td>
+            <td>{this.props.clickedUser.last}</td>
           </tr>
           <tr>
             <td>Email</td>
-            <td>{this.state.email}</td>
+            <td>{this.props.clickedUser.email}</td>
           </tr>
           <tr>
             <td>Phone Number</td>
-            <td>{this.state.phone}</td>
+            <td>{this.props.clickedUser.phone}</td>
           </tr>
           <tr>
             <td>Github</td>
-            <td>{this.state.github}</td>
+            <td>{this.props.clickedUser.github}</td>
           </tr>
           <tr>
             <td>Linkedin</td>
-            <td>{this.state.linkedin}</td>
+            <td>{this.props.clickedUser.linkedin}</td>
           </tr>
           <tr>
             <td>Facebook</td>
-            <td>{this.state.facebook}</td>
+            <td>{this.props.clickedUser.facebook}</td>
           </tr>
           <tr>
             <td>Twitter</td>
-            <td>{this.state.twitter}</td>
+            <td>{this.props.clickedUser.twitter}</td>
           </tr>
           <tr>
             <td>About Me</td>
-            <td>{this.state.about}</td>
+            <td>{this.props.clickedUser.about}</td>
           </tr>
         </tbody>   
       </table> 
@@ -123,12 +101,12 @@ class OtherUserProfile extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("in otheruserprofile",state.allReducers.ClickedUserProfileReducer)
-	return {
+  // console.log("in otheruserprofile",state.allReducers.ClickedUserProfileReducer)
+  return {
     // console.log(clickedUser, 'this is my clickeddd user')
-		// allUsers: state.allReducers.UserReducer,
+    // allUsers: state.allReducers.UserReducer,
     clickedUser: state.allReducers.ClickedUserProfileReducer
-	}
+  }
   // console.log(clickedUser, 'this is my clickeddd user')
 }
 

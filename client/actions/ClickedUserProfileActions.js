@@ -1,31 +1,40 @@
 import axios from 'axios'
 
 export const CLICKED_USER_PROFILE_REQUEST = 'CLICKED_USER_PROFILE_REQUEST'
-export const OPEN_PROFILE_REQUEST = 'OPEN_PROFILE_REQUEST'
-export const CLOSE_PROFILE_REQUEST = 'CLOSE_PROFILE_REQUEST'
+export const OPEN2_PROFILE_REQUEST = 'OPEN2_PROFILE_REQUEST'
+export const CLOSE2_PROFILE_REQUEST = 'CLOSE2_PROFILE_REQUEST'
 
 export function clickedUserProfile(user) {
-	return {
-	type: CLICKED_USER_PROFILE_REQUEST,
-	id: user.id,
+ return {
+  type: CLICKED_USER_PROFILE_REQUEST,
+  id: user.id,
     username: user.username,
-    email: user.email
-	}
-}
-
-export const open = () => {
-  return {
-    type: OPEN_PROFILE_REQUEST,
-    showModel: true
+    email: user.email,
+    first: user.first,
+    last: user.last,
+    about: user.about,
+    github: user.github,
+    facebook: user.facebook,
+    twitter: user.twitter,
+    linkedin: user.linkedin
   }
 }
 
-export const close = () => {
+export const open2 = () => {
   return {
-    type: CLOSE_PROFILE_REQUEST,
-    showModel: false
+    type: OPEN2_PROFILE_REQUEST,
+    showModel2: true
   }
 }
+
+export const close2 = () => {
+  return {
+    type: CLOSE2_PROFILE_REQUEST,
+    showModel2: false
+  }
+}
+
+
 
 
 
