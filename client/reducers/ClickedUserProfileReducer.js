@@ -9,7 +9,7 @@ const ClickedUserProfileReducer = (state = {
   facebook: "facebook",
   twitter: "twitter",
   linkedin: "linkedin",
-  currentUserToggle: false
+  showModel: false
 }, action) => {
   switch (action.type) {
     case 'CLICKED_USER_PROFILE_REQUEST':
@@ -23,9 +23,16 @@ const ClickedUserProfileReducer = (state = {
         github: action.github,
         facebook: action.facebook,
         twitter: action.twitter,
-        linkedin: action.linkedin,
-        currentUserToggle: action.currentUserToggle
+        linkedin: action.linkedin
       })
+    case 'OPEN_PROFILE_REQUEST':
+      return Object.assign({}, state, {
+        showModel: true
+      }) 
+    case 'CLOSE_PROFILE_REQUEST':
+      return Object.assign({}, state, {
+        showModel: false
+      })  
     default:
       return state;
   }

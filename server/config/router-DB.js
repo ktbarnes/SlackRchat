@@ -78,6 +78,23 @@ router.post('/usersInfo', function(request, response) {
   console.log(request.body, 'this is the request from router post usersInfo');
   User.postOtherUserInformation({
       id: request.body.id,
+      email: request.body.email,
+      first: request.body.first || null,
+      last: request.body.last || null,
+      phone: request.body.phone || null,
+      about: request.body.about || null,
+      github: request.body.github || null,
+      facebook: request.body.facebook || null,
+      twitter: request.body.twitter || null,
+      linkedin: request.body.linkedin || null
+  }).then(data => response.sendStatus(201));
+})
+
+router.post('/usersInfoInitial', function(request, response) {
+  console.log(request.body, 'this is the request from router post usersInfo');
+  User.postProfile({
+      id: request.body.id,
+      email: request.body.email || null,
       first: request.body.first || null,
       last: request.body.last || null,
       phone: request.body.phone || null,
