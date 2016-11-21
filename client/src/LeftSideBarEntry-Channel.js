@@ -28,7 +28,7 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
           myUserID: currentUser.id,
           channelID: room.id
         })
-        .then( () => console.log("deleted the room: ",room.channelName))
+        .then( () => window.alert("You have left ",room.channelName))
 
         handleReceive(toggleSubscribeRoomOff,room)
       }}>
