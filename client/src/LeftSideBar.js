@@ -4,7 +4,6 @@ import LeftSideBarEntryChannel from './LeftSideBarEntry-Channel';
 import { dispatch, connect } from 'react-redux';
 import { addRoom } from '../actions/RoomActions';
 import { toggleOnlineUser } from '../actions/UserActions';
-import Dropdown from 'react-dropdown';
 
 const LeftSideBar = ( {rooms, DMRooms, allUsers, currentRoom, currentUser, dispatch, theSocket} ) => {
   var input;
@@ -12,21 +11,6 @@ const LeftSideBar = ( {rooms, DMRooms, allUsers, currentRoom, currentUser, dispa
   const handleReceive = (cb,body) => dispatch(cb(body));
 
   const myRooms = rooms.filter( room => room.AmISubscribedToggle);
-
-  // const myOptions = rooms.map(room => {
-  //   return {
-  //     id: room.id,
-  //     value: room.channelName,
-  //     label: room.channelName
-  //   }
-  // });
-
-  const myOptions = [
-    { value: 'one', label: 'One' },
-    { value: 'two', label: 'Two' }
-  ]
-
-  const defaultOption = myOptions[0];
 
   return (
     <div>
@@ -38,16 +22,19 @@ const LeftSideBar = ( {rooms, DMRooms, allUsers, currentRoom, currentUser, dispa
           console.log("this is my current user",currentUser);
           console.log("these are my DM Rooms",DMRooms)
           console.log("this is all the users after",allUsers);
-          console.log("all available rooms",rooms[0])
+          console.log("all available rooms",rooms)
         }}>ConsoleLog me!
       </p>
-
+      <p>...</p>   
+      
       <div>
-        <Dropdown
-          placeholder="Select a Channel"
-          value={defaultOption}
-          options={myOptions}
-        />
+        ALL CH - WILL BE DROPDOWN
+        <ul id="rooms">
+          {rooms.map(room =>
+            <LeftSideBarEntryChannel theSocket={theSocket} key={room.id} room={room} />
+            
+          )}
+        </ul>
       </div>
       <p>...</p>   
 

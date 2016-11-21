@@ -13,6 +13,14 @@ export const addRoom = (eachRoom) => {
   };
 };
 
+export const toggleSubscribeRoomOff = (room) => {
+    // console.log("user in toggleOnlineUser in UserActions",userEmail)
+  return {
+    type: "TOGGLE_SUBSCRIBED_ROOM_OFF",
+    roomID: room.id
+  };
+};
+
 export const toggleCurrentRoomField = (toggledRoom) => {
   return {
     type: 'TOGGLE_CURRENT_ROOM',
