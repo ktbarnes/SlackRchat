@@ -22,7 +22,7 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
           ((currentUser.username === room.user1username) ? room.user2username : room.user1username)
         }
 
-      {room.AmISubscribedToggle && 
+      {room.AmISubscribedToggle && room.channelName !== "Lobby" && 
         <button onClick={ () => {
           axios.post('/db/deleteMyChannel',{
             myUserID: currentUser.id,

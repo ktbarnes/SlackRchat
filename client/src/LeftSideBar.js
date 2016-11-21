@@ -39,7 +39,7 @@ const LeftSideBar = ( {rooms, DMRooms, allUsers, currentRoom, currentUser, dispa
       <p>...</p>   
 
       <div>
-        MY SUBSCRIBED CHANNELS
+        MY CHANNELS
         <ul id="rooms">
           {myRooms.map(room =>
             <LeftSideBarEntryChannel theSocket={theSocket} key={room.id} room={room} />
