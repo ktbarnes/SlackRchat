@@ -5,6 +5,7 @@ export const setCurrentUser = user => {
     type: 'SET_CURRENT_USER',
     id: user.id,
     username: user.username,
+    picture: user.picture,
     email: user.email,
     about: user.about,
     first: user.first,

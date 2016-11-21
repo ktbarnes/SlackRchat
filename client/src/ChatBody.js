@@ -1,13 +1,16 @@
 import React, { PropTypes } from 'react';
 import Message from './Message';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 //Note: this.room is passed in from PrimaryChatroom as a prop here. That represents "current" room
 
 const MessageList = ( {messages, currentUser, currentRoom} ) => {
   // console.log("Last message", messages[messages.length - 1])
-  let filtered = messages.filter( (message) => 
-    message.channelName === currentRoom.channelName || message.channelName === undefined);
+  let filtered = messages.filter(message => {
+    return message.channelName === currentRoom.channelName || message.channelName === undefined;
+  });
+  // let filtered = filtered.map(message => axios.post('/db/profpic',{username: message.username}).then(data=> message.))
 
   return (
     <div>
@@ -16,15 +19,15 @@ const MessageList = ( {messages, currentUser, currentRoom} ) => {
         ("Private chat between " + currentRoom.user2username + " and " + currentRoom.user1username)
       }
       <ul id="messages">
-        {filtered.map( (message) => 
+        {filtered.map(message => 
           <Message
             key={message.id}
             username={message.username}
             text={message.text}
             created_at={message.created_at}
             url={message.url}
+            picture={message.picture}
           />
-          
         )}
       </ul>
     </div>

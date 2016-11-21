@@ -11,6 +11,7 @@ const ChatReducer = (state = [], action) => {
           username: action.username,
           channelName: action.channelName,
           channelID: action.channelID,
+          picture: action.picture,
           created_at: action.created_at || "",
         },
       ];
@@ -26,6 +27,7 @@ const ChatReducer = (state = [], action) => {
           channelIDinDB: action.channelIDinDB,
           text: action.text,
           url: action.url,
+          picture: action.picture,
           created_at: action.created_at,
         },
       ];
