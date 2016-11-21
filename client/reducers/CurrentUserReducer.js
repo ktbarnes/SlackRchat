@@ -4,6 +4,7 @@ const CurrentUserReducer = (state = {id: 0, username: '', email: '', about: '', 
       return Object.assign({}, state, {
           id: action.id,
           username: action.username,
+          picture: action.picture,
           email: action.email,
           about: action.about,
           first: action.first,

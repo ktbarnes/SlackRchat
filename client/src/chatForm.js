@@ -28,7 +28,8 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
                 channelID: currentRoom.id,
                 username: currentUser.username,
                 msg: input.value,
-                url: giphy.data.images.fixed_height.url,       
+                url: giphy.data.images.fixed_height.url,
+                picture: currentUser.picture,       
               });
               //if channel
               if(currentRoom.aliasName === "Channel_NotDM"){
@@ -63,7 +64,8 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
               channelName: currentRoom.channelName, 
               channelID: currentRoom.id,
               username: currentUser.username,
-              msg: input.value
+              msg: input.value,
+              picture: currentUser.picture,
             });
             //if channel
             if(currentRoom.aliasName === "Channel_NotDM"){

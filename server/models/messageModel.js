@@ -15,6 +15,7 @@ var Message = {
            .select(
                  'channel_messages.id',
                  'u1.username as username',
+                 'u1.picture as picture',
                  'u1.id as userIDinDB',
                  'c1.name as channelName',
                  'c1.id as channelIDinDB',
