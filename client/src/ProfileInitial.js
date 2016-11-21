@@ -59,7 +59,7 @@ class ProfileInitial extends React.Component {
 
   handleSubmit(event){
     let info = this.state
-    // console.log(event, "the state is updated")
+    // console.log(this.props, "the state is updated")
     this.props.save(info)
 }
 

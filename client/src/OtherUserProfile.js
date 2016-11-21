@@ -8,6 +8,7 @@
 import React from 'react'
 import { dispatch, connect } from 'react-redux';
 import axios from 'axios'
+import {open, close} from '../actions/ClickedUserProfileActions';
 
 
 // const OtherUserProfile =({clickedUser})
@@ -16,9 +17,9 @@ class OtherUserProfile extends React.Component {
   constructor(props) {
 // const OtherUserProfile =({clickedUser}) => {
     super(props)
-    this.state = {
-      first: ''
-    }
+    // this.state = {
+    //   first: ''
+    // }
     // let getID = clickedUser.id
     // console.log(clickedUser, 'this is the clicedd')
   
@@ -40,7 +41,8 @@ class OtherUserProfile extends React.Component {
         github: response.data[0].github,
         facebook: response.data[0].facebook,
         twitter: response.data[0].twitter,
-        linkedin: response.data[0].linkedin
+        linkedin: response.data[0].linkedin,
+        // showModel: response.data[0]
       })
     //   console.log(response.data[0].first, 'this is the response.....')
     //   this.setState({
@@ -48,26 +50,21 @@ class OtherUserProfile extends React.Component {
     //   })
     // })
   }) 
+    this.handleSubmit = this.handleSubmit.bind(this) 
 }
-    //from channel_messages
-    // axios.get('/db/messages')
-    // .then(res => {
-    //   res.data.forEach(msg => {
-    //     let eachMsg = {
-    //       id: msg.id,
-    //       username: msg.username,
-    //       userIDinDB: msg.userIDinDB,
-    //       channelName: msg.channelName,
-    //       channelIDinDB: msg.channelIDinDB,
-    //       text: msg.message,
-    //       created_at: msg.created_at
-    //     }
-    //     this.handleReceive(addMessageFromDB,eachMsg);
-    //   });
-    // });
 
-    render(){
+  handleSubmit(event){
+    this.props.dispatch(close())
+  }
+
+
+  render(){
     return (
+      <Modal id="profile_modal" show={this.props.clickedUser.showModel} >
+        <Modal.Header>
+          <Modal.Title id="modal_header">Profile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body id="modal_content">
       <div className='table'>
         <div>
           <h2 className='tableUsername'>{this.state.username}</h2>
@@ -75,7 +72,7 @@ class OtherUserProfile extends React.Component {
         <div>
           <h3>Profile Picture</h3>
         </div>
-      <table className='tableOtherUserInformation'>
+        <table className='tableOtherUserInformation'>
         <tbody>
           <tr>
             <td className='profileHeading'>First Name</td>
@@ -115,8 +112,12 @@ class OtherUserProfile extends React.Component {
           </tr>
         </tbody>   
       </table> 
-      <button>Close</button> 
-      </div>  
+      </div> 
+      </Modal.Body>
+        <Modal.Footer>
+          <Button className="btn btn-default" onClick={(event)=>this.handleSubmit(event)}>Close</Button>
+        </Modal.Footer>
+      </Modal> 
      ) 
   }
 }
