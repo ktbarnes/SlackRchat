@@ -21,19 +21,20 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
       * { (room.aliasName === "Channel_NotDM") ? room.channelName : 
           ((currentUser.username === room.user1username) ? room.user2username : room.user1username)
         }
-        
 
-      <button onClick={ () => {
-        axios.post('/db/deleteMyChannel',{
-          myUserID: currentUser.id,
-          channelID: room.id
-        })
-        .then( () => window.alert("You have left ",room.channelName))
+      {room.AmISubscribedToggle && 
+        <button onClick={ () => {
+          axios.post('/db/deleteMyChannel',{
+            myUserID: currentUser.id,
+            channelID: room.id
+          })
+          .then( () => window.alert("You have left ",room.channelName))
 
-        handleReceive(toggleSubscribeRoomOff,room)
-      }}>
-        x
-      </button>
+          handleReceive(toggleSubscribeRoomOff,room)
+        }}>
+          x
+        </button>
+      }
     </li>
 
   )
