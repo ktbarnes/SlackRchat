@@ -51,6 +51,7 @@ class AppContainer extends React.Component {
           username: incoming.username,
           text: incoming.text,
           url: incoming.url,
+          picture: incoming.picture,
         });
         // console.log("incoming.text",incoming.text);
         // window.alert("incoming.text",incoming.text);

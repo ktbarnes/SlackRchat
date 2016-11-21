@@ -15,6 +15,7 @@ export const addMessageFromSocket = (msg) => {
     channelID: msg.channelID,
     text: msg.text,
     url: msg.url,
+    picture: msg.picture,
     created_at: new Date().toJSON()
   };
 };
@@ -29,6 +30,7 @@ export const addMessageFromDB = (msg) => {
     channelIDinDB: msg.channelIDinDB,
     text: msg.text,
     url: msg.url,
+    picture: msg.picture,
     created_at: msg.created_at
   };
 };

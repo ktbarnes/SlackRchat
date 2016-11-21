@@ -18,6 +18,8 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 .tableUsername
 .tableOtherUserInformation {text-align: center;}
 .profileHeading{text-align: left;}
+.chatpic{max-height: 40px;}
+.msgbody{display: flex; justify-content: flex-start; flex-direction: row}
 
 
 

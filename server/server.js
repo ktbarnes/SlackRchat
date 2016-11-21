@@ -125,8 +125,9 @@ function(socket){
   //user sends message into room
   socket.on('chat message', function(fromClient){
     // console.log('fromClient: ' + fromClient);
-    // console.log('user: ' + fromClient.username);
-    // console.log('chat message: ' + fromClient.msg);
+    console.log('user: ' + fromClient.username);
+    console.log('chat message: ' + fromClient.msg);
+    console.log('picture: ' + fromClient.picture);
     // console.log('room name: ' + fromClient.room, currentRoom);
     hrns.in(currentRoom).emit('chat message', {
       channelName: fromClient.channelName,
@@ -134,6 +135,7 @@ function(socket){
       username: fromClient.username,
       text: fromClient.msg,
       url: fromClient.url,
+      picture: fromClient.picture,
     });
   });
 
