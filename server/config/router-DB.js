@@ -4,6 +4,7 @@ var User = require('../models/userModel.js');
 var DMMessage = require('../models/DMMessageModel.js');
 var Message = require('../models/messageModel.js');
 var Channel = require('../models/channelModel.js');
+var ChannelUser = require('../models/ChannelUsersModel.js');
 var DirectMessageRoom = require('../models/directMessageRoomModel.js');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('jwt-simple');
@@ -115,6 +116,18 @@ router.get('/channels', function (request, response) {
   Channel.getChannels()
   .then(data => response.json(data));
 })
+
+//get my subscribed channels
+router.post('/getMyChannels', function (request, response) {
+  ChannelUser.getMyChannels(request.body.myUserID)
+  .then(data => response.status(201).json(data));
+});
+
+//add a channel I subscribe to
+router.post('/addMyChannel', function (request, response) {
+  ChannelUser.addMyChannel(request.body.myUserID, request.body.channelID)
+  .then(data => response.status(201).json(data));
+});
 
 //get all DM rooms
 router.get('/DMRooms', function (request, response) {

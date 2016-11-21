@@ -8,7 +8,8 @@ export const addRoom = (eachRoom) => {
     id: eachRoom.id,
     channelName: eachRoom.channelName,
     aliasName: "Channel_NotDM",
-    currentRoomToggle: eachRoom.currentRoomToggle
+    currentRoomToggle: eachRoom.currentRoomToggle,
+    AmISubscribedToggle: eachRoom.AmISubscribedToggle
   };
 };
 
