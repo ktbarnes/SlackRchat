@@ -192,7 +192,7 @@ class AppContainer extends React.Component {
   } //end of downloadAllRooms
 
   render() {
-    const sidebar = <RightSideBar />;
+    const sidebar = <RightSideBar theSocket={this.socket}/>;
 
     const sidebarProps = {
       sidebar: sidebar,

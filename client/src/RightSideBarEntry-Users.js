@@ -26,7 +26,8 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
 
   const getPeerToChangeRoom = (room) => {
     //emits to socket and has it alert to that user that I want to chat
-    console.log("user.email in RightSideBar",user.email)
+    console.log("the socket RightSideBarEntryUsers",theSocket)
+    console.log("user.username in RightSideBar",user.username)
     console.log("room in RightSideBar",room)
     theSocket.emit("direct message",{
       recipientUsername: user.username,
@@ -46,7 +47,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
           () => {
             //for now, this will open up a DM request
 
-            // console.log("clicked user",user)
+            console.log("the Socket onClick RightSideBarEntryUsers",theSocket)
 
             // //emits to socket and has it alert to that user that I want to chat
             // theSocket.emit("direct message",{
