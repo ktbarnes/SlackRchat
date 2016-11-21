@@ -21,6 +21,8 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
             axios.post('/api/giphy',{giphy: input.value.substring(7)})
             .then(giphy => {
               console.log(giphy.data);
+              if (giphy.data === '') return input.value = '';
+              console.log(giphy.data);
               socket.emit('chat message', {
                 channelName: currentRoom.channelName, 
                 channelID: currentRoom.id,
