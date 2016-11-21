@@ -20,7 +20,7 @@ export function signupError() {
 let config = {}
 export function signupUser(creds) {
   config = {
-    email: creds.username, 
+    email: creds.email, 
     username: creds.username,
     password: creds.password
   }
