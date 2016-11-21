@@ -61,6 +61,7 @@ class SignUp extends React.Component {
     }
 
   save(info) {
+    console.log(info, 'hey this is the info')
     sendProfileInfo(info)
     .then(response => {
       if(!response) {

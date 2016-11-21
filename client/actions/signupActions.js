@@ -19,16 +19,19 @@ export function signupError() {
 //dont delete this...it needs to be global
 let config = {}
 export function signupUser(creds) {
-  let config = {
+  config = {
     email: creds.username, 
     username: creds.username,
     password: creds.password
   }
+  // console.log(config, 'this is the email julia')
   return axios.post('/db/users', config);
 }
 
 
 export function sendProfileInfo(info){ 
+  console.log(config, 'this is the email julia')
+  console.log(info, 'this is the other info julia')
   let information = {
     email: config.email,
     first: info.first,
@@ -40,8 +43,10 @@ export function sendProfileInfo(info){
     twitter: info.twitter,
     linkedin: info.linkedin
   }
-  return axios.post('/db/usersInfo', information); 
+  console.log(information, 'this is the other info julia')
+  return axios.post('/db/usersInfoInitial', information); 
 }
+
 
 // export function getProfileInfo(information){
 //   return axios.get('/db/users')

@@ -5,17 +5,23 @@ import { addDMRoom } from '../actions/DMRoomActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import {OtherUserProfile} from './OtherUserProfile'
-import { clickedUserProfile } from '../actions/ClickedUserProfileActions';
+import { clickedUserProfile, open, close} from '../actions/ClickedUserProfileActions';
 // import {OtherUserProfile} from './src/OtherUserProfile'
-const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser, currentRoom, theSocket }) => {
+const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser, currentRoom, theSocket, clickedUser }) => {
   
   const handleReceive = (cb,body) => {
     dispatch(cb(body));
   }
 
+  const openProfile= () => {
+      dispatch(open())
+  }
   const handleProfile = (cb, user) => {
     let id = user.id
     dispatch(cb(user));
+    // console.log(this.props.clickedUser, "these are them")
+    openProfile()
+    // this.props.dispatch(open())
   } 
 
   const getPeerToChangeRoom = (room) => {
@@ -34,7 +40,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
       <li style={{color: (user.onlineToggle) ? 'green' : 'black' }}>
         {user.username} {(user.onlineToggle) ? 'ONLINE' : 'offline'}
         <button onClick={() => handleProfile(clickedUserProfile, user)}>
-        <Link to='/profile'>Profile</Link></button>
+        Profile</button>
 
         <button  onClick={ 
           () => {
@@ -107,7 +113,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("DMRooms",state.allReducers.DMRoomReducer)
+  // console.log("DMRooms",state.allReducers.ClickedUserProfileReducer)
   return { 
     currentUser: state.allReducers.CurrentUserReducer,
     currentRoom: state.allReducers.CurrentRoomReducer,
