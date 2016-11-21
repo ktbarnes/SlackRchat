@@ -4,8 +4,8 @@ import { dispatch, connect } from 'react-redux';
 import { addDMRoom } from '../actions/DMRoomActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import { Router, Route, Link, browserHistory } from 'react-router';
-import {OtherUserProfile} from './OtherUserProfile'
-import { clickedUserProfile, open, close} from '../actions/ClickedUserProfileActions';
+import OtherUserProfile from './OtherUserProfile'
+import { clickedUserProfile, open2, close2} from '../actions/ClickedUserProfileActions';
 // import {OtherUserProfile} from './src/OtherUserProfile'
 const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser, currentRoom, theSocket, clickedUser }) => {
   
@@ -14,12 +14,14 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
   }
 
   const openProfile= () => {
-      dispatch(open())
+      dispatch(open2())
   }
   const handleProfile = (cb, user) => {
     let id = user.id
+    // console.log(id, 'this is the clicked user id')
     dispatch(cb(user));
     // console.log(this.props.clickedUser, "these are them")
+    // dispatch(open2())
     openProfile()
     // this.props.dispatch(open())
   } 
@@ -39,11 +41,32 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
     <div>
       <li style={{color: (user.onlineToggle) ? 'green' : 'black' }}>
         {user.username} {(user.onlineToggle) ? 'ONLINE' : 'offline'}
-        <button onClick={() => handleProfile(clickedUserProfile, user)}>
+        <button onClick={() => 
+          axios.post('db/getOther', {id: user.id})
+             .then((response)=> {
+              console.log('this is the new resposne', response)
+              let user = {
+                id: response.data[0].id,
+                email: response.data[0].email,  
+                first: response.data[0].first,
+                about: response.data[0].about,
+                first: response.data[0].first,
+                last: response.data[0].last,
+                github: response.data[0].github,
+                facebook: response.data[0].facebook,
+                twitter: response.data[0].twitter,
+                linkedin: response.data[0].linkedin
+                // showModel: response.data[0]
+              }
+              handleProfile(clickedUserProfile, user)
+          }) 
+        }>
+
         Profile</button>
 
         <button  onClick={ 
           () => {
+
             //for now, this will open up a DM request
 
             // console.log("clicked user",user)
@@ -100,12 +123,9 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
                 .then( () => getPeerToChangeRoom(currentRoom))
                 .catch((err) => console.error(err))          
             }
-
           }
         }>DM</button>
-
         <div>
-          
         </div>
       </li>  
     </div>
