@@ -16,7 +16,7 @@ knex.schema.hasTable('users').then(function(exists) {
 			user.string('username', 100).unique();
 			user.string('email', 100).unique();
 			user.string('password', 100);
-      user.string('picture', 100);
+      user.string('picture', 150);
       user.string('first', 100);
       user.string('last', 100);
       user.string('phone', 100);
@@ -50,7 +50,8 @@ knex.schema.hasTable('channel_messages').then(function(exists) {
       channel_messages.increments('id').primary();
       channel_messages.integer('userID').unsigned().references('users.id');
       channel_messages.integer('channelID').unsigned().references('channel.id');
-      channel_messages.string('message', 300);
+      channel_messages.string('message', 500);
+      channel_messages.string('url', 150);
       channel_messages.timestamps();
     }).then(function (table) {
       console.log('Created Table', table);
@@ -92,7 +93,8 @@ knex.schema.hasTable('DM_messages').then(function(exists) {
       channel_messages.increments('id').primary();
       channel_messages.integer('authorID').unsigned().references('users.id');
       channel_messages.integer('DM_roomID').unsigned().references('DM_room.id');
-      channel_messages.string('message', 300);
+      channel_messages.string('message', 500);
+      channel_messages.string('url', 150);
       channel_messages.timestamps();
     }).then(function (table) {
       console.log('Created Table for DM messages', table);
