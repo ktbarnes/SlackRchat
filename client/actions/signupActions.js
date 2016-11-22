@@ -38,6 +38,7 @@ export function sendProfileInfo(info){
     last: info.last,
     phone: info.phone,
     about: info.about,
+    picture:info.picture,
     github: info.github,
     facebook: info.facebook,
     twitter: info.twitter,
@@ -47,9 +48,9 @@ export function sendProfileInfo(info){
   return axios.post('/db/usersInfoInitial', information); 
 }
 
-
-// export function getProfileInfo(information){
-//   return axios.get('/db/users')
+// export const addProfilePicture(info) {
+//   let pic1 = info;
+//   axios.post('/pic', {pic:})
 // }
 
 

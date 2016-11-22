@@ -48,7 +48,8 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
               console.log('this is the new resposne', response)
               let user = {
                 id: response.data[0].id,
-                email: response.data[0].email,  
+                email: response.data[0].email, 
+                picture: response.data[0].picture, 
                 first: response.data[0].first,
                 about: response.data[0].about,
                 first: response.data[0].first,

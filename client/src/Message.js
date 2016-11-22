@@ -7,9 +7,8 @@ const Message = ({ created_at, text, username, url, picture }) => {
     <li>
       <div className='chatbodypic'>
         <img className='chatpic' src={picture}></img>
-      </div>
       <div className='msgbody'>
-        <div>
+        <div className='timeStamp'>
           { created_at } ---  
         </div>
         <div>
@@ -19,6 +18,7 @@ const Message = ({ created_at, text, username, url, picture }) => {
           }
         </div>
       </div>
+     </div> 
     </li>
   )
 
