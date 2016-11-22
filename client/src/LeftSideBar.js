@@ -10,52 +10,42 @@ import Dropdown from 'react-dropdown';
 //= ( {rooms, DMRooms, allUsers, currentRoom, currentUser, dispatch, theSocket} ) => 
 class LeftSideBar extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      selectValue: 'Select Channel',
-      data: {
-        labels: ['label'],
-        datasets: [{
-            label: '# of Messages',
-            data: [1],
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
-        }]
-      }
+      selectValue: 'Lobby',
+      options: []//this.props.rooms.map(room => room.channelName)
     }
     // this.options = this.props.rooms.map(room => room.channelName);
-    this.options = ["Lobby","Second Room","Third Room","Fourth Room"]
+    // this.options = ["Lobby","Second Room","Third Room","Fourth Room"]
 
   }
 
-  handleReceive(cb,body){
+  handleReceive(cb,body) {
     dispatch(cb(body))
   }
 
   onSelect(updatedValue) {
-    console.log('this is the updated value', updatedValue.value)
-    if(this.state.selectValue === 'user') this.setState({selectValue: updatedValue.value});
-    else if (this.state.selectValue === 'channel') this.setState({selectValue: updatedValue.value});
-
-    console.log('here is the state now inside onSelect ', this.state)
+    this.setState({selectValue: updatedValue.value});
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this.input;
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.props.rooms.length !== nextProps.rooms.length) this.setState({options: nextProps.rooms.map(room => room.channelName)}); 
+  }
 
-
-  render(){
-
+  render() {
+    // console.log('rerendering...here is new state ', this.state)
+    console.log('I want to know information about the currentUser room subscription ', this.props.rooms)
     return (
       <div> 
 
-        <div className='dropdown-analytics'>
+        <div className='dropdown-leftsidebar'>
           <Dropdown 
-            options={this.options} 
+            options={this.state.options} 
             onChange={(value)=>this.onSelect(value)} 
             value={this.state.selectValue} 
             placeholder='Select an option...'
@@ -129,8 +119,6 @@ class LeftSideBar extends React.Component {
             console.log("these are my DM Rooms",this.props.DMRooms)
             console.log("this is all the users after",this.props.allUsers);
             console.log("all available rooms",this.props.rooms)
-            console.log("these are my subscribed rooms",this.options)
-
           }}>ConsoleLog me!
         </p>
         <p>...</p>  

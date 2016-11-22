@@ -52,25 +52,19 @@ export default class Analytics extends React.Component {
     const props = this.props;
     let users = {};
     let channels = {};
-    axios.get('/db/lastweek',{ headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
+    axios.get('/db/lastweek', { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
     .then(resp => {
-      console.log('here is the resp ', resp)
       resp.data.forEach(msg => {
         channels[msg.channelName] = channels[msg.channelName] ? channels[msg.channelName] + 1 : 1;
         users[msg.username] = users[msg.username] ? users[msg.username] + 1 : 1; 
       });
-      console.log('here are all of the users in user object ', users)
       user.labels = Object.keys(users);
       user.datasets[0].data = Object.values(users);
       this.setState({data: user})
       channel.labels = Object.keys(channels);
       channel.datasets[0].data = Object.values(channels);
-      console.log('here is the channel dataset', channel)
     })
-    .catch(error =>  {
-      console.log('in error mode')
-      props.router.replace('/')
-    });
+    .catch(error =>  props.router.replace('/'));
   }
 
   onSelect(updatedValue) {
