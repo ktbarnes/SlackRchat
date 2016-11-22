@@ -14,6 +14,7 @@ import { addUser, toggleOnlineUser, toggleOfflineUser, downloadOnlineUsers } fro
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import { default as Fade } from 'react-fade';
+import { Grid, Row, Col } from 'react-bootstrap'
 
 class AppContainer extends React.Component {
 
@@ -257,21 +258,31 @@ class AppContainer extends React.Component {
     };
 
     return (
+
       <Sidebar {...sidebarProps}>
       <Nav />
         <div>
-          <p onClick={this.toggleUserDock} >
+          <div 
+            onClick={this.toggleUserDock} >
             <input type="checkbox" checked={this.state.docked} />
             <label>Show Users</label>
-          </p>
+          </div>
 
-          <table>
-            <td><LeftSideBar downloadAllChannels={this.downloadAllChannels} theSocket={this.socket} /></td>
-            <td><PrimaryChatroom theSocket={this.socket} /></td>
-          </table>   
+          <Grid>
+
+            <Col lg={2} mdPull={2}>
+              <LeftSideBar downloadAllChannels={this.downloadAllChannels} theSocket={this.socket} />
+            </Col>
+
+            <Col lg={10} mdPush={10}>
+              <PrimaryChatroom theSocket={this.socket} />
+            </Col>
+
+          </Grid>   
 
         </div>
       </Sidebar>
+
     );
   }
 }
