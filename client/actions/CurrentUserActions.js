@@ -1,6 +1,7 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export const setCurrentUser = user => {
+  console.log('inside setCurrentUser action...', user)
   return {
     type: 'SET_CURRENT_USER',
     id: user.id,
@@ -34,14 +35,8 @@ export const UpdateProfile = user => {
   return axios.post('/db/usersInfo', information1);
 }
 
-export const updateUser = user => {
+export const updateUserPicture = pic => {
 
-  let pic =  user;
+  return axios.post('/pic', {pic: pic}, { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}});
 
-  axios.post('/pic', {pic: user}, { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
-  .then(data => console.log(data));
-
-  // return {
-  //   type: 'UPDATE_CURRENT_USER'
-  // }
 }

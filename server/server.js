@@ -27,22 +27,14 @@ app.post('/pic', function(request, response) {
   let token = jwt.decode(encoded, process.env.SECRET);
   let currentUserID = token.id;
 
-  cloudinary.uploader.upload(request.body.pic, {tags : "basic_sample", eager: eager_options}, function(err,image){
-    // "eager" parameter accepts a hash (or just a single item). You can pass
-    // named transformations or transformation parameters as we do here.
-    console.log(image);
-    console.log("** Eager Transformations");
-    if (err){ console.warn(err);}
-    // console.log("* "+image.public_id);
-    // console.log("* "+image.eager[0].url);
+  cloudinary.uploader.upload(request.body.pic, {tags : "basic_sample", eager: eager_options}, function(err,image) {
+    if (err){ console.error(err);}
     data = {
       id: currentUserID,
       picture: image.eager[0].url
     }
     User.postProfilePicture(data)
-    .then(res => {
-      response.json({url: image.eager[0].url});
-    });
+    .then(res => response.json({url: image.eager[0].url}));
   });
 })
 
@@ -61,9 +53,9 @@ var transport = nodemailer.createTransport(
 
 var params = {
   from: process.env.GMAIL_USER,
-  to: 'katosych@gmail.com, canhcoding@gmail.com',
-  subject: 'Test email',
-  text: 'testing out the email'
+  to: 'katosych@gmail.com, canhcoding@gmail.com, juliafrandall@gmail.com',
+  subject: 'Hi friends!',
+  text: 'Check out slackerchat! https://slacker-chat.herokuapp.com/'
 }
 
 app.post('/email', function(request, response) {

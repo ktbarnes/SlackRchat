@@ -3,7 +3,7 @@ import React from 'react'
 import { dispatch, connect } from 'react-redux'
 import axios from 'axios'
 import { sendProfileInfo } from '../actions/signupActions'
-import { updateUser } from '../actions/CurrentUserActions'
+import { setCurrentUser, updateUserPicture } from '../actions/CurrentUserActions'
 import { close } from '../actions/NavActions'
 
 class Profile extends React.Component {
@@ -24,7 +24,6 @@ class Profile extends React.Component {
       linkedin: this.props.currentUser.linkedin
     }
     
-    // this.updateInfo = this.updateInfo.bind(this);
     this.handleFirst= this.handleFirst.bind(this);
     this.handleLast= this.handleLast.bind(this);
     this.handlePhone = this.handlePhone.bind(this);
@@ -73,18 +72,17 @@ class Profile extends React.Component {
   handleTwitter(event) { this.setState({twitter: event.target.value})}
   handleLinkedin(event) { this.setState({linkedin: event.target.value})}
 
-  // handleSubmit(event){this.props.dispatch(save(infor))}
   handleSubmit(event) {
-    console.log('inside handlSubmit in profile')
     let info = this.state
     this.props.save(info)
-    this.upload(event);
+    this.upload(event, info);
     this.props.dispatch(close())
     // this.props.onHide();
   }
   
-  upload(event) {
+  upload(event, info) {
     const dispatch = this.props.dispatch;
+    const currentUser = this.props.currentUser;
     let file = this.refs.pic.files[0];
     if(!file) return;
   
@@ -92,8 +90,13 @@ class Profile extends React.Component {
     reader.readAsDataURL(file);
 
     reader.onloadend = function(event) {
-      console.log("WE ARE UPLODING NOW")
-      updateUser(reader.result);
+      console.log("WE ARE UPLODING NOW, and here is currentUser", currentUser)
+      updateUserPicture(reader.result)
+      .then(url => {
+        info.id = currentUser.id;
+        info.picture = url;
+        dispatch(setCurrentUser(info))
+      })
     }
   }
 
