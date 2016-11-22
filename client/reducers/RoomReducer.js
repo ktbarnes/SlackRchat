@@ -9,7 +9,8 @@ const RoomReducer = (state = [], action) => {
           channelName: action.channelName,
           aliasName: action.aliasName,
           currentRoomToggle: action.currentRoomToggle,
-          AmISubscribedToggle: action.AmISubscribedToggle
+          AmISubscribedToggle: action.AmISubscribedToggle,
+          unreadMessageCounter: action.unreadMessageCounter
         },
       ];
 
@@ -19,6 +20,17 @@ const RoomReducer = (state = [], action) => {
         if(eachRoom.id === action.roomID){
           return Object.assign({},eachRoom,{
             AmISubscribedToggle: false
+          });
+        }
+        return eachRoom
+      })
+
+    case 'INCREMENT_UNREAD_MESSAGE_COUNTER':
+      return state.map( (eachRoom) => {
+        console.log("room comparison",eachRoom.channelName," ",action.channelName)
+        if(eachRoom.channelName === action.channelName){
+          return Object.assign({},eachRoom,{
+            unreadMessageCounter: eachRoom.unreadMessageCounter+1
           });
         }
         return eachRoom

@@ -15,7 +15,6 @@ const MessageList = ( {messages, currentUser, currentRoom} ) => {
   return (
     <div>
       { 
-        (!currentRoom.user2username && !currentRoom.user1username) ? "Loading..." :
         (currentRoom.aliasName === "Channel_NotDM") ? ("You are in channel: " + currentRoom.channelName) : 
         ("Private chat between " + currentRoom.user2username + " and " + currentRoom.user1username)  
       }

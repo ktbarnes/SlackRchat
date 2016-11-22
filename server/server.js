@@ -128,6 +128,9 @@ function(socket){
     console.log('user: ' + fromClient.username);
     console.log('chat message: ' + fromClient.msg);
     console.log('picture: ' + fromClient.picture);
+    console.log("urL: " + fromClient.url);
+    console.log("channelName: " + fromClient.channelName)
+    console.log("channelID: " + fromClient.channelID)
     // console.log('room name: ' + fromClient.room, currentRoom);
     hrns.in(currentRoom).emit('chat message', {
       channelName: fromClient.channelName,

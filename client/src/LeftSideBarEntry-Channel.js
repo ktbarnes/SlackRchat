@@ -13,13 +13,19 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
     <li style={
         {backgroundColor: (currentRoom.channelName === room.channelName) ? "orange" : "white"}
       }
+
       onClick={ () => {
+        room.unreadMessageCounter = 0;
         dispatch(setCurrentRoom(room));
         theSocket.emit('changeRoom', currentRoom)
       }
     }>
       * { (room.aliasName === "Channel_NotDM") ? room.channelName : 
           ((currentUser.username === room.user1username) ? room.user2username : room.user1username)
+        }
+
+        { room.unreadMessageCounter > 0 &&
+        " - " + room.unreadMessageCounter
         }
 
       {room.AmISubscribedToggle && room.channelName !== "Lobby" && 

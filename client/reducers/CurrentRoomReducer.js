@@ -1,4 +1,11 @@
-const CurrentRoomReducer = (state = {channelName: "Lobby"}, action) => {
+const CurrentRoomReducer = (state = {
+  id: 1,
+  channelName: "Lobby",
+  aliasName: "Channel_NotDM",
+  user1username: "Channel_NotDM",
+  user2username: "Channel_NotDM",
+  currentRoomToggle: true
+}, action) => {
   switch (action.type) {
 
     case 'SET_CURRENT_ROOM':
