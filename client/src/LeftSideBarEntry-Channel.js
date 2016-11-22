@@ -17,7 +17,7 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
       onClick={ () => {
         room.unreadMessageCounter = 0;
         dispatch(setCurrentRoom(room));
-        theSocket.emit('changeRoom', currentRoom)
+        theSocket.emit('changeRoom', currentRoom.channelName)
       }
     }>
       * { (room.aliasName === "Channel_NotDM") ? room.channelName : 
