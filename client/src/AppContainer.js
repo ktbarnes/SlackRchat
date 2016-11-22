@@ -208,6 +208,7 @@ class AppContainer extends React.Component {
           username: this.props.currentUser.username
         });
         this.socket.emit("someoneJoin",this.props.currentUser.username);
+        this.socket.emit("getAllLoggedInUsersFromSocket")
       });
     });
   }
@@ -259,8 +260,8 @@ class AppContainer extends React.Component {
 
     return (
 
+
       <Sidebar {...sidebarProps}>
-      <Nav />
         <div>
           <div 
             onClick={this.toggleUserDock} >
@@ -269,12 +270,16 @@ class AppContainer extends React.Component {
           </div>
 
           <Grid>
+          
+            <Row>
+              <Nav />
+            </Row>
 
-            <Col lg={2} mdPull={2}>
+            <Col md={6} mdPull={6}>
               <LeftSideBar downloadAllChannels={this.downloadAllChannels} theSocket={this.socket} />
             </Col>
 
-            <Col lg={10} mdPush={10}>
+            <Col md={6} mdPush={6}>
               <PrimaryChatroom theSocket={this.socket} />
             </Col>
 

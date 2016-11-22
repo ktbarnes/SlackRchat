@@ -22,6 +22,15 @@ export const toggleSubscribeRoomOff = (room) => {
   };
 };
 
+//this one uses channelName instead of roomID because the dropdown in LeftSidebar is based on Name, not ID
+export const toggleSubscribeRoomOn = (channelName) => {
+    console.log("channel in toggleSubscribeOn in RoomActions",channelName)
+  return {
+    type: "TOGGLE_SUBSCRIBED_ROOM_ON",
+    channelName: channelName
+  };
+};
+
 export const incrementUnreadMessageCounter = (channelName) => {
     console.log("room in inc in RoomActions",channelName)
   return {
