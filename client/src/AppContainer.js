@@ -208,6 +208,7 @@ class AppContainer extends React.Component {
           username: this.props.currentUser.username
         });
         this.socket.emit("someoneJoin",this.props.currentUser.username);
+        this.socket.emit("getAllLoggedInUsersFromSocket")
       });
     });
   }
@@ -268,17 +269,17 @@ class AppContainer extends React.Component {
             <label>Show Users</label>
           </div>
 
-          <Grid>
+          <table>
 
-            <Col lg={2} mdPull={2}>
+            <th>
               <LeftSideBar downloadAllChannels={this.downloadAllChannels} theSocket={this.socket} />
-            </Col>
+            </th>
 
-            <Col lg={10} mdPush={10}>
+            <th>
               <PrimaryChatroom theSocket={this.socket} />
-            </Col>
+            </th>
 
-          </Grid>   
+          </table>   
 
         </div>
       </Sidebar>
