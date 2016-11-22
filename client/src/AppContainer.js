@@ -260,8 +260,8 @@ class AppContainer extends React.Component {
 
     return (
 
+
       <Sidebar {...sidebarProps}>
-      <Nav />
         <div>
           <div 
             onClick={this.toggleUserDock} >
@@ -269,17 +269,21 @@ class AppContainer extends React.Component {
             <label>Show Users</label>
           </div>
 
-          <table>
+          <Grid>
+          
+            <Row>
+              <Nav />
+            </Row>
 
-            <th>
+            <Col md={6} mdPull={6}>
               <LeftSideBar downloadAllChannels={this.downloadAllChannels} theSocket={this.socket} />
-            </th>
+            </Col>
 
-            <th>
+            <Col md={6} mdPush={6}>
               <PrimaryChatroom theSocket={this.socket} />
-            </th>
+            </Col>
 
-          </table>   
+          </Grid>   
 
         </div>
       </Sidebar>

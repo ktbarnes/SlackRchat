@@ -88,7 +88,7 @@ class LeftSideBar extends React.Component {
         <p>...</p>      
 
 
-        <div>ADD A CHANNEL
+        <div>Add a Channel
           <form
             onSubmit={e => {
               const thisInput = this.input.value; //have to do this bc of async issues
@@ -125,7 +125,7 @@ class LeftSideBar extends React.Component {
 
         <p>...</p> 
         <div>
-          DIRECT MESSAGES
+          Direct Messages
           <ul id="rooms">
             {this.props.DMRooms.map(room =>
               <LeftSideBarEntryChannel theSocket={this.props.theSocket} key={room.id} room={room} />
