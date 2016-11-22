@@ -3,7 +3,7 @@ import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import Dropdown from 'react-dropdown';
 
-let data = {
+let user = {
   labels: [],
   datasets: [{
       label: '# of Messages by User',
@@ -14,7 +14,7 @@ let data = {
   }]
 }
 
-let data_channel = {
+let channel = {
   labels: [],
   datasets: [{
       label: '# of Messages by Channel',
@@ -25,12 +25,15 @@ let data_channel = {
   }]
 }
 
+const options = ['user','channel']
+
 export default class Analytics extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
+      selectValue: 'user',
       data: {
         labels: ['label'],
         datasets: [{
@@ -44,38 +47,64 @@ export default class Analytics extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let users = {};
-    let channel = {};
+    let channels = {};
     axios.get('/db/lastweek',{ headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
     .then(resp => {
       console.log('here are the messages ', resp.data)
       resp.data.forEach(msg => {
-        channel[msg.channelName] = channel[msg.channelName] ? channel[msg.channelName] + 1 : 1;
+        channels[msg.channelName] = channels[msg.channelName] ? channels[msg.channelName] + 1 : 1;
         users[msg.username] = users[msg.username] ? users[msg.username] + 1 : 1; 
       });
       console.log('here are all of the users in user object ', users)
-      data.labels = Object.keys(users);
-      // data.datasets.backgroundColor = data.labels.map(user => 'rgba(255,99,132,1)');
-      data.datasets.backgroundColor = 'rgba(255,99,132,1)';
-      data.datasets[0].data = Object.values(users);
-      console.log('here is the data man ', data);
-      this.setState({data: data})
-    })
+      user.labels = Object.keys(users);
+      user.datasets[0].data = Object.values(users);
+      this.setState({data: user})
+      channel.labels = Object.keys(channels);
+      channel.datasets[0].data = Object.values(channels);
+      console.log('here is the channel dataset', channel)
+    });
   }
 
-  onSelect() {
+  onSelect(updatedValue) {
+    console.log('this is the updated value', updatedValue.value)
+    if(this.state.selectValue === 'user') this.setState({selectValue: updatedValue.value});
+    else if (this.state.selectValue === 'channel') this.setState({selectValue: updatedValue.value});
 
+    console.log('here is the state now inside onSelect ', this.state)
+  }
+
+  componentDidUpdate() {
+    if(this.state.selectValue === 'user') this.setState({data: user})
+    else if(this.state.selectValue === 'channel') this.setState({data: channel})
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('next Props', nextProps, 'next State', nextState);
+    if(nextState.data.datasets[0].label !== this.state.data.datasets[0].label) return true;
+    if(nextState.selectValue !== this.state.selectValue) return true;
+    return false;
   }
 
   render() {
-    console.log('rerender....',this.state.data)
+    console.log('rerender....',this.state)
     return (
 
       <div>
-        <Bar 
-          data={this.state.data}
-        />
+        <div className='dropdown-analytics'>
+          <Dropdown 
+            options={options} 
+            onChange={(value)=>this.onSelect(value)} 
+            value={this.state.selectValue} 
+            placeholder='Select an option...'
+          />
+        </div>
+        <div className='bar-analytics'>
+          <Bar 
+            data={this.state.data}
+          />
+        </div>
       </div>
 
 
