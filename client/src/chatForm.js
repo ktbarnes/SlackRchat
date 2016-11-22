@@ -2,6 +2,9 @@ import axios from 'axios';
 import React, { PropTypes } from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import { Picker } from 'emoji-mart';
+
+let stuff = '';
 
 const ChatForm = ( { socket, currentRoom, currentUser } ) => {
   let input;
@@ -102,6 +105,15 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
         <button type="submit">
           Send
         </button>
+          { stuff &&
+            <Picker
+              emojiSize={20}
+              perLine={9}
+              skin={1}
+              set='apple'
+              onClick={emoji => input.value += emoji.colons}
+            />
+          }
       </form>
     </div>
   );

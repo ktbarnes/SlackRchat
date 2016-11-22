@@ -9,8 +9,6 @@ var jwt = require('jwt-simple');
 // require middleware
 require('./config/middleware.js')(app, express);
 
-
-
 // database router
 var dbRouter = require('./config/router-DB.js');
 app.use('/db', dbRouter)
@@ -19,7 +17,7 @@ var giphyRouter = require('./config/router-giphy.js');
 app.use('/api', giphyRouter)
 
 var eager_options = {
-  width: 200, height: 200, crop: 'fit', format: 'jpg'
+  width: 200, height: 200, crop: 'fit',
 };
 
 app.post('/pic', function(request, response) {
