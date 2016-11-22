@@ -8,7 +8,7 @@ import PrimaryChatroom from './PrimaryChatroom.js';
 import LeftSideBar from './LeftSideBar.js';
 import RightSideBar from './RightSideBar.js';
 import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
-import { addRoom } from '../actions/RoomActions';
+import { addRoom, incrementUnreadMessageCounter } from '../actions/RoomActions';
 import { addDMRoom } from '../actions/DMRoomActions';
 import { addUser, toggleOnlineUser, toggleOfflineUser, downloadOnlineUsers } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
@@ -45,6 +45,8 @@ class AppContainer extends React.Component {
     this.socket.on('chat message', 
       incoming => {
         console.log("CHAT MESSAGE", incoming)
+
+        //add message to ChatReducer
         this.handleReceive(addMessageFromSocket,{
           channelName: incoming.channelName,
           channelID: incoming.channelID,
@@ -53,8 +55,14 @@ class AppContainer extends React.Component {
           url: incoming.url,
           picture: incoming.picture,
         });
-        // console.log("incoming.text",incoming.text);
-        // window.alert("incoming.text",incoming.text);
+
+        //increment unread messages only if user is not in that room
+        if(incoming.channelName !== this.props.currentRoom.channelName){
+          //code
+          console.log("incoming.channelName",incoming.channelName)
+          console.log("currentRoom.channelName",this.props.currentRoom.channelName)
+          this.handleReceive(incrementUnreadMessageCounter,incoming.channelName)
+        }
       }
     );
 
@@ -130,13 +138,16 @@ class AppContainer extends React.Component {
     .then( () => {
       axios.get('/db/channels')
       .then( (res) => {
-        console.log("downloadAllChannels in AppContainer",res.data)
+        // console.log("downloadAllChannels in AppContainer",res.data)
         res.data.forEach( (msg) => {
           let eachRoom = {
             id: msg.id,
             channelName: msg.name,
             currentRoomToggle: false,
             AmISubscribedToggle: false
+          }
+          if(this.currentRoom === msg.channelName){
+            this.handleReceive(setCurrentRoom,eachRoom);
           }
           //if channel does not exist in downloadMyChannelsOnly, 
           //then add to reducer with toggle false

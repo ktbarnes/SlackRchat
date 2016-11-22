@@ -9,7 +9,24 @@ export const addRoom = (eachRoom) => {
     channelName: eachRoom.channelName,
     aliasName: "Channel_NotDM",
     currentRoomToggle: eachRoom.currentRoomToggle,
-    AmISubscribedToggle: eachRoom.AmISubscribedToggle
+    AmISubscribedToggle: eachRoom.AmISubscribedToggle,
+    unreadMessageCounter: 0
+  };
+};
+
+export const toggleSubscribeRoomOff = (room) => {
+    // console.log("user in toggleOnlineUser in UserActions",userEmail)
+  return {
+    type: "TOGGLE_SUBSCRIBED_ROOM_OFF",
+    roomID: room.id
+  };
+};
+
+export const incrementUnreadMessageCounter = (channelName) => {
+    console.log("room in inc in RoomActions",channelName)
+  return {
+    type: "INCREMENT_UNREAD_MESSAGE_COUNTER",
+    channelName: channelName
   };
 };
 

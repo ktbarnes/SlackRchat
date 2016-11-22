@@ -31,7 +31,7 @@ const RightSideBar = ( {allUsers, currentUser, theSocket, clickedUser} ) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("all users",state.allReducers.ClickedUserProfileReducer)
+  // console.log("all users",state.allReducers.ClickedUserProfileReducer)
   return { 
     currentUser: state.allReducers.CurrentUserReducer,
     allUsers: state.allReducers.UserReducer,
