@@ -13,6 +13,7 @@ import { addDMRoom } from '../actions/DMRoomActions';
 import { addUser, toggleOnlineUser, toggleOfflineUser, downloadOnlineUsers } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
+import { default as Fade } from 'react-fade';
 
 class AppContainer extends React.Component {
 
