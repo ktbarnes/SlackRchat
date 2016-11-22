@@ -1,30 +1,26 @@
 import axios from 'axios';
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-// import Data from './Data'
-import Dropdown from 'react-dropdown'
+import Dropdown from 'react-dropdown';
 
 let data = {
   labels: [],
   datasets: [{
-      label: '# of Messages',
+      label: '# of Messages by User',
       data: [],
-      backgroundColor: 
-          // 'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-      //     'rgba(255, 206, 86, 0.2)',
-      //     'rgba(75, 192, 192, 0.2)',
-      //     'rgba(153, 102, 255, 0.2)',
-      //     'rgba(255, 159, 64, 0.2)'
-      // ],
-      borderColor: 
-          // 'rgba(255,99,132,1)',
-          'rgba(54, 162, 235, 1)',
-      //     'rgba(255, 206, 86, 1)',
-      //     'rgba(75, 192, 192, 1)',
-      //     'rgba(153, 102, 255, 1)',
-      //     'rgba(255, 159, 64, 1)'
-      // ],
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1
+  }]
+}
+
+let data_channel = {
+  labels: [],
+  datasets: [{
+      label: '# of Messages by Channel',
+      data: [],
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor: 'rgba(54, 162, 235, 1)',
       borderWidth: 1
   }]
 }
@@ -50,11 +46,12 @@ export default class Analytics extends React.Component {
 
   componentDidMount() {
     let users = {};
-    // let data = {};
+    let channel = {};
     axios.get('/db/lastweek',{ headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
     .then(resp => {
       console.log('here are the messages ', resp.data)
       resp.data.forEach(msg => {
+        channel[msg.channelName] = channel[msg.channelName] ? channel[msg.channelName] + 1 : 1;
         users[msg.username] = users[msg.username] ? users[msg.username] + 1 : 1; 
       });
       console.log('here are all of the users in user object ', users)
