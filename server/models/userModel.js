@@ -19,6 +19,7 @@ var User = {
       email: data.email,
       password: data.password,
       username: data.username,
+      picture: data.picture,
     })
   },
 

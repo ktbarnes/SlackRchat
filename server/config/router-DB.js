@@ -46,7 +46,7 @@ router.post('/login', function(request, response) {
   .then(user => {
     bcrypt.compare(request.body.password, user[0].password, function(err, matched) {
       if(matched) {
-        let token = jwt.encode({id: user[0].id}, process.env.SECRET);
+        let token = jwt.encode({id: user[0].id, admin: user[0].admin}, process.env.SECRET);
         response.json({id_token: token});
       } else {
         response.sendStatus(401);
@@ -62,6 +62,7 @@ router.post('/users', function(request, response) {
       username: request.body.username,
       email: request.body.email,
       password: hash,
+      picture: 'http://res.cloudinary.com/due97dtb0/image/upload/c_thumb,h_200,w_200/v1479743340/Default_vnuhvy.jpg',
     })
     .then(user => {
       let token = jwt.encode({id: user[0]}, process.env.SECRET);
@@ -200,12 +201,17 @@ router.get('/DMMessages', function(request, response) {
 });
 
 router.get('/lastWeek', function(request, response) {
-  let current = new Date();
-  let weekAgo = new Date(current-604800000).toJSON().toString();
-  Message.getLastWeek(weekAgo)
-  .then(data => {
-    response.json(data);
-  })
+  let encoded = request.headers.authorization.split(' ')[1];
+  let token = jwt.decode(encoded, process.env.SECRET);
+  if(token.admin !== 1) response.sendStatus(403);
+  else {
+    let current = new Date();
+    let weekAgo = new Date(current-604800000).toJSON().toString();
+    Message.getLastWeek(weekAgo)
+    .then(data => {
+      response.json(data);
+    })
+  }
 });
 
 module.exports = router;
