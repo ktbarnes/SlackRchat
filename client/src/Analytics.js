@@ -5,10 +5,10 @@ import { Bar } from 'react-chartjs-2';
 import Dropdown from 'react-dropdown'
 
 let data = {
-  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+  labels: [],
   datasets: [{
       label: '# of Messages',
-      data: [12, 19, 3, 5, 2, 3],
+      data: [],
       backgroundColor: 
           // 'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -61,7 +61,7 @@ export default class Analytics extends React.Component {
       data.labels = Object.keys(users);
       // data.datasets.backgroundColor = data.labels.map(user => 'rgba(255,99,132,1)');
       data.datasets.backgroundColor = 'rgba(255,99,132,1)';
-      data.datasets.data = Object.values(users);
+      data.datasets[0].data = Object.values(users);
       console.log('here is the data man ', data);
       this.setState({data: data})
     })
