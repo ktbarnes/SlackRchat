@@ -11,10 +11,11 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('here are the currentUser props in Profile.js ', this.props);
+    console.log('here are the currentUser props in Profile.js ', this.props.currentUser);
 
     this.state = {
       first: this.props.currentUser.first,
+      photo: this.props.currentUser.photo,
       last: this.props.currentUser.last,
       phone: this.props.currentUser.phone,
       about: this.props.currentUser.about,
@@ -42,6 +43,7 @@ class Profile extends React.Component {
     if (nextState.first !== this.state.first) return true;
     if (nextState.last !== this.state.last) return true;
     if (nextState.phone !== this.state.phone) return true;
+    if (nextState.picture !== this.state.picture) return true;
     if (nextState.about !== this.state.about) return true;
     if (nextState.github !== this.state.github) return true;
     if (nextState.facebook !== this.state.facebook) return true;
@@ -56,6 +58,7 @@ class Profile extends React.Component {
       first: nextProps.currentUser.first,
       last: nextProps.currentUser.last,
       phone: nextProps.currentUser.phone,
+      picture: nextProps.currentUser.picture,
       about: nextProps.currentUser.about,
       github: nextProps.currentUser.github,
       facebook: nextProps.currentUser.facebook,
@@ -75,7 +78,7 @@ class Profile extends React.Component {
 
   // handleSubmit(event){this.props.dispatch(save(infor))}
   handleSubmit(event) {
-    console.log('inside handlSubmit in profile')
+    // console.log('inside handlSubmit in profile')
     let info = this.state
     this.props.save(info)
     this.upload(event);
@@ -99,7 +102,8 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <Modal id="profile_modal" show={this.props.toShowModel.showModel} >
+      <div className='profile_modal'>
+      <Modal show={this.props.toShowModel.showModel} >
         <Modal.Header>
           <Modal.Title id="modal_header">Profile</Modal.Title>
         </Modal.Header>
@@ -110,6 +114,7 @@ class Profile extends React.Component {
           <div> 
             <h3>Profile Picture</h3>
             <input type="file" ref='pic' accept="image/*" data-action="profilepicture" />
+            <img src={this.state.picture}></img>
           </div>
           <div>
             <label>First Name</label>
@@ -141,11 +146,13 @@ class Profile extends React.Component {
           <Button className="btn btn-default" onClick={(event)=>this.handleSubmit(event)}>Save</Button>
         </Modal.Footer>
       </Modal>
+     </div> 
      ) 
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
+  // console.log('julia these', state.allReducers.CurrentUserReducer)
   return {
     currentUser: state.allReducers.CurrentUserReducer,
     toShowModel: state.allReducers.NavReducer

@@ -2,6 +2,7 @@ const ClickedUserProfileReducer = (state = {
   id: 0,
   username: "username",
   email: "email",
+  picture: 'picture',
   about: "about",
   first: "first",
   last: "last",
@@ -16,6 +17,7 @@ const ClickedUserProfileReducer = (state = {
       return Object.assign({}, state, {
         id: action.id,
         username: action.username,
+        picture: action.picture,
         email: action.email,
         about: action.about,
         first: action.first,
