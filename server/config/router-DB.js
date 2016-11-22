@@ -129,6 +129,13 @@ router.post('/addMyChannel', function (request, response) {
   .then(data => response.status(201).json(data));
 });
 
+//delete a channel I had subscribed to
+router.post('/deleteMyChannel', function (request, response) {
+  console.log("deleteMyChannel router-DB request.body",request.body)
+  ChannelUser.deleteMyChannel(request.body.myUserID, request.body.channelID)
+  .then(data => response.status(201).json(data));
+});
+
 //get all DM rooms
 router.get('/DMRooms', function (request, response) {
   DirectMessageRoom.getRooms()

@@ -17,7 +17,17 @@ var ChannelUser = {
       userID: myUserID,
       channelID: channelID
     })
+  },
+
+  deleteMyChannel: function(myUserID,channelID) {
+    return database('channel_users')
+    .where({
+      userID: myUserID,
+      channelID: channelID
+    })
+    .del()
   } 
+  
 }
 
 module.exports = ChannelUser;
