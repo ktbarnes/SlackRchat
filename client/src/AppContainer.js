@@ -129,6 +129,7 @@ class AppContainer extends React.Component {
             AmISubscribedToggle: true
           }
           this.handleReceive(addRoom,eachRoom);
+          this.socket.emit('changeRoom', msg.channelName)
           if(this.currentRoom === msg.channelName){
             this.handleReceive(setCurrentRoom,eachRoom);
           }
@@ -160,7 +161,9 @@ class AppContainer extends React.Component {
             }
           });
           if(!isInRooms){this.handleReceive(addRoom,eachRoom)}
+          this.socket.emit('changeRoom', msg.name)
         });
+        this.socket.emit('changeRoom', this.currentRoom)
       });
     }) 
   } //end of downloadChannels
