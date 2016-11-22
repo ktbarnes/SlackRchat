@@ -33,6 +33,7 @@ save(user) {
      id: this.props.currentUser.id,
      username: this.props.currentUser.username,
      email: this.props.currentUser.email,
+     phone: user.phone,
      about: user.about,
      first: user.first,
      last: user.last,
@@ -76,13 +77,13 @@ save(user) {
 
   render() {
     return (
-      <div className="nav">
-        <h1 className="title">Slacker</h1>
-        <h2>Hello, {this.props.currentUser.first}</h2>
-        <a className="navbutton" href="#" role="button" 
+      <div className='nav'>
+        <h1 className='title'>SlackR:chat</h1>
+        <h2 className='helloUser'>Hello, {this.props.currentUser.first}</h2>
+        <a className='navbutton' href='#' role='button' 
         onClick={(event) => this.onEdit(event)}>Profile</a>
         <Profile save={this.save} />
-        <a className="navbutton" onClick={() => this.logout()} href="/login">Logout</a>
+        <a className='navbutton' onClick={() => this.logout()} href='/login'>Logout</a>
       </div>
     )
   }

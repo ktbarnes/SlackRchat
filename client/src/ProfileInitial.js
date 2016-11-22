@@ -7,7 +7,7 @@ import { Modal,
          } from 'react-bootstrap'        
 import React from 'react'
 import SignUp from './signup.js'
-// import Nav from './nav.js'
+// import {updateUser} from '../actions/CurrentUserActions'
 import { dispatch, connect } from 'react-redux'
 
 class ProfileInitial extends React.Component {
@@ -61,22 +61,39 @@ class ProfileInitial extends React.Component {
     let info = this.state
     // console.log(this.props, "the state is updated")
     this.props.save(info)
+    this.upload(event);
+    this.props.dispatch(close())
 }
+
+  upload(event) {
+    const dispatch = this.props.dispatch;
+    let file = this.refs.pic.files[0];
+    if(!file) return;
+  
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = function(event) {
+      console.log("WE ARE UPLODING NOW")
+      updateUser(reader.result);
+    }
+  }
+
 
 render(){
     return (
       <form onSubmit={this.handleSubmit}>
-      <Modal id="profile_modal" show={this.props.show} >
+      <Modal className='profile_modal' show={this.props.show} >
         <Modal.Header>
-          <Modal.Title id="modal_header">Profile</Modal.Title>
+          <Modal.Title id='modal_header'>Profile</Modal.Title>
         </Modal.Header>
-        <Modal.Body id="modal_content">
+        <Modal.Body id='modal_content'>
           <div>
             <h2>Edit Profile</h2>
           </div>
           <div> 
             <h3>Profile Picture</h3>
-            <input type="file" accept="image/*" data-action="profilepicture" />
+            <input type='file' ref='pic' accept='image/*' data-action='profilepicture' />
           </div>
           <div>
             <label>First Name</label>
@@ -105,7 +122,7 @@ render(){
           </div>  
         </Modal.Body>
         <Modal.Footer>
-          <Button className="btn btn-default" onClick={this.handleSubmit}>Save</Button>
+          <Button className='btn btn-default' onClick={this.handleSubmit}>Save</Button>
         </Modal.Footer>
       </Modal>
      </form> 

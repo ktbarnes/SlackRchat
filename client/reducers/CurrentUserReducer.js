@@ -1,9 +1,10 @@
-const CurrentUserReducer = (state = {id: 0, username: '', email: '', about: '', first: '', last: '', github: '', facebook: '', twitter: '', linkedin: ''}, action) => {
+const CurrentUserReducer = (state = {id: 0, username: '', phone:'', email: '', about: '', picture:'', first: '', last: '', github: '', facebook: '', twitter: '', linkedin: ''}, action) => {
   switch (action.type) {
     case 'SET_CURRENT_USER':
       return Object.assign({}, state, {
           id: action.id,
           username: action.username,
+          phone: action.phone,
           picture: action.picture,
           email: action.email,
           about: action.about,

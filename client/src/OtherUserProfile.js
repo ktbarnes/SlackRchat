@@ -38,17 +38,19 @@ class OtherUserProfile extends React.Component {
 
   render(){
     return (
-      <Modal id="profile_modal" show={this.props.clickedUser.showModel2} >
+      <div>
+      <Modal id='profile_modal_other' show={this.props.clickedUser.showModel2} >
         <Modal.Header>
-          <Modal.Title id="modal_header">Profile</Modal.Title>
+          <Modal.Title id='modal_header_other'>Profile</Modal.Title>
         </Modal.Header>
-        <Modal.Body id="modal_content">
+        <Modal.Body id='modal_content_other'> 
       <div className='table'>
         <div>
           <h2 className='tableUsername'>{this.props.clickedUser.username}</h2>
         </div>
         <div>
           <h3>Profile Picture</h3>
+          <img className='profilePic' src={this.props.clickedUser.picture}></img>
         </div>
         <table className='tableOtherUserInformation'>
         <tbody>
@@ -69,20 +71,20 @@ class OtherUserProfile extends React.Component {
             <td>{this.props.clickedUser.phone}</td>
           </tr>
           <tr>
-            <td>Github</td>
-            <td>{this.props.clickedUser.github}</td>
+            <td>Github1</td>
+            <td><a href={this.props.clickedUser.github}>{this.props.clickedUser.github}</a></td>
           </tr>
           <tr>
             <td>Linkedin</td>
-            <td>{this.props.clickedUser.linkedin}</td>
+            <td><a href={this.props.clickedUser.linkedin}>{this.props.clickedUser.linkedin}</a></td>
           </tr>
           <tr>
             <td>Facebook</td>
-            <td>{this.props.clickedUser.facebook}</td>
+            <td><a href={this.props.clickedUser.facebook}>{this.props.clickedUser.facebook}</a></td>
           </tr>
           <tr>
             <td>Twitter</td>
-            <td>{this.props.clickedUser.twitter}</td>
+            <td><a href={this.props.clickedUser.twitter}>{this.props.clickedUser.twitter}</a></td>
           </tr>
           <tr>
             <td>About Me</td>
@@ -96,6 +98,7 @@ class OtherUserProfile extends React.Component {
           <Button className="btn btn-default" onClick={(event)=>this.handleSubmit(event)}>Close</Button>
         </Modal.Footer>
       </Modal> 
+      </div>
      ) 
   }
 }

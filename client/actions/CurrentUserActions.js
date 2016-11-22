@@ -26,6 +26,7 @@ export const UpdateProfile = user => {
     email: user.email,
     about: user.about,
     first: user.first,
+    picture: user.picture,
     last: user.last,
     github: user.github,
     facebook: user.facebook,
