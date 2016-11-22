@@ -25,6 +25,17 @@ const RoomReducer = (state = [], action) => {
         return eachRoom
       })
 
+    case 'TOGGLE_SUBSCRIBED_ROOM_ON':
+      return state.map( (eachRoom) => {
+        console.log("Toggle On in RoomReducer",eachRoom)
+        if(eachRoom.channelName === action.channelName){
+          return Object.assign({},eachRoom,{
+            AmISubscribedToggle: true
+          });
+        }
+        return eachRoom
+      })
+
     case 'INCREMENT_UNREAD_MESSAGE_COUNTER':
       return state.map( (eachRoom) => {
         console.log("room comparison",eachRoom.channelName," ",action.channelName)

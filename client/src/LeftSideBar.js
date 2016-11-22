@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { PropTypes } from 'react';
 import LeftSideBarEntryChannel from './LeftSideBarEntry-Channel';
 import { dispatch, connect } from 'react-redux';
-import { addRoom } from '../actions/RoomActions';
+import { addRoom, toggleSubscribeRoomOn } from '../actions/RoomActions';
 import { toggleOnlineUser } from '../actions/UserActions';
+import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import Dropdown from 'react-dropdown';
 
 //stateful
@@ -25,8 +26,27 @@ class LeftSideBar extends React.Component {
     dispatch(cb(body))
   }
 
-  onSelect(updatedValue) {
+  onSelect(updatedValue) { //updatedValue = channelName only
     this.setState({selectValue: updatedValue.value});
+
+    //iterate through the rooms in the store to find a matching room name
+    this.props.rooms.forEach( (room) => {
+      //if a match, perform some functions
+      if(room.channelName === updatedValue.value){
+        //if I'm not subscribed to the room, subscribe to it and have that persist in the DB
+        if(!room.AmISubscribedToggle){
+          //turn the toggle true so that users now "subscribe to the channel"
+          this.props.dispatch(toggleSubscribeRoomOn(updatedValue.value))
+          //"persist" in database
+          axios.post('/db/addMyChannel',{
+            myUserID: this.props.currentUser.id,
+            channelID: room.id
+          })
+        }
+        //now go to that room
+        this.props.dispatch(setCurrentRoom(room))
+      }
+    })
   }
 
   componentWillMount() {
@@ -34,16 +54,19 @@ class LeftSideBar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.rooms.length !== nextProps.rooms.length) this.setState({options: nextProps.rooms.map(room => room.channelName)}); 
+    if(this.props.rooms.length !== nextProps.rooms.length) {
+      this.setState({options: nextProps.rooms.map(room => room.channelName)}); 
+    }
   }
 
   render() {
     // console.log('rerendering...here is new state ', this.state)
-    console.log('I want to know information about the currentUser room subscription ', this.props.rooms)
+    // console.log('I want to know information about the currentUser room subscription ', this.props.rooms)
     return (
       <div> 
 
         <div className='dropdown-leftsidebar'>
+          All Channels
           <Dropdown 
             options={this.state.options} 
             onChange={(value)=>this.onSelect(value)} 
@@ -55,7 +78,7 @@ class LeftSideBar extends React.Component {
         <p>...</p>   
 
         <div>
-          MY CHANNELS
+          My Channels
           <ul id="rooms">
             {this.props.rooms.filter( room => room.AmISubscribedToggle).map(room =>
               <LeftSideBarEntryChannel theSocket={this.props.theSocket} key={room.id} room={room} />
@@ -65,7 +88,7 @@ class LeftSideBar extends React.Component {
         <p>...</p>      
 
 
-        <div>ADD A CHANNEL
+        <div>Add a Channel
           <form
             onSubmit={e => {
               const thisInput = this.input.value; //have to do this bc of async issues
@@ -84,7 +107,7 @@ class LeftSideBar extends React.Component {
                 // console.log("this is the room I added",roomToAdd)
                 this.handleReceive(addRoom,roomToAdd);
                 axios.post('/db/addMyChannel',{
-                  myUserID: currentUser.id,
+                  myUserID: this.props.currentUser.id,
                   channelID: response.data[0]
                 })
               })
@@ -102,7 +125,7 @@ class LeftSideBar extends React.Component {
 
         <p>...</p> 
         <div>
-          DIRECT MESSAGES
+          Direct Messages
           <ul id="rooms">
             {this.props.DMRooms.map(room =>
               <LeftSideBarEntryChannel theSocket={this.props.theSocket} key={room.id} room={room} />
