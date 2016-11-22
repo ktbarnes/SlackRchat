@@ -66,10 +66,6 @@ app.post('/email', function(request, response) {
 });
 
 
-
-
-
-
 // // require socket
 // var http = require('http').Server(app);
 // require('./socket/socket.js')(http);

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import Dropdown from 'react-dropdown';
+import { default as Fade } from 'react-fade';
 
 let user = {
   labels: [],
@@ -48,11 +49,12 @@ export default class Analytics extends React.Component {
   }
 
   componentWillMount() {
+    const props = this.props;
     let users = {};
     let channels = {};
     axios.get('/db/lastweek',{ headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
     .then(resp => {
-      console.log('here are the messages ', resp.data)
+      console.log('here is the resp ', resp)
       resp.data.forEach(msg => {
         channels[msg.channelName] = channels[msg.channelName] ? channels[msg.channelName] + 1 : 1;
         users[msg.username] = users[msg.username] ? users[msg.username] + 1 : 1; 
@@ -64,6 +66,10 @@ export default class Analytics extends React.Component {
       channel.labels = Object.keys(channels);
       channel.datasets[0].data = Object.values(channels);
       console.log('here is the channel dataset', channel)
+    })
+    .catch(error =>  {
+      console.log('in error mode')
+      props.router.replace('/')
     });
   }
 
@@ -90,23 +96,23 @@ export default class Analytics extends React.Component {
   render() {
     console.log('rerender....',this.state)
     return (
-
-      <div>
-        <div className='dropdown-analytics'>
-          <Dropdown 
-            options={options} 
-            onChange={(value)=>this.onSelect(value)} 
-            value={this.state.selectValue} 
-            placeholder='Select an option...'
-          />
+      <Fade duration={.2}>
+        <div>
+          <div className='dropdown-analytics'>
+            <Dropdown 
+              options={options} 
+              onChange={(value)=>this.onSelect(value)} 
+              value={this.state.selectValue} 
+              placeholder='Select an option...'
+            />
+          </div>
+          <div className='bar-analytics'>
+            <Bar 
+              data={this.state.data}
+            />
+          </div>
         </div>
-        <div className='bar-analytics'>
-          <Bar 
-            data={this.state.data}
-          />
-        </div>
-      </div>
-
+      </Fade>
 
     )
   }
