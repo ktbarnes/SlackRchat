@@ -68,11 +68,8 @@ export default class Analytics extends React.Component {
   }
 
   onSelect(updatedValue) {
-    console.log('this is the updated value', updatedValue.value)
     if(this.state.selectValue === 'user') this.setState({selectValue: updatedValue.value});
     else if (this.state.selectValue === 'channel') this.setState({selectValue: updatedValue.value});
-
-    console.log('here is the state now inside onSelect ', this.state)
   }
 
   componentDidUpdate() {
@@ -81,14 +78,12 @@ export default class Analytics extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('next Props', nextProps, 'next State', nextState);
     if(nextState.data.datasets[0].label !== this.state.data.datasets[0].label) return true;
     if(nextState.selectValue !== this.state.selectValue) return true;
     return false;
   }
 
   render() {
-    console.log('rerender....',this.state)
     return (
       <Fade duration={.2}>
         <div>

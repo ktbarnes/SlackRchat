@@ -207,6 +207,7 @@ class AppContainer extends React.Component {
           username: this.props.currentUser.username
         });
         this.socket.emit("someoneJoin",this.props.currentUser.username);
+        this.socket.emit("getAllLoggedInUsersFromSocket")
       });
     });
   }

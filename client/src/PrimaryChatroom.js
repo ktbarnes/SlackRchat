@@ -9,9 +9,6 @@ import { addRoom } from '../actions/RoomActions';
 import { addUser } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
-import { Picker } from 'emoji-mart';
-
-let stuff = undefined;
 
 class PrimaryChatroom extends React.Component {
 
@@ -78,15 +75,6 @@ class PrimaryChatroom extends React.Component {
           <Message />
         </div>
         <div>
-          { stuff &&
-            <Picker
-              emojiSize={20}
-              perLine={9}
-              skin={1}
-              set='apple'
-              onClick={emoji => console.log(emoji)}
-            />
-          }
           <ChatForm socket={this.props.theSocket} />
         </div>
       </div>
