@@ -4,101 +4,155 @@ import LeftSideBarEntryChannel from './LeftSideBarEntry-Channel';
 import { dispatch, connect } from 'react-redux';
 import { addRoom } from '../actions/RoomActions';
 import { toggleOnlineUser } from '../actions/UserActions';
+import Dropdown from 'react-dropdown';
 
-const LeftSideBar = ( {rooms, DMRooms, allUsers, currentRoom, currentUser, dispatch, theSocket} ) => {
-  var input;
+//stateful
+//= ( {rooms, DMRooms, allUsers, currentRoom, currentUser, dispatch, theSocket} ) => 
+class LeftSideBar extends React.Component {
 
-  const handleReceive = (cb,body) => dispatch(cb(body));
+  constructor(props){
+    super(props);
+    this.state = {
+      selectValue: 'Select Channel',
+      data: {
+        labels: ['label'],
+        datasets: [{
+            label: '# of Messages',
+            data: [1],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+      }
+    }
+    // this.options = this.props.rooms.map(room => room.channelName);
+    this.options = ["Lobby","Second Room","Third Room","Fourth Room"]
 
-  const myRooms = rooms.filter( room => room.AmISubscribedToggle);
+  }
 
-  return (
-    <div>
+  handleReceive(cb,body){
+    dispatch(cb(body))
+  }
 
-      <p>...</p>
-      <p 
-        onClick={ () => {
-          console.log("this is my current room",currentRoom);
-          console.log("this is my current user",currentUser);
-          console.log("these are my DM Rooms",DMRooms)
-          console.log("this is all the users after",allUsers);
-          console.log("all available rooms",rooms)
-        }}>ConsoleLog me!
-      </p>
-      <p>...</p>   
-      
-      <div>
-        ALL CH - WILL BE DROPDOWN
-        <ul id="rooms">
-          {rooms.map(room =>
-            <LeftSideBarEntryChannel theSocket={theSocket} key={room.id} room={room} />
-            
-          )}
-        </ul>
-      </div>
-      <p>...</p>   
+  onSelect(updatedValue) {
+    console.log('this is the updated value', updatedValue.value)
+    if(this.state.selectValue === 'user') this.setState({selectValue: updatedValue.value});
+    else if (this.state.selectValue === 'channel') this.setState({selectValue: updatedValue.value});
 
-      <div>
-        MY CHANNELS
-        <ul id="rooms">
-          {myRooms.map(room =>
-            <LeftSideBarEntryChannel theSocket={theSocket} key={room.id} room={room} />
-            
-          )}
-        </ul>
-      </div>
-      <p>...</p>      
+    console.log('here is the state now inside onSelect ', this.state)
+  }
+
+  componentWillMount(){
+    this.input;
+  }
 
 
-      <div>ADD A CHANNEL
-        <form
-          onSubmit={e => {
-            const thisInput = input.value; //have to do this bc of async issues
-            e.preventDefault();
-            if (!thisInput.trim()) { return; }
-            //this is where you will issue a POST request to the database
-            axios.post('/db/channels',{ name: thisInput })
-            .then((response) => {
-              // console.log("room created in DB!", response);
-              let roomToAdd = {
-                id: response.data[0],
-                channelName: thisInput,
-                currentRoomToggle: false,
-                AmISubscribedToggle: true
-              }
-              // console.log("this is the room I added",roomToAdd)
-              handleReceive(addRoom,roomToAdd);
-              axios.post('/db/addMyChannel',{
-                myUserID: currentUser.id,
-                channelID: response.data[0]
+
+  render(){
+
+    return (
+      <div> 
+
+        <div className='dropdown-analytics'>
+          <Dropdown 
+            options={this.options} 
+            onChange={(value)=>this.onSelect(value)} 
+            value={this.state.selectValue} 
+            placeholder='Select an option...'
+          />
+        </div>
+        
+        <p>...</p>   
+
+        <div>
+          MY CHANNELS
+          <ul id="rooms">
+            {this.props.rooms.filter( room => room.AmISubscribedToggle).map(room =>
+              <LeftSideBarEntryChannel theSocket={this.props.theSocket} key={room.id} room={room} />
+            )}
+          </ul>
+        </div>
+        <p>...</p>      
+
+
+        <div>ADD A CHANNEL
+          <form
+            onSubmit={e => {
+              const thisInput = this.input.value; //have to do this bc of async issues
+              e.preventDefault();
+              if (!thisInput.trim()) { return; }
+              //this is where you will issue a POST request to the database
+              axios.post('/db/channels',{ name: thisInput })
+              .then((response) => {
+                // console.log("room created in DB!", response);
+                let roomToAdd = {
+                  id: response.data[0],
+                  channelName: thisInput,
+                  currentRoomToggle: false,
+                  AmISubscribedToggle: true
+                }
+                // console.log("this is the room I added",roomToAdd)
+                this.handleReceive(addRoom,roomToAdd);
+                axios.post('/db/addMyChannel',{
+                  myUserID: currentUser.id,
+                  channelID: response.data[0]
+                })
               })
-            })
-            .catch((err) => console.error(err))
+              .catch((err) => console.error(err))
 
-            //reinitialize the input field
-            input.value = '';
-            
-          }}
-        >
-          <input ref={node => { input = node; }} />
-          <button type="submit">Send</button>
-        </form>
+              //reinitialize the input field
+              this.input.value = '';
+              
+            }}
+          >
+            <input ref={node => { this.input = node; }} />
+            <button type="submit">Send</button>
+          </form>
+        </div>
+
+        <p>...</p> 
+        <div>
+          DIRECT MESSAGES
+          <ul id="rooms">
+            {this.props.DMRooms.map(room =>
+              <LeftSideBarEntryChannel theSocket={this.props.theSocket} key={room.id} room={room} />
+            )}
+          </ul>
+        </div>
+        <p>...</p>  
+
+        <p>...</p>
+        <p 
+          onClick={ () => {
+            console.log("this is my current room",this.props.currentRoom);
+            console.log("this is my current user",this.props.currentUser);
+            console.log("these are my DM Rooms",this.props.DMRooms)
+            console.log("this is all the users after",this.props.allUsers);
+            console.log("all available rooms",this.props.rooms)
+            console.log("these are my subscribed rooms",this.options)
+
+          }}>ConsoleLog me!
+        </p>
+        <p>...</p>  
+
       </div>
+    )
 
-      <p>...</p> 
-      <div>
-        DIRECT MESSAGES
-        <ul id="rooms">
-          {DMRooms.map(room =>
-            <LeftSideBarEntryChannel theSocket={theSocket} key={room.id} room={room} />
-          )}
-        </ul>
-      </div>
-      <p>...</p>  
+  }
 
-    </div>
-  )
+
 }
+
+
+        // <div>
+        //   ALL CH - WILL BE DROPDOWN
+        //   <ul id="rooms">
+        //     {this.props.rooms.map(room =>
+        //       <LeftSideBarEntryChannel theSocket={this.props.theSocket} key={room.id} room={room} />
+              
+        //     )}
+        //   </ul>
+        // </div>
 
 const mapStateToProps = (state, ownProps) => {
   // console.log("all users",state.allReducers.UserReducer)
