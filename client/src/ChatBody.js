@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Message from './Message';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { Media } from 'react-bootstrap';
 
 //Note: this.room is passed in from PrimaryChatroom as a prop here. That represents "current" room
 

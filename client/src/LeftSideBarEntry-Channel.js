@@ -20,7 +20,7 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
         theSocket.emit('changeRoom', currentRoom.channelName)
       }
     }>
-      * { (room.aliasName === "Channel_NotDM") ? room.channelName : 
+      { (room.aliasName === "Channel_NotDM") ? room.channelName : 
           ((currentUser.username === room.user1username) ? room.user2username : room.user1username)
         }
 
