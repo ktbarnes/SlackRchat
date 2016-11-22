@@ -45,13 +45,13 @@ save(user) {
     this.props.dispatch(setCurrentUser(information1))
     axios.post('/db/usersInfo', information1)
     .then(response => {
-      if(!response) {
-        console.log('errorMessage')
-      } else {
+      // if(!response) {
+      //   console.log('errorMessage')
+      // } else {
         
-      }
-      axios.get('/db/getMe', { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
-      .then(res => console.log(res.data));
+      // }
+      // axios.get('/db/getMe', { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
+      // .then(res => console.log(res.data));
     });
   }
 

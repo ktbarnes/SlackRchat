@@ -5,7 +5,7 @@ const Message = ({ created_at, text, username, url, picture }) => {
 
   return (
     <li>
-      <div className='msgbody'>
+      <div className='chatbodypic'>
         <img className='chatpic' src={picture}></img>
       </div>
       <div className='msgbody'>

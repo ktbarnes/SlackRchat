@@ -3,8 +3,8 @@ body { font: 13px Helvetica, Arial; }
 /*form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
 form input { border: 0; padding: 10px; width: 50%; margin-right: .5%; }
 form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }*/
-#messages { list-style-type: none; margin: 0; padding: 0; }
-#messages li { padding: 5px 10px; }
+#messages { list-style-type: none; margin: 0; padding: 0;}
+#messages li { padding: 5px 10px; min-height: 50px}
 #messages li:nth-child(odd) { background: #eee; }
 .nav {align-items: center; width:100%; background-color:rgba(37, 32, 99, 1); padding: 20px; float: right;}
 .title {text-align:center; font-size: 50px; justify-content: space-between; font-family: courier; color: white;}
@@ -18,8 +18,10 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 .tableUsername
 .tableOtherUserInformation {text-align: center;}
 .profileHeading{text-align: left;}
-.chatpic{max-height: 40px;}
-.msgbody{display: flex; justify-content: flex-start; flex-direction: row}
+.chatbodypic{float: left; width: 50px}
+.chatpic{max-height: 40px; display: block; margin: auto;}
+
+/*.msgbody{display: flex; align-content: stretch; flex-direction: row}*/
 
 
 

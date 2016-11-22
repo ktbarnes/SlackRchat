@@ -192,4 +192,13 @@ router.get('/DMMessages', function(request, response) {
   .then(data => response.json(data));
 });
 
+router.get('/lastWeek', function(request, response) {
+  let current = new Date();
+  let weekAgo = new Date(current-604800000).toJSON().toString();
+  Message.getLastWeek(weekAgo)
+  .then(data => {
+    response.json(data);
+  })
+});
+
 module.exports = router;
