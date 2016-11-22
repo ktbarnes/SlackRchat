@@ -38,11 +38,12 @@ class OtherUserProfile extends React.Component {
 
   render(){
     return (
-      <Modal id='profile_modal' show={this.props.clickedUser.showModel2} >
+      <div>
+      <Modal id='profile_modal_other' show={this.props.clickedUser.showModel2} >
         <Modal.Header>
-          <Modal.Title id='modal_header'>Profile</Modal.Title>
+          <Modal.Title id='modal_header_other'>Profile</Modal.Title>
         </Modal.Header>
-        <Modal.Body id='modal_content'> 
+        <Modal.Body id='modal_content_other'> 
       <div className='table'>
         <div>
           <h2 className='tableUsername'>{this.props.clickedUser.username}</h2>
@@ -97,6 +98,7 @@ class OtherUserProfile extends React.Component {
           <Button className="btn btn-default" onClick={(event)=>this.handleSubmit(event)}>Close</Button>
         </Modal.Footer>
       </Modal> 
+      </div>
      ) 
   }
 }

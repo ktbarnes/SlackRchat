@@ -7,7 +7,7 @@ import { Modal,
          } from 'react-bootstrap'        
 import React from 'react'
 import SignUp from './signup.js'
-// import Nav from './nav.js'
+// import {updateUser} from '../actions/CurrentUserActions'
 import { dispatch, connect } from 'react-redux'
 
 class ProfileInitial extends React.Component {
@@ -83,7 +83,7 @@ class ProfileInitial extends React.Component {
 render(){
     return (
       <form onSubmit={this.handleSubmit}>
-      <Modal id='profile_modal' show={this.props.show} >
+      <Modal className='profile_modal' show={this.props.show} >
         <Modal.Header>
           <Modal.Title id='modal_header'>Profile</Modal.Title>
         </Modal.Header>

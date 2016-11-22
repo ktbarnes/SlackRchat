@@ -102,15 +102,16 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <div className='profile_modal'>
-      <Modal show={this.props.toShowModel.showModel} >
+      <div>
+      <Modal id='profile_modal'show={this.props.toShowModel.showModel} >
         <Modal.Header>
-          <Modal.Title id="modal_header">Profile</Modal.Title>
+          <Modal.Title >Profile</Modal.Title>
         </Modal.Header>
-        <Modal.Body id="modal_content">
+        <Modal.Body id='modal_content'>
+        <div>
           <div>
             <h2>Edit Profile</h2>
-          </div>
+          </div>   
           <div> 
             <h3>Profile Picture</h3>
             <input type="file" ref='pic' accept="image/*" data-action="profilepicture" />
@@ -141,12 +142,14 @@ class Profile extends React.Component {
             <label>linkedin</label>
               <input type='text' value={this.state.linkedin} onChange={this.handleLinkedin}/> 
           </div>  
+        </div>  
         </Modal.Body>
         <Modal.Footer>
           <Button className="btn btn-default" onClick={(event)=>this.handleSubmit(event)}>Save</Button>
         </Modal.Footer>
       </Modal>
-     </div> 
+    </div>
+  
      ) 
   }
 }

@@ -36,14 +36,17 @@ class Login extends React.Component {
     const { dataStore, errorMessage } = this.props
 
     return (
-      <div>
-        <input type='text' ref='username' className='form-control' placeholder='Email' />
-        <input type='password' ref='password' className='form-control' placeholder='Password' />
-        <button onClick={(event) => this.handleClick(event)} className='btn btn-auth'>
+      <div logInPage='logInPage'>
+      <h1 className='stayConected'>Stay Connected</h1>
+        <label className='logInLabels'>Email</label>
+        <input type='text' ref='username' className='logInForm' placeholder='Email' />
+        <label className='logInLabels'>Password</label>
+        <input type='password' ref='password' className='logInForm' placeholder='Password' />
+        <button onClick={(event) => this.handleClick(event)} className='logInButton'>
         Login
         </button>
         {errorMessage && <p>{errorMessage}</p>}
-        <a className='btn btn-auth' href='/signup'>Sign Up</a>
+        <a className='logInSignUpButton' href='/signup'>Sign Up</a>
 
       </div>
     )
