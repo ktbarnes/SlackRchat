@@ -51,7 +51,8 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
               } else {
                 axios.post('/db/DMMessages',{
                   DM_roomID: currentRoom.id,
-                  message: input.value
+                  message: input.value,
+                  url: giphy.data.images.fixed_height.url,
                 },
                 {
                   headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') }
