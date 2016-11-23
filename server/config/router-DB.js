@@ -161,7 +161,7 @@ router.post('/profpic', function(request, response) {
 })
 
 router.post('/messages', function(request, response) {
-  // console.log("what is post message request?",request.body)
+  console.log("what is post message request?",request.body)
   let encoded = request.headers.authorization.split(' ')[1];
   let token = jwt.decode(encoded, process.env.SECRET);
   // console.log("what is the token?",token);
