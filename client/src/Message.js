@@ -11,12 +11,10 @@ const emojiChecker = str => {
   let text = '';
   let stuff = [];
   array.forEach(word => {
-    console.log("what word??? ", word)
     if(word[0] === ':' && word[word.length - 1] === ':') {
-      console.log('there be emojis here...');
       if(text) stuff.push(text.substring(0, text.length - 1));
       word.split(':').forEach(bit => {
-         if(bit) stuff.push(<Emoji emoji={bit} size={30}/>);
+         if(bit) stuff.push(<Emoji emoji={bit} size={30} key={Date.now()+Math.random()}/>);
       });
       text = '';
     } else {
@@ -32,10 +30,10 @@ const Message = ({ created_at, text, username, url, picture }) => {
   let stuff;
  
   if(url) {
-    stuff = [...emojiChecker({text}), <Giphy url={url} />];
+    stuff = [...emojiChecker({text}), <Giphy url={url} key={Date.now()}/>];
   } else {
     stuff = emojiChecker({text});
-    console.log('stuff ', stuff)
+    // console.log('stuff ', stuff)
   }
 
   return (
