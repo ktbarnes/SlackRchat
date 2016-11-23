@@ -105,9 +105,8 @@ class ChatForm extends React.Component {
         > 
           <FormGroup bsSize="large">
             <input ref={node => { this.input = node; }} />
-            <Button type="submit">Send</Button>
             <OverlayTrigger trigger={'click'} rootClose placement="top" overlay={
-              <Popover>
+              <Popover id="popover-trigger-click-root-close">
                 <Picker
                   emojiSize={20}
                   perLine={7}
@@ -119,6 +118,7 @@ class ChatForm extends React.Component {
               }>
               <Button>Emojis</Button>
             </OverlayTrigger>
+            <Button type="submit">Send</Button>
           </FormGroup>
         </form>
       </div>
