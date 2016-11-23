@@ -77,41 +77,41 @@ class SignUp extends React.Component {
     const { dataStore, errorMessage } = this.props
     return (
       <div>
-      <div>
-      <video id='background-video' autoPlay loop>
-        <source src='/styles/The-Crosswalk.mp4' type='video/mp4' />
-      </video>
-      </div>
-      <div className='signUpPage'>
-        <h1 className='stayConnected'>Stay Connected</h1>
+        <div>
+          <video id='background-video' autoPlay loop>
+          <source src='/styles/The-Crosswalk.mp4' type='video/mp4' />
+          </video>
+        </div>
+        <div className='signUpPage'>
+          <h1 className='stayConnected'>Stay Connected</h1>
           <div className='signUpForm'>
             <div>
-          <label className='signUpLabelsEmail'>Email</label>
-            <input type='text' ref='email' className='form-control' placeholder='Email' />
-          </div>
+              <label className='signUpLabelsEmail'>Email</label>
+              <input type='text' ref='email' className='form' placeholder='Email' />
+            </div>
+            <div>
+              <label className='signUpLabels'>Username  </label>
+              <input type='text' ref='username' className='form' placeholder='Username' /> 
+            </div>
+            <div>
+              <label className='signUpLabels'>Password  </label>
+              <input type='password' ref='password' className='form' placeholder='Password' />
+            </div>
+            <div>  
+              <a className='signUpButton' href="#" onClick={(event) => this.onSignup(event)}> 
+              SignUp
+              </a>
+            </div>
           <div>
-          <label className='signUpLabels'>Username  </label>
-            <input type='text' ref='username' className='form-control' placeholder='Username' /> 
-          </div>
-          <div>
-          <label className='signUpLabels'>Password  </label>
-            <input type='password' ref='password' className='form-control' placeholder='Password' />
-          </div>
-          <div>  
-          <a className='signUpButton' href="#" onClick={(event) => this.onSignup(event)}> 
-          SignUp
-          </a>
-          </div>
-          <div>
-          <ProfileInitial 
+            <ProfileInitial 
             show={this.state.showModel} 
             onHide={this.close}
             save={this.save}
-            /> 
-        </div>  
-        </div>  
-      </div>
-     </div> 
+              /> 
+          </div>  
+          </div>  
+        </div>
+      </div> 
     )
   }
 }

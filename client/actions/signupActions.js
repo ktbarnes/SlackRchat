@@ -38,7 +38,6 @@ export function sendProfileInfo(info){
     last: info.last,
     phone: info.phone,
     about: info.about,
-    picture:info.picture,
     github: info.github,
     facebook: info.facebook,
     twitter: info.twitter,
@@ -53,7 +52,11 @@ export function sendProfileInfo(info){
 //   axios.post('/pic', {pic:})
 // }
 
+export const updateUserPictureInitial = pic => {
 
+  return axios.post('/pic', {pic: pic}, { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}});
+
+}
 
 
 
