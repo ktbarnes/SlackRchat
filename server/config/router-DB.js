@@ -161,7 +161,7 @@ router.post('/profpic', function(request, response) {
 })
 
 router.post('/messages', function(request, response) {
-  console.log("what is post message request?",request.body)
+  // console.log("what is post message request?",request.body)
   let encoded = request.headers.authorization.split(' ')[1];
   let token = jwt.decode(encoded, process.env.SECRET);
   // console.log("what is the token?",token);
@@ -176,7 +176,7 @@ router.post('/messages', function(request, response) {
 });
 
 router.post('/DMMessages', function(request, response) {
-  // console.log("what is in my request body?",request.body)
+  console.log("what is in my request body?",request.body)
   // console.log("what is auth?",request.headers.authorization)
   let encoded = request.headers.authorization.split(' ')[1];
   let token = jwt.decode(encoded, process.env.SECRET);
@@ -184,7 +184,8 @@ router.post('/DMMessages', function(request, response) {
   let data = {
     authorID: token.id,
     DM_roomID: request.body.DM_roomID,
-    message: request.body.message
+    message: request.body.message,
+    url: request.body.url,
   }
   DMMessage.postMessage(data)
   .then(data => response.status(201).json(data));

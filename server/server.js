@@ -135,6 +135,7 @@ function(socket){
     socket.broadcast.to(inputSocketID).emit("direct message",
       {
         msg: fromClient.msg,
+        url: fromClient.url,
         room: fromClient.room
       }
     );
