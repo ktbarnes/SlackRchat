@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import { dispatch, connect } from 'react-redux';
 import Sidebar from 'react-sidebar';
 import ReactDOM from 'react-dom';
-import Nav from './nav.js';
+import TopNav from './nav.js';
 import PrimaryChatroom from './PrimaryChatroom.js';
 import LeftSideBar from './LeftSideBar.js';
 import RightSideBar from './RightSideBar.js';
@@ -262,13 +262,10 @@ class AppContainer extends React.Component {
 
 
       <Sidebar {...sidebarProps}>
-          
+              <TopNav />          
 
           <Grid>
           
-            <Row>
-              <Nav />
-            </Row>
 
             <Row>
               <div 
