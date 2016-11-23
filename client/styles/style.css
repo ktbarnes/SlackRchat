@@ -1,5 +1,9 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body {font: 13px Helvetica, Arial; }
+body, html {
+  font: 13px Helvetica, Arial; 
+  overflow: hidden;
+  height: 100%;
+}
 /*form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
 form input { border: 0; padding: 10px; width: 50%; margin-right: .5%; }
 form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }*/
@@ -8,9 +12,36 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 #messages li { padding: 5px 10px; min-height: 50px}
 #messages li:nth-child(odd) { background: #eee; }
 
-.leftsidebar {
-  border-color: grey;
-  border-width: 5px;
+@media (min-width: 768px){
+  .LeftSideBar {
+    position: absolute;
+    top: 25%;
+    bottom: 0;
+    left: 0;
+    width: 25%;
+    overflow-y: scroll; 
+  }
+  
+  .PrimaryChatroom {
+    position: absolute;
+    top: 25%;
+    bottom: 0;
+    right: 0;
+    overflow-y: scroll;
+    width: 75%;
+  }
+}
+
+.LeftSideBar {
+/*  background-color: #FC6E51;*/
+  overflow-y: scroll; 
+  height:100%;
+}
+
+.PrimaryChatroom {
+  height:100%;
+  overflow-y: scroll; 
+  /*background-color: #4FC1E9;*/
 }
 
 .signUpButton {
@@ -152,7 +183,12 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 .helloUser{font-size: 25px; color:white; font-family: courier; 
             text-align: left; padding: 10px 12px; float:left; font-weight: bold;}
 
+ul.nav {
+  background: white;
+}
+
 /*.sideBar {width:200px; }
+
 
 
 /*.overlay {position: absolute; top:0; left:0; height: 100%; width: 100%; z-index: 9999;}

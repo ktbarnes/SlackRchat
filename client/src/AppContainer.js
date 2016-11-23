@@ -261,26 +261,27 @@ class AppContainer extends React.Component {
     return (
 
 
-      <Sidebar {...sidebarProps}>
+      <Sidebar {...sidebarProps} className='RightSideBar'>
               <TopNav />          
 
-          <Grid>
+          <Grid id="Container">
 
             <Row>
-              <div 
-                onClick={this.toggleUserDock} >
-                <input type="checkbox" checked={this.state.docked} />
-                <label>Show Users</label>
-              </div>
+
             </Row>
 
             <Row>
               
-              <Col md={3} lg={3}>
+              <Col className="LeftSideBar" md={3} lg={3}>
                 <LeftSideBar downloadAllChannels={this.downloadAllChannels} theSocket={this.socket} />
               </Col>
 
-              <Col md={9} lg={9}>
+              <Col className="PrimaryChatroom" md={9} lg={9}>
+                <div 
+                  onClick={this.toggleUserDock} >
+                  <input type="checkbox" checked={this.state.docked} />
+                  <label>Show Users</label>
+                </div>
                 <PrimaryChatroom theSocket={this.socket} />
               </Col>
 
