@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 
 let nextMessageId = 1000000000; //set at arbitrarily high number so as to not conflict with IDs that come in from the DB
 
@@ -16,11 +17,14 @@ export const addMessageFromSocket = (msg) => {
     text: msg.text,
     url: msg.url,
     picture: msg.picture,
-    created_at: new Date().toJSON()
+    created_at: moment(new Date().toJSON().toString()).calendar()
   };
 };
 
 export const addMessageFromDB = (msg) => {
+    // let utcTime = moment.utc(msg.created_at)
+    // let local = utcTime.tz('America/New_York');
+    console.log(msg, 'this it the message')
   return {
     type: 'ADD_MESSAGE_FROM_DB',
     id: msg.id,
@@ -31,6 +35,6 @@ export const addMessageFromDB = (msg) => {
     text: msg.text,
     url: msg.url,
     picture: msg.picture,
-    created_at: msg.created_at
+    created_at: moment(msg.created_at).calendar()
   };
 };

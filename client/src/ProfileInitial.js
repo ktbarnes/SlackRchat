@@ -94,28 +94,28 @@ render(){
           </div>
           <div>
             <label>First Name</label>
-              <input type='text' value={this.state.first} onChange={this.handleFirst} />
+              <input type='text' placeholder={this.state.first} onChange={this.handleFirst} />
             <label>Last Name</label>
-              <input type='text' value={this.state.last} onChange={this.handleLast} />  
+              <input type='text' placeholder={this.state.last} onChange={this.handleLast} />  
           </div>
           <div>
             <label>Phone</label>
-              <input type='text' value={this.state.phone} onChange={this.handlePhone} />
+              <input type='text' placeholder={this.state.phone} onChange={this.handlePhone} />
           </div>
           <div>
             <label>About Me</label>
-              <input type='text' value={this.state.about} onChange={this.handleAbout} />
+              <input type='text' placeholder={this.state.about} onChange={this.handleAbout} />
           </div>
           <div>
             <h4>Social Media</h4>
             <label>github</label>
-              <input type='text' value={this.state.github} onChange={this.handleGithub} />
+              <input type='text' placeholder={this.state.github} onChange={this.handleGithub} />
             <label>facebook</label>
-              <input type='text' value={this.state.facebook} onChange={this.handleFacebook} />
+              <input type='text' placeholder={this.state.facebook} onChange={this.handleFacebook} />
             <label>twitter</label>
-              <input type='text' value={this.state.twitter} onChange={this.handleTwitter} />  
+              <input type='text' placeholder={this.state.twitter} onChange={this.handleTwitter} />  
             <label>linkedin</label>
-              <input type='text' value={this.state.linkedin} onChange={this.handleLinkedin}/>  
+              <input type='text' placeholder={this.state.linkedin} onChange={this.handleLinkedin}/>  
           </div>  
         </Modal.Body>
         <Modal.Footer>
