@@ -3,6 +3,8 @@ import React, { PropTypes } from 'react';
 import { dispatch, connect } from 'react-redux';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import { toggleCurrentRoomField, toggleSubscribeRoomOff } from '../actions/RoomActions';
+import { Badge, Button } from 'react-bootstrap';
+import { NavItem } from 'react-bootstrap';
 
 //room is passed in as a prop from sidebar.js
 const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, theSocket }) => {
@@ -10,7 +12,7 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
   const handleReceive = (cb,body) => dispatch(cb(body));
 
   return (
-    <li style={
+    <NavItem style={
         {backgroundColor: (currentRoom.channelName === room.channelName) ? "orange" : "white"}
       }
 
@@ -24,24 +26,27 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
           ((currentUser.username === room.user1username) ? room.user2username : room.user1username)
         }
 
-        { room.unreadMessageCounter > 0 &&
-        " - " + room.unreadMessageCounter
-        }
+        <Badge>
+          { room.unreadMessageCounter > 0 &&
+          room.unreadMessageCounter
+          }
+        </Badge>
 
       {room.AmISubscribedToggle && room.channelName !== "Lobby" && 
-        <button onClick={ () => {
-          axios.post('/db/deleteMyChannel',{
-            myUserID: currentUser.id,
-            channelID: room.id
-          })
-          .then( () => window.alert("You have left ",room.channelName))
+        <Button bsSize="xsmall"
+          onClick={ () => {
+            axios.post('/db/deleteMyChannel',{
+              myUserID: currentUser.id,
+              channelID: room.id
+            })
+            .then( () => window.alert("You have left ",room.channelName))
 
-          handleReceive(toggleSubscribeRoomOff,room)
-        }}>
+            handleReceive(toggleSubscribeRoomOff,room)
+          }}>
           x
-        </button>
+        </Button>
       }
-    </li>
+    </NavItem>
 
   )
 }

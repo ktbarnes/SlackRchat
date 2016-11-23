@@ -6,6 +6,7 @@ import { addRoom, toggleSubscribeRoomOn } from '../actions/RoomActions';
 import { toggleOnlineUser } from '../actions/UserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import Dropdown from 'react-dropdown';
+import { Nav } from 'react-bootstrap';
 
 //stateful
 //= ( {rooms, DMRooms, allUsers, currentRoom, currentUser, dispatch, theSocket} ) => 
@@ -15,11 +16,8 @@ class LeftSideBar extends React.Component {
     super(props);
     this.state = {
       selectValue: 'Lobby',
-      options: []//this.props.rooms.map(room => room.channelName)
+      options: []
     }
-    // this.options = this.props.rooms.map(room => room.channelName);
-    // this.options = ["Lobby","Second Room","Third Room","Fourth Room"]
-
   }
 
   handleReceive(cb,body) {
@@ -63,10 +61,10 @@ class LeftSideBar extends React.Component {
     // console.log('rerendering...here is new state ', this.state)
     // console.log('I want to know information about the currentUser room subscription ', this.props.rooms)
     return (
-      <div> 
+      <div className="leftsidebar"> 
 
         <div className='dropdown-leftsidebar'>
-          All Channels
+          <h3>All Channels</h3>
           <Dropdown 
             options={this.state.options} 
             onChange={(value)=>this.onSelect(value)} 
@@ -74,18 +72,15 @@ class LeftSideBar extends React.Component {
             placeholder='Select an option...'
           />
         </div>
-        
-        <p>...</p>   
 
         <div>
-          My Channels
-          <ul id="rooms">
-            {this.props.rooms.filter( room => room.AmISubscribedToggle).map(room =>
-              <LeftSideBarEntryChannel theSocket={this.props.theSocket} key={room.id} room={room} />
+          <h3>My Channels</h3>
+          <Nav bsStyle="pills" stacked activeKey={1}>
+            {this.props.rooms.filter( room => room.AmISubscribedToggle).map((room,i) =>
+              <LeftSideBarEntryChannel theSocket={this.props.theSocket} eventKey={i} key={room.id} room={room} />
             )}
-          </ul>
-        </div>
-        <p>...</p>      
+          </Nav>
+        </div>    
 
 
         <div>Add a Channel
@@ -123,18 +118,15 @@ class LeftSideBar extends React.Component {
           </form>
         </div>
 
-        <p>...</p> 
         <div>
-          Direct Messages
-          <ul id="rooms">
+          <h3>Direct Messages</h3>
+          <Nav bsStyle="pills" stacked activeKey={1}>
             {this.props.DMRooms.map(room =>
               <LeftSideBarEntryChannel theSocket={this.props.theSocket} key={room.id} room={room} />
             )}
-          </ul>
+          </Nav>
         </div>
-        <p>...</p>  
 
-        <p>...</p>
         <p 
           onClick={ () => {
             console.log("this is my current room",this.props.currentRoom);
@@ -144,26 +136,12 @@ class LeftSideBar extends React.Component {
             console.log("all available rooms",this.props.rooms)
           }}>ConsoleLog me!
         </p>
-        <p>...</p>  
 
       </div>
     )
-
   }
-
-
 }
 
-
-        // <div>
-        //   ALL CH - WILL BE DROPDOWN
-        //   <ul id="rooms">
-        //     {this.props.rooms.map(room =>
-        //       <LeftSideBarEntryChannel theSocket={this.props.theSocket} key={room.id} room={room} />
-              
-        //     )}
-        //   </ul>
-        // </div>
 
 const mapStateToProps = (state, ownProps) => {
   // console.log("all users",state.allReducers.UserReducer)

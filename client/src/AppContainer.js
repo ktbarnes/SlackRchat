@@ -262,13 +262,9 @@ class AppContainer extends React.Component {
 
 
       <Sidebar {...sidebarProps}>
-          
+              <TopNav />          
 
           <Grid>
-          
-            <Row>
-              <TopNav />
-            </Row>
 
             <Row>
               <div 

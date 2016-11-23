@@ -77,16 +77,16 @@ save(user) {
 
   render() {
     return (
-    <nav className='navbar navbar-default'>  
-      <div className='nav'>
-        <h1 className='title'>SlackR:chat</h1>
-        <h2 className='helloUser'>Hello, {this.props.currentUser.first}</h2>
-        <a className='navbutton' href='#' role='button' 
-        onClick={(event) => this.onEdit(event)}>Profile</a>
-        <Profile save={this.save} />
-        <a className='navbutton' onClick={() => this.logout()} href='/login'>Logout</a>
-      </div>
-    </nav>  
+      <nav className='navbar navbar-default navbar-top'>  
+        <div className='nav'>
+          <h1 className='title'>SlackR:chat</h1>
+          <h2 className='helloUser'>Hello, {this.props.currentUser.first}</h2>
+          <a className='navbutton' href='#' role='button' 
+          onClick={(event) => this.onEdit(event)}>Profile</a>
+          <Profile save={this.save} />
+          <a className='navbutton' onClick={() => this.logout()} href='/login'>Logout</a>
+        </div>
+      </nav>
     )
   }
 }

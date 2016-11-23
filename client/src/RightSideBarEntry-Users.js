@@ -6,6 +6,8 @@ import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import OtherUserProfile from './OtherUserProfile'
 import { clickedUserProfile, open2, close2} from '../actions/ClickedUserProfileActions';
+import { Button } from 'react-bootstrap';
+
 // import {OtherUserProfile} from './src/OtherUserProfile'
 const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser, currentRoom, theSocket, clickedUser }) => {
   
@@ -42,7 +44,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
     <div>
       <li style={{color: (user.onlineToggle) ? 'green' : 'black' }}>
         {user.username} {(user.onlineToggle) ? 'ONLINE' : 'offline'}
-        <button onClick={() => 
+        <Button onClick={() => 
           axios.post('db/getOther', {id: user.id})
              .then((response)=> {
               console.log('this is the new resposne', response)
@@ -64,9 +66,9 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
           }) 
         }>
 
-        Profile</button>
+        Profile</Button>
 
-        <button  onClick={ 
+        <Button  onClick={ 
           () => {
 
             //for now, this will open up a DM request
@@ -126,7 +128,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
                 .catch((err) => console.error(err))          
             }
           }
-        }>DM</button>
+        }>DM</Button>
         <div>
         </div>
       </li>  
