@@ -36,12 +36,10 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 /*  background-color: #FC6E51;*/
   overflow-y: scroll; 
   background-color: whitesmoke;
-  height:100%;
   padding: 30px;
 }
 
 .PrimaryChatroom {
-  height:100%;
   overflow-y: scroll; 
   /*background-color: #4FC1E9;*/
 }
