@@ -15,7 +15,8 @@ var Message = {
            'c1.id as channelIDinDB',
            'channel_messages.message',
            'channel_messages.url',
-           'channel_messages.created_at');
+           'channel_messages.created_at')
+     .orderBy('id', 'asc');
   },
    
   postMessage: function(data) {
