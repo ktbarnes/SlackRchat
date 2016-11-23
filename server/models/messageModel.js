@@ -26,8 +26,8 @@ var Message = {
       channelID: data.channelID,
       message: data.message,
       url: data.url,
-      created_at: new Date().toJSON().toString(),
-      updated_at: new Date().toJSON().toString()
+      created_at: new Date(),
+      updated_at: new Date()
     });
   }, 
 
