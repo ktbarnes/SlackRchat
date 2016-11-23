@@ -5,14 +5,11 @@ import OtherUserProfile from './OtherUserProfile'
 
 const RightSideBar = ( {allUsers, currentUser, theSocket, clickedUser} ) => {
 
-  const clickMe = () => {
-    console.log("theSocket in RightSiderBar.js",theSocket)
-  }
   return (
     <div>
-      <p onClick={ () => clickMe()}>Click me</p>
       <div>
-        USERS
+        <div style={ {height: 161.82} }></div>
+        <h3>ALL USERS</h3>
         <ul id="room">
           {allUsers.map(user =>
             <RightSideBarEntryUser
