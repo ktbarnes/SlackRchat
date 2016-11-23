@@ -6,6 +6,7 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 
 #messages { list-style-type: none; margin: 0; padding: 0;}
 #messages li { padding: 5px 10px; min-height: 50px}
+#messages li:nth-child(odd) { background: #eee; }
 
 .signUpButton {
   -moz-box-shadow:inset 0px 0px 50px -22px #ffffff;
@@ -34,31 +35,61 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 .signUpPage { position: absolute;width: 900px;
   height: 200px;
   z-index: 15;
-  top: 50%;
+  top: 45%;
   left: 50%;
-  margin: -200px 0 0 -450px;
-  font-family: courier; font-size: 40px; font-weight:bold;text-align: center;}
-.stayConnected {color:rgb(246, 246, 245)}
-.signUpLabelsEmail{margin:62px; color:rgb(246, 246, 245)}
-.signUpLabels{margin:27px; color:rgb(246, 246, 245)}
-.form-control {
-    width: 50%;
-    padding: 12px 20px;
-    margin: 10px 10px;
-    box-sizing: border-box;
-    font-size: 15px; font-family: courier;}
-.signUpForm{margin-top: 30px;font-family: courier; font-size:30px;}
+  margin: -200px 0 0 -450px;}
+.stayConnected {color:rgb(246, 246, 245); font-family: courier; font-size: 80px;font-weight:bold;text-align: center;}
+.signUpLabelsEmail{color:rgb(246, 246, 245)}
+.signUpLabels{color:rgb(246, 246, 245)}
+.form {
+    display: block;
+    width: 400px;
+    height: 34px;
+    padding: 3px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.signUpForm{ margin-top: 55px;font-family: courier; font-size:30px; margin-left: 250px;}
 .signUpButton{font-family: courier; font-size:40px; margin-top: 40px;}
-.logInPage {position: absolute; width: 900px; height: 200px; z-index: 15; color:black; top: 50%;
+.logInPage {position: absolute; 
+  width: 900px; height: 200px; 
+  z-index: 15; color:rgb(246, 246, 245); top: 50%;
   left: 50%;
+  margin-top: 150px;
   margin: -200px 0 0 -450px;
-  font-family: courier; font-size: 40px; font-weight:bold;text-align: center;}
-.logInLabels{margin:27px; color:black; font-size: 40px; font-family:courier;}
-.logInForm{width: 50%;
-    padding: 12px 20px;
-    margin: 10px 10px;
-    box-sizing: border-box;
-    font-size: 15px; font-family: courier;}
+  font-family: courier; font-size: 40px; font-weight:bold;}
+.logInLabels{color:rgb(246, 246, 245) font-size: 30px; font-family:courier;}
+.logForm{
+  margin-top: 55px;font-family: courier; font-size:30px; margin-left: 250px;
+}
+.logInForm{
+    display: block;
+    width: 400px;
+    height: 34px;
+    padding: 3px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
 .logInButton{
   -moz-box-shadow:inset 0px 0px 50px -22px #ffffff;
   -webkit-box-shadow:inset 0px 0px 50px -22px #ffffff;
@@ -105,10 +136,10 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
   top:6px;
 }
 
-#messages li:nth-child(odd) { background: #eee; }
+.navbar navbar-default{text-decoration: none;}
 .nav {align-items: center; width:100%; background-color: rgba(23, 27, 89, 1);
     background: -webkit-linear-gradient(top, rgba(15, 28, 64, 1) 0%, rgba(23, 27, 89, 1) 100%);
-    background: linear-gradient(to bottom, rgba(15, 28, 64, 1) 0%, rgba(23, 27, 89, 1) 100%); padding: 20px; float: right;}
+    background: linear-gradient(to bottom, rgba(15, 28, 64, 1) 0%, rgba(23, 27, 89, 1) 100%); padding: 20px; text-decoration: none; }
 .title {text-align:center; font-size: 50px; justify-content: space-between; font-family: courier; color: rgb(246, 246, 245);}
 
 .navbutton {font-weight:bold; font-size: 25px; color:rgb(246, 246, 245); font-family: courier; 
@@ -116,28 +147,30 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 .helloUser{font-size: 25px; color:white; font-family: courier; 
             text-align: left; padding: 10px 12px; float:left; font-weight: bold;}
 
-/*.sideBar {width:200px; }*/
+/*.sideBar {width:200px; }
 
 
-/*.overlay {position: absolute; top:0; left:0; height: 100%; width: 100%; z-index: 9999;}*/
+/*.overlay {position: absolute; top:0; left:0; height: 100%; width: 100%; z-index: 9999;}
 /*{initialuser}*/
 /*.profile_modal {width:600px; height: 400px;  height: 200px; position:fixed;
 z-index: 9998;top:50%; left:50%; margin-top:-210px; margin-left:-103px;
 text-align: center; font-size: 20px; font-family:courier; border-width: 10px}
 */
 /*{otheruser}*/
-.modal-dialog{width:600px; height: 600px; position:fixed;
+/*.modal-dialog{width:600px; height: 600px; position:fixed;
 z-index: 9998;top:50%; left:50%; margin-top:-210px; margin-left:-103px;
 text-align: center; font-size: 20px; font-family:courier; border-width: 10px}
-/*{edit profile}{initialprofile}*/
+{edit profile}{initialprofile}
 .modal-content{background: #eee; width:600px; height: 400px; position:fixed;
 z-index: 9998;top:50%; left:50%; margin-top:-210px; margin-left:-103px;
-text-align: center; font-size: 20px; font-family:courier; border-width: 10px}
+text-align: center; font-size: 20px; font-family:courier; border-width: 10px}*/
+.aboutMeContainer {}
+.aboutMe {width:400px; height:100px;}
 .table {z-index: 9998; background: #eee; text-align: center; font-size: 30px; font-family:courier;}
 .tableUsername
-.tableOtherUserInformation {text-align: center;}
+.tableOtherUserInformation {text-align: center;}}
 .profileHeading{text-align: left;}
-.chatbodypic{float: left; width: 50px}
+/*.chatbodypic{float: left; width: 50px}*/
 .chatpic{max-height: 40px; display: block; margin: auto;}
 
 /*.msgbody{display: flex; align-content: stretch; flex-direction: row}*/
@@ -567,4 +600,85 @@ html, body {
   background-color: #DADFE3;
   height: 100vh;
   padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+/*.form-control {
+    display: block;
+    width: 400px;
+    height: 34px;
+    padding: 3px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.form-control {
+    width: 50%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    font-size: 15px;
+    font-family: courier;
+}
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+input {
+    line-height: normal;
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+user agent stylesheet
+input {
+    -webkit-appearance: textfield;
+    background-color: white;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+    cursor: auto;
+    padding: 1px;
+    border: 2px inset;
+}
+/*.form-control {
+    width: 400px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    font-size: 15px; font-family: courier;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }*/
+#background-video{
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-attachment: fixed;
 }

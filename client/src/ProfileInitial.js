@@ -7,7 +7,7 @@ import { Modal,
          } from 'react-bootstrap'        
 import React from 'react'
 import SignUp from './signup.js'
-// import {updateUser} from '../actions/CurrentUserActions'
+import {updateUserPictureInitial} from '../actions/signupActions'
 import { dispatch, connect } from 'react-redux'
 
 class ProfileInitial extends React.Component {
@@ -37,6 +37,7 @@ class ProfileInitial extends React.Component {
       this.handleTwitter = this.handleTwitter.bind(this);
       this.handleLinkedin = this.handleLinkedin.bind(this);
       this.handleSubmit= this.handleSubmit.bind(this);
+      this.handleSubmit2= this.handleSubmit2.bind(this);
      }
       // open = () => {
       //   this.setState({
@@ -61,23 +62,17 @@ class ProfileInitial extends React.Component {
     let info = this.state
     // console.log(this.props, "the state is updated")
     this.props.save(info)
-    this.upload(event);
     this.props.dispatch(close())
 }
 
-  upload(event) {
-    const dispatch = this.props.dispatch;
-    let file = this.refs.pic.files[0];
-    if(!file) return;
+handleSubmit2(event){
+  this.upload2(event, info)
+}
+  upload2(event, info) {
   
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onloadend = function(event) {
-      console.log("WE ARE UPLODING NOW")
-      updateUser(reader.result);
-    }
-  }
+      }
+    
+  
 
 
 render(){
@@ -94,6 +89,8 @@ render(){
           <div> 
             <h3>Profile Picture</h3>
             <input type='file' ref='pic' accept='image/*' data-action='profilepicture' />
+            <Button className='btn btn-default' onClick={this.handleSubmit2}>Save</Button>
+            <img src={this.state.picture}></img>
           </div>
           <div>
             <label>First Name</label>
