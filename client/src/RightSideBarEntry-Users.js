@@ -59,7 +59,8 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
                 github: response.data[0].github,
                 facebook: response.data[0].facebook,
                 twitter: response.data[0].twitter,
-                linkedin: response.data[0].linkedin
+                linkedin: response.data[0].linkedin,
+                phone: response.data[0].phone
                 // showModel: response.data[0]
               }
               handleProfile(clickedUserProfile, user)
@@ -73,7 +74,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
 
             //for now, this will open up a DM request
 
-            console.log("the Socket onClick RightSideBarEntryUsers",theSocket)
+            // console.log("the Socket onClick RightSideBarEntryUsers",theSocket)
 
             // //emits to socket and has it alert to that user that I want to chat
             // theSocket.emit("direct message",{
@@ -99,6 +100,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
             //otherwise make a new room
             if(!roomExists){
                 //set up a new direct message room
+                let roomToAdd
                 axios.post('/db/DMRooms',{ 
                   user1: currentUser.id, 
                   user2: user.id,
@@ -106,7 +108,7 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
                   aliasName: user.username + currentUser.username }) //i.e. JuliaCanh
                 .then((response) => {
                   console.log("room created in DB!", response);
-                  let roomToAdd = {
+                  roomToAdd = {
                     id: response.data[0],
                     user1ID: currentUser.id,
                     user2ID: user.id,
@@ -121,10 +123,10 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
 
                   //change current room in Store and in the Socket
                   handleReceive(setCurrentRoom,roomToAdd);
-                  theSocket.emit('changeRoom', currentRoom.channelName);
+                  theSocket.emit('changeRoom', roomToAdd.channelName);
                   // getPeerToChangeRoom();
                 })
-                .then( () => getPeerToChangeRoom(currentRoom))
+                .then( () => getPeerToChangeRoom(roomToAdd))
                 .catch((err) => console.error(err))          
             }
           }

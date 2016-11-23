@@ -35,13 +35,38 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 .LeftSideBar {
 /*  background-color: #FC6E51;*/
   overflow-y: scroll; 
-  height:100%;
+  background-color: whitesmoke;
+  padding: 30px;
 }
 
 .PrimaryChatroom {
-  height:100%;
   overflow-y: scroll; 
   /*background-color: #4FC1E9;*/
+}
+
+.mediaLeftWidth {
+  width: 40px;
+}
+
+.mediaRightWidth {
+  width: 150px;
+}
+
+.eachMessage {
+  border-top: #F5F5F5 solid 2px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.eachMessage:hover {
+  background-color: #F0F0F0;
+  border-top: #F5F5F5 solid 2px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.custom-sidebar-class {
+  background-color: whitesmoke;
 }
 
 .signUpButton {

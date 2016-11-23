@@ -15,6 +15,7 @@ const UserReducer = (state = [], action) => {
           facebook: action.facebook,
           twitter: action.twitter,
           linkedin: action.linkedin,
+          phone: action.phone,
           currentUserToggle: action.currentUserToggle,
           onlineToggle: action.onlineToggle
         },

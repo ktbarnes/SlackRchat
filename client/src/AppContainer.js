@@ -9,7 +9,7 @@ import LeftSideBar from './LeftSideBar.js';
 import RightSideBar from './RightSideBar.js';
 import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
 import { addRoom, incrementUnreadMessageCounter } from '../actions/RoomActions';
-import { addDMRoom } from '../actions/DMRoomActions';
+import { addDMRoom, addDMRoomFromSocket } from '../actions/DMRoomActions';
 import { addUser, toggleOnlineUser, toggleOfflineUser, downloadOnlineUsers } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
@@ -72,13 +72,36 @@ class AppContainer extends React.Component {
     
     this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     
+
+
+
+
+
+
+
     this.socket.on("direct message", incoming => {
       console.log("trying to get a room", incoming.room);
       window.alert(incoming.msg)
-      this.socket.emit('changeRoom', incoming.room)
+      this.roomExists = false;
+      for (let i = 0; i<this.props.DMRooms.length; i++){
+        console.log("comparison of room IDs in AppCotainer line 87",incoming.room.id," ",this.props.DMRooms[i].id)
+        if(incoming.room.id === this.props.DMRooms[i].id){
+          console.log("inside if statement for direct messages")
+          this.roomExists = true;
+        }
+      }
+      if(!this.roomExists){ 
+        console.log("adding a DM room in AppContainer while being direct messaged")
+        this.handleReceive(addDMRoomFromSocket,incoming.room); }
+      this.socket.emit('changeRoom', incoming.room.channelName)
       this.handleReceive(setCurrentRoom,incoming.room);
     });
     
+
+
+
+
+
     this.socket.on('connect', (txt) => {
       this.socket.emit('changeRoom', this.props.currentRoom.channelName);
       // console.log(this.props.currentUser.username,"WHO AM I???? AppContainer line 83")
@@ -176,6 +199,7 @@ class AppContainer extends React.Component {
     this.currentUserIDfromDB;
     axios.get('/db/getMe', { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
     .then(res => {
+      console.log("CANH IS HERE in AppContainer",res.data)
       this.props.dispatch(setCurrentUser(res.data));
       // console.log('supposedly set the curretUser ',this.props.currentUser);
       //now download all users
@@ -190,6 +214,7 @@ class AppContainer extends React.Component {
             email: person.email,
             about: person.about,
             first: person.first,
+            phone: person.phone,
             last: person.last,
             github: person.github,
             facebook: person.facebook,

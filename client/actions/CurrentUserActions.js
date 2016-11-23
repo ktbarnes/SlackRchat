@@ -14,7 +14,8 @@ export const setCurrentUser = user => {
     github: user.github,
     facebook: user.facebook,
     twitter: user.twitter,
-    linkedin: user.linkedin
+    linkedin: user.linkedin,
+    phone: user.phone
   };
 };
 
@@ -31,7 +32,8 @@ export const UpdateProfile = user => {
     github: user.github,
     facebook: user.facebook,
     twitter: user.twitter,
-    linkedin: user.linkedin
+    linkedin: user.linkedin,
+    phone: user.phone
   }
   return axios.post('/db/usersInfo', information1);
 }

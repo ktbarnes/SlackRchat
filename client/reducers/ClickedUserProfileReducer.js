@@ -10,6 +10,7 @@ const ClickedUserProfileReducer = (state = {
   facebook: "facebook",
   twitter: "twitter",
   linkedin: "linkedin",
+  phone: "Phone",
   showModel2: false
 }, action) => {
   switch (action.type) {
@@ -25,7 +26,8 @@ const ClickedUserProfileReducer = (state = {
         github: action.github,
         facebook: action.facebook,
         twitter: action.twitter,
-        linkedin: action.linkedin
+        linkedin: action.linkedin,
+        phone: action.phone
       })
     case 'OPEN2_PROFILE_REQUEST':
       return Object.assign({}, state, {
