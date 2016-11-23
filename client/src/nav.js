@@ -11,7 +11,7 @@ import PrimaryChatroom from './PrimaryChatroom'
 import axios from 'axios'
 import { setCurrentUser } from '../actions/CurrentUserActions'
 
-class Nav extends React.Component {
+class TopNav extends React.Component {
   constructor(props) {
     super(props);
 
@@ -77,6 +77,7 @@ save(user) {
 
   render() {
     return (
+    <nav className='navbar navbar-default'>  
       <div className='nav'>
         <h1 className='title'>SlackR:chat</h1>
         <h2 className='helloUser'>Hello, {this.props.currentUser.first}</h2>
@@ -85,6 +86,7 @@ save(user) {
         <Profile save={this.save} />
         <a className='navbutton' onClick={() => this.logout()} href='/login'>Logout</a>
       </div>
+    </nav>  
     )
   }
 }
@@ -96,5 +98,5 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(Nav)
+export default connect(mapStateToProps)(TopNav)
 

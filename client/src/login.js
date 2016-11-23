@@ -36,8 +36,15 @@ class Login extends React.Component {
     const { dataStore, errorMessage } = this.props
 
     return (
-      <div logInPage='logInPage'>
-      <h1 className='stayConected'>Stay Connected</h1>
+      <div>
+      <div>
+          <video id='background-video' autoPlay loop>
+          <source src='/styles/The-Crosswalk.mp4' type='video/mp4' />
+          </video>
+        </div>
+      <div className='logInPage'>
+      <h1 className='stayConnected'>Stay Connected</h1>
+        <div className='logForm'>
         <label className='logInLabels'>Email</label>
         <input type='text' ref='username' className='logInForm' placeholder='Email' />
         <label className='logInLabels'>Password</label>
@@ -47,8 +54,9 @@ class Login extends React.Component {
         </button>
         {errorMessage && <p>{errorMessage}</p>}
         <a className='logInSignUpButton' href='/signup'>Sign Up</a>
-
+        </div>
       </div>
+    </div>  
     )
   }
 

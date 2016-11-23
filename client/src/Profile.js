@@ -131,20 +131,28 @@ class Profile extends React.Component {
               <input type='text' value={this.state.phone} onChange={this.handlePhone} />
           </div>
           <div>
-            <label>About Me</label>
-              <input type='text' value={this.state.about} onChange={this.handleAbout} />
-          </div>
-          <div>
             <h4>Social Media</h4>
+            <div>
             <label>github</label>
               <input type='text' value={this.state.github} onChange={this.handleGithub} />
             <label>facebook</label>
               <input type='text' value={this.state.facebook} onChange={this.handleFacebook} />
+            </div>
+            <div>  
             <label>twitter</label>
               <input type='text' value={this.state.twitter} onChange={this.handleTwitter} />  
             <label>linkedin</label>
               <input type='text' value={this.state.linkedin} onChange={this.handleLinkedin}/> 
+            </div>  
           </div>  
+          <div>
+            <div className='aboutMeContainer'>
+            <label>About Me</label>
+            </div>
+            <div>
+              <input className='aboutMe' type='text' value={this.state.about} onChange={this.handleAbout} />
+            </div>
+          </div>
         </div>  
         </Modal.Body>
         <Modal.Footer>
