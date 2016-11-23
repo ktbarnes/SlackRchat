@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Picker } from 'emoji-mart';
+import { FormGroup, Button } from 'react-bootstrap';
 
 let stuff = '';
 
@@ -15,17 +16,14 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
         onSubmit={e => {
           // console.log("what room is being passed in",currentRoom)
           e.preventDefault();
-          if (!input.value.trim()) {
-            return;
-          }
+          if (!input.value.trim()) { return; }
 
-          console.log('before input.value check', input.value);
           if (input.value.substring(0,7) === '/giphy ') {
             axios.post('/api/giphy',{giphy: input.value.substring(7)})
             .then(giphy => {
-              console.log(giphy.data);
+              // console.log(giphy.data);
               if (giphy.data === '') return input.value = '';
-              console.log(giphy.data);
+              // console.log(giphy.data);
               socket.emit('chat message', {
                 channelName: currentRoom.channelName, 
                 channelID: currentRoom.id,
@@ -43,20 +41,16 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
                   message: input.value,
                   url: giphy.data.images.fixed_height.url
                 },
-                {
-                  headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') }
-                })
+                { headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') } })
                 .then(() => console.log("message sent to DB!"))
                 .catch((err) => console.error(err))            
-              } else {
+              } else { //if direct message
                 axios.post('/db/DMMessages',{
                   DM_roomID: currentRoom.id,
                   message: input.value,
                   url: giphy.data.images.fixed_height.url,
                 },
-                {
-                  headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') }
-                })
+                { headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') } })
                 .then(() => console.log("message sent to DB!"))
                 .catch((err) => console.error(err))              
               }
@@ -79,9 +73,7 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
                 channelID: currentRoom.id,
                 message: input.value,
               },
-              {
-                headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') }
-              })
+              { headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') } })
               .then(() => console.log("message sent to DB!"))
               .catch((err) => console.error(err))            
             } else {
@@ -89,23 +81,21 @@ const ChatForm = ( { socket, currentRoom, currentUser } ) => {
                 DM_roomID: currentRoom.id,
                 message: input.value
               },
-              {
-                headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') }
-              })
+              { headers: { "Authorization": "Bearer "+localStorage.getItem('id_token') } })
               .then(() => console.log("message sent to DB!"))
               .catch((err) => console.error(err))              
             }
             input.value = '';
           }
-          //this is where you will issue a POST request to the database
 
-          //reinitialize the input field
         }}
-      >
-        <input ref={node => { input = node; }} />
-        <button type="submit">
-          Send
-        </button>
+      > 
+        <FormGroup bsSize="large">
+          <input ref={node => { input = node; }} />
+          <Button type="submit">Send</Button>
+        </FormGroup>
+
+        
           { stuff &&
             <Picker
               emojiSize={20}
