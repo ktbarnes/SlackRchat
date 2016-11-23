@@ -144,7 +144,7 @@ class LeftSideBar extends React.Component {
 
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("all messages",state.allReducers.ChatReducer)
+  // console.log("all messages",state.allReducers.ChatReducer)
   return { 
     allUsers: state.allReducers.UserReducer,
     currentRoom: state.allReducers.CurrentRoomReducer,

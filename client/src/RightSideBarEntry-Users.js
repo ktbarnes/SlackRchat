@@ -59,7 +59,8 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
                 github: response.data[0].github,
                 facebook: response.data[0].facebook,
                 twitter: response.data[0].twitter,
-                linkedin: response.data[0].linkedin
+                linkedin: response.data[0].linkedin,
+                phone: response.data[0].phone
                 // showModel: response.data[0]
               }
               handleProfile(clickedUserProfile, user)

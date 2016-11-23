@@ -176,6 +176,7 @@ class AppContainer extends React.Component {
     this.currentUserIDfromDB;
     axios.get('/db/getMe', { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
     .then(res => {
+      console.log("CANH IS HERE in AppContainer",res.data)
       this.props.dispatch(setCurrentUser(res.data));
       // console.log('supposedly set the curretUser ',this.props.currentUser);
       //now download all users
@@ -190,6 +191,7 @@ class AppContainer extends React.Component {
             email: person.email,
             about: person.about,
             first: person.first,
+            phone: person.phone,
             last: person.last,
             github: person.github,
             facebook: person.facebook,

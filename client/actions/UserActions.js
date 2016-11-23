@@ -14,6 +14,7 @@ export const addUser = (eachUser) => {
     facebook: eachUser.facebook,
     twitter: eachUser.twitter,
     linkedin: eachUser.linkedin,
+    phone: eachUser.phone,
     currentUserToggle: eachUser.currentUserToggle,
     onlineToggle: eachUser.onlineToggle
   };

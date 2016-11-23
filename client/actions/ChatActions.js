@@ -24,7 +24,7 @@ export const addMessageFromSocket = (msg) => {
 export const addMessageFromDB = (msg) => {
     // let utcTime = moment.utc(msg.created_at)
     // let local = utcTime.tz('America/New_York');
-    console.log(msg, 'this it the message')
+    // console.log(msg, 'this it the message')
   return {
     type: 'ADD_MESSAGE_FROM_DB',
     id: msg.id,
