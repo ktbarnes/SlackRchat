@@ -61,7 +61,7 @@ class LeftSideBar extends React.Component {
     // console.log('rerendering...here is new state ', this.state)
     // console.log('I want to know information about the currentUser room subscription ', this.props.rooms)
     return (
-      <div className="leftsidebar"> 
+      <div> 
 
         <div className='dropdown-leftsidebar'>
           <h3>All Channels</h3>

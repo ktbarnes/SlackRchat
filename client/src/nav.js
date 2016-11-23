@@ -77,7 +77,7 @@ save(user) {
 
   render() {
     return (
-      <nav className='navbar navbar-default navbar-top'>  
+      <nav className='navbar navbar-default navbar-fixed-top'>  
         <div className='nav'>
           <h1 className='title'>SlackR:chat</h1>
           <h2 className='helloUser'>Hello, {this.props.currentUser.first}</h2>
