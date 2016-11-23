@@ -21,33 +21,39 @@ const Message = ({ created_at, text, username, url, picture }) => {
   }
 
   return (
-    <Media>
+    <div className="eachMessage">
+      <Media>
 
-      <Media.Left>
-        <img className='chatpic' src={picture}></img>
-      </Media.Left>
+        <Media.Left>
+          <div className="mediaLeftWidth">
+              <img className='chatpic' src={picture}></img>
+          </div>
+        </Media.Left>
 
-      <Media.Body>
-        <Media.Heading>
-        {username} 
-        </Media.Heading>
-        { text }
-        { url &&
-          <Giphy url={url}/>
-        }
-        { emoji &&
-          <Emoji 
-            emoji={emoji}
-            size={36}
-          />
-        }
-      </Media.Body>
+        <Media.Body>
+          <Media.Heading>
+          {username}
+          </Media.Heading>
+          { text }
+          { url &&
+            <Giphy url={url}/>
+          }
+          { emoji &&
+            <Emoji 
+              emoji={emoji}
+              size={36}
+            />
+          }
+        </Media.Body>
 
-      <Media.Right>
-        { created_at }
-      </Media.Right>
+        <Media.Right>
+          <div className="mediaRightWidth">
+            { created_at }
+          </div>
+        </Media.Right>
 
-    </Media>
+      </Media>
+    </div>
   )
 
 }
