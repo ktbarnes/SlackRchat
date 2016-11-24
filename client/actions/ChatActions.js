@@ -17,7 +17,7 @@ export const addMessageFromSocket = (msg) => {
     text: msg.text,
     url: msg.url,
     picture: msg.picture,
-    created_at: moment(new Date().toJSON().toString()).calendar()
+    created_at: moment(new Date().calendar()
   };
 };
 
