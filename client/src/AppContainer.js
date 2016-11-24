@@ -292,10 +292,6 @@ class AppContainer extends React.Component {
           <Grid id="Container">
 
             <Row>
-
-            </Row>
-
-            <Row>
               
               <Col className="LeftSideBar" md={3} lg={3}>
                 <LeftSideBar downloadAllChannels={this.downloadAllChannels} theSocket={this.socket} />
