@@ -10,7 +10,9 @@ const RightSideBar = ( {allUsers, currentUser, theSocket, clickedUser} ) => {
     <div>
       <div>
         <div style={ {height: 185} }></div>
-        <h4>All Users</h4>
+        <div className="RSBTitle">
+          <h4>All Users</h4>
+        </div>
         <ul>
           {allUsers.map(user =>
             <RightSideBarEntryUser

@@ -76,8 +76,17 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 
 .RSBUsers {
   width: 90%;
-  padding-bottom: 2px;
+  padding: 10px;
   height: 50px;
+}
+
+.RSBEachUser {
+  padding: 5px;
+  background-color: white;
+}
+
+.RSBTitle {
+  padding-left: 10px;
 }
 
 .signUpButton {

@@ -43,8 +43,11 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
 
   return (
     <div className="RSBUsers">
-      <li> 
-        <div style={{color: (user.onlineToggle) ? 'green' : 'black' }}>
+      <li className="RSBEachUser"> 
+        <div style={{
+          color: (user.onlineToggle) ? 'green' : 'black',
+          fontWeight: (user.onlineToggle) ? 'bolder' : 'none'
+        }}>
           {user.username} {(user.onlineToggle) ? 'ONLINE' : 'offline'}
         </div>
 
