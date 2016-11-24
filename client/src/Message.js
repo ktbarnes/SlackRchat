@@ -42,7 +42,9 @@ const Message = ({ created_at, text, username, url, picture }) => {
     <Media>
 
       <Media.Left>
-        <img className='chatpic' src={picture}></img>
+        <div className="mediaLeftWidth">
+            <img className='chatpic' src={picture}></img>
+        </div>
       </Media.Left>
 
       <Media.Body>

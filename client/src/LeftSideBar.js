@@ -99,8 +99,8 @@ class LeftSideBar extends React.Component {
                   currentRoomToggle: false,
                   AmISubscribedToggle: true
                 }
-                // console.log("this is the room I added",roomToAdd)
-                this.handleReceive(addRoom,roomToAdd);
+                console.log("this is the room I added",roomToAdd)
+                this.props.dispatch(addRoom(roomToAdd));
                 axios.post('/db/addMyChannel',{
                   myUserID: this.props.currentUser.id,
                   channelID: response.data[0]
