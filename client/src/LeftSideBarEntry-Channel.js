@@ -13,7 +13,7 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
 
   return (
     <NavItem style={
-        {backgroundColor: (currentRoom.channelName === room.channelName) ? "orange" : "white"}
+        {backgroundColor: (currentRoom.channelName === room.channelName) ? "#ADD8E6" : "white"}
       }
 
       onClick={ () => {

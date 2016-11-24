@@ -12,6 +12,8 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 #messages li { padding: 5px 10px; min-height: 50px}
 #messages li:nth-child(odd) { background: #eee; }
 
+
+
 @media (min-width: 768px){
   .LeftSideBar {
     position: absolute;
@@ -220,6 +222,8 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 ul.nav {
   background: white;
 }
+
+
 
 /*.sideBar {width:200px; }
 
