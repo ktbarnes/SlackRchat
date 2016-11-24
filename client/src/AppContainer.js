@@ -28,8 +28,6 @@ class AppContainer extends React.Component {
       shadow: true,
       pullRight: true
     }
-    // this.downloadAllChannels = this.downloadAllChannels.bind(this);
-    // this.downloadMyChannelsOnly = this.downloadMyChannelsOnly.bind(this)
     this.toggleUserDock = this.toggleUserDock.bind(this)
   }
 
@@ -72,13 +70,6 @@ class AppContainer extends React.Component {
     
     this.socket.on('someoneJoin', txt => this.handleReceive(addMessageFromSocket,{text: txt}) );
     
-
-
-
-
-
-
-
     this.socket.on("direct message", incoming => {
       console.log("trying to get a room", incoming.room);
       window.alert(incoming.msg)
@@ -97,11 +88,6 @@ class AppContainer extends React.Component {
       this.handleReceive(setCurrentRoom,incoming.room);
     });
     
-
-
-
-
-
     this.socket.on('connect', (txt) => {
       this.socket.emit('changeRoom', this.props.currentRoom.channelName);
       // console.log(this.props.currentUser.username,"WHO AM I???? AppContainer line 83")
@@ -179,11 +165,7 @@ class AppContainer extends React.Component {
           //then add to reducer with toggle false
           var isInRooms = false;
           this.props.rooms.forEach( (room) => {
-            // console.log("channelName of room in store",room.channelName)
-            // console.log("channelName of downloaded room",msg.name)
-            if(room.channelName === msg.name){
-              isInRooms = true;
-            }
+            if(room.channelName === msg.name){ isInRooms = true; }
           });
           if(!isInRooms){this.handleReceive(addRoom,eachRoom)}
           this.socket.emit('changeRoom', msg.name)
@@ -194,8 +176,6 @@ class AppContainer extends React.Component {
   } //end of downloadChannels
 
   downloadAllUsers() {
-    //get from server who current user is
-    // { dispatch } = this.props.dispatch;
     this.currentUserIDfromDB;
     axios.get('/db/getMe', { headers: { "authorization": "Bearer " + localStorage.getItem('id_token')}})
     .then(res => {
@@ -287,16 +267,12 @@ class AppContainer extends React.Component {
 
 
       <Sidebar {...sidebarProps} className='RightSideBar'>
-              <TopNav />          
-
+          <TopNav />          
           <Grid id="Container">
-
             <Row>
-              
               <Col className="LeftSideBar" md={3} lg={3}>
                 <LeftSideBar downloadAllChannels={this.downloadAllChannels} theSocket={this.socket} />
               </Col>
-
               <Col className="PrimaryChatroom" md={9} lg={9}>
                 <div 
                   onClick={this.toggleUserDock} >
@@ -305,12 +281,8 @@ class AppContainer extends React.Component {
                 </div>
                 <PrimaryChatroom theSocket={this.socket} />
               </Col>
-
             </Row>
-
           </Grid>    
-
-
       </Sidebar>
     );
   }
@@ -327,9 +299,3 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps)(AppContainer);
-
-
-
-
-
-

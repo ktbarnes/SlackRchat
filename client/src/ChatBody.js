@@ -15,10 +15,10 @@ const MessageList = ( {messages, currentUser, currentRoom} ) => {
 
   return (
     <div>
-      <h3>
+      <h4>
         {(currentRoom.aliasName === "Channel_NotDM") ? ("You are in channel: " + currentRoom.channelName) : 
         ("Private chat between " + currentRoom.user2username + " and " + currentRoom.user1username) }
-      </h3>
+      </h4>
       
       <div id="messages">
         {filtered.map(message => 
