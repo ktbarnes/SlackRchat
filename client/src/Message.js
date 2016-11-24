@@ -3,57 +3,62 @@ import React, { PropTypes } from 'react';
 import Giphy from './Giphy';
 import { Emoji } from 'emoji-mart';
 
+const emojiChecker = str => {
+  const string = str.text;
+  if(!string) return;
+  if(string.indexOf(':') === -1) return string;
+  let array = string.split(' ');
+  let text = '';
+  let stuff = [];
+  array.forEach(word => {
+    if(word[0] === ':' && word[word.length - 1] === ':') {
+      if(text) stuff.push(text.substring(0, text.length - 1));
+      word.split(':').forEach(bit => {
+         if(bit) stuff.push(<Emoji emoji={bit} size={30} key={Date.now()+Math.random()}/>);
+      });
+      text = '';
+    } else {
+      text += word + ' ';
+    }
+  });
+  if(text) stuff.push(text.substring(0, text.length - 1));
+  return stuff;
+}
+
 const Message = ({ created_at, text, username, url, picture }) => {
 
-  let emoji;
-  // console.log('here is the text ', text)
-
-  if(text && text.indexOf(':') !== text.lastIndexOf(':')) {
-    let first = text.indexOf(':');
-    emoji = text.substring(first + 1);
-    let last = emoji.indexOf(':');
-    emoji = emoji.substring(0, last);
-    if (emoji.indexOf(' ') !== -1) {
-      emoji = undefined;
-    } else {
-      text = text.substring(0, first) + text.substring(last + 2, text.length);
-    }
+  let stuff;
+ 
+  if(url) {
+    stuff = [...emojiChecker({text}), <Giphy url={url} key={Date.now()}/>];
+  } else {
+    stuff = emojiChecker({text});
+    // console.log('stuff ', stuff)
   }
 
   return (
+
     <div className="eachMessage">
-      <Media>
+    <Media>
 
-        <Media.Left>
-          <div className="mediaLeftWidth">
-              <img className='chatpic' src={picture}></img>
-          </div>
-        </Media.Left>
+      <Media.Left>
+        <img className='chatpic' src={picture}></img>
+      </Media.Left>
 
-        <Media.Body>
-          <Media.Heading>
-          {username}
-          </Media.Heading>
-          { text }
-          { url &&
-            <Giphy url={url}/>
-          }
-          { emoji &&
-            <Emoji 
-              emoji={emoji}
-              size={36}
-            />
-          }
-        </Media.Body>
+      <Media.Body>
+        <Media.Heading>
+        {username} 
+        </Media.Heading>
+        { stuff }
+      </Media.Body>
 
-        <Media.Right>
-          <div className="mediaRightWidth">
-            { created_at }
-          </div>
-        </Media.Right>
+      <Media.Right>
+        { created_at }
+      </Media.Right>
 
-      </Media>
+    </Media>
     </div>
+
   )
 
 }
