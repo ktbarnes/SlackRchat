@@ -1,16 +1,17 @@
 import React, { PropTypes } from 'react';
 import RightSideBarEntryUser from './RightSideBarEntry-Users';
 import { connect } from 'react-redux';
-import OtherUserProfile from './OtherUserProfile'
+import OtherUserProfile from './OtherUserProfile';
+import { Nav } from 'react-bootstrap';
 
 const RightSideBar = ( {allUsers, currentUser, theSocket, clickedUser} ) => {
 
   return (
     <div>
       <div>
-        <div style={ {height: 161.82} }></div>
-        <h3>ALL USERS</h3>
-        <ul id="room">
+        <div style={ {height: 185} }></div>
+        <h3>All Users</h3>
+        <ul>
           {allUsers.map(user =>
             <RightSideBarEntryUser
               theSocket={theSocket}

@@ -53,7 +53,9 @@ const Message = ({ created_at, text, username, url, picture }) => {
       </Media.Body>
 
       <Media.Right>
-        { created_at }
+        <div className="mediaRightWidth">
+          { created_at }
+        </div>
       </Media.Right>
 
     </Media>
