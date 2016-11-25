@@ -1,3 +1,9 @@
+/*
+Note to reader:
+The corresponding actions being fed into this reducer are listed in the ChatActions.js file
+*/
+
+
 const ChatReducer = (state = [], action) => {
   switch (action.type) {
 

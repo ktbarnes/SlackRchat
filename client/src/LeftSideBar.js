@@ -149,12 +149,12 @@ class LeftSideBar extends React.Component {
         <div>...</div>
         <p 
           onClick={ () => { //Note: this was here for developer reference only!!! do not use
-            // console.log("this is my current room",this.props.currentRoom);
-            // console.log("this is my current user",this.props.currentUser);
-            // console.log("these are my DM Rooms",this.props.DMRooms)
-            // console.log("this is all the users after",this.props.allUsers);
-            // console.log("all available rooms",this.props.rooms)
-          }}>
+            console.log("this is my current room",this.props.currentRoom);
+            console.log("this is my current user",this.props.currentUser);
+            console.log("these are my DM Rooms",this.props.DMRooms)
+            console.log("this is all the users after",this.props.allUsers);
+            console.log("all available rooms",this.props.rooms)
+          }}>...
         </p>
 
       </div>

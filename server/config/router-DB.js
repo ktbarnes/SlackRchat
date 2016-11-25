@@ -9,21 +9,21 @@ var DirectMessageRoom = require('../models/directMessageRoomModel.js');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('jwt-simple');
 
+
+//receive token from user's localstorage and return info for user matched by ID
 router.get('/getMe', function(request, response) {
   let encoded = request.headers.authorization.split(' ')[1];
-  // console.log("what is encoded?",encoded)
   let token = jwt.decode(encoded, process.env.SECRET);
   let currentUserID = token.id;
   User.getUserByID(currentUserID)
   .then(user => {
-    // console.log('this is me ', user[0]);
     response.json(user[0]);
   })
-  // response.json({currentUserID: currentUserID});
 });
 
+
+//return info from DB for other user, searched by ID
 router.post('/getOther', function(request, response) {
-  console.log(request, 'this is the data you requested Julia')
   let id = request.body.id
   User.getUserByID(id)
   .then(user => {
@@ -31,17 +31,18 @@ router.post('/getOther', function(request, response) {
   });
 });
 
+
+//download all users from the database
 router.get('/users', function(request, response) {
-  // let theUser = request.body.email
   User.getUsers()
   .then(users => {
-    // console.log(users, 'this is the response of users line 27 router-DB')
     response.json(users);
   });
 });
 
+
+//this is where user's login is authenticated
 router.post('/login', function(request, response) {
-  // console.log("A USER IS TRYING TO LOGIN", request.body)
   User.getUser(request.body.email)
   .then(user => {
     bcrypt.compare(request.body.password, user[0].password, function(err, matched) {
@@ -55,8 +56,9 @@ router.post('/login', function(request, response) {
   });
 });
 
+
+//
 router.post('/users', function(request, response) {
-  // console.log("REQUEST.BODY: ",request.body);
   bcrypt.hash(request.body.password, null, null, function(err, hash) {
     User.postUser({
       username: request.body.username,
@@ -66,7 +68,6 @@ router.post('/users', function(request, response) {
     })
     .then(user => {
       let token = jwt.encode({id: user[0]}, process.env.SECRET);
-      console.log(token, "Hi 577777");
       response.json({id_token: token});
     })
     .catch(error => {
@@ -75,9 +76,9 @@ router.post('/users', function(request, response) {
 });
 });
 
+
 //THIS IS WHERE I START
 router.post('/usersInfo', function(request, response) {
-  // console.log(request.body, 'this is the request from router post usersInfo');
   User.postOtherUserInformation({
       id: request.body.id,
       email: request.body.email,
@@ -92,6 +93,8 @@ router.post('/usersInfo', function(request, response) {
   }).then(data => response.sendStatus(201));
 })
 
+
+//
 router.post('/usersInfoInitial', function(request, response) {
   console.log(request.body, 'this is the request from router post usersInfo');
   User.postProfile({
@@ -108,15 +111,20 @@ router.post('/usersInfoInitial', function(request, response) {
   }).then(data => response.sendStatus(201));
 })
 
+
+//download all public channels
+router.get('/channels', function(request, response) {
+  Channel.getChannels()
+  .then(data => response.json(data));
+})
+
+
+//add a channel to the database and return its info
 router.post('/channels', function(request, response) {
   Channel.addChannel(request.body.name)
   .then(data => response.status(201).json(data));
 });
 
-router.get('/channels', function(request, response) {
-  Channel.getChannels()
-  .then(data => response.json(data));
-})
 
 //get my subscribed channels
 router.post('/getMyChannels', function (request, response) {
@@ -141,7 +149,6 @@ router.post('/deleteMyChannel', function (request, response) {
 router.get('/DMRooms', function (request, response) {
   DirectMessageRoom.getRooms()
   .then(data => {
-    // console.log("what is my data",data)
     response.json(data);
   });
 })
@@ -164,7 +171,6 @@ router.post('/messages', function(request, response) {
   console.log("what is post message request?",request.body)
   let encoded = request.headers.authorization.split(' ')[1];
   let token = jwt.decode(encoded, process.env.SECRET);
-  // console.log("what is the token?",token);
   let data = {
     userID: token.id,
     channelID: request.body.channelID,
@@ -175,12 +181,25 @@ router.post('/messages', function(request, response) {
   .then(data => response.status(201).json(data));
 });
 
+
+//download all messages posted to the public channels
+router.get('/messages', function(request, response) {
+  Message.getMessages()
+  .then(data => response.json(data));
+});
+
+
+//download all direct messages
+router.get('/DMMessages', function(request, response) {
+  DMMessage.getMessages()
+  .then(data => response.json(data));
+});
+
+
+//add a new direct message
 router.post('/DMMessages', function(request, response) {
-  console.log("what is in my request body?",request.body)
-  // console.log("what is auth?",request.headers.authorization)
   let encoded = request.headers.authorization.split(' ')[1];
   let token = jwt.decode(encoded, process.env.SECRET);
-  // console.log("what is the token?",token);
   let data = {
     authorID: token.id,
     DM_roomID: request.body.DM_roomID,
@@ -191,15 +210,6 @@ router.post('/DMMessages', function(request, response) {
   .then(data => response.status(201).json(data));
 });
 
-router.get('/messages', function(request, response) {
-  Message.getMessages()
-  .then(data => response.json(data));
-});
-
-router.get('/DMMessages', function(request, response) {
-  DMMessage.getMessages()
-  .then(data => response.json(data));
-});
 
 router.get('/lastWeek', function(request, response) {
   let encoded = request.headers.authorization.split(' ')[1];

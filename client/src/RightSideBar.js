@@ -4,6 +4,19 @@ import { connect } from 'react-redux';
 import OtherUserProfile from './OtherUserProfile';
 import { Nav } from 'react-bootstrap';
 
+/*
+Note to reader:
+This is the right sidebar that is pulled into AppContainer. It is the component that appears
+when the "Show Users" checkbox is clicked
+
+Note that theSocket is a prop that is passed in explicitly from AppContainer
+
+This component maps through the allUsers UserReducer and creates each component for the users called
+RightSideBarEntryUser. 
+
+This component also has a link to other users's profiles
+*/
+
 const RightSideBar = ( {allUsers, currentUser, theSocket, clickedUser} ) => {
 
   return (
