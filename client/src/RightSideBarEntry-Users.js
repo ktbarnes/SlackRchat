@@ -9,7 +9,27 @@ import { clickedUserProfile, open2, close2} from '../actions/ClickedUserProfileA
 import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 import { NavItem } from 'react-bootstrap';
 
-// import {OtherUserProfile} from './src/OtherUserProfile'
+/*
+Note to reader:
+This is the component for each user that is going to be listed in the right sliding sidebar of the application. 
+
+It also is the parent component for profiles that will render as modals once the link to the Profile is clicked. 
+
+For each user, there are three functions:
+1 - a toggle to determine whether or not the user is listed as being online. This is determined by looking at the
+onlineToggle property of the user and conditionally rendering from there
+
+The first button for the profile pings the database to ensure the profile info being viewed is the latest that has
+been perissted to the database
+
+The second button activates a direct message with another user. First, it determines whether it should create a 
+new direct message room or simply go to the direct message room already created. Direct Message rooms are generally named as
+either user1user2 or user2user1 (i.e. CanhJulia or JuliaCanh), and only one of them is persisted in the database. 
+
+After that check happens, an event is emitted to the socket using the "direct message" listener that makes the other user
+go directly to the room instance, through calling the getPeerToChangeRoom functin. 
+*/
+
 const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser, currentRoom, theSocket, clickedUser }) => {
   
   const handleReceive = (cb,body) => { dispatch(cb(body)); }
@@ -76,10 +96,10 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
                   if(user.username === DMRooms[i].user1username || user.username === DMRooms[i].user2username){
                     handleReceive(setCurrentRoom,DMRooms[i]);
                     console.log("RSBEU - moving to: ",DMRooms[i].channelName)
-                    theSocket.emit('changeRoom', DMRooms[i].channelName); //there is something buggy about this
+                    theSocket.emit('changeRoom', DMRooms[i].channelName); 
                     getPeerToChangeRoom(DMRooms[i]);
                     roomExists = true;
-                    theSocket.emit('changeRoom', DMRooms[i].channelName); //there is something buggy about this
+                    theSocket.emit('changeRoom', DMRooms[i].channelName); 
                     return;
                   }
                 }
