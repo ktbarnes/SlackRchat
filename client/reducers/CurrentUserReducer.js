@@ -1,4 +1,23 @@
-const CurrentUserReducer = (state = {id: 0, username: '', phone:'', email: '', about: '', picture:'', first: '', last: '', github: '', facebook: '', twitter: '', linkedin: ''}, action) => {
+/*
+Note to reader:
+This is the corresponding reducer to the CurrentUserActions. 
+Note the reducer is initialized with blank properties
+*/
+
+const CurrentUserReducer = (state = {
+  id: 0, 
+  username: '', 
+  phone:'', 
+  email: '', 
+  about: '', 
+  picture:'', 
+  first: '', 
+  last: '', 
+  github: '', 
+  facebook: '', 
+  twitter: '', 
+  linkedin: ''
+}, action) => {
   switch (action.type) {
     case 'SET_CURRENT_USER':
       return Object.assign({}, state, {

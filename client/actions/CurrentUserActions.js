@@ -1,7 +1,19 @@
+/*
+Note to reader: This is a reducer we set up to capture the "current" user in the 
+application. 
+This is the result of the initial POST request that happens in AppContainer to the /db/getMe 
+endpoint, which is the process where the user's local token from localStorage is sent to the 
+database for a comparison of user IDs, and the resulting response from the server is the user's full
+info. 
+
+There's also logic here for the user to update his profile and/or profile picture
+
+The corresponding reducer to this action is the CurrentUserReducer.js file
+*/
+
 import axios from 'axios';
 
 export const setCurrentUser = user => {
-  console.log('inside setCurrentUser action...', user)
   return {
     type: 'SET_CURRENT_USER',
     id: user.id,

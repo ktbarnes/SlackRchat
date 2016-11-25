@@ -1,3 +1,9 @@
+/*
+Note to reader:
+This file is the corresponding reducer to the CurrentRoomActions file. 
+Note that the state of the reducer is initially set to Lobby. 
+*/
+
 const CurrentRoomReducer = (state = {
   id: 1,
   channelName: "Lobby",
