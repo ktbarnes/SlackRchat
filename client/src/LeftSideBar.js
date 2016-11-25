@@ -7,6 +7,7 @@ import { toggleOnlineUser } from '../actions/UserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import Dropdown from 'react-dropdown';
 import { Nav, Button } from 'react-bootstrap';
+import { Link } from 'react-router';
 
 /*
 Note to reader: This is the left side bar of our app, which houses the list of public channels,
@@ -66,8 +67,10 @@ class LeftSideBar extends React.Component {
     updatedValue.value = "Select an option..."
   }
 
-  componentWillMount() { this.input; }
-
+  analytics() {
+    console.log('inside this.analytics ')
+    this.props.router.replace('/analytics')
+  }
   //updates this.props.rooms into the component's state as used by the dropdown 
   //once info is downloaded from the database
   componentWillReceiveProps(nextProps) {
@@ -153,7 +156,7 @@ class LeftSideBar extends React.Component {
 
         {
           !!this.props.currentUser.admin &&
-          <a href='/analytics'>Administrator</a>
+          <Link to='/analytics'>Administrator</Link>
         }
 
         <p 
