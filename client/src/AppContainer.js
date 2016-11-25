@@ -9,7 +9,7 @@ import LeftSideBar from './LeftSideBar.js';
 import RightSideBar from './RightSideBar.js';
 import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
 import { addRoom, incrementUnreadMessageCounter } from '../actions/RoomActions';
-import { addDMRoom, addDMRoomFromSocket } from '../actions/DMRoomActions';
+import { addDMRoom, addDMRoomFromSocket, incrementDMUnreadMessageCounter } from '../actions/DMRoomActions';
 import { addUser, toggleOnlineUser, toggleOfflineUser, downloadOnlineUsers } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
@@ -81,6 +81,7 @@ class AppContainer extends React.Component {
 
     this.socket.on('chat message', 
       incoming => {
+        console.log("this is the room people are tying into",incoming)
 
         //add message to ChatReducer
         this.handleReceive(addMessageFromSocket,{
@@ -95,6 +96,7 @@ class AppContainer extends React.Component {
         //increment unread messages only if user is not in that room
         if(incoming.channelName !== this.props.currentRoom.channelName){
           this.handleReceive(incrementUnreadMessageCounter,incoming.channelName)
+          this.handleReceive(incrementDMUnreadMessageCounter,incoming.channelName)
         }
       }
     ); //end of this.socket.on('chat message')

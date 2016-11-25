@@ -12,7 +12,8 @@ const DMRoomReducer = (state = [], action) => {
           user2username: action.user2username,
           channelName: action.channelName,
           aliasName: action.aliasName,
-          currentRoomToggle: action.currentRoomToggle
+          currentRoomToggle: action.currentRoomToggle,
+          unreadMessageCounter: action.unreadMessageCounter
         }
       ];
 
@@ -31,6 +32,17 @@ const DMRoomReducer = (state = [], action) => {
         }
       ];
 
+    case 'INCREMENT_DM_UNREAD_MESSAGE_COUNTER':
+      return state.map( (eachRoom) => {
+        console.log("room comparison",eachRoom.channelName," ",action.channelName)
+        if(eachRoom.channelName === action.channelName){
+          console.log("incremented in room reducer!!!")
+          return Object.assign({},eachRoom,{
+            unreadMessageCounter: eachRoom.unreadMessageCounter+1
+          });
+        }
+        return eachRoom
+      })
     
     default:
       return state;

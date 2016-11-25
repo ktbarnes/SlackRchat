@@ -15,7 +15,8 @@ export const addDMRoom = (eachRoom) => {
     user2username: eachRoom.user2username,
     channelName: eachRoom.channelName,
     aliasName: eachRoom.aliasName,
-    currentRoomToggle: eachRoom.currentRoomToggle
+    currentRoomToggle: eachRoom.currentRoomToggle,
+    unreadMessageCounter: 0
   };
 };
 
@@ -32,6 +33,15 @@ export const addDMRoomFromSocket = (eachRoom) => {
     user2username: eachRoom.user2username,
     channelName: eachRoom.channelName,
     aliasName: eachRoom.aliasName,
-    currentRoomToggle: eachRoom.currentRoomToggle
+    currentRoomToggle: eachRoom.currentRoomToggle,
+    unreadMessageCounter: 0
+  };
+};
+
+export const incrementDMUnreadMessageCounter = (channelName) => {
+    console.log("room in inc in RoomActions",channelName)
+  return {
+    type: "INCREMENT_DM_UNREAD_MESSAGE_COUNTER",
+    channelName: channelName
   };
 };

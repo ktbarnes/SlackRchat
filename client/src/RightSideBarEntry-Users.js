@@ -75,16 +75,18 @@ const RightSideBarEntryUser = ({ dispatch, DMRooms, user, allUsers, currentUser,
                 for(let i = 0; i<DMRooms.length; i++){
                   if(user.username === DMRooms[i].user1username || user.username === DMRooms[i].user2username){
                     handleReceive(setCurrentRoom,DMRooms[i]);
-                    theSocket.emit('changeRoom', currentRoom);
+                    console.log("RSBEU - moving to: ",DMRooms[i].channelName)
+                    theSocket.emit('changeRoom', DMRooms[i].channelName); //there is something buggy about this
                     getPeerToChangeRoom(DMRooms[i]);
                     roomExists = true;
+                    theSocket.emit('changeRoom', DMRooms[i].channelName); //there is something buggy about this
                     return;
                   }
                 }
                 //otherwise make a new room
                 if(!roomExists){
                     //set up a new direct message room
-                    let roomToAdd
+                    let roomToAdd;
                     axios.post('/db/DMRooms',{ 
                       user1: currentUser.id, 
                       user2: user.id,

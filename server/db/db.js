@@ -54,6 +54,7 @@ knex.schema.hasTable('channel_messages').then(function(exists) {
       channel_messages.string('message', 500);
       channel_messages.string('url', 150);
       channel_messages.timestamps();
+      // channel_messages.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
     }).then(function (table) {
       console.log('Created Table', table);
     })
@@ -97,6 +98,7 @@ knex.schema.hasTable('DM_messages').then(function(exists) {
       DM_messages.string('message', 500);
       DM_messages.string('url', 150);
       DM_messages.timestamps();
+      // DM_messages.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
     }).then(function (table) {
       console.log('Created Table for DM messages', table);
     })

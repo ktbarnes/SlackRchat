@@ -35,6 +35,6 @@ export const addMessageFromDB = (msg) => {
     text: msg.text,
     url: msg.url,
     picture: msg.picture,
-    created_at: moment(new Date(msg.created_at)).calendar()
+    created_at: moment(new Date(msg.created_at)).format('llll') //had been .calendar()
   };
 };
