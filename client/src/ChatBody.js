@@ -4,14 +4,24 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { Media } from 'react-bootstrap';
 
-//Note: this.room is passed in from PrimaryChatroom as a prop here. That represents "current" room
+/*
+Note to user: 
+This file is the rendered list of messages that are downloaded from the database. 
+"Messages" is a prop passed in from the store. 
+See that those that render are only those that will be specific to the room, i.e. 
+through the "filtered" variable declared upfront
+
+Each message is a Message component, written in the Message.js file
+
+In the return statement, you'll see that the name of the current room is initially rendered,
+based on whether the room itself is marked as a Channel vs. Direct Message room
+*/
 
 const MessageList = ( {messages, currentUser, currentRoom} ) => {
-  // console.log("Last message", messages[messages.length - 1])
+
   let filtered = messages.filter(message => {
     return message.channelName === currentRoom.channelName || message.channelName === undefined;
   });
-  // let filtered = filtered.map(message => axios.post('/db/profpic',{username: message.username}).then(data=> message.))
 
   return (
     <div>
@@ -36,15 +46,7 @@ const MessageList = ( {messages, currentUser, currentRoom} ) => {
   )
 }
 
-// MessageList.propTypes = {
-//   dataStore: PropTypes.arrayOf(PropTypes.shape({
-//     id: PropTypes.string.isRequired,
-//     text: PropTypes.string.isRequired,
-//   }).isRequired).isRequired,
-// };
-
 const mapStateToProps = (state, ownProps) => {
-  // console.log("what is the array of messages",state.allReducers.CurrentRoomReducer)
   return { 
     messages: state.allReducers.ChatReducer,
     rooms: state.allReducers.RoomReducer,

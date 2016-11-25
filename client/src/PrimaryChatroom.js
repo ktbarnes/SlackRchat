@@ -10,12 +10,17 @@ import { addUser } from '../actions/UserActions';
 import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
 
+/*
+Note to user:
+PrimaryChatroom does two things:
+1 - downloads messages from the database and adds them to the ChatReducer
+2 - houses the MessageList and ChatForm components
+*/
+
 class PrimaryChatroom extends React.Component {
 
   constructor(props){
     super(props)
-    // this.socket = io('/Hack-Reactor-NameSpace');
-    // console.log("what are my props",this.props)
   }
 
   componentDidMount() {
@@ -89,7 +94,6 @@ PrimaryChatroom.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("current User",state.allReducers.CurrentUserReducer)
   return { 
     rooms: state.allReducers.RoomReducer,
     currentUser: state.allReducers.CurrentUserReducer,

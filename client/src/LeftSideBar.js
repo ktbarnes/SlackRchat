@@ -8,7 +8,16 @@ import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import Dropdown from 'react-dropdown';
 import { Nav, Button } from 'react-bootstrap';
 
-//Reminder: props passed in( {rooms, DMRooms, allUsers, currentRoom, currentUser, dispatch, theSocket} ) => 
+/*
+Note to reader: This is the left side bar of our app, which houses the list of public channels,
+a user's subscribed channels, as well as the user's persisted direct message rooms
+
+Separate note: the socket is being passed in as a hard prop from AppContainer
+
+The rendered info for My Channels and Direct Messages are instances of the LeftSideBarEntryChannel
+component
+*/
+
 class LeftSideBar extends React.Component {
 
   constructor(props) {
@@ -22,6 +31,11 @@ class LeftSideBar extends React.Component {
 
   handleReceive(cb,body) { dispatch(cb(body))}
 
+  //This may require some explanation
+  //the forEach function iterates through public channels to determine whether selected
+  //room from the dropdown is a subscribed room. if not, user will subscribe to it in
+  //the store and then have that fact persisted to the database via the /db/addMyChannel endpoint
+  //then the person is then redirected to that room by the setCurrentRoom dispatch
   onSelect(updatedValue) { //updatedValue = channelName only
     this.setState({selectValue: updatedValue.value});
 
@@ -54,12 +68,8 @@ class LeftSideBar extends React.Component {
 
   componentWillMount() { this.input; }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if(this.props.rooms.length !== nextProps.rooms.length) {
-  //     this.setState({options: nextProps.rooms.map(room => room.channelName)}); 
-  //   }
-  // }
-
+  //updates this.props.rooms into the component's state as used by the dropdown 
+  //once info is downloaded from the database
   componentWillReceiveProps(nextProps) {
     if(this.props.rooms.length !== nextProps.rooms.length) {
       let myOptions = nextProps.rooms.map(room => room.channelName);
@@ -92,16 +102,14 @@ class LeftSideBar extends React.Component {
               //this is where you will issue a POST request to the database
               axios.post('/db/channels',{ name: thisInput })
               .then((response) => {
-                // console.log("room created in DB!", response);
                 let roomToAdd = {
                   id: response.data[0],
                   channelName: thisInput,
                   currentRoomToggle: false,
                   AmISubscribedToggle: true
                 }
-                console.log("this is the room I added",roomToAdd)
-                this.props.dispatch(addRoom(roomToAdd));
-                axios.post('/db/addMyChannel',{
+                this.props.dispatch(addRoom(roomToAdd)); //adds room to RoomReducer
+                axios.post('/db/addMyChannel',{ //posts new room to the database
                   myUserID: this.props.currentUser.id,
                   channelID: response.data[0]
                 })
@@ -110,7 +118,7 @@ class LeftSideBar extends React.Component {
 
               //reinitialize the input field
               this.input.value = '';
-              this.showNewChannelForm = false;
+              this.showNewChannelForm = false; //hides the new channel form
               
             }}
           >
@@ -124,7 +132,7 @@ class LeftSideBar extends React.Component {
           <h4>My Channels</h4>
           <Nav bsStyle="pills" stacked activeKey={1}>
             {this.props.rooms.filter( room => room.AmISubscribedToggle).map((room,i) =>
-              <LeftSideBarEntryChannel theSocket={this.props.theSocket} eventKey={i} key={room.id} room={room} />
+              <LeftSideBarEntryChannel theSocket={this.props.theSocket} key={room.id}room={room} />
             )}
           </Nav>
         </div>    
@@ -140,13 +148,13 @@ class LeftSideBar extends React.Component {
 
         <div>...</div>
         <p 
-          onClick={ () => {
-            console.log("this is my current room",this.props.currentRoom);
-            console.log("this is my current user",this.props.currentUser);
-            console.log("these are my DM Rooms",this.props.DMRooms)
-            console.log("this is all the users after",this.props.allUsers);
-            console.log("all available rooms",this.props.rooms)
-          }}>.....
+          onClick={ () => { //Note: this was here for developer reference only!!! do not use
+            // console.log("this is my current room",this.props.currentRoom);
+            // console.log("this is my current user",this.props.currentUser);
+            // console.log("these are my DM Rooms",this.props.DMRooms)
+            // console.log("this is all the users after",this.props.allUsers);
+            // console.log("all available rooms",this.props.rooms)
+          }}>
         </p>
 
       </div>
@@ -154,9 +162,7 @@ class LeftSideBar extends React.Component {
   }
 }
 
-
 const mapStateToProps = (state, ownProps) => {
-  // console.log("all messages",state.allReducers.ChatReducer)
   return { 
     allUsers: state.allReducers.UserReducer,
     currentRoom: state.allReducers.CurrentRoomReducer,

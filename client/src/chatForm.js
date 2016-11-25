@@ -5,10 +5,7 @@ import { connect } from 'react-redux';
 import { Picker } from 'emoji-mart';
 import { FormGroup, Button, Popover, OverlayTrigger } from 'react-bootstrap';
 
-// const popoverClickRootClose = (
 
-// )
-//= ( { socket, currentRoom, currentUser } ) => 
 class ChatForm extends React.Component {
   constructor(props){
     super(props);
@@ -18,25 +15,35 @@ class ChatForm extends React.Component {
     }
   }
 
-  // const popoverClickRootClose = ()  => {
-
-  // }
+  /*
+  Fair bit of conditional logic in this component. This component is basically the input field for 
+  messages that are typed in by the user. 
+  The form starts by:
+  1 - checking wehther the input is valid. If not, simply return
+  2 - Check to see whether the first six characters are '/giphy'. If they are,
+     post that image to the socket and also send its link to the database
+     There is additional conditional logic to determine whether that persisted message
+     in the database should go to the channel_messages database or the DM_messages database
+     by checking the currentRoom property to see whether it's a channel, marked by "Channel_NotDM"
+     or just a DM room
+  3 - If not a giphy, all of the same as above happens, except what's sent to the database and
+    through the socket will just not include any giphy image references
+  4 - The component further allows for emojis, which are made possible through the Picker component
+    downloaded as an npm dependency
+  */
 
   render(){
     return (
       <div>
         <form
           onSubmit={e => {
-            // console.log("what room is being passed in",currentRoom)
             e.preventDefault();
             if (!this.input.value.trim()) { return; }
 
             if (this.input.value.substring(0,7) === '/giphy ') {
               axios.post('/api/giphy',{giphy: this.input.value.substring(7)})
               .then(giphy => {
-                // console.log(giphy.data);
                 if (giphy.data === '') return this.input.value = '';
-                // console.log(giphy.data);
                 this.props.socket.emit('chat message', {
                   channelName: this.props.currentRoom.channelName, 
                   channelID: this.props.currentRoom.id,
@@ -124,12 +131,9 @@ class ChatForm extends React.Component {
       </div>
     );
   }
-
-
 };
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("who is my current user?",state.allReducers.CurrentUserReducer)
   return { 
     currentRoom: state.allReducers.CurrentRoomReducer,
     currentUser: state.allReducers.CurrentUserReducer
@@ -137,5 +141,3 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps)(ChatForm);
-
-
