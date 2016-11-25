@@ -132,7 +132,7 @@ class LeftSideBar extends React.Component {
           <h4>My Channels</h4>
           <Nav bsStyle="pills" stacked activeKey={1}>
             {this.props.rooms.filter( room => room.AmISubscribedToggle).map((room,i) =>
-              <LeftSideBarEntryChannel theSocket={this.props.theSocket} eventKey={i} key={room.id} room={room} />
+              <LeftSideBarEntryChannel theSocket={this.props.theSocket} key={room.id}room={room} />
             )}
           </Nav>
         </div>    
