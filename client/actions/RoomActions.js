@@ -1,10 +1,24 @@
+/*
+Note to reader:
+These actions manage the channels downloaded from the database. 
+There is also logic for toggling a room from being "subscribed" by a user
+to not being "subscribed" by that user. 
+
+Also has an imcrementing unread messages counter that increments when the user is in a room
+that is not the room where the message is received. 
+
+Lastly, there is the currentRoomToggle field and actions. Those aren't ultimately used in this application,
+but we keep it here in case we want to use it in the future. 
+
+The corresponding reducer is called RoomReducer.js
+*/
+
 let nextMessageId = 1000;
 //because in the Reducer, we are declaring an initial room called 'default' with ID=0
 
 export const addRoom = (eachRoom) => {
   return {
     type: 'ADD_ROOM',
-    // id: (nextMessageId++).toString(),
     id: eachRoom.id,
     channelName: eachRoom.channelName,
     aliasName: "Channel_NotDM",
@@ -15,7 +29,6 @@ export const addRoom = (eachRoom) => {
 };
 
 export const toggleSubscribeRoomOff = (room) => {
-    // console.log("user in toggleOnlineUser in UserActions",userEmail)
   return {
     type: "TOGGLE_SUBSCRIBED_ROOM_OFF",
     roomID: room.id
@@ -42,7 +55,6 @@ export const incrementUnreadMessageCounter = (channelName) => {
 export const toggleCurrentRoomField = (toggledRoom) => {
   return {
     type: 'TOGGLE_CURRENT_ROOM',
-    // id: (nextMessageId++).toString(),
     id: toggledRoom.id,
     channelName: !toggleRoom.channelName //set from true to false or vice versa
   };

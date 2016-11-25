@@ -1,3 +1,5 @@
+//Note to reader: this is the corresponding reducer for the UserActions file
+
 const UserReducer = (state = [], action) => {
   switch (action.type) {
 
@@ -23,7 +25,6 @@ const UserReducer = (state = [], action) => {
 
     case 'TOGGLE_ONLINE_USER':
       return state.map( (eachUser) => {
-        // console.log("email comparison",eachUser.email," ",action.userEmail)
         if(eachUser.username === action.userUsername){
           return Object.assign({},eachUser,{
             onlineToggle: true
@@ -34,7 +35,6 @@ const UserReducer = (state = [], action) => {
 
     case 'TOGGLE_OFFLINE_USER':
       return state.map( (eachUser) => {
-        // console.log("email comparison",eachUser.email," ",action.userEmail)
         if(eachUser.username === action.userUsername){
           return Object.assign({},eachUser,{
             onlineToggle: false
@@ -45,7 +45,6 @@ const UserReducer = (state = [], action) => {
 
     case 'DOWNLOAD_ONLINE_USERS':
       return state.map( (eachUser) => {
-        // console.log("email comparison",eachUser.email," ",action.userEmail)
         if(eachUser.username === action.userUsername){
           return Object.assign({},eachUser,{
             onlineToggle: true

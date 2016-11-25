@@ -1,3 +1,11 @@
+/*
+Note to reader:
+This is the corresponding reducer for the RoomActions set of actions. 
+
+Note that as in the actions file, the last function "TOGGLE_CURRENT_ROOM" isn't ultimately
+used but kept here in case it is going to be used in the future
+*/
+
 const RoomReducer = (state = [], action) => {
   switch (action.type) {
 
@@ -16,7 +24,6 @@ const RoomReducer = (state = [], action) => {
 
     case 'TOGGLE_SUBSCRIBED_ROOM_OFF':
       return state.map( (eachRoom) => {
-        // console.log("email comparison",eachUser.email," ",action.userEmail)
         if(eachRoom.id === action.roomID){
           return Object.assign({},eachRoom,{
             AmISubscribedToggle: false

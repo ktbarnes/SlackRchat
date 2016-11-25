@@ -1,3 +1,8 @@
+/*
+Note to user: 
+This the corresponding reducer for the DMRoomActions. 
+*/
+
 const DMRoomReducer = (state = [], action) => {
   switch (action.type) {
 

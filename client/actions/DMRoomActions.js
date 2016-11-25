@@ -1,13 +1,19 @@
+/*
+Note to user: 
+This file is the set of actions for the download of direct message rooms into the store,
+both from the database as well as from the socket. 
+
+This file also has the incrementing action for unread messages for when the user is not in the room
+*/
+
 let nextMessageId = 1000;
 //because in the Reducer, we are declaring an initial room called 'default' with ID=0
 
 
 //from database
 export const addDMRoom = (eachRoom) => {
-  // console.log("each room passed into action in DMRoomActions",eachRoom)
   return {
     type: 'ADD_DM_ROOM',
-    // id: (nextMessageId++).toString(),
     id: eachRoom.id,
     user1ID: eachRoom.user1ID,
     user2ID: eachRoom.user2ID,
@@ -22,10 +28,8 @@ export const addDMRoom = (eachRoom) => {
 
 //for socket
 export const addDMRoomFromSocket = (eachRoom) => {
-  // console.log("each room passed into action in DMRoomActions",eachRoom)
   return {
     type: 'ADD_DM_ROOM_FROM_SOCKET',
-    // id: (nextMessageId++).toString(),
     id: eachRoom.id,
     user1ID: eachRoom.user1ID,
     user2ID: eachRoom.user2ID,

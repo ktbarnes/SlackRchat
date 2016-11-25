@@ -1,5 +1,10 @@
-
-
+/*
+Note to reader:
+UserActions is what's passed into the UserReducer, which stores the list of all users in this application. 
+The functions here are to add a user to the reducer, to toggle a user's onlineToggle property on or off,
+and to pass into the reducer the usernames of the users logged in. The info for that happens in AppContainer, 
+where getAllLoggedInUsersFromSocket is called
+*/
 
 export const addUser = (eachUser) => {
   return {
@@ -21,7 +26,6 @@ export const addUser = (eachUser) => {
 };
 
 export const toggleOnlineUser = (userUsername) => {
-    // console.log("user in toggleOnlineUser in UserActions",userEmail)
   return {
     type: "TOGGLE_ONLINE_USER",
     userUsername
@@ -29,7 +33,6 @@ export const toggleOnlineUser = (userUsername) => {
 };
 
 export const toggleOfflineUser = (userUsername) => {
-    // console.log("user in toggleOnlineUser in UserActions",userEmail)
   return {
     type: "TOGGLE_OFFLINE_USER",
     userUsername
