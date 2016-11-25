@@ -76,6 +76,7 @@ save(user) {
   }
 
   render() {
+    console.log('here in Nav render ', this.props.currentUser)
     return (
       <nav className='navbar navbar-default navbar-fixed-top'>  
         <div className='nav'>
