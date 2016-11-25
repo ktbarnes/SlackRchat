@@ -12,7 +12,8 @@ let user = {
       backgroundColor: 'rgba(54, 162, 235, 0.2)',
       borderColor: 'rgba(54, 162, 235, 1)',
       borderWidth: 1
-  }]
+  }],
+
 }
 
 let channel = {
@@ -27,6 +28,17 @@ let channel = {
 }
 
 const options = ['user','channel']
+
+const these = {
+  scales: {
+    yAxes: [{
+        ticks: {
+          min: 0,
+          beginAtZero: true
+        }
+    }]
+  }
+}
 
 export default class Analytics extends React.Component {
 
@@ -98,6 +110,7 @@ export default class Analytics extends React.Component {
           <div className='bar-analytics'>
             <Bar 
               data={this.state.data}
+              options={these}
             />
           </div>
         </div>

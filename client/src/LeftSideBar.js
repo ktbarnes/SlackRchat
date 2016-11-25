@@ -24,7 +24,7 @@ class LeftSideBar extends React.Component {
     super(props);
     this.state = {
       selectValue: 'Select an option...',
-      options: []
+      options: [],
     }
     this.showNewChannelForm = false;
   }
@@ -79,6 +79,8 @@ class LeftSideBar extends React.Component {
   }
 
   render() {
+    console.log('WHAT IS THE STATE ', this.state)
+    console.log('WHAT IS THE CURRENT USER ', this.props.currentUser)
     return (
       <div> 
 
@@ -147,6 +149,13 @@ class LeftSideBar extends React.Component {
         </div>
 
         <div>...</div>
+
+
+        {
+          !!this.props.currentUser.admin &&
+          <a href='/analytics'>Administrator</a>
+        }
+
         <p 
           onClick={ () => { //Note: this was here for developer reference only!!! do not use
             // console.log("this is my current room",this.props.currentRoom);

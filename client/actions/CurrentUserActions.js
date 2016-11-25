@@ -15,7 +15,8 @@ export const setCurrentUser = user => {
     facebook: user.facebook,
     twitter: user.twitter,
     linkedin: user.linkedin,
-    phone: user.phone
+    phone: user.phone,
+    admin: user.admin,
   };
 };
 
@@ -33,7 +34,7 @@ export const UpdateProfile = user => {
     facebook: user.facebook,
     twitter: user.twitter,
     linkedin: user.linkedin,
-    phone: user.phone
+    phone: user.phone,
   }
   return axios.post('/db/usersInfo', information1);
 }
