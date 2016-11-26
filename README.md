@@ -41,3 +41,10 @@ What's in these files?
           - server.js is where instance of server app is created
 * Test
      - can run tests through node by running 'mocha' in the terminal in your root directory
+
+
+Installing dependencies and Getting Started
+
+run “npm install” - all node dependencies are listed in package.json
+In a separate tab in the terminal, run “npm start” to start the server
+In a separate tab in the terminal, run "webpack -w" to get the bundle file in the dist directory started
