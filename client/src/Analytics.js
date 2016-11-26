@@ -3,16 +3,20 @@ import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import Dropdown from 'react-dropdown';
 import { default as Fade } from 'react-fade';
+import TopNav from './nav.js';
+import { dispatch, connect } from 'react-redux';
+import { setCurrentUser } from '../actions/CurrentUserActions';
 
 let user = {
   labels: [],
   datasets: [{
       label: '# of Messages by User',
       data: [],
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      backgroundColor: 'rgba(41, 41, 157, 0.8)',
       borderColor: 'rgba(54, 162, 235, 1)',
       borderWidth: 1
-  }]
+  }],
+
 }
 
 let channel = {
@@ -20,7 +24,7 @@ let channel = {
   datasets: [{
       label: '# of Messages by Channel',
       data: [],
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      backgroundColor: 'rgba(41, 41, 157, 0.8)',
       borderColor: 'rgba(54, 162, 235, 1)',
       borderWidth: 1
   }]
@@ -28,7 +32,18 @@ let channel = {
 
 const options = ['user','channel']
 
-export default class Analytics extends React.Component {
+const these = {
+  scales: {
+    yAxes: [{
+        ticks: {
+          min: 0,
+          beginAtZero: true
+        }
+    }]
+  }
+}
+
+class Analytics extends React.Component {
 
   constructor(props) {
     super(props);
@@ -65,6 +80,12 @@ export default class Analytics extends React.Component {
       channel.datasets[0].data = Object.values(channels);
     })
     .catch(error =>  props.router.replace('/'));
+
+    // axios.get('/db/getMe',
+    // { headers: { "authorization": "Bearer "+localStorage.getItem('id_token') }})
+    // .then(res => {
+    //   this.props.dispatch(setCurrentUser(res.data));
+    // })
   }
 
   onSelect(updatedValue) {
@@ -84,9 +105,11 @@ export default class Analytics extends React.Component {
   }
 
   render() {
+    console.log('what are the current props on this render ', this.props)
     return (
       <Fade duration={.2}>
-        <div>
+        <TopNav />
+        <div className='bar-analytics'>
           <div className='dropdown-analytics'>
             <Dropdown 
               options={options} 
@@ -95,11 +118,11 @@ export default class Analytics extends React.Component {
               placeholder='Select an option...'
             />
           </div>
-          <div className='bar-analytics'>
-            <Bar 
-              data={this.state.data}
-            />
-          </div>
+          <br />   
+          <Bar 
+            data={this.state.data}
+            options={these}
+          />
         </div>
       </Fade>
 
@@ -107,3 +130,12 @@ export default class Analytics extends React.Component {
   }
 
 }
+
+
+const mapStateToProps = (state, ownProps) => {
+  return { 
+    currentUser: state.allReducers.CurrentUserReducer,
+  }
+};
+
+export default connect(mapStateToProps)(Analytics);

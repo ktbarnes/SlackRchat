@@ -16,7 +16,8 @@ const CurrentUserReducer = (state = {
   github: '', 
   facebook: '', 
   twitter: '', 
-  linkedin: ''
+  linkedin: '',
+  admin: 0,
 }, action) => {
   switch (action.type) {
     case 'SET_CURRENT_USER':
@@ -32,7 +33,8 @@ const CurrentUserReducer = (state = {
           github: action.github,
           facebook: action.facebook,
           twitter: action.twitter,
-          linkedin: action.linkedin
+          linkedin: action.linkedin,
+          admin: action.admin,
       })
     default:
       return state;
