@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import Message from './Message';
 import { connect } from 'react-redux';
 import axios from 'axios';
