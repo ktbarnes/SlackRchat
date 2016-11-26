@@ -16,7 +16,7 @@ router.get('/getMe', function(request, response) {
   let currentUserID = token.id;
   User.getUserByID(currentUserID)
   .then(user => {
-    // console.log('this is me ', user[0]);
+    console.log('this is me ', user[0]);
     response.json(user[0]);
   })
   // response.json({currentUserID: currentUserID});

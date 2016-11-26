@@ -207,7 +207,7 @@ class AppContainer extends React.Component {
       .then( (resp) => {
         // console.log("what comes in from the DB?",resp)
         resp.data.forEach( (person) => {
-          // console.log(person.phone, "this is the persons phone number")
+          console.log(person.phone, "this is the persons phone number")
           let eachUser = {
             id: person.id,
             username: person.username,

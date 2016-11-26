@@ -5,13 +5,15 @@ import axios from 'axios'
 import { sendProfileInfo } from '../actions/signupActions'
 import { setCurrentUser, updateUserPicture } from '../actions/CurrentUserActions'
 import { close } from '../actions/NavActions'
+import {FormGroup, FormControl, ControlLabel} from 'react-bootstrap'
+import {open2, close2, clickedUserProfile} from '../actions/ClickedUserProfileActions'
 
 class Profile extends React.Component {
 
   constructor(props) {
     super(props);
 
-    console.log('here are the currentUser props in Profile.js ', this.props.currentUser);
+    // console.log('here are the currentUser props in Profile.js ', this.props.currentUser);
 
     this.state = {
       first: this.props.currentUser.first,
@@ -34,6 +36,7 @@ class Profile extends React.Component {
     this.handleTwitter = this.handleTwitter.bind(this);
     this.handleLinkedin = this.handleLinkedin.bind(this);
     this.handleSubmit= this.handleSubmit.bind(this);
+    this.handlePreview=this.handlePreview.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -74,6 +77,17 @@ class Profile extends React.Component {
   handleFacebook(event) { this.setState({facebook: event.target.value})}
   handleTwitter(event) { this.setState({twitter: event.target.value})}
   handleLinkedin(event) { this.setState({linkedin: event.target.value})}
+  
+
+  handlePreview(event) {
+    let user = this.state
+    console.log(this.props, 'these are the proppps')
+    // this.props.save(info)
+    // this.upload(event, info);
+    this.props.dispatch(clickedUserProfile(user))
+    this.props.dispatch(open2())
+    this.props.save(info)
+  }
 
   handleSubmit(event) {
     let info = this.state
@@ -117,43 +131,44 @@ class Profile extends React.Component {
             <input className='pictureInput'type="file" ref='pic' accept="image/*" data-action="profilepicture" />
           </div>
           <div className='restProfile'>
-          <div className='names'>
-            <label className='label'>First Name</label>
-              <input type='text' value={this.state.first} onChange={this.handleFirst} />
-            <label className='label'>Last Name</label>
-              <input type='text' value={this.state.last} onChange={this.handleLast} />  
-          </div>
           <div>
-            <label className='label'>Phone</label>
-              <input type='text' value={this.state.phone} onChange={this.handlePhone} />
+          <FormGroup>
+            <ControlLabel className='label'>First Name</ControlLabel>
+              <FormControl type='text' value={this.state.first} onChange={this.handleFirst} />
+            <ControlLabel className='label'>Last Name</ControlLabel>
+              <FormControl type='text' value={this.state.last} onChange={this.handleLast} />  
+            <ControlLabel className='label'>Phone</ControlLabel>
+              <FormControl type='text' value={this.state.phone} onChange={this.handlePhone} />
+          </FormGroup>
           </div>
-          <div>
-            <h4>Social Media</h4>
+          <FormGroup>
+            <ControlLabel>Social Media</ControlLabel>
             <div>
-            <label className='label'>Github</label>
-              <input type='text' value={this.state.github} onChange={this.handleGithub} />
-            <label className='label'>Facebook</label>
-              <input type='text' value={this.state.facebook} onChange={this.handleFacebook} />
+            <ControlLabel className='label'>Github</ControlLabel>
+              <FormControl type='text' value={this.state.github} onChange={this.handleGithub} />
+            <ControlLabel className='label'>Facebook</ControlLabel>
+              <FormControl type='text' value={this.state.facebook} onChange={this.handleFacebook} />
             </div>
             <div>  
-            <label className='label'>Twitter</label>
-              <input type='text' value={this.state.twitter} onChange={this.handleTwitter} />  
-            <label className='label'>Linkedin</label>
-              <input type='text' value={this.state.linkedin} onChange={this.handleLinkedin}/> 
+            <ControlLabel className='label'>Twitter</ControlLabel>
+              <FormControl type='text' value={this.state.twitter} onChange={this.handleTwitter} />  
+            <ControlLabel className='label'>Linkedin</ControlLabel>
+              <FormControl type='text' value={this.state.linkedin} onChange={this.handleLinkedin}/> 
             </div>  
-          </div>  
+          </FormGroup>  
           <div className='aboutMeContainer'>
             <div>
-            <label>About Me</label>
+            <ControlLabel>About Me</ControlLabel>
             </div>
             <div>
-              <input className='aboutMeInput' type='text' value={this.state.about} onChange={this.handleAbout} />
+              <FormControl className='aboutMeInput' type='text' value={this.state.about} onChange={this.handleAbout} />
             </div>
            </div> 
           </div>
         </div>  
         </Modal.Body>
         <Modal.Footer>
+          <Button className='btn btn-default' onClick={(event)=>this.handlePreview(event)}>Preview</Button>
           <Button className="btn btn-default" onClick={(event)=>this.handleSubmit(event)}>Save</Button>
         </Modal.Footer>
       </Modal>
@@ -164,10 +179,11 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log('julia these', state.allReducers.CurrentUserReducer)
+  console.log('julia these', state.allReducers.ClickedUserProfileReducer)
   return {
     currentUser: state.allReducers.CurrentUserReducer,
-    toShowModel: state.allReducers.NavReducer
+    toShowModel: state.allReducers.NavReducer,
+    clickedUser: state.allReducers.ClickedUserProfileReducer
   }
 }
 

@@ -10,7 +10,7 @@ var User = {
   },
 
   getUserByID: function(id) {
-    return database.select('about','email','facebook','first','github','id','last','linkedin','picture','phone','twitter','username').from('users').where({'id': id});
+    return database.select('about','email','facebook','first','github', 'id', 'last','linkedin','picture','phone','twitter','username').from('users').where({'id': id});
   },
 
   postUser: function(data) {

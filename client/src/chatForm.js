@@ -24,7 +24,7 @@ class ChatForm extends React.Component {
 
   render(){
     return (
-      <div>
+      <div className='chatForm'>
         <form
           onSubmit={e => {
             // console.log("what room is being passed in",currentRoom)
@@ -104,7 +104,7 @@ class ChatForm extends React.Component {
           }}
         > 
           <FormGroup bsSize="large">
-            <input ref={node => { this.input = node; }} />
+            <input className='chatInput' ref={node => { this.input = node; }} />
             <OverlayTrigger trigger={'click'} rootClose placement="top" overlay={
               <Popover id="popover-trigger-click-root-close">
                 <Picker
@@ -116,9 +116,9 @@ class ChatForm extends React.Component {
                 />
               </Popover>
               }>
-              <Button>Emojis</Button>
+              <Button className='chatFormButton'>Emojis</Button>
             </OverlayTrigger>
-            <Button type="submit">Send</Button>
+            <Button className='chatFormButton' type="submit">Send</Button>
           </FormGroup>
         </form>
       </div>
