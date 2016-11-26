@@ -2,6 +2,7 @@ var database = require('../db/db');
 
 var Message = {
 
+  //get all public messages
   getMessages: function() {
     return database('channel_messages')
      .join('users as u1','channel_messages.userID', 'u1.id')
@@ -18,7 +19,8 @@ var Message = {
            'channel_messages.created_at')
      .orderBy('id', 'asc');
   },
-   
+  
+  //post a public message
   postMessage: function(data) {
     return database('channel_messages')
     .insert({

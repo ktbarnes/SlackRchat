@@ -1,9 +1,6 @@
 var database = require('../db/db');
 
 var DirectMessageRoom = {
-  // getRooms: function() {
-  //   return database.select('*').from('DM_room');
-  // },
 
   getRooms: function() {
     return database('DM_room')
