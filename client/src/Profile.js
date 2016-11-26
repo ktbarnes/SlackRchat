@@ -158,7 +158,7 @@ class Profile extends React.Component {
             <div>
             <ControlLabel>About Me</ControlLabel>
             </div>
-            <div>
+            <div className='aboutMeSize'>
               <FormControl className='aboutMeInput' type='text' value={this.state.about} onChange={this.handleAbout} />
             </div>
            </div> 
