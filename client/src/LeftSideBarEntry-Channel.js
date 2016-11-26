@@ -43,7 +43,7 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
               myUserID: currentUser.id,
               channelID: room.id
             })
-            .then( () => window.alert("You have left ",room.channelName))
+            // .then( () => window.alert("You have left ",room.channelName))
 
             //switches the subscribed toggle in the RoomReducer from on to off
             handleReceive(toggleSubscribeRoomOff,room)
