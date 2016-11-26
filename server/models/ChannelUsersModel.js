@@ -1,6 +1,10 @@
 var database = require('../db/db');
 
+
+
 var ChannelUser = {
+
+  //download of channels for any given user, specified by user ID. 
   getMyChannels: function(myUserID) {
     return database('channel_users')
            .join('channel','channel_users.channelID','channel.id')

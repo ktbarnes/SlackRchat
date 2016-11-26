@@ -24,7 +24,6 @@ var User = {
   },
 
   postOtherUserInformation: function(data) {
-    // console.log(data, 'this is the data from getting data from router');
     return database('users').where({'id': data.id})
     .update({
       first: data.first,
@@ -40,7 +39,7 @@ var User = {
 
   postProfile: function(data) {
     let match = data.email;
-    console.log(data, 'this is the data from getting data from router');
+    // console.log(data, 'this is the data from getting data from router');
     return database('users').where('email', '=', match)
     .update({
       first: data.first,

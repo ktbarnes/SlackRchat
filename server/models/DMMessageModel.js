@@ -2,6 +2,7 @@ var database = require('../db/db');
 
 var DMMessage = {
 
+  //get all direct messages
   getMessages: function() {
     return database('DM_messages')
            .join('users as u1','DM_messages.authorID', 'u1.id')
@@ -18,9 +19,9 @@ var DMMessage = {
                  'DM_messages.url',
                  'DM_messages.created_at');
   },
-   
+ 
+   //post a direct messages  
   postMessage: function(data) {
-    console.log("what is the data in this post reuqest for DMMessages",data)
     return database('DM_messages')
     .insert({
       authorID: data.authorID,
