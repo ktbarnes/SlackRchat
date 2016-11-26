@@ -48,7 +48,7 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
             //switches the subscribed toggle in the RoomReducer from on to off
             handleReceive(toggleSubscribeRoomOff,room)
           }}>
-          <Glyphicon glyph="glyphicon glyphicon-remove-circle" />
+          <Glyphicon glyph="glyphicon glyphicon-remove-sign" />
         </Button>
       }
     </NavItem>
