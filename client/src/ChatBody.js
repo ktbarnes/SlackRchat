@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import Message from './Message';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -17,40 +18,66 @@ In the return statement, you'll see that the name of the current room is initial
 based on whether the room itself is marked as a Channel vs. Direct Message room
 */
 
-const MessageList = ( {messages, currentUser, currentRoom} ) => {
+class MessageList extends React.Component {
 
-  let filtered = messages.filter(message => {
-    return message.channelName === currentRoom.channelName || message.channelName === undefined;
-  });
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <div>
-      <h4>
-        {(currentRoom.aliasName === "Channel_NotDM") ? ("You are in channel: " + currentRoom.channelName) : 
-        ("Private chat between " + currentRoom.user2username + " and " + currentRoom.user1username) }
-      </h4>
-      
-      <div id="messages">
-        {filtered.map(message => 
-          <Message
-            key={message.id}
-            username={message.username}
-            text={message.text}
-            created_at={message.created_at}
-            url={message.url}
-            picture={message.picture}
-          />
-        )}
+  // componentWillReceiveProps() {
+
+  //   // Scroll to the bottom on initialization
+  //   var len = this.filtered.length - 1;
+  //   const node = ReactDOM.findDOMNode(this['_div' + len]);
+  //   console.log("len: ",len," ","node: ",node)
+  //   if (node) {
+  //     node.scrollIntoView();
+  //   }
+  // }
+
+  // componentDidUpdate() {
+  //   // Scroll as new elements come along
+  //   var len = this.filtered.length - 1;
+  //   const node = ReactDOM.findDOMNode(this['_div' + len]);
+  //   if (node) {
+  //     node.scrollIntoView();
+  //   }
+  // }
+
+  render(){
+    this.filtered = this.props.messages.filter(message => {
+      return message.channelName === this.props.currentRoom.channelName || message.channelName === undefined;
+    })    
+    return (
+      <div>
+        <h4>
+          {(this.props.currentRoom.aliasName === "Channel_NotDM") ? ("You are in channel: " + this.props.currentRoom.channelName) : 
+          ("Private chat between " + this.props.currentRoom.user2username + " and " + this.props.currentRoom.user1username) }
+        </h4>
+        
+        <div className="chatBody">
+          <div id="messages">
+            {this.filtered.map((message,i) => 
+              <Message
+                key={message.id}
+                username={message.username}
+                text={message.text}
+                created_at={message.created_at}
+                url={message.url}
+                picture={message.picture}
+                ref={(ref) => this['_div' + i] = ref }
+              />
+            )}
+          </div>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {
   return { 
     messages: state.allReducers.ChatReducer,
-    rooms: state.allReducers.RoomReducer,
-    current: state.allReducers.CurrentUserReducer,
     currentRoom: state.allReducers.CurrentRoomReducer
   }
 };
