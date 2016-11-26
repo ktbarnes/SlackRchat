@@ -8,7 +8,7 @@ body, html {
 form input { border: 0; padding: 10px; width: 50%; margin-right: .5%; }
 form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }*/
 
-#messages { list-style-type: none; margin: 0; padding: 0;}
+#messages { list-style-type: none; margin: 0; padding: 0; height: 400px;}
 #messages li { padding: 5px 10px; min-height: 50px}
 #messages li:nth-child(odd) { background: #eee; }
 
@@ -908,6 +908,10 @@ input {
   font-size: 18px;
 }
 
+.chatForm {
+  position: fixed;
+  bottom: 0;
+}
 .chatFormButton{
   margin-left: 10px;
   margin-bottom: 3px;
@@ -915,7 +919,11 @@ input {
   font-weight: bold;
   height: 34px;
   width: 76px;
+}
 
+.chatBody {
+  height: 400px;
+  overflow-y: scroll;
 }
 
 .background{
