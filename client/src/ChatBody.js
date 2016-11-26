@@ -17,7 +17,7 @@ In the return statement, you'll see that the name of the current room is initial
 based on whether the room itself is marked as a Channel vs. Direct Message room
 */
 
-const MessageList = ( {messages, currentUser, currentRoom} ) => {
+const MessageList = ( {messages, currentRoom} ) => {
 
   let filtered = messages.filter(message => {
     return message.channelName === currentRoom.channelName || message.channelName === undefined;
@@ -30,18 +30,21 @@ const MessageList = ( {messages, currentUser, currentRoom} ) => {
         ("Private chat between " + currentRoom.user2username + " and " + currentRoom.user1username) }
       </h4>
       
-      <div id="messages">
-        {filtered.map(message => 
-          <Message
-            key={message.id}
-            username={message.username}
-            text={message.text}
-            created_at={message.created_at}
-            url={message.url}
-            picture={message.picture}
-          />
-        )}
+      <div className="chatBody">
+        <div id="messages">
+          {filtered.map(message => 
+            <Message
+              key={message.id}
+              username={message.username}
+              text={message.text}
+              created_at={message.created_at}
+              url={message.url}
+              picture={message.picture}
+            />
+          )}
+        </div>
       </div>
+
     </div>
   )
 }
@@ -49,8 +52,6 @@ const MessageList = ( {messages, currentUser, currentRoom} ) => {
 const mapStateToProps = (state, ownProps) => {
   return { 
     messages: state.allReducers.ChatReducer,
-    rooms: state.allReducers.RoomReducer,
-    current: state.allReducers.CurrentUserReducer,
     currentRoom: state.allReducers.CurrentRoomReducer
   }
 };

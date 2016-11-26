@@ -78,7 +78,6 @@ class PrimaryChatroom extends React.Component {
       <div>
         <div>
           <MessageList />
-          <Message />
         </div>
         <div>
           <ChatForm socket={this.props.theSocket} />
