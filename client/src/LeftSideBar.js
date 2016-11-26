@@ -166,6 +166,7 @@ class LeftSideBar extends React.Component {
             console.log("these are my DM Rooms",this.props.DMRooms)
             console.log("this is all the users after",this.props.allUsers);
             console.log("all available rooms",this.props.rooms)
+            console.log("all my messages",this.props.allMessages);
           }}>...
         </p>
 
@@ -177,6 +178,7 @@ class LeftSideBar extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return { 
     allUsers: state.allReducers.UserReducer,
+    allMessages: state.allReducers.ChatReducer,
     currentRoom: state.allReducers.CurrentRoomReducer,
     DMRooms: state.allReducers.DMRoomReducer,
     currentUser: state.allReducers.CurrentUserReducer,
