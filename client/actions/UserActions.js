@@ -40,7 +40,6 @@ export const toggleOfflineUser = (userUsername) => {
 };
 
 export const downloadOnlineUsers = (userUsername) => {
-    console.log("user in downloadOnlineUser in UserActions",userUsername)
   return {
     type: "DOWNLOAD_ONLINE_USERS",
     userUsername

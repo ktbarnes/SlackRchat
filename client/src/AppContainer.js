@@ -131,12 +131,10 @@ class AppContainer extends React.Component {
     }); 
     
     this.socket.on('onlineToggle ON', email => {
-      // console.log("who just logged in",email);
       this.handleReceive(toggleOnlineUser,email);
     });
     
     this.socket.on('onlineToggle OFF', email => {
-      // console.log("who just logged off",email);
       this.handleReceive(toggleOfflineUser,email);
     });
     

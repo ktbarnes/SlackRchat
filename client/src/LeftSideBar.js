@@ -82,8 +82,8 @@ class LeftSideBar extends React.Component {
   }
 
   render() {
-    console.log('WHAT IS THE STATE ', this.state)
-    console.log('WHAT IS THE CURRENT USER ', this.props.currentUser)
+    // console.log('WHAT IS THE STATE ', this.state)
+    // console.log('WHAT IS THE CURRENT USER ', this.props.currentUser)
     return (
       <div> 
 
