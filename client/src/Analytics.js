@@ -80,12 +80,6 @@ class Analytics extends React.Component {
       channel.datasets[0].data = Object.values(channels);
     })
     .catch(error =>  props.router.replace('/'));
-
-    // axios.get('/db/getMe',
-    // { headers: { "authorization": "Bearer "+localStorage.getItem('id_token') }})
-    // .then(res => {
-    //   this.props.dispatch(setCurrentUser(res.data));
-    // })
   }
 
   onSelect(updatedValue) {
@@ -105,7 +99,6 @@ class Analytics extends React.Component {
   }
 
   render() {
-    console.log('what are the current props on this render ', this.props)
     return (
       <Fade duration={.2}>
         <TopNav />
@@ -130,7 +123,6 @@ class Analytics extends React.Component {
   }
 
 }
-
 
 const mapStateToProps = (state, ownProps) => {
   return { 
