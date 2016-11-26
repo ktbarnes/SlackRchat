@@ -15,6 +15,7 @@ import { setCurrentUser } from '../actions/CurrentUserActions';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import { default as Fade } from 'react-fade';
 import { Grid, Row, Col } from 'react-bootstrap';
+import AlertContainer from 'react-alert';
 
 
 /*
@@ -50,6 +51,13 @@ class AppContainer extends React.Component {
       pullRight: true
     } //state initialized for purpose of RightSideBar
     this.toggleUserDock = this.toggleUserDock.bind(this)
+    this.alertOptions = {
+      // offset: 300,
+      position: 'top right',
+      theme: 'dark',
+      time: 10000,
+      transition: 'fade'
+    };
   }
 
   //Following set of functions used for RightSideBar
@@ -107,7 +115,7 @@ class AppContainer extends React.Component {
     
     //This event may require some explanation...:
     this.socket.on("direct message", incoming => {
-      window.alert(incoming.msg) //notification to user that another user is trying to send a direct message
+      this.showAlert(incoming.msg) //notification to user that another user is trying to send a direct message
 
       //following code is used because it needs to track whether current user has ever had a direct message with other user
       //if not you add that room to the DMRoomReducer. otherwise, you just go straight to that room
@@ -131,12 +139,10 @@ class AppContainer extends React.Component {
     }); 
     
     this.socket.on('onlineToggle ON', email => {
-      // console.log("who just logged in",email);
       this.handleReceive(toggleOnlineUser,email);
     });
     
     this.socket.on('onlineToggle OFF', email => {
-      // console.log("who just logged off",email);
       this.handleReceive(toggleOfflineUser,email);
     });
     
@@ -157,6 +163,14 @@ class AppContainer extends React.Component {
   //and used in several places
   handleReceive(cb,body) {
     this.props.dispatch(cb(body));
+  }
+
+  showAlert(message){
+    msg.show(message, {
+      time: 10000,
+      type: 'info',
+      // icon: <img src="path/to/some/img/32x32.png" />
+    });
   }
 
   //download all info from the database, including "me", all channels, all users, all DM rooms
@@ -294,6 +308,11 @@ class AppContainer extends React.Component {
       <Sidebar {...sidebarProps} className='RightSideBar'>
           <TopNav />          
           <Grid id="Container">
+            <Row>
+              <div>
+                <AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
+              </div>
+            </Row>
             <Row>
               <Col className="LeftSideBar" md={3} lg={3}>
                 <LeftSideBar downloadAllChannels={this.downloadAllChannels} theSocket={this.socket} />

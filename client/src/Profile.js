@@ -11,8 +11,6 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('here are the currentUser props in Profile.js ', this.props.currentUser);
-
     this.state = {
       first: this.props.currentUser.first,
       photo: this.props.currentUser.photo,

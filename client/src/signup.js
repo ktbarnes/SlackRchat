@@ -31,6 +31,18 @@ class SignUp extends React.Component {
     })
   };
 
+
+  //When user signs up, s/he automatically subscribes to the lobby
+  //The lobby in our application is id=1 in the database (this won't change)
+  //Also reflected that way in the store. So when the onSignup function is called
+  //A post request will be made to subscribe that new user to the Lobby by default
+  subscribeToLobby(userID,channelID){
+    axios.post('/db/addMyChannel',{
+      myUserID: userID,
+      channelID: channelID
+    })    
+  }
+
   onSignup(event) {
     const username = this.refs.username;
     const password = this.refs.password;
@@ -52,6 +64,7 @@ class SignUp extends React.Component {
         // console.log("Signup successful - setting a token in local storage")
         localStorage.setItem('id_token', response.data.id_token);
         this.props.dispatch(createUser(response.data.id_token));
+        this.subscribeToLobby(response.data.idInDatabase,1); //Lobby is default room 1, as seen in store and DB, so will hard-code here
         this.open();
       }
     })

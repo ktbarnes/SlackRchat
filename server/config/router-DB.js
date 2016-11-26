@@ -68,7 +68,10 @@ router.post('/users', function(request, response) {
     })
     .then(user => {
       let token = jwt.encode({id: user[0]}, process.env.SECRET);
-      response.json({id_token: token});
+      response.json({
+        id_token: token,
+        idInDatabase: user[0]
+      });
     })
     .catch(error => {
       response.send(error)
