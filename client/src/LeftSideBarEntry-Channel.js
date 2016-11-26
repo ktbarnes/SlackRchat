@@ -4,7 +4,7 @@ import { dispatch, connect } from 'react-redux';
 import { setCurrentRoom } from '../actions/CurrentRoomActions';
 import { toggleCurrentRoomField, toggleSubscribeRoomOff } from '../actions/RoomActions';
 import { Badge, Button } from 'react-bootstrap';
-import { NavItem } from 'react-bootstrap';
+import { NavItem, Glyphicon } from 'react-bootstrap';
 
 //Note to reader: this is the component for each rendered room in the left sidebar for
 //My Channels and Direct Messages
@@ -48,7 +48,7 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
             //switches the subscribed toggle in the RoomReducer from on to off
             handleReceive(toggleSubscribeRoomOff,room)
           }}>
-          x
+          <Glyphicon glyph="glyphicon glyphicon-remove-circle" />
         </Button>
       }
     </NavItem>
