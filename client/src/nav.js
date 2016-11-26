@@ -84,6 +84,9 @@ save(user) {
           onClick={(event) => this.onEdit(event)}>Profile</a>
           <Profile save={this.save} />
           <a className='navbutton' onClick={() => this.logout()} href='/login'>Logout</a>
+          { this.props.location === '/analytics' &&
+            <Link className='navbutton' to='/'>Chat</Link>
+          }
         </div>
       </nav>
     )
@@ -91,9 +94,11 @@ save(user) {
 }
   
 const mapStateToProps = (state, ownProps) => {
+  console.log('here is the state in mapStateToProps in Nav ', state)
   return {
     toShowModel: state.allReducers.NavReducer,
-    currentUser: state.allReducers.CurrentUserReducer 
+    currentUser: state.allReducers.CurrentUserReducer,
+    location: state.routing.locationBeforeTransitions.pathname, 
   }
 }
 

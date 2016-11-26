@@ -103,7 +103,9 @@ class Analytics extends React.Component {
       <Fade duration={.2}>
         <TopNav />
         <div className='bar-analytics'>
+          <h4 className='dropdown-title'>View Number of Messages from Past Seven Days</h4>
           <div className='dropdown-analytics'>
+            <h4>Select Option</h4>
             <Dropdown 
               options={options} 
               onChange={(value)=>this.onSelect(value)} 
