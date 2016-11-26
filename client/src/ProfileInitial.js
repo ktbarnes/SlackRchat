@@ -1,10 +1,5 @@
-import { Modal, 
-        Button,
-        ModalHeader,
-        ModalTitle,
-        ModalFooter,
-        ModalBody
-         } from 'react-bootstrap'        
+import { Modal, Button, ModalHeader, ModalTitle, ModalFooter, 
+        ModalBody, FormGroup, FormControl, ControlLabel} from 'react-bootstrap'        
 import React from 'react'
 import SignUp from './signup.js'
 import {updateUserPictureInitial} from '../actions/signupActions'
@@ -17,12 +12,12 @@ class ProfileInitial extends React.Component {
       this.state = {
         first: 'First Name',
         last: 'Last Name',
-        phone: 'phone',
-        about: 'about',
-        github: 'github',
-        facebook: 'facebook',
-        twitter: 'twitter',
-        linkedin: 'linkedin',
+        phone: 'Phone',
+        about: 'About',
+        github: 'http://',
+        facebook: 'http://',
+        twitter: 'http://',
+        linkedin: 'htpp://',
         submit: 'submit'
       }
       
@@ -83,40 +78,48 @@ render(){
           <Modal.Title id='modal_header'>Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body id='modal_content'>
-          <div>
-            <h2>Edit Profile</h2>
-          </div>
           <div> 
-            <h3>Profile Picture</h3>
-            <input type='file' ref='pic' accept='image/*' data-action='profilepicture' />
-            <Button className='btn btn-default' onClick={this.handleSubmit2}>Save</Button>
-            <img src={this.state.picture}></img>
+            <div className='profilePicture'> 
+              <img className='pictureImg' src={this.state.picture}></img>
+              <input className='pictureInput'type="file" ref='pic' accept="image/*" data-action="profilepicture" />
+              <Button className='btn btn-default' onClick={this.handleSubmit2}>Save</Button>
+            </div>
           </div>
-          <div>
-            <label>First Name</label>
-              <input type='text' placeholder={this.state.first} onChange={this.handleFirst} />
-            <label>Last Name</label>
-              <input type='text' placeholder={this.state.last} onChange={this.handleLast} />  
+          <div className='restProfile'>
+          <div className='names'>
+            <FormGroup>
+              <ControlLabel className='label'>First Name</ControlLabel>
+                <FormControl type='text' placeholder={this.state.first} onChange={this.handleFirst} />
+              <ControlLabel className='label'>Last Name</ControlLabel>
+                <FormControl type='text' placeholder={this.state.last} onChange={this.handleLast} />  
+              <ControlLabel className='label'>Phone</ControlLabel>
+                <FormControl type='text' placeholder={this.state.phone} onChange={this.handlePhone} />
+            </FormGroup>
           </div>
-          <div>
-            <label>Phone</label>
-              <input type='text' placeholder={this.state.phone} onChange={this.handlePhone} />
-          </div>
-          <div>
-            <label>About Me</label>
-              <input type='text' placeholder={this.state.about} onChange={this.handleAbout} />
-          </div>
-          <div>
-            <h4>Social Media</h4>
-            <label>github</label>
-              <input type='text' placeholder={this.state.github} onChange={this.handleGithub} />
-            <label>facebook</label>
-              <input type='text' placeholder={this.state.facebook} onChange={this.handleFacebook} />
-            <label>twitter</label>
-              <input type='text' placeholder={this.state.twitter} onChange={this.handleTwitter} />  
-            <label>linkedin</label>
-              <input type='text' placeholder={this.state.linkedin} onChange={this.handleLinkedin}/>  
-          </div>  
+            <FormGroup>
+              <ControlLabel>Social Media</ControlLabel>
+            <div>
+              <ControlLabel className='label'>Github</ControlLabel>
+                <FormControl type='text' placeholder={this.state.github} onChange={this.handleGithub} />
+              <ControlLabel className='label'>Facebook</ControlLabel>
+                <FormControl type='text' placeholder={this.state.facebook} onChange={this.handleFacebook} />
+            </div>
+            <div>  
+              <ControlLabel className='label'>Twitter</ControlLabel>
+                <FormControl type='text' placeholder={this.state.twitter} onChange={this.handleTwitter} />  
+              <ControlLabel className='label'>Linkedin</ControlLabel>
+                <FormControl type='text' placeholder={this.state.linkedin} onChange={this.handleLinkedin}/> 
+            </div>  
+          </FormGroup>  
+          <div className='aboutMeContainer'>
+            <div>
+            <ControlLabel>About Me</ControlLabel>
+            </div>
+            <div>
+              <FormControl className='aboutMeInput' type='text' placeholder={this.state.about} onChange={this.handleAbout} />
+            </div>
+           </div> 
+          </div> 
         </Modal.Body>
         <Modal.Footer>
           <Button className='btn btn-default' onClick={this.handleSubmit}>Save</Button>
@@ -128,7 +131,7 @@ render(){
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("what is my current user? Julia wants to know",state.allReducers.CurrentUserReducer)
+  // console.log("what is my current user? Julia wants to know",state.allReducers.CurrentUserReducer)
   return {
     currentUser: state.allReducers.CurrentUserReducer
     // allUsers: state.allReducers.UserReducer 
