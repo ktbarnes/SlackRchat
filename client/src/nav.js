@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect, dispatch } from 'react-redux'
 import { logoutUser, requestLogout, receiveLogout } from '../actions/logoutActions'
-import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router'
+import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
 import Profile from './Profile'
 import { Modal, Button, ModalHeader, ModalTitle, ModalFooter, ModalBody } from 'react-bootstrap' 
 import { sendProfileInfo } from '../actions/signupActions'
@@ -72,11 +72,9 @@ save(user) {
     dispatch(requestLogout());
     localStorage.removeItem('id_token');
     dispatch(receiveLogout());
-    // this.props.router.replace('/login');
   }
 
   render() {
-    console.log('here in Nav render ', this.props.currentUser)
     return (
       <nav className='navbar navbar-default navbar-fixed-top'>  
         <div className='nav'>
