@@ -1,62 +1,89 @@
-// For Socket.io
+  // For Socket.io
 
-// module.exports = function(http){
-//   var io = require('socket.io')(http);
+module.exports = function(http){
 
-//   io.sockets.on('connection', function(socket){
+  var io = require('socket.io')(http);
+  var organizationName = '/Hack-Reactor-NameSpace'; //hard-coded for now
+  var hrns = io.of(organizationName); 
+  //Just one "organization" for now, called HRNS. we can add more later
+  var currentRoom = '';
+  var currentUserUsername = '';
+  var loggedInUsers = {};
 
-//     console.log('a user connected to:' + socket.id);
-//     io.sockets.emit('someoneJoin','a user connected');
+  hrns.on('connection', function(socket){
 
-//     socket.on('chat message', function(msg){
-//       console.log('message: ' + msg);
-//       io.sockets.emit('chat message', msg);
-//     });
-
-//     socket.on('disconnect', function(msg){
-//       console.log('user disconnected');
-//       msg = 'A user disconnected';
-//       io.sockets.emit('disconnected',msg);
-//     });
-//   });sub
+    socket.on('setMyEmailInSocket', function(fromClient){
+      // console.log('fromClient: ' + fromClient);
+      currentUserUsername = fromClient.username;
+      loggedInUsers[fromClient.username] = socket.id;
+      hrns.in(currentRoom).emit('onlineToggle ON', fromClient.username);
+      // console.log("input socket ID: ", fromClient.username,"     ",loggedInUsers[fromClient.username]);
+      // console.log("whos logged in now line 110 server.js",loggedInUsers)
+    });
     
-// }
-
-// module.exports = function(socket){
-
-//   var currentRoom = '';
-
-//   console.log('a user connected to:' + socket.id);
-//   socket.broadcast.emit('someoneJoin','A user connected');
-
-//   socket.on('chat message', function(fromClient){
-//     console.log('chat message: ' + fromClient.msg);
-//     console.log('room name: ' + fromClient.room, currentRoom);
-//     // socket.emit('chat message', fromClient.msg);
-//     // socket.broadcast.emit('chat message', fromClient.msg);
-//     socket.to(currentRoom).emit('chat message', fromClient.msg);
-//     socket.to(fromClient.room).emit('chat message', fromClient.msg);
-//   });
-
-//   socket.on('disconnect', function(){
-//     console.log('user disconnected');
-//     var msg = 'A user disconnected';
-//     socket.broadcast.emit('disconnected',msg);
-//   });
-
-
-//   //Room-specific code
-
-//   socket.on('changeRoom', function(room) {
-//     currentRoom = room;
-//     socket.join(room);
-//     console.log("currentRoom",currentRoom);
-//     socket.in(currentRoom).broadcast.emit('roomMessage', 'what is going on, party people?');
-//     socket.to(currentRoom).emit('roomMessageTest', 'TEST - what is going on, party people?');
-//   });
-
-//   // io.sockets.in(currentRoom).emit('message', 'what is going on, party people?');
-//   socket.in(currentRoom).broadcast.emit('roomMessage', 'what is going on, party people?');
-//   socket.to(currentRoom).emit('roomMessageTest', 'TEST - what is going on, party people?');
+    socket.on('getAllLoggedInUsersFromSocket', function() {
+      hrns.in(currentRoom).emit('getAllLoggedInUsersFromSocket', loggedInUsers);
+    });
     
-// }
+    socket.on('changeRoom', function(room) {
+      currentRoom = room;
+      socket.join(room);
+      // console.log("currentRoom",currentRoom);
+    });
+
+    socket.on('someoneJoin', function(username){
+      console.log(username + ' connected');
+      var msg = username + ' connected';
+      hrns.in(currentRoom).emit('someoneJoin', msg);
+    });
+
+    //user sends message into room
+    socket.on('chat message', function(fromClient){
+      // console.log('fromClient: ' + fromClient);
+      // console.log('user: ' + fromClient.username);
+      // console.log('chat message: ' + fromClient.msg);
+      // console.log('picture: ' + fromClient.picture);
+      // console.log("urL: " + fromClient.url);
+      // console.log("channelName: " + fromClient.channelName)
+      // console.log("channelID: " + fromClient.channelID)
+      // console.log('room name: ' + fromClient.room, currentRoom);
+      hrns.in(currentRoom).emit('chat message', {
+        channelName: fromClient.channelName,
+        channelID: fromClient.channelID,
+        username: fromClient.username,
+        text: fromClient.msg,
+        url: fromClient.url,
+        picture: fromClient.picture,
+      });
+    });
+
+    socket.on('direct message', function(fromClient){
+      // console.log("what's from client - message",fromClient.msg);
+      // console.log("what's from client - room",fromClient.room);
+      var inputSocketID = loggedInUsers[fromClient.recipientUsername]
+      socket.broadcast.to(inputSocketID).emit("direct message",
+        {
+          msg: fromClient.msg,
+          url: fromClient.url,
+          room: fromClient.room
+        }
+      );
+    });
+
+    //user disconnects from room
+    socket.on('disconnect', function(){
+      var keys = Object.keys(loggedInUsers);
+      for (var i = 0; i < keys.length; i++){
+        if(loggedInUsers[keys[i]] === socket.id){
+          // console.log(keys[i],' left the room');
+          var msg = keys[i] + ' left the room';
+          hrns.in(currentRoom).emit('disconnected', msg);
+          delete loggedInUsers[keys[i]];
+          console.log("who's logged in now?",loggedInUsers)
+          hrns.in(currentRoom).emit('onlineToggle OFF', keys[i]);
+        }
+      }
+    });
+      
+  });
+}

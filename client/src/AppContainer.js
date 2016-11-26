@@ -147,9 +147,9 @@ class AppContainer extends React.Component {
     });
     
     this.socket.on("getAllLoggedInUsersFromSocket", onlineUsersObj => {
-      // console.log("TRYING TO GET A MESSAGE")
-      // console.log("online users Obj",onlineUsersObj)
-      // console.log("online users Obj keys",Object.keys(onlineUsersObj))
+      console.log("TRYING TO GET A MESSAGE")
+      console.log("online users Obj",onlineUsersObj)
+      console.log("online users Obj keys",Object.keys(onlineUsersObj))
       if(Object.keys(onlineUsersObj).length > 0){
         Object.keys(onlineUsersObj).forEach( (email) =>
           this.handleReceive(downloadOnlineUsers,email)
