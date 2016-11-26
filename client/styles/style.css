@@ -37,13 +37,13 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 .LeftSideBar {
   /*background-color: #FC6E51;*/
   overflow-y: scroll; 
-  top: 161.82px;
+  top: 141.82px;
   background-color: whitesmoke;
   padding: 30px;
 }
 
 .PrimaryChatroom {
-  top: 161.82px;
+  top: 141.82px;
   /*background-color: #4FC1E9;*/
 }
 
