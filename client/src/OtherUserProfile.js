@@ -41,57 +41,40 @@ class OtherUserProfile extends React.Component {
       <div>
       <Modal id='profile_modal_other' show={this.props.clickedUser.showModel2} >
         <Modal.Header>
-          <Modal.Title id='modal_header_other'>Profile</Modal.Title>
+          <Modal.Title>Profile {this.props.clickedUser.username}</Modal.Title>
         </Modal.Header>
-        <Modal.Body id='modal_content_other'> 
-      <div className='table'>
-        <div>
-          <h2 className='tableUsername'>{this.props.clickedUser.username}</h2>
+        <Modal.Body id='modal_content'> 
+      <div className='otheruserprofile'>
+        <div class='profilePicture'>
+          <img className='profileImg2' src={this.props.clickedUser.picture}></img>
         </div>
-        <div>
-          <h3>Profile Picture</h3>
-          <img className='profilePic' src={this.props.clickedUser.picture}></img>
-        </div>
-        <table className='tableOtherUserInformation'>
-        <tbody>
-          <tr>
-            <td className='profileHeading'>First Name</td>
-            <td>{this.props.clickedUser.first}</td>
-          </tr>
-          <tr>
-            <td>Last Name</td>
-            <td>{this.props.clickedUser.last}</td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td>{this.props.clickedUser.email}</td>
-          </tr>
-          <tr>
-            <td>Phone Number</td>
-            <td>{this.props.clickedUser.phone}</td>
-          </tr>
-          <tr>
-            <td>Github1</td>
-            <td><a href={this.props.clickedUser.github}>{this.props.clickedUser.github}</a></td>
-          </tr>
-          <tr>
-            <td>Linkedin</td>
-            <td><a href={this.props.clickedUser.linkedin}>{this.props.clickedUser.linkedin}</a></td>
-          </tr>
-          <tr>
-            <td>Facebook</td>
-            <td><a href={this.props.clickedUser.facebook}>{this.props.clickedUser.facebook}</a></td>
-          </tr>
-          <tr>
-            <td>Twitter</td>
-            <td><a href={this.props.clickedUser.twitter}>{this.props.clickedUser.twitter}</a></td>
-          </tr>
-          <tr>
-            <td>About Me</td>
-            <td>{this.props.clickedUser.about}</td>
-          </tr>
-        </tbody>   
-      </table> 
+        <div className='restProfile2'>
+          <div className='colors'>
+            <label className='names'>First Name</label>
+            <p>{this.props.clickedUser.first}</p>
+            <label className='names'>Last Name</label>
+            <p>{this.props.clickedUser.last}</p>
+            <label className='names'>Email</label>
+            <p>{this.props.clickedUser.email}</p>
+            <label className='names'>Phone Number</label>
+            <p>{this.props.clickedUser.phone}</p>
+          </div>
+          <div className='colors'>
+            <div className='socialMedia'>Social Media</div>
+              <label className='names'>Github1</label>
+              <p><a href={this.props.clickedUser.github}>{this.props.clickedUser.github}</a></p>
+              <label className='names'>Linkedin</label>
+              <p><a href={this.props.clickedUser.linkedin}>{this.props.clickedUser.linkedin}</a></p>
+              <label className='names'>Facebook</label>
+              <p><a href={this.props.clickedUser.facebook}>{this.props.clickedUser.facebook}</a></p>
+              <label className='names'>Twitter</label>
+              <p><a href={this.props.clickedUser.twitter}>{this.props.clickedUser.twitter}</a></p>
+            </div>
+          <div className='colors'>
+            <div className='socialMedia'>About Me</div>
+            <p className='aboutMeInput'>{this.props.clickedUser.about}</p>
+          </div>  
+      </div> 
       </div> 
       </Modal.Body>
         <Modal.Footer>

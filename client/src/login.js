@@ -37,10 +37,7 @@ class Login extends React.Component {
 
     return (
       <div>
-      <div>
-          <video id='background-video' autoPlay loop>
-          <source src='/styles/The-Crosswalk.mp4' type='video/mp4' />
-          </video>
+      <div className='background'>
         </div>
       <div className='logInPage'>
       <h1 className='stayConnected'>Stay Connected</h1>
@@ -63,7 +60,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("HERE IS THE STATE AS SEEN BY LOGIN.JS", state.allReducers.authReducer)
+  // console.log("HERE IS THE STATE AS SEEN BY LOGIN.JS", state.allReducers.authReducer)
   return {}
   // return { isFetching: state.allReducers.AuthReducer.isFetching, isAuthenticated: state.allReducers.AuthReducer.isAuthenticated }
 };
