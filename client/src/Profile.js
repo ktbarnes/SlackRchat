@@ -177,7 +177,7 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('julia these', state.allReducers.ClickedUserProfileReducer)
+  // console.log('julia these', state.allReducers.ClickedUserProfileReducer)
   return {
     currentUser: state.allReducers.CurrentUserReducer,
     toShowModel: state.allReducers.NavReducer,
