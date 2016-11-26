@@ -14,7 +14,7 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
   const handleReceive = (cb,body) => dispatch(cb(body));
 
   return (
-    <NavItem 
+    <NavItem className="myChannelButtonHider"
       style={
         {backgroundColor: (currentRoom.channelName === room.channelName) ? "#ADD8E6" : "white"}
       }
@@ -36,7 +36,7 @@ const LeftSideBarEntryChannel = ({ dispatch, room, currentUser, currentRoom, the
         </Badge>
 
       {room.AmISubscribedToggle && room.channelName !== "Lobby" && 
-        <Button bsSize="xsmall"
+        <Button bsSize="xsmall" className="myChannelButtons viewThisButton"
           onClick={ () => { //this button removes user's subscription to a certain channel
             //persists this fact in the database
             axios.post('/db/deleteMyChannel',{
