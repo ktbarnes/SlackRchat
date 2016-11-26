@@ -333,6 +333,7 @@ class AppContainer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log('this is it', state.allReducers.CurrentUserReducer)
   return { 
     rooms: state.allReducers.RoomReducer,
     currentUser: state.allReducers.CurrentUserReducer,

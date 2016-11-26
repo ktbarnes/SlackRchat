@@ -36,9 +36,7 @@ class Login extends React.Component {
     const { dataStore, errorMessage } = this.props
 
     return (
-      <div>
       <div className='background'>
-        </div>
       <div className='logInPage'>
       <h1 className='stayConnected'>Stay Connected</h1>
         <div className='logForm'>
@@ -46,14 +44,16 @@ class Login extends React.Component {
         <input type='text' ref='username' className='logInForm' placeholder='Email' />
         <label className='logInLabels'>Password</label>
         <input type='password' ref='password' className='logInForm' placeholder='Password' />
+        <div className='logInButtons'>
         <button onClick={(event) => this.handleClick(event)} className='logInButton'>
         Login
         </button>
         {errorMessage && <p>{errorMessage}</p>}
         <a className='logInSignUpButton' href='/signup'>Sign Up</a>
         </div>
+        </div>
+      </div> 
       </div>
-    </div>  
     )
   }
 

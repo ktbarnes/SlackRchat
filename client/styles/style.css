@@ -1,4 +1,5 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 body, html {
   font: 13px Helvetica, Arial; 
   overflow: hidden;
@@ -34,7 +35,7 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 }
 
 .LeftSideBar {
-/*  background-color: #FC6E51;*/
+  /*background-color: #FC6E51;*/
   overflow-y: scroll; 
   top: 161.82px;
   background-color: whitesmoke;
@@ -149,33 +150,23 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
   font-weight:bold;
   text-align: center;
   white-space:nowrap;
-    overflow:hidden;
-    border-right: .1em solid black;
- -webkit-animation: typing 17s steps(13, end),blink-caret 1s step-end infinite;
-    -moz-animation: typing 17s steps(13, end),
-       blink-caret 1s step-end infinite;
-
+  overflow:hidden;
+  border-right: .15em solid white;
+  letter-spacing: .15em;
+  animation: 
+    typing 3.0s steps(13, end),
+    blink-caret 3.9s step-end infinite;
 }
 
 
-@-webkit-keyframes typing {
+@keyframes typing {
     from { width: 0 }
-    to { width:16.3em }
+    to { width:100% }
 }
 
-@-moz-keyframes typing {
-    from { width: 0 }
-    to { width:16.3em }
-}
-
-@-webkit-keyframes blink-caret {
+@keyframes blink-caret {
     from, to { border-color: transparent }
-    50% { border-color: black }
-}
-
-@-moz-keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: black }
+    0% { border-color: white }
 }
 
 
@@ -254,6 +245,10 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
   top:6px;
 }
 
+.logInButtons{
+  margin-left: 13%;
+  margin-top: 20px;
+}
 .logInSignUpButton{
  -moz-box-shadow:inset 0px 0px 50px -22px #ffffff;
   -webkit-box-shadow:inset 0px 0px 50px -22px #ffffff;
@@ -268,6 +263,7 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
   color:black;
   font-family:courier;
   font-size:24px;
+  margin-left: 20px;
   padding:10px 10px;
   text-decoration:none;
   text-shadow:0px 2px 50px #ffffff;
@@ -281,13 +277,12 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 .nav {align-items: center; width:100%; background-color: rgba(23, 27, 89, 1);
     background: -webkit-linear-gradient(top, rgba(15, 28, 64, 1) 0%, rgba(23, 27, 89, 1) 100%);
     background: linear-gradient(to bottom, rgba(15, 28, 64, 1) 0%, rgba(23, 27, 89, 1) 100%); float: right;}
-.title {text-align:center; font-size: 50px; justify-content: space-between; font-family: courier; color: rgb(246, 246, 245);}
+.title {text-align:center; font-size: 50px; justify-content: space-between; font-family: courier; color: rgb(246, 246, 245); font-weight: bold;}
 
 .navbutton {font-weight:bold; font-size: 25px; color:rgb(246, 246, 245); font-family: courier; 
             text-align: right; padding: 10px 12px; text-decoration: none; float: right; }
-.helloUser{font-size: 25px; color:white; font-family: courier; 
+.helloUser{font-size: 25px; color:white; font-family: courier; margin-top: auto;
             text-align: left; padding: 10px 12px; float:left; font-weight: bold;}
-
 ul.nav {
   background: white;
 }
@@ -309,8 +304,8 @@ text-align: center; font-size: 20px; font-family:courier; border-width: 10px}
 .modal-content{background: #eee; width:600px; height: 400px; position:fixed;
 z-index: 9998;top:50%; left:50%; margin-top:-210px; margin-left:-103px;
 text-align: center; font-size: 20px; font-family:courier; border-width: 10px}*/
-.aboutMeContainer {}
-.aboutMe {width:400px; height:100px;}
+.aboutMeSize {width: 400px; height:50px;}
+.aboutMeInput {width:400px; height:50px;}
 .profileHeading{text-align: left;}
 /*.chatbodypic{float: left; width: 50px}*/
 .chatpic{max-height: 40px; display: block; margin: auto;}
@@ -862,6 +857,7 @@ input {
     font-size: 15px; font-family: courier;
     border: 1px solid #ccc;
     border-radius: 8px;
+
   }
 .modal-body{
   padding:1px;
@@ -879,9 +875,10 @@ input {
   margin-top: 30px;
   width:600px;
 }
-.aboutMeInput{
-  height: 100px;
+.aboutMeInput.form-control {
+  height: 50px;
   width: 400px;
+  text-align: left;
 }
 
 .socialMedia{
@@ -927,6 +924,9 @@ input {
 }
 
 .background{
-  background-image: url('/sky.jpg');
-  background-size: 100%
+  background-image: url('/styles/sky.jpg');
+  background-size: contain;
+  height: 100vh;
 }
+
+
