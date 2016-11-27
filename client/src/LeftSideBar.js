@@ -156,7 +156,9 @@ class LeftSideBar extends React.Component {
 
         {
           !!this.props.currentUser.admin &&
-          <Link to='/analytics'>Administrator</Link>
+          <div>
+            <h4 className='analytics-link'><Link className='analytics-link' to='/analytics'>Analytics</Link></h4>
+          </div>
         }
 
         <p 
