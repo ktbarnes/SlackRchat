@@ -36,7 +36,7 @@ const Message = ({ created_at, text, username, url, picture }) => {
   let stuff;
  
   if(url) {
-    stuff = [emojiChecker({text})].concat[<Giphy url={url} key={Date.now()}/>]; //not sure if right check with Katie
+    stuff = Object.assign([],emojiChecker({text}),<Giphy url={url} key={Date.now()}/>)
     // [...emojiChecker({text}), <Giphy url={url} key={Date.now()}/>];
   } else {
     stuff = emojiChecker({text});
