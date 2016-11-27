@@ -94,7 +94,7 @@ save(user) {
 }
   
 const mapStateToProps = (state, ownProps) => {
-  console.log('here is the state in mapStateToProps in Nav ', state)
+  // console.log('here is the state in mapStateToProps in Nav ', state)
   return {
     toShowModel: state.allReducers.NavReducer,
     currentUser: state.allReducers.CurrentUserReducer,
