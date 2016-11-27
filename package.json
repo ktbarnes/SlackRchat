@@ -76,7 +76,7 @@
     "nodemailer-smtp-transport": "^2.7.2",
     "nodemon": "^1.11.0",
     "pg": "4.x",
-    "react": "^15.4.1",
+    "react": "^15.3.2",
     "react-addons-css-transition-group": "^15.4.1",
     "react-alert": "^1.0.14",
     "react-bootstrap": "^0.30.6",
