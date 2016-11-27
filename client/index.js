@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM, { render } from 'react-dom'
+import { render } from 'react-dom' //not using ReactDOM
 import {syncHistoryWithStore, routerReducer} from 'react-router-redux'
 import {Router, browserHistory, Route, IndexRoute} from 'react-router'
 import { Provider } from 'react-redux';
@@ -24,7 +24,7 @@ const store = createStore(
 
 const history = syncHistoryWithStore(browserHistory, store)
 
-const appRender = () => ReactDOM.render(
+const appRender = () => render( //not ReactDOM.render
   <Provider store={store}>
     <Router history={history} routes={routes} />
   </Provider>, 
