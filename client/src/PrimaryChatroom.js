@@ -5,43 +5,69 @@ import ChatForm from './chatForm.js';
 import MessageList from './ChatBody.js';
 import Message from './Message.js';
 import { addMessageFromSocket, addMessageFromDB } from '../actions/ChatActions';
+import { addRoom } from '../actions/RoomActions';
+import { addUser } from '../actions/UserActions';
+import { setCurrentUser } from '../actions/CurrentUserActions';
+import { setCurrentRoom } from '../actions/CurrentRoomActions';
+
+/*
+Note to user:
+PrimaryChatroom does two things:
+1 - downloads messages from the database and adds them to the ChatReducer
+2 - houses the MessageList and ChatForm components
+*/
 
 class PrimaryChatroom extends React.Component {
 
   constructor(props){
     super(props)
-    this.socket = io('/Hack-Reactor-NameSpace');
-    // console.log("what are props",this.props);
-    this.room = this.props.rooms[0].room;
   }
 
   componentDidMount() {
     this.downloadAllMessages();
-    this.socket.on('chat message', txt => this.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
-    this.socket.on('disconnected', txt => this.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
-    this.socket.on('someoneJoin', txt => this.handleReceiveMessage(addMessageFromSocket,{text: txt}) );
-    
-    //room stuff
-    this.socket.on('connect', () => this.socket.emit('changeRoom', this.room));
-
   }
   
-  handleReceiveMessage(cb,chat) {
-    this.props.dispatch(cb(chat));
+  handleReceive(cb,body) {
+    this.props.dispatch(cb(body));
   }
 
   downloadAllMessages() {
+
+    //from channel_messages
     axios.get('/db/messages')
-    .then( (res) => {
-      res.data.forEach( (msg) => {
+    .then(res => {
+      res.data.forEach(msg => {
         let eachMsg = {
           id: msg.id,
-          channelID: msg.channelID,
+          username: msg.username,
+          userIDinDB: msg.userIDinDB,
+          channelName: msg.channelName,
+          channelIDinDB: msg.channelIDinDB,
           text: msg.message,
-          created_at: msg.created_at,
-          updated_at: msg.updated_at
+          url: msg.url,
+          picture: msg.picture,
+          created_at: msg.created_at
         }
-        this.handleReceiveMessage(addMessageFromDB,eachMsg);
+        this.handleReceive(addMessageFromDB,eachMsg);
+      });
+    });
+
+    //from DM_messages
+    axios.get('/db/DMMessages')
+    .then(res => {
+      res.data.forEach(msg => {
+        let eachMsg = {
+          id: msg.id,
+          username: msg.author,
+          userIDinDB: msg.userIDinDB,
+          channelName: msg.channelName,
+          channelIDinDB: msg.channelIDinDB,
+          text: msg.message,
+          url: msg.url,
+          picture: msg.picture,
+          created_at: msg.created_at
+        }
+        this.handleReceive(addMessageFromDB,eachMsg);
       });
     });
 
@@ -51,11 +77,10 @@ class PrimaryChatroom extends React.Component {
     return (
       <div>
         <div>
-          <MessageList room={this.room}/>
-          <Message />
+          <MessageList />
         </div>
         <div>
-          <ChatForm socket={this.socket} room={this.room} />
+          <ChatForm socket={this.props.theSocket} />
         </div>
       </div>
     )
@@ -68,7 +93,11 @@ PrimaryChatroom.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  return { rooms: state.allReducers.RoomReducer }
+  return { 
+    rooms: state.allReducers.RoomReducer,
+    currentUser: state.allReducers.CurrentUserReducer,
+    currentRoom: state.allReducers.CurrentRoomReducer
+  }
 };
 
 export default connect(mapStateToProps)(PrimaryChatroom);

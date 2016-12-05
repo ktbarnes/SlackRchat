@@ -1,3 +1,9 @@
+/*
+Note to reader:
+The corresponding actions being fed into this reducer are listed in the ChatActions.js file
+*/
+
+
 const ChatReducer = (state = [], action) => {
   switch (action.type) {
 
@@ -7,8 +13,11 @@ const ChatReducer = (state = [], action) => {
         {
           id: action.id,
           text: action.text,
-          channelID: action.channelID || 2,
-          updated_at: action.updated_at || "",
+          url: action.url,
+          username: action.username,
+          channelName: action.channelName,
+          channelID: action.channelID,
+          picture: action.picture,
           created_at: action.created_at || "",
         },
       ];
@@ -18,10 +27,14 @@ const ChatReducer = (state = [], action) => {
         ...state,
         {
           id: action.id,
+          username: action.username,
+          userIDinDB: action.userIDinDB,
+          channelName: action.channelName,
+          channelIDinDB: action.channelIDinDB,
           text: action.text,
-          channelID: action.channelID || 2,
-          updated_at: action.updated_at || "",
-          created_at: action.created_at || "",
+          url: action.url,
+          picture: action.picture,
+          created_at: action.created_at,
         },
       ];
     

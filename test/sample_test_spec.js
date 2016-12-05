@@ -1,5 +1,6 @@
 var assert = require('chai').assert;
 var request = require('request');
+var mocha = require('mocha');
 
 //Dummy test
 describe('Array', function() {

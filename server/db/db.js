@@ -8,14 +8,24 @@ var knex = require('knex')({
   }
 });
 
-
+// knex.schema.dropTableIfExists('users');
 knex.schema.hasTable('users').then(function(exists) {
 	if (!exists) {
-		knex.schema.createTable('users', function (user) {
+		knex.schema.createTable('users', function(user) {
 			user.increments('id').primary();
 			user.string('username', 100).unique();
 			user.string('email', 100).unique();
 			user.string('password', 100);
+      user.string('picture', 150);
+      user.string('first', 100);
+      user.string('last', 100);
+      user.string('phone', 100);
+      user.string('about', 10000);
+      user.string('github', 1000);
+      user.string('facebook', 1000);
+      user.string('twitter', 1000);
+      user.string('linkedin', 1000);
+      user.integer('admin');
 			user.timestamps();
 		}).then(function (table) {
 			console.log('Created Table', table);
@@ -25,7 +35,7 @@ knex.schema.hasTable('users').then(function(exists) {
 
 knex.schema.hasTable('channel').then(function(exists) {
  if (!exists) {
-   knex.schema.createTable('channel', function (channel) {
+   knex.schema.createTable('channel', function(channel) {
      channel.increments('id').primary();
      channel.string('name', 100).unique();
      channel.timestamps();
@@ -37,12 +47,14 @@ knex.schema.hasTable('channel').then(function(exists) {
 
 knex.schema.hasTable('channel_messages').then(function(exists) {
   if (!exists) {
-    knex.schema.createTable('channel_messages', function (channel_messages) {
+    knex.schema.createTable('channel_messages', function(channel_messages) {
       channel_messages.increments('id').primary();
       channel_messages.integer('userID').unsigned().references('users.id');
       channel_messages.integer('channelID').unsigned().references('channel.id');
-      channel_messages.string('message', 300);
+      channel_messages.string('message', 500);
+      channel_messages.string('url', 150);
       channel_messages.timestamps();
+      // channel_messages.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
     }).then(function (table) {
       console.log('Created Table', table);
     })
@@ -51,7 +63,7 @@ knex.schema.hasTable('channel_messages').then(function(exists) {
 
 knex.schema.hasTable('channel_users').then(function(exists) {
   if (!exists) {
-    knex.schema.createTable('channel_users', function (channel_users) {
+    knex.schema.createTable('channel_users', function(channel_users) {
       channel_users.increments('id').primary();
       channel_users.integer('userID').unsigned().references('users.id');
       channel_users.integer('channelID').unsigned().references('channel.id');
@@ -62,35 +74,36 @@ knex.schema.hasTable('channel_users').then(function(exists) {
   }
 });
 
-// db.knex.schema.hasTable('directmessage').then(function(exists) {
-// 	if (!exists) {
-// 		db.schema.createTable('directmessage', function (directmessage) {
-// 			directmessage.increments('id').primary();
-// 			directmessage.string('name', 100).unique();
-// 			directmessage.timestamps();
-// 		}).then(function (table) {
-// 			console.log('Created Table', table);
-// 		})
-// 	}
-// });
+knex.schema.hasTable('DM_room').then(function(exists) {
+ if (!exists) {
+   knex.schema.createTable('DM_room', function(DM_room) {
+     DM_room.increments('id').primary();
+     DM_room.integer('user1', 100).unsigned().references('users.id');
+     DM_room.integer('user2', 100).unsigned().references('users.id');
+     DM_room.string('channelName', 100).unique();    
+     DM_room.string('aliasName', 100).unique();   
+     DM_room.timestamps();
+   }).then(function (table) {
+     console.log('Created Table for DM_rooms', table);
+   })
+ }
+});
 
-// db.knex.schema.hasTable('users_directmessage').then(function(exists) {
-// 	if (!exists) {
-// 		db.schema.createTable('users_directmessage', function (user_channel) {
-// 			users_directmessage.increments('id').primary();
-// 			users_directmessage.integer('userID').unsigned().references(users.id);
-// 			users_directmessage.integer('directmessageID').unsigned().references(directmessage.id);
-// 			users_directmessage.string('message', 300);
-// 			users_directmessage.timestamps();
-// 		}).then(function (table) {
-// 			console.log('Created Table', table);
-// 		})
-// 	}
-// });
-
-
-
-
+knex.schema.hasTable('DM_messages').then(function(exists) {
+  if (!exists) {
+    knex.schema.createTable('DM_messages', function(DM_messages) {
+      DM_messages.increments('id').primary();
+      DM_messages.integer('authorID').unsigned().references('users.id');
+      DM_messages.integer('DM_roomID').unsigned().references('DM_room.id');
+      DM_messages.string('message', 500);
+      DM_messages.string('url', 150);
+      DM_messages.timestamps();
+      // DM_messages.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
+    }).then(function (table) {
+      console.log('Created Table for DM messages', table);
+    })
+  }
+});
 
 module.exports = knex;
 
